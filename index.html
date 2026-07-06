@@ -558,6 +558,22 @@
 
     <script>
         // ==========================================
+        // INIZIALIZZAZIONE VARIABILI GLOBALI
+        // ==========================================
+        // Inizializza TUTTE le variabili PRIMA di qualsiasi funzione
+        let ciboz_db = { clienti: [], preventivi: [], contratti: [] };
+        let saggi_clienti = [];
+        let gallery_allClients = [];
+        let ricevute_data = [];
+        
+        // Variabili di controllo
+        let ciboz_editingId = null;
+        let ciboz_editingType = null;
+        let ciboz_currentArchive = null;
+        let ricevute_isModifica = false;
+        let ricevute_editId = null;
+
+        // ==========================================
         // LOGICA GLOBALE E NAVIGAZIONE
         // ==========================================
         const GLOBAL_USER = 'gelStudio';
@@ -585,6 +601,7 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
             
+            // Carica dati da localStorage per ogni app
             ciboz_init();
             saggi_init();
             gallery_init();
@@ -676,13 +693,11 @@
         // ==========================================
         // LOGICA CIBOZ72 (FOTO)
         // ==========================================
-        let ciboz_db = { clienti: [], preventivi: [], contratti: [] };
-        let ciboz_editingId = null;
-        let ciboz_editingType = null;
-        let ciboz_currentArchive = null;
 
         function ciboz_init() {
-            ciboz_db = JSON.parse(localStorage.getItem('gl_studio_db')) || { clienti: [], preventivi: [], contratti: [] };
+            try {
+                ciboz_db = JSON.parse(localStorage.getItem('gl_studio_db')) || { clienti: [], preventivi: [], contratti: [] };
+            } catch(e) { ciboz_db = { clienti: [], preventivi: [], contratti: [] }; }
             ciboz_populateSelect();
         }
 
@@ -1050,7 +1065,12 @@
                     const data = JSON.parse(e.target.result);
                     const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
                     
-                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i dati Ciboz72 attuali.\n\nSei sicuro?`)) {
+                    // Leggi dal localStorage invece che dalla variabile
+                    const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
+                    const currentCount = (currentData.clienti || []).length;
+                    const newCount = (nuoviDati.clienti || []).length;
+                    
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Ciboz72 attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         ciboz_db = nuoviDati;
                         ciboz_saveDB();
                         ciboz_populateSelect();
@@ -1067,10 +1087,11 @@
         // ==========================================
         // LOGICA SAGGI DANZA
         // ==========================================
-        let saggi_clienti = [];
 
         function saggi_init() {
-            saggi_clienti = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+            try {
+                saggi_clienti = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+            } catch(e) { saggi_clienti = []; }
             
             const currentYear = new Date().getFullYear();
             ['saggi_anno','saggi_filtro_anno','saggi_stampa_anno','saggi_cont_anno'].forEach(id => {
@@ -1381,7 +1402,12 @@
                     
                     if(!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
                     
-                    if(confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${saggi_clienti.length} partecipanti attuali con ${nuoviClienti.length} dal backup.\n\nSei sicuro?`)) {
+                    // Leggi dal localStorage invece che dalla variabile
+                    const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+                    const currentCount = currentData.length;
+                    const newCount = nuoviClienti.length;
+                    
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato con successo! ${saggi_clienti.length} partecipanti caricati.`);
@@ -1398,7 +1424,6 @@
         // ==========================================
         // LOGICA GALLERY MANAGER
         // ==========================================
-        let gallery_allClients = [];
 
         function gallery_init() {
             try {
@@ -1553,16 +1578,12 @@
                     const data = JSON.parse(e.target.result);
                     if(!data.clients) throw new Error("Formato non valido");
                     
-                    // Leggi il conteggio dal localStorage per evitare l'errore
+                    // Leggi dal localStorage invece che dalla variabile
                     const currentClients = JSON.parse(localStorage.getItem('galleryClients') || '[]');
                     const currentCount = currentClients.length;
                     const newCount = data.clients.length;
                     
                     if(confirm(`Sovrascrivere ${currentCount} clienti con ${newCount} dal backup?`)) {
-                        // Inizializza la variabile se non è stata ancora inizializzata
-                        if(typeof gallery_allClients === 'undefined') {
-                            gallery_allClients = [];
-                        }
                         gallery_allClients = data.clients;
                         gallery_saveDB();
                         document.getElementById('gallery_restore_msg').textContent = `✅ Ripristinato ${gallery_allClients.length} clienti!`;
@@ -1585,9 +1606,6 @@
         // ==========================================
         // LOGICA RICEVUTE
         // ==========================================
-        let ricevute_data = [];
-        let ricevute_isModifica = false;
-        let ricevute_editId = null;
 
         function ricevute_init() {
             try { ricevute_data = JSON.parse(localStorage.getItem('glRicevuteFotografiche')) || []; }
@@ -1764,7 +1782,13 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     if(!data.ricevute) throw new Error("File non valido");
-                    if(confirm(`Sovrascrivere con ${data.ricevute.length} ricevute?`)) {
+                    
+                    // Leggi dal localStorage invece che dalla variabile
+                    const currentData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
+                    const currentCount = currentData.length;
+                    const newCount = data.ricevute.length;
+                    
+                    if(confirm(`Sovrascrivere ${currentCount} ricevute attuali con ${newCount} dal backup?`)) {
                         ricevute_data = data.ricevute;
                         ricevute_saveDB();
                         alert("✅ Ripristinato!");
