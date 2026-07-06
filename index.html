@@ -268,8 +268,12 @@
             <div id="app-ciboz72" class="app-section">
                 <!-- Header interno Ciboz -->
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <h2>📷 Gestione Ciboz72</h2>
-                    <button class="btn-global btn-backup" onclick="ciboz_backup()" style="font-size:12px; padding:8px 15px;"> Backup Ciboz</button>
+                    <h2> Gestione Ciboz72</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="ciboz_backup()" style="font-size:12px; padding:8px 15px;"> Backup Ciboz</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('ciboz_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina Ciboz</button>
+                        <input type="file" id="ciboz_restore_input" accept=".json" style="display:none;" onchange="ciboz_ripristinaFile(event)">
+                    </div>
                 </div>
 
                 <!-- Stats Ciboz -->
@@ -318,8 +322,8 @@
                             <h4 style="color:#666; border-bottom:2px solid #ccc; padding-bottom:5px; margin-bottom:15px;">Cliente B (Facoltativo)</h4>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="ciboz_cognomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="ciboz_nomeB" class="form-control"></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="ciboz_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_indirizzoB')">🗺️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="ciboz_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="ciboz_openWA('ciboz_cellulareB')">💬</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="ciboz_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_indirizzoB')">️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="ciboz_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="ciboz_openWA('ciboz_cellulareB')"></button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="ciboz_emailB" class="form-control"></div>
                         </div>
                     </div>
@@ -344,7 +348,7 @@
                         <div><label>Qta Ingrandimenti</label><input type="number" id="ciboz_prev_ingrandimento_qta" class="form-control" value="1"></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Video</label><select id="ciboz_prev_video" class="form-control"><option>Nessuno</option><option>Solo Chiesa</option><option>Solo Locale</option><option>Chiesa+Locale</option></select></div>
                         <div><label>Drone</label><select id="ciboz_prev_drone" class="form-control"><option>No</option><option>Sì</option></select></div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="ciboz_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_prev_chiesa')">🗺️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="ciboz_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_prev_chiesa')">️ Maps</button></div></div>
                         <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="ciboz_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_prev_location')">️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label><select id="ciboz_prev_anteprima" class="form-control"><option>Nessuna</option><option>Sala Posa</option><option>Esterno</option></select></div>
                         <div class="full-width"><label>Post-Servizio</label><select id="ciboz_prev_post" class="form-control"><option>Nessuno</option><option>Album Digitale</option><option>Stampa</option></select></div>
@@ -369,7 +373,11 @@
             <div id="app-saggi" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
                     <h2>💃 Gestione Saggi Danza</h2>
-                    <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup Saggi</button>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup Saggi</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina Saggi</button>
+                        <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
+                    </div>
                 </div>
 
                 <!-- Nav Interna Saggi -->
@@ -457,7 +465,7 @@
                     <h2> Gallery Manager</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="gallery_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
-                        <button class="btn-global btn-restore" onclick="gallery_openRestore()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <button class="btn-global btn-restore" onclick="gallery_openRestore()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
                     </div>
                 </div>
 
@@ -510,7 +518,7 @@
             <!-- SEZIONE RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-                    <h2>🧾 Gestione Ricevute</h2>
+                    <h2> Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -1062,6 +1070,30 @@
             a.download = `backup_ciboz72_${new Date().toISOString().slice(0,10)}.json`; a.click();
         }
 
+        function ciboz_ripristinaFile(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    // Gestisce sia oggetti completi che array di clienti
+                    const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
+                    
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i dati Ciboz72 attuali.\n\nSei sicuro?`)) {
+                        ciboz_db = nuoviDati;
+                        ciboz_saveDB();
+                        ciboz_populateSelect();
+                        alert(`✅ Ripristinato con successo! ${ciboz_db.clienti.length} clienti caricati.`);
+                    }
+                } catch(err) {
+                    alert('❌ Errore nel file di backup: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
         // ==========================================
         // LOGICA SAGGI DANZA
         // ==========================================
@@ -1195,7 +1227,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -1369,6 +1401,33 @@
             a.download = `backup_saggi_${new Date().toISOString().slice(0,10)}.json`; a.click();
         }
 
+        function saggi_ripristinaFile(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    // Gestisce sia array diretti che oggetti con chiave 'clienti'
+                    const nuoviClienti = Array.isArray(data) ? data : (data.clienti || []);
+                    
+                    if(!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
+                    
+                    if(confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${saggi_clienti.length} partecipanti attuali con ${nuoviClienti.length} dal backup.\n\nSei sicuro?`)) {
+                        saggi_clienti = nuoviClienti;
+                        saggi_saveDB();
+                        alert(`✅ Ripristinato con successo! ${saggi_clienti.length} partecipanti caricati.`);
+                        saggi_aggiornaDashboard();
+                    }
+                } catch(err) {
+                    alert('❌ Errore nel file di backup: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = ''; // Resetta l'input per permettere ricaricamento dello stesso file
+        }
+
         // ==========================================
         // LOGICA GALLERY MANAGER
         // ==========================================
@@ -1409,16 +1468,16 @@
                         <p><strong>👤 Username:</strong> ${gallery_escapeHtml(client.username)}</p>
                         <p><strong>🔒 Password:</strong> ${gallery_escapeHtml(client.password)}</p>
                         <div style="background:#e8f4fd;border-left:4px solid #3498db;padding:12px;border-radius:4px;margin-top:15px;font-size:13px;">
-                            <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
+                            <strong style="color:#2980b9;display:block;margin-bottom:8px;"> Link da inviare:</strong>
                             <div style="display:flex;gap:8px;margin-top:8px;">
                                 <input type="text" value="${clientUrl}" readonly style="flex:1;padding:6px;border:1px solid #ddd;border-radius:4px;font-family:monospace;font-size:11px;" id="link-${client.id}">
                                 <button onclick="gallery_copyLink('${client.id}')" style="background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">📋</button>
                             </div>
                         </div>
                     </div>
-                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
+                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;"> Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
