@@ -10,9 +10,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     
     <style>
-        /* =========================================
-           STILI GLOBALI E DASHBOARD UNIFICATA
-           ========================================= */
         :root {
             --primary-dark: #2c3e50;
             --accent-blue: #3498db;
@@ -104,10 +101,6 @@
         .btn-backup { background: var(--accent-green); }
         .btn-restore { background: var(--accent-blue); }
 
-        /* =========================================
-           STILI SPECIFICI PER APP (INCAPSULATI)
-           ========================================= */
-        
         /* CIBOZ72 STYLES */
         #app-ciboz72 { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
         #app-ciboz72 .sheet-container { display: none; }
@@ -330,23 +323,128 @@
                     <h3 id="ciboz_prev_title">Nuovo Preventivo</h3>
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="full-width"><label>Seleziona Cliente</label><select id="ciboz_prev_cliente" class="form-control"></select></div>
-                        <div><label>Tipo Evento</label><select id="ciboz_prev_tipo" class="form-control"><option>MATRIMONIO</option><option>BATTESIMO</option><option>COMPLEANNO</option><option>EVENTO</option></select></div>
-                        <div><label>Servizio</label><select id="ciboz_prev_servizio" class="form-control"><option>SOLO FILES</option><option>ALBUM CLASSICO</option><option>ALBUM DIGITALE</option></select></div>
-                        <div><label>Misura</label><select id="ciboz_prev_misura" class="form-control"><option>20x30 cm</option><option>30x30 cm</option><option>Digitale 30x40 cm</option></select></div>
-                        <div><label>Orientamento</label><select id="ciboz_prev_orientamento" class="form-control"><option>Verticale</option><option>Orizzontale</option></select></div>
-                        <div><label>Qta Foto</label><input type="number" id="ciboz_prev_qta" class="form-control" value="100"></div>
-                        <div><label>Copertina</label><select id="ciboz_prev_copertina" class="form-control"><option>Nessuna</option><option>Foto Telata</option></select></div>
-                        <div><label>Effetti</label><select id="ciboz_prev_effetti" class="form-control"><option>0</option><option>5</option><option>10</option><option>15</option></select></div>
-                        <div><label>Mini Album</label><input type="number" id="ciboz_prev_mini" class="form-control" value="0"></div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Ingrandimenti</label><select id="ciboz_prev_ingrandimento" class="form-control"><option>Nessuno</option><option>Stampa 30x40</option><option>Tela 50x70</option></select></div>
-                        <div><label>Qta Ingrandimenti</label><input type="number" id="ciboz_prev_ingrandimento_qta" class="form-control" value="1"></div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Video</label><select id="ciboz_prev_video" class="form-control"><option>Nessuno</option><option>Solo Chiesa</option><option>Solo Locale</option><option>Chiesa+Locale</option></select></div>
-                        <div><label>Drone</label><select id="ciboz_prev_drone" class="form-control"><option>No</option><option>Sì</option></select></div>
+                        <div><label>Tipo Evento</label>
+                            <select id="ciboz_prev_tipo" class="form-control">
+                                <option>MATRIMONIO</option>
+                                <option>BATTESIMO</option>
+                                <option>COMPLEANNO</option>
+                                <option>EVENTO</option>
+                                <option>ANNIVERSARIO</option>
+                            </select>
+                        </div>
+                        <div><label>Servizio</label>
+                            <select id="ciboz_prev_servizio" class="form-control">
+                                <option>SOLO FILES</option>
+                                <option>ALBUM CLASSICO</option>
+                                <option>ALBUM DIGITALE</option>
+                                <option>STAMPE</option>
+                            </select>
+                        </div>
+                        <div><label>Misura</label>
+                            <select id="ciboz_prev_misura" class="form-control">
+                                <option>15x20 cm</option>
+                                <option>20x30 cm</option>
+                                <option>24x30 cm</option>
+                                <option>30x30 cm</option>
+                                <option>40x40 cm</option>
+                                <option>Digitale 20x30 cm</option>
+                                <option>Digitale 25x25 cm</option>
+                                <option>Digitale 30x40 cm</option>
+                                <option>Digitale 35x45 cm</option>
+                            </select>
+                        </div>
+                        <div><label>Orientamento</label>
+                            <select id="ciboz_prev_orientamento" class="form-control">
+                                <option>Album verticale</option>
+                                <option>Album orizzontale</option>
+                            </select>
+                        </div>
+                        <div><label>Qta Foto</label><input type="number" id="ciboz_prev_qta" class="form-control" value="100" min="1" max="500"></div>
+                        <div><label>Copertina</label>
+                            <select id="ciboz_prev_copertina" class="form-control">
+                                <option>Nessuna</option>
+                                <option>Foto Telata</option>
+                                <option>Extra/Catalogo</option>
+                            </select>
+                        </div>
+                        <div><label>Effetti</label>
+                            <select id="ciboz_prev_effetti" class="form-control">
+                                <option>Senza effetti</option>
+                                <option>5 effetti</option>
+                                <option>10 effetti</option>
+                                <option>15 effetti</option>
+                                <option>20 effetti</option>
+                            </select>
+                        </div>
+                        <div><label>Mini Album</label><input type="number" id="ciboz_prev_mini" class="form-control" value="0" min="0" max="50"></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Ingrandimenti</label>
+                            <select id="ciboz_prev_ingrandimento" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Stampa 30x40 cm</option>
+                                <option>Stampa 50x70 cm</option>
+                                <option>Tela 30x40 cm</option>
+                                <option>Tela 50x70 cm</option>
+                                <option>Tela+telaio 30x40 cm</option>
+                                <option>Tela+telaio 50x70 cm</option>
+                            </select>
+                        </div>
+                        <div><label>Qta Ingrandimenti</label><input type="number" id="ciboz_prev_ingrandimento_qta" class="form-control" value="1" min="1" max="100"></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Video</label>
+                            <select id="ciboz_prev_video" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Solo Casa</option>
+                                <option>Solo Chiesa</option>
+                                <option>Solo Locale+ taglio torta iniziale</option>
+                                <option>Solo Locale intera serata</option>
+                                <option>Casa+Chiesa</option>
+                                <option>Chiesa+Locale taglio torta</option>
+                                <option>Chiesa+ Locale intera serata</option>
+                                <option>Casa+Chiesa+Locale taglio torta</option>
+                                <option>Casa+Chiesa+Locale intera serata</option>
+                                <option>Esterni</option>
+                                <option>Esterni+Locale taglio torta</option>
+                                <option>Esterni+Locale intera serata</option>
+                            </select>
+                        </div>
+                        <div><label>Drone</label>
+                            <select id="ciboz_prev_drone" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Con drone</option>
+                            </select>
+                        </div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="ciboz_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_prev_chiesa')">️ Maps</button></div></div>
                         <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="ciboz_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="ciboz_openMaps('ciboz_prev_location')">️ Maps</button></div></div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label><select id="ciboz_prev_anteprima" class="form-control"><option>Nessuna</option><option>Sala Posa</option><option>Esterno</option></select></div>
-                        <div class="full-width"><label>Post-Servizio</label><select id="ciboz_prev_post" class="form-control"><option>Nessuno</option><option>Album Digitale</option><option>Stampa</option></select></div>
-                        <div><label>Pranzo Staff</label><select id="ciboz_prev_pranzo" class="form-control"><option>No</option><option>Sì</option></select></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
+                            <select id="ciboz_prev_anteprima" class="form-control">
+                                <option>Nessuna</option>
+                                <option>Solo foto sala posa</option>
+                                <option>Solo foto in esterno</option>
+                                <option>Solo Video in esterno</option>
+                                <option>Solo Video in esterno con drone</option>
+                                <option>Solo Foto+Video in sala posa</option>
+                                <option>Foto+Video in esterno</option>
+                                <option>Foto+Video in esterno con drone</option>
+                            </select>
+                        </div>
+                        <div class="full-width"><label>Post-Servizio</label>
+                            <select id="ciboz_prev_post" class="form-control">
+                                <option>Nessuna</option>
+                                <option>Solo foto sala posa</option>
+                                <option>Solo foto in esterno</option>
+                                <option>Solo Video in esterno</option>
+                                <option>Solo Video in esterno con drone</option>
+                                <option>Solo Foto+Video in sala posa</option>
+                                <option>Foto+Video in esterno</option>
+                                <option>Foto+Video in esterno con drone</option>
+                            </select>
+                        </div>
+                        <div><label>Pranzo Staff</label>
+                            <select id="ciboz_prev_pranzo" class="form-control">
+                                <option>Nessuna</option>
+                                <option>SI</option>
+                                <option>NO</option>
+                            </select>
+                        </div>
                         <div class="full-width"><label>Note</label><textarea id="ciboz_prev_note" class="form-control" rows="3"></textarea></div>
                         <div class="full-width importo-highlight"><label>IMPORTO (€)</label><input type="number" id="ciboz_prev_importo" class="form-control" step="0.01" style="font-size:20px; font-weight:bold;"></div>
                         <div class="full-width"><label>Acconto (€)</label><input type="number" id="ciboz_prev_acconto" class="form-control" step="0.01"></div>
@@ -394,13 +492,28 @@
                     <h3 id="saggi_form_title">➕ Nuovo Partecipante</h3>
                     <input type="hidden" id="saggi_edit_id">
                     <div class="form-grid" style="margin-top:20px;">
-                        <div class="form-group"><label>Scuola</label><select id="saggi_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+                        <div class="form-group"><label>Scuola</label>
+                            <select id="saggi_scuola">
+                                <option value="">-- Seleziona --</option>
+                                <option>Scuola Enza Clementi</option>
+                                <option>Giada Dance</option>
+                            </select>
+                        </div>
                         <div class="form-group"><label>Anno Saggio</label><select id="saggi_anno"></select></div>
                         <div class="form-group"><label>Cognome</label><input type="text" id="saggi_cognome"></div>
                         <div class="form-group"><label>Nome</label><input type="text" id="saggi_nome"></div>
                         <div class="form-group"><label>Telefono</label><input type="tel" id="saggi_telefono"></div>
-                        <div class="form-group"><label>Tipo Cliente</label><select id="saggi_tipo"><option>Singolo</option><option>Fratelli</option></select></div>
-                        <div class="form-group"><label>Servizio</label><select id="saggi_servizio"><option>Pacchetto 4 foto 20x25 cm</option></select></div>
+                        <div class="form-group"><label>Tipo Cliente</label>
+                            <select id="saggi_tipo">
+                                <option>Singolo</option>
+                                <option>Fratelli</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Servizio</label>
+                            <select id="saggi_servizio">
+                                <option>Pacchetto 4 foto 20x25 cm</option>
+                            </select>
+                        </div>
                         <div class="form-group"><label>Quantità</label><select id="saggi_qta"></select></div>
                         <div class="form-group"><label>Importo (€)</label><select id="saggi_importo"></select></div>
                     </div>
@@ -531,9 +644,20 @@
                     <div class="form-group"><label>Servizio *</label>
                         <select id="ricevute_servizio">
                             <option value="">Seleziona...</option>
-                            <option>Matrimonio</option><option>Battesimo</option><option>Anniversario</option>
-                            <option>Compleanno</option><option>Comunione</option><option>Cresima</option>
-                            <option>New Born</option><option>Maternity</option><option>Smash Cake</option>
+                            <option>Matrimonio</option>
+                            <option>Battesimo</option>
+                            <option>Anniversario</option>
+                            <option>Compleanno</option>
+                            <option>Comunione</option>
+                            <option>Cresima</option>
+                            <option>Comunione e Cresima</option>
+                            <option>Carnevale</option>
+                            <option>Natale</option>
+                            <option>New Born</option>
+                            <option>Maternity</option>
+                            <option>Smash Cake</option>
+                            <option>Bagno di Latte</option>
+                            <option>Anteprima</option>
                         </select>
                     </div>
                     <div class="form-group"><label>Data Evento *</label><input type="date" id="ricevute_data"></div>
@@ -560,22 +684,17 @@
         // ==========================================
         // INIZIALIZZAZIONE VARIABILI GLOBALI
         // ==========================================
-        // Inizializza TUTTE le variabili PRIMA di qualsiasi funzione
         let ciboz_db = { clienti: [], preventivi: [], contratti: [] };
         let saggi_clienti = [];
         let gallery_allClients = [];
         let ricevute_data = [];
         
-        // Variabili di controllo
         let ciboz_editingId = null;
         let ciboz_editingType = null;
         let ciboz_currentArchive = null;
         let ricevute_isModifica = false;
         let ricevute_editId = null;
 
-        // ==========================================
-        // LOGICA GLOBALE E NAVIGAZIONE
-        // ==========================================
         const GLOBAL_USER = 'gelStudio';
         const GLOBAL_PASS = '12763Mlg';
 
@@ -601,7 +720,6 @@
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
             
-            // Carica dati da localStorage per ogni app
             ciboz_init();
             saggi_init();
             gallery_init();
@@ -1065,7 +1183,6 @@
                     const data = JSON.parse(e.target.result);
                     const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
                     
-                    // Leggi dal localStorage invece che dalla variabile
                     const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
@@ -1402,7 +1519,6 @@
                     
                     if(!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
                     
-                    // Leggi dal localStorage invece che dalla variabile
                     const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
@@ -1578,7 +1694,6 @@
                     const data = JSON.parse(e.target.result);
                     if(!data.clients) throw new Error("Formato non valido");
                     
-                    // Leggi dal localStorage invece che dalla variabile
                     const currentClients = JSON.parse(localStorage.getItem('galleryClients') || '[]');
                     const currentCount = currentClients.length;
                     const newCount = data.clients.length;
@@ -1783,7 +1898,6 @@
                     const data = JSON.parse(e.target.result);
                     if(!data.ricevute) throw new Error("File non valido");
                     
-                    // Leggi dal localStorage invece che dalla variabile
                     const currentData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
                     const currentCount = currentData.length;
                     const newCount = data.ricevute.length;
