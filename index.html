@@ -94,7 +94,7 @@
         .btn-backup { background: var(--accent-green); }
         .btn-restore { background: var(--accent-blue); }
 
-        /* CIBOX72 */
+        /* CIBOX72 / EVENTI */
         #app-cibox72 { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
         #app-cibox72 .sheet-container { display: none; }
         #app-cibox72 .sheet-container.active { display: block; }
@@ -258,16 +258,16 @@
 
     <div id="main-app">
         <header class="unified-header">
-            <h1>📸 G&L Studio</h1>
+            <h1> G&L Studio</h1>
             <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
         </header>
 
         <nav class="unified-nav">
-            <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
-            <button class="nav-btn" onclick="switchApp('cibox72', this)">📷 Gestione Cibox72</button>
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
+            <button class="nav-btn" onclick="switchApp('cibox72', this)"> Gestione Eventi</button>
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
-            <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
+            <button class="nav-btn" onclick="switchApp('ricevute', this)"> Ricevute</button>
             <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
         </nav>
 
@@ -279,7 +279,7 @@
                 
                 <div class="dashboard-grid">
                     <div class="dash-card card-ciboz" onclick="switchApp('cibox72', document.querySelectorAll('.nav-btn')[1])">
-                        <h3>📷 Gestione Cibox72</h3>
+                        <h3> Gestione Eventi</h3>
                         <div class="count" id="dash-count-ciboz">0</div>
                         <small>Clienti Foto & Preventivi</small>
                     </div>
@@ -302,18 +302,18 @@
 
                 <div class="global-actions">
                     <button class="btn-global btn-backup" onclick="createGlobalBackup()">💾 Backup Globale</button>
-                    <button class="btn-global btn-restore" onclick="document.getElementById('global-restore-input').click()">🔄 Ripristina Globale</button>
+                    <button class="btn-global btn-restore" onclick="document.getElementById('global-restore-input').click()"> Ripristina Globale</button>
                     <input type="file" id="global-restore-input" accept=".json" style="display: none;" onchange="restoreGlobalBackup(event)">
                 </div>
             </div>
 
-            <!-- CIBOX72 -->
+            <!-- GESTIONE EVENTI (ex CIBOX72) -->
             <div id="app-cibox72" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>📷 Gestione Cibox72</h2>
+                    <h2>📷 Gestione Eventi</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ciboz_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
-                        <button class="btn-global btn-restore" onclick="document.getElementById('ciboz_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('ciboz_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
                         <input type="file" id="ciboz_restore_input" accept=".json" style="display:none;" onchange="ciboz_ripristinaFile(event)">
                     </div>
                 </div>
@@ -335,10 +335,10 @@
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <button class="nav-btn" onclick="ciboz_showView('ciboz-view-anagrafica')">👥 Anagrafica</button>
-                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-preventivo')">📄 Nuovo Preventivo</button>
-                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-stato-lavori')">📊 Stato Lavori</button>
+                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-preventivo')"> Nuovo Preventivo</button>
+                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-stato-lavori')"> Stato Lavori</button>
                     <button class="nav-btn" onclick="ciboz_renderArchive('preventivi')">📁 Archivio Prev.</button>
-                    <button class="nav-btn" onclick="ciboz_renderArchive('contratti')">📑 Archivio Contr.</button>
+                    <button class="nav-btn" onclick="ciboz_renderArchive('contratti')"> Archivio Contr.</button>
                     <button class="nav-btn" onclick="ciboz_renderArchive('clienti')">👥 Archivio Clienti</button>
                 </div>
 
@@ -483,11 +483,9 @@
                     <div class="stato-lavori-container">
                         <div class="stato-lavori-header">
                             <h3>📊 Stato Avanzamento Lavori</h3>
-                            <button class="btn-global btn-backup" onclick="ciboz_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;">🔄 Aggiorna</button>
+                            <button class="btn-global btn-backup" onclick="ciboz_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;"> Aggiorna</button>
                         </div>
-                        <div id="stato-lavori-content" class="stato-grid">
-                            <!-- Contenuto generato dinamicamente -->
-                        </div>
+                        <div id="stato-lavori-content" class="stato-grid"></div>
                     </div>
                 </div>
 
@@ -501,7 +499,7 @@
             <!-- SAGGI -->
             <div id="app-saggi" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>💃 Gestione Saggi Danza</h2>
+                    <h2> Gestione Saggi Danza</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -512,7 +510,7 @@
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)"> Archivio</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)">💰 Contabilità</button>
                 </div>
@@ -522,7 +520,7 @@
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
                         <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
-                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3> Contabilità</h3><p>📊</p><small>Report incassi</small></div>
                     </div>
                 </div>
 
@@ -557,7 +555,7 @@
                     </div>
                     <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
-                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
+                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">️ Carica per Modifica</button>
                         <button class="btn btn-info" onclick="saggi_generaPDFSingolo()">📄 PDF Scheda</button>
                         <button class="btn btn-secondary" onclick="saggi_resetForm()">🔄 Reset</button>
                     </div>
@@ -627,7 +625,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -794,7 +792,7 @@
             const backup = {
                 version: 'G&L Unified v2.0',
                 date: new Date().toISOString(),
-                ciboz72: JSON.parse(localStorage.getItem('gl_studio_db') || '{}'),
+                eventi: JSON.parse(localStorage.getItem('gl_studio_db') || '{}'),
                 saggi: JSON.parse(localStorage.getItem('saggi_clienti') || '[]'),
                 gallery: JSON.parse(localStorage.getItem('galleryClients') || '[]'),
                 ricevute: JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]')
@@ -818,10 +816,12 @@
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if(!data.ciboz72 && !data.saggi && !data.gallery && !data.ricevute) throw new Error('Formato non valido');
+                    // Supporta sia il vecchio formato (ciboz72) che il nuovo (eventi)
+                    const eventiData = data.eventi || data.ciboz72;
+                    if(!eventiData && !data.saggi && !data.gallery && !data.ricevute) throw new Error('Formato non valido');
                     
                     if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà TUTTI i dati attuali.\n\nSei sicuro?`)) {
-                        if(data.ciboz72) localStorage.setItem('gl_studio_db', JSON.stringify(data.ciboz72));
+                        if(eventiData) localStorage.setItem('gl_studio_db', JSON.stringify(eventiData));
                         if(data.saggi) localStorage.setItem('saggi_clienti', JSON.stringify(data.saggi));
                         if(data.gallery) localStorage.setItem('galleryClients', JSON.stringify(data.gallery));
                         if(data.ricevute) localStorage.setItem('glRicevuteFotografiche', JSON.stringify(data.ricevute));
@@ -842,7 +842,7 @@
         }
 
         // ==========================================
-        // CIBOX72
+        // GESTIONE EVENTI (ex CIBOX72)
         // ==========================================
 
         function ciboz_init() {
@@ -1095,10 +1095,10 @@
 
             const existing = ciboz_db.contratti.findIndex(c => c.id === data.id);
             if(existing !== -1) {
-                ciboz_db.contratti[existing] = {...data, stato:"Attivo", dataConversione:ciboz_db.contratti[existing].dataConversione};
+                ciboz_db.contratti[existing] = {...data, stato: ciboz_db.contratti[existing].stato, dataConversione: ciboz_db.contratti[existing].dataConversione};
                 alert("✅ Contratto aggiornato!");
             } else {
-                ciboz_db.contratti.push({...data, stato:"In Lavorazione", dataConversione:new Date().toISOString()});
+                ciboz_db.contratti.push({...data, stato: "In Lavorazione", dataConversione: new Date().toISOString()});
                 alert("✅ Convertito in contratto!");
             }
             ciboz_saveDB();
@@ -1107,18 +1107,16 @@
         function ciboz_generaPDF(p) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const cliente = ciboz_db.clienti[p.clienteIdx] || { cognome:"N/A", nome:"N/A", indirizzo:"" };
+            const cliente = ciboz_db.clienti[p.clienteIdx] || { cognome: "N/A", nome: "N/A", indirizzo: "" };
 
-            // Header
             doc.setFontSize(16);
             doc.setFont(undefined, 'bold');
-            doc.text("G&L STUDIO - PREVENTIVO DI SERVIZIO", 105, 15, {align:"center"});
+            doc.text("G&L STUDIO - PREVENTIVO DI SERVIZIO", 105, 15, { align: "center" });
             doc.setFontSize(9);
             doc.setFont(undefined, 'normal');
-            doc.text("Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it", 105, 22, {align:"center"});
+            doc.text("Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it", 105, 22, { align: "center" });
             doc.line(20, 26, 190, 26);
 
-            // Dati cliente
             doc.setFontSize(10);
             doc.setFont(undefined, 'bold');
             doc.text(`Cliente: ${cliente.cognome} ${cliente.nome}`, 20, 35);
@@ -1126,11 +1124,10 @@
             doc.text(`Data: ${new Date(p.dataCreazione).toLocaleDateString()}`, 140, 35);
             doc.text(`Evento: ${p.tipo}`, 140, 40);
 
-            // Dettagli servizio
             let y = 48;
             doc.setFontSize(9);
-            const red = [180,50,50], black = [0,0,0];
-            
+            const red = [180, 50, 50], black = [0, 0, 0];
+
             function addRow(yPos, label, value, label2, value2) {
                 doc.setTextColor(...red);
                 doc.setFont(undefined, 'bold');
@@ -1138,8 +1135,8 @@
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'normal');
                 doc.text(String(value), 50, yPos);
-                
-                if(label2) {
+
+                if (label2) {
                     doc.setTextColor(...red);
                     doc.setFont(undefined, 'bold');
                     doc.text(label2, 110, yPos);
@@ -1154,18 +1151,18 @@
             addRow(y, "Copert.:", p.copertina, "Effetti:", p.effetti); y += 6;
             addRow(y, "Mini Alb.:", p.miniAlbum, "Ingrandim.:", `${p.ingrandimento} (q:${p.ingrandimentoQta})`); y += 6;
             addRow(y, "Video:", p.video, "Drone:", p.drone); y += 6;
-            
-            if(p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 6; }
-            if(p.location) { addRow(y, "Location:", p.location); y += 6; }
-            
+
+            if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 6; }
+            if (p.location) { addRow(y, "Location:", p.location); y += 6; }
+
             addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 6;
-            
+
             doc.setFontSize(8);
             addRow(y, "Pranzo/Cena STAFF:", p.pranzo);
             doc.setFontSize(9);
             y += 6;
 
-            if(p.note) {
+            if (p.note) {
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'italic');
                 doc.text(`Note: ${p.note}`, 20, y);
@@ -1173,15 +1170,14 @@
                 doc.setFont(undefined, 'normal');
             }
 
-            // Sezione Acconti
             y += 3;
             doc.setFontSize(10);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(...red);
             doc.text("ACCONTI VERSATI:", 20, y);
             y += 5;
-            
-            if(p.acconti && p.acconti.length > 0) {
+
+            if (p.acconti && p.acconti.length > 0) {
                 doc.setFontSize(8);
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'bold');
@@ -1193,7 +1189,7 @@
                 doc.line(20, y, 170, y);
                 y += 4;
                 doc.setFont(undefined, 'normal');
-                
+
                 p.acconti.forEach(acc => {
                     doc.text(acc.tipo, 20, y);
                     doc.text(acc.data ? new Date(acc.data).toLocaleDateString('it-IT') : '-', 60, y);
@@ -1208,7 +1204,6 @@
                 y += 5;
             }
 
-            // Totali
             y += 3;
             const totale = parseFloat(p.importo) || 0;
             const totAcc = p.totaleAcconti || 0;
@@ -1216,31 +1211,30 @@
 
             doc.setDrawColor(0);
             doc.setFillColor(240, 240, 240);
-            doc.rect(20, y-3, 170, 18, 'F');
-            
+            doc.rect(20, y - 3, 170, 18, 'F');
+
             doc.setFontSize(10);
             doc.setFont(undefined, 'normal');
             doc.setTextColor(...black);
-            doc.text(`Totale Servizio:`, 25, y+3);
-            doc.text(`€ ${totale.toFixed(2).replace('.', ',')}`, 170, y+3, {align:'right'});
-            
-            doc.text(`Totale Acconti:`, 25, y+9);
-            doc.text(`€ ${totAcc.toFixed(2).replace('.', ',')}`, 170, y+9, {align:'right'});
-            
+            doc.text(`Totale Servizio:`, 25, y + 3);
+            doc.text(`€ ${totale.toFixed(2).replace('.', ',')}`, 170, y + 3, { align: 'right' });
+
+            doc.text(`Totale Acconti:`, 25, y + 9);
+            doc.text(`€ ${totAcc.toFixed(2).replace('.', ',')}`, 170, y + 9, { align: 'right' });
+
             doc.setFont(undefined, 'bold');
-            doc.setTextColor(39,174,96);
-            doc.text(`A SALDO:`, 25, y+14);
-            doc.text(`€ ${saldo.toFixed(2).replace('.', ',')}`, 170, y+14, {align:'right'});
+            doc.setTextColor(39, 174, 96);
+            doc.text(`A SALDO:`, 25, y + 14);
+            doc.text(`€ ${saldo.toFixed(2).replace('.', ',')}`, 170, y + 14, { align: 'right' });
 
             y += 25;
 
-            // Accettazione
             doc.setFontSize(10);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(...black);
-            doc.text("ACCETTAZIONE DEL PREVENTIVO", 105, y, {align:"center"});
+            doc.text("ACCETTAZIONE DEL PREVENTIVO", 105, y, { align: "center" });
             y += 6;
-            
+
             doc.setFontSize(8);
             doc.setFont(undefined, 'normal');
             doc.text("Per accettazione e autorizzazione trattamento dati personali,", 20, y);
@@ -1251,11 +1245,11 @@
             doc.setLineWidth(0.3);
             doc.rect(20, y, 75, 25);
             doc.setFontSize(9);
-            doc.text("Firma Cliente A", 57.5, y+5, {align:"center"});
-            
+            doc.text("Firma Cliente A", 57.5, y + 5, { align: "center" });
+
             doc.rect(115, y, 75, 25);
-            doc.text("Firma Cliente B", 152.5, y+5, {align:"center"});
-            
+            doc.text("Firma Cliente B", 152.5, y + 5, { align: "center" });
+
             y += 32;
             doc.text("Luogo e Data: ___________________", 20, y);
 
@@ -1266,36 +1260,35 @@
         function ciboz_renderStatoLavori() {
             const container = document.getElementById('stato-lavori-content');
             const tuttiLavori = [...ciboz_db.preventivi, ...ciboz_db.contratti];
-            
-            if(tuttiLavori.length === 0) {
+
+            if (tuttiLavori.length === 0) {
                 container.innerHTML = '<p style="text-align:center; color:#888; padding:40px; grid-column:1/-1;">Nessun lavoro presente</p>';
                 return;
             }
 
             const stati = {
-                'Nuovo': { class: 'stato-nuovo', label: '🆕 Nuovo', count: 0 },
+                'Nuovo': { class: 'stato-nuovo', label: ' Nuovo', count: 0 },
                 'In Lavorazione': { class: 'stato-lavorazione', label: '🔨 In Lavorazione', count: 0 },
                 'Completato': { class: 'stato-completato', label: '✅ Completato', count: 0 },
                 'Consegnato': { class: 'stato-consegnato', label: '📦 Consegnato', count: 0 }
             };
 
             let html = '';
-            
-            // Raggruppa per stato
+
             tuttiLavori.forEach(lavoro => {
                 const stato = lavoro.stato || 'Nuovo';
-                if(stati[stato]) stati[stato].count++;
-                
-                const cliente = ciboz_db.clienti[lavoro.clienteIdx] || { cognome:'?', nome:'' };
+                if (stati[stato]) stati[stato].count++;
+
+                const cliente = ciboz_db.clienti[lavoro.clienteIdx] || { cognome: '?', nome: '' };
                 const dataStr = new Date(lavoro.dataCreazione).toLocaleDateString('it-IT');
                 const tipo = ciboz_db.contratti.find(c => c.id === lavoro.id) ? 'Contratto' : 'Preventivo';
-                
+
                 html += `
                     <div class="stato-card ${stati[stato].class}">
                         <span class="stato-badge">${stati[stato].label}</span>
                         <h4>${tipo} #${lavoro.id.toString().slice(-4)}</h4>
                         <p class="cliente-nome">${cliente.cognome} ${cliente.nome}</p>
-                        <p>📅 ${dataStr}</p>
+                        <p> ${dataStr}</p>
                         <p>💰 € ${parseFloat(lavoro.importo).toFixed(2)}</p>
                         <p>📝 ${lavoro.servizio}</p>
                         <p class="data-creazione">ID: ${lavoro.id}</p>
@@ -1303,18 +1296,18 @@
                 `;
             });
 
-            // Aggiungi riepilogo
             let riepilogo = '<div style="grid-column:1/-1; background:#f8f9fa; padding:15px; border-radius:8px; margin-bottom:20px;">';
-            riepilogo += '<h4 style="margin-bottom:10px;">📊 Riepilogo Stato Lavori</h4>';
+            riepilogo += '<h4 style="margin-bottom:10px;"> Riepilogo Stato Lavori</h4>';
             riepilogo += '<div style="display:flex; gap:20px; flex-wrap:wrap;">';
             Object.entries(stati).forEach(([stato, info]) => {
-                riepilogo += `<div style="background:white; padding:10px 20px; border-radius:8px; border-left:4px solid ${stato === 'Nuovo' ? '#3498db' : stato === 'In Lavorazione' ? '#f39c12' : stato === 'Completato' ? '#27ae60' : '#9b59b6'};">
+                const color = stato === 'Nuovo' ? '#3498db' : stato === 'In Lavorazione' ? '#f39c12' : stato === 'Completato' ? '#27ae60' : '#9b59b6';
+                riepilogo += `<div style="background:white; padding:10px 20px; border-radius:8px; border-left:4px solid ${color};">
                     <strong>${info.label}</strong><br>
                     <span style="font-size:24px; font-weight:bold;">${info.count}</span>
                 </div>`;
             });
             riepilogo += '</div></div>';
-            
+
             container.innerHTML = riepilogo + html;
         }
 
@@ -1326,7 +1319,7 @@
         function ciboz_renderArchive(type) {
             ciboz_currentArchive = type;
             ciboz_showView('ciboz-view-archive');
-            const titleMap = {preventivi:'Archivio Preventivi', contratti:'Archivio Contratti', clienti:'Archivio Clienti'};
+            const titleMap = { preventivi: 'Archivio Preventivi', contratti: 'Archivio Contratti', clienti: 'Archivio Clienti' };
             document.getElementById('ciboz_archive_title').textContent = titleMap[type];
             document.getElementById('ciboz_search').value = '';
             ciboz_filterArchive();
@@ -1335,28 +1328,28 @@
         function ciboz_filterArchive() {
             const query = document.getElementById('ciboz_search').value.toLowerCase();
             let items = ciboz_db[ciboz_currentArchive] || [];
-            
-            if(ciboz_currentArchive === 'clienti') {
+
+            if (ciboz_currentArchive === 'clienti') {
                 items = items.filter(i => i.cognome.toLowerCase().includes(query) || i.nome.toLowerCase().includes(query));
             } else {
                 items = items.filter(i => {
-                    const c = ciboz_db.clienti[i.clienteIdx] || {cognome:'',nome:''};
+                    const c = ciboz_db.clienti[i.clienteIdx] || { cognome: '', nome: '' };
                     return c.cognome.toLowerCase().includes(query) || c.nome.toLowerCase().includes(query);
                 });
             }
 
             const container = document.getElementById('ciboz_archive_list');
-            if(items.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nessun risultato.</p>'; return; }
+            if (items.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nessun risultato.</p>'; return; }
 
             let html = '';
             items.forEach(item => {
                 let info = '', itemStr = JSON.stringify(item).replace(/"/g, '&quot;');
-                if(ciboz_currentArchive === 'clienti') {
-                    info = `<strong>${item.cognome} ${item.nome}</strong><br><small>${item.cellulare||'-'} | ${item.email||'-'}</small>`;
+                if (ciboz_currentArchive === 'clienti') {
+                    info = `<strong>${item.cognome} ${item.nome}</strong><br><small>${item.cellulare || '-'} | ${item.email || '-'}</small>`;
                 } else {
-                    const c = ciboz_db.clienti[item.clienteIdx] || {cognome:'?',nome:''};
+                    const c = ciboz_db.clienti[item.clienteIdx] || { cognome: '?', nome: '' };
                     const totAcc = item.totaleAcconti || 0;
-                    const saldo = item.saldo !== undefined ? item.saldo : ((parseFloat(item.importo)||0) - totAcc);
+                    const saldo = item.saldo !== undefined ? item.saldo : ((parseFloat(item.importo) || 0) - totAcc);
                     const stato = item.stato || 'Nuovo';
                     info = `<strong>${item.servizio} - ${c.cognome} ${c.nome}</strong><br>
                             <small>${new Date(item.dataCreazione).toLocaleDateString()} | € ${item.importo} | Stato: ${stato} | Acconti: € ${totAcc.toFixed(2)} | Saldo: € ${saldo.toFixed(2)}</small>`;
@@ -1376,10 +1369,10 @@
         function ciboz_modifica(type, id) {
             ciboz_editingId = id;
             ciboz_editingType = type;
-            
-            if(type === 'clienti') {
+
+            if (type === 'clienti') {
                 const item = ciboz_db.clienti.find(c => c.id === id);
-                if(!item) return;
+                if (!item) return;
                 document.getElementById('ciboz_cognomeA').value = item.cognome;
                 document.getElementById('ciboz_nomeA').value = item.nome;
                 document.getElementById('ciboz_indirizzoA').value = item.indirizzo || '';
@@ -1388,8 +1381,8 @@
                 ciboz_showView('ciboz-view-anagrafica');
             } else {
                 const item = ciboz_db[type].find(i => i.id === id);
-                if(!item) return;
-                document.getElementById('ciboz_prev_title').textContent = "Modifica " + (type==='preventivi'?'Preventivo':'Contratto');
+                if (!item) return;
+                document.getElementById('ciboz_prev_title').textContent = "Modifica " + (type === 'preventivi' ? 'Preventivo' : 'Contratto');
                 document.getElementById('ciboz_prev_cliente').value = item.clienteIdx;
                 document.getElementById('ciboz_prev_tipo').value = item.tipo;
                 document.getElementById('ciboz_prev_servizio').value = item.servizio;
@@ -1410,60 +1403,60 @@
                 document.getElementById('ciboz_prev_pranzo').value = item.pranzo;
                 document.getElementById('ciboz_prev_note').value = item.note || '';
                 document.getElementById('ciboz_prev_importo').value = item.importo;
-                
+
                 ciboz_acconti = item.acconti ? JSON.parse(JSON.stringify(item.acconti)) : [];
                 ciboz_renderAcconti();
-                
+
                 ciboz_showView('ciboz-view-preventivo');
             }
         }
 
         function ciboz_elimina(type, id) {
-            if(!confirm('Eliminare questo elemento?')) return;
+            if (!confirm('Eliminare questo elemento?')) return;
             ciboz_db[type] = ciboz_db[type].filter(i => i.id !== id);
-            if(type === 'preventivi') ciboz_db.contratti = ciboz_db.contratti.filter(c => c.id !== id);
+            if (type === 'preventivi') ciboz_db.contratti = ciboz_db.contratti.filter(c => c.id !== id);
             ciboz_saveDB();
             ciboz_filterArchive();
         }
 
         function ciboz_openMaps(fieldId) {
             const val = document.getElementById(fieldId).value.trim();
-            if(val) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(val)}`, '_blank');
+            if (val) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(val)}`, '_blank');
             else alert("Inserisci prima l'indirizzo!");
         }
 
         function ciboz_openWA(fieldId) {
-            const num = document.getElementById(fieldId).value.replace(/\D/g,'');
-            if(num && num.length >= 9) window.open(`https://wa.me/39${num}`, '_blank');
+            const num = document.getElementById(fieldId).value.replace(/\D/g, '');
+            if (num && num.length >= 9) window.open(`https://wa.me/39${num}`, '_blank');
             else alert("Numero non valido!");
         }
 
         function ciboz_backup() {
-            const blob = new Blob([JSON.stringify(ciboz_db, null, 2)], {type:'application/json'});
+            const blob = new Blob([JSON.stringify(ciboz_db, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-            a.download = `backup_ciboz72_${new Date().toISOString().slice(0,10)}.json`; a.click();
+            a.download = `backup_eventi_${new Date().toISOString().slice(0, 10)}.json`; a.click();
         }
 
         function ciboz_ripristinaFile(event) {
             const file = event.target.files[0];
-            if(!file) return;
+            if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
-                    
+
                     const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
-                    
-                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Cibox72 attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+
+                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         ciboz_db = nuoviDati;
                         ciboz_saveDB();
                         ciboz_populateSelect();
                         alert(`✅ Ripristinato! ${ciboz_db.clienti.length} clienti caricati.`);
                     }
-                } catch(err) {
+                } catch (err) {
                     alert('❌ Errore: ' + err.message);
                 }
             };
@@ -1478,20 +1471,20 @@
         function saggi_init() {
             try {
                 saggi_clienti = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
-            } catch(e) { saggi_clienti = []; }
-            
+            } catch (e) { saggi_clienti = []; }
+
             const currentYear = new Date().getFullYear();
-            ['saggi_anno','saggi_filtro_anno','saggi_stampa_anno','saggi_cont_anno'].forEach(id => {
+            ['saggi_anno', 'saggi_filtro_anno', 'saggi_stampa_anno', 'saggi_cont_anno'].forEach(id => {
                 const sel = document.getElementById(id);
                 sel.innerHTML = '';
-                for(let y=2020; y<=2035; y++) sel.add(new Option(y===currentYear?y+' (corrente)':y, y));
+                for (let y = 2020; y <= 2035; y++) sel.add(new Option(y === currentYear ? y + ' (corrente)' : y, y));
                 sel.value = currentYear;
             });
 
             const qSel = document.getElementById('saggi_qta');
-            for(let i=1;i<=10;i++) qSel.add(new Option(i,i));
+            for (let i = 1; i <= 10; i++) qSel.add(new Option(i, i));
             const iSel = document.getElementById('saggi_importo');
-            for(let i=5;i<=100;i+=5) iSel.add(new Option(i+' €', i));
+            for (let i = 5; i <= 100; i += 5) iSel.add(new Option(i + ' €', i));
         }
 
         function saggi_saveDB() {
@@ -1508,9 +1501,9 @@
             document.querySelectorAll('#app-saggi .section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.querySelectorAll('#app-saggi .nav-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            if(id === 'saggi-dashboard') saggi_aggiornaDashboard();
-            if(id === 'saggi-archivio') saggi_mostraArchivio();
+            if (btn) btn.classList.add('active');
+            if (id === 'saggi-dashboard') saggi_aggiornaDashboard();
+            if (id === 'saggi-archivio') saggi_mostraArchivio();
         }
 
         function saggi_salva() {
@@ -1528,12 +1521,12 @@
                 dataCreazione: new Date().toLocaleString('it-IT')
             };
 
-            if(!data.scuola || !data.cognome || !data.nome) return alert("Compila Scuola, Cognome e Nome!");
+            if (!data.scuola || !data.cognome || !data.nome) return alert("Compila Scuola, Cognome e Nome!");
 
             const editId = document.getElementById('saggi_edit_id').value;
-            if(editId) {
+            if (editId) {
                 const idx = saggi_clienti.findIndex(c => c.id == editId);
-                if(idx >= 0) { data.id = parseInt(editId); data.dataCreazione = saggi_clienti[idx].dataCreazione; saggi_clienti[idx] = data; }
+                if (idx >= 0) { data.id = parseInt(editId); data.dataCreazione = saggi_clienti[idx].dataCreazione; saggi_clienti[idx] = data; }
                 alert("✅ Modificato!");
             } else {
                 saggi_clienti.push(data);
@@ -1550,14 +1543,14 @@
             document.getElementById('saggi_telefono').value = '';
             document.getElementById('saggi_qta').value = '1';
             document.getElementById('saggi_importo').value = '5';
-            document.getElementById('saggi_form_title').textContent = ' Nuovo Partecipante';
+            document.getElementById('saggi_form_title').textContent = '➕ Nuovo Partecipante';
         }
 
         function saggi_caricaModifica() {
             const id = prompt('ID cliente da modificare:');
-            if(!id) return;
+            if (!id) return;
             const c = saggi_clienti.find(x => x.id == id);
-            if(!c) return alert("Non trovato!");
+            if (!c) return alert("Non trovato!");
             document.getElementById('saggi_edit_id').value = c.id;
             document.getElementById('saggi_scuola').value = c.scuola;
             document.getElementById('saggi_anno').value = c.anno;
@@ -1575,10 +1568,10 @@
         function saggi_mostraArchivio() {
             const scuola = document.getElementById('saggi_filtro_scuola').value;
             const anno = document.getElementById('saggi_filtro_anno').value;
-            let filtered = saggi_clienti.filter(c => (!scuola || c.scuola===scuola) && (!anno || c.anno==anno));
-            
+            let filtered = saggi_clienti.filter(c => (!scuola || c.scuola === scuola) && (!anno || c.anno == anno));
+
             const content = document.getElementById('saggi_archivio_content');
-            if(filtered.length === 0) { content.innerHTML = '<p style="text-align:center;padding:20px;color:#888;">Nessun risultato.</p>'; return; }
+            if (filtered.length === 0) { content.innerHTML = '<p style="text-align:center;padding:20px;color:#888;">Nessun risultato.</p>'; return; }
 
             let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
             filtered.forEach(c => {
@@ -1592,7 +1585,7 @@
 
         function saggi_editFromArchivio(id) {
             const c = saggi_clienti.find(x => x.id === id);
-            if(!c) return;
+            if (!c) return;
             document.getElementById('saggi_edit_id').value = c.id;
             document.getElementById('saggi_scuola').value = c.scuola;
             document.getElementById('saggi_anno').value = c.anno;
@@ -1608,7 +1601,7 @@
         }
 
         function saggi_elimina(id) {
-            if(!confirm('Eliminare?')) return;
+            if (!confirm('Eliminare?')) return;
             saggi_clienti = saggi_clienti.filter(c => c.id !== id);
             saggi_saveDB();
             saggi_mostraArchivio();
@@ -1616,29 +1609,29 @@
 
         function saggi_generaPDFSingolo() {
             const id = document.getElementById('saggi_edit_id').value;
-            if(!id) return alert("Salva o carica un cliente prima!");
+            if (!id) return alert("Salva o carica un cliente prima!");
             const c = saggi_clienti.find(x => x.id == id);
-            if(!c) return;
-            
+            if (!c) return;
+
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            doc.setFont('helvetica','bold'); doc.setFontSize(24);
-            doc.text(c.scuola, 105, 30, {align:'center'});
-            doc.setFontSize(18); doc.text('Saggio Danza - Anno '+c.anno, 105, 42, {align:'center'});
-            doc.line(20,50,190,50);
-            doc.setFontSize(16); doc.text('Scheda Cliente', 105, 62, {align:'center'});
-            doc.setFont('helvetica','normal'); doc.setFontSize(12);
-            let y=75;
-            [['Cognome:',c.cognome],['Nome:',c.nome],['Tel:',c.telefono],['Tipo:',c.tipo],['Servizio:',c.servizio],['Qtà:',c.quantita],['Importo:',c.importo+'€']].forEach(([l,v])=>{
-                doc.setFont('helvetica','bold'); doc.text(l,30,y);
-                doc.setFont('helvetica','normal'); doc.text(String(v),90,y); y+=10;
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
+            doc.text(c.scuola, 105, 30, { align: 'center' });
+            doc.setFontSize(18); doc.text('Saggio Danza - Anno ' + c.anno, 105, 42, { align: 'center' });
+            doc.line(20, 50, 190, 50);
+            doc.setFontSize(16); doc.text('Scheda Cliente', 105, 62, { align: 'center' });
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
+            let y = 75;
+            [['Cognome:', c.cognome], ['Nome:', c.nome], ['Tel:', c.telefono], ['Tipo:', c.tipo], ['Servizio:', c.servizio], ['Qtà:', c.quantita], ['Importo:', c.importo + '€']].forEach(([l, v]) => {
+                doc.setFont('helvetica', 'bold'); doc.text(l, 30, y);
+                doc.setFont('helvetica', 'normal'); doc.text(String(v), 90, y); y += 10;
             });
-            doc.line(20,270,190,270);
-            doc.setFontSize(10); doc.setFont('helvetica','bold');
-            doc.text('G&L Studio',105,278,{align:'center'});
-            doc.setFont('helvetica','normal');
-            doc.text('Via Ciarrocco 21, Canicattì (AG)',105,284,{align:'center'});
-            doc.text('Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it',105,290,{align:'center'});
+            doc.line(20, 270, 190, 270);
+            doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+            doc.text('G&L Studio', 105, 278, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            doc.text('Via Ciarrocco 21, Canicattì (AG)', 105, 284, { align: 'center' });
+            doc.text('Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, 290, { align: 'center' });
             doc.save(`Scheda_${c.cognome}_${c.nome}_${c.anno}.pdf`);
         }
 
@@ -1646,22 +1639,22 @@
             const scuola = document.getElementById('saggi_stampa_scuola').value;
             const anno = document.getElementById('saggi_stampa_anno').value;
             const area = document.getElementById('saggi_preview_area');
-            if(!scuola) { area.innerHTML=''; return alert("Seleziona scuola!"); }
-            
-            let filtered = saggi_clienti.filter(c => c.scuola===scuola && c.anno==anno);
-            filtered.sort((a,b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
-            
-            if(filtered.length===0) { area.innerHTML='<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
-            
+            if (!scuola) { area.innerHTML = ''; return alert("Seleziona scuola!"); }
+
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+
+            if (filtered.length === 0) { area.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
+
             let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px;">
                 <h3 style="text-align:center;margin-bottom:15px;">📋 ${scuola} - Anno ${anno}</h3>
                 <div style="display:flex;justify-content:space-around;margin-bottom:15px;background:#e8eaf6;padding:10px;border-radius:8px;">
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.length}</strong><br><small>Partecipanti</small></div>
-                    <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c=>c.tipo==='Fratelli').length}</strong><br><small>Fratelli</small></div>
+                    <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c => c.tipo === 'Fratelli').length}</strong><br><small>Fratelli</small></div>
                 </div>
                 <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th></tr></thead><tbody>`;
-            filtered.forEach((c,i) => {
-                html += `<tr><td>${i+1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td></tr>`;
+            filtered.forEach((c, i) => {
+                html += `<tr><td>${i + 1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td></tr>`;
             });
             html += '</tbody></table></div>';
             area.innerHTML = html;
@@ -1670,35 +1663,35 @@
         function saggi_stampaPDF() {
             const scuola = document.getElementById('saggi_stampa_scuola').value;
             const anno = document.getElementById('saggi_stampa_anno').value;
-            let filtered = saggi_clienti.filter(c => c.scuola===scuola && c.anno==anno);
-            filtered.sort((a,b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
-            if(filtered.length===0) return alert("Nessun partecipante!");
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+            if (filtered.length === 0) return alert("Nessun partecipante!");
 
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            doc.setFont('helvetica','bold'); doc.setFontSize(20);
-            doc.text(scuola, 105, 20, {align:'center'});
-            doc.setFontSize(14); doc.text('Elenco Partecipanti - Saggio '+anno, 105, 30, {align:'center'});
-            doc.setFontSize(9); doc.setFont('helvetica','normal');
-            doc.text('Generato: '+new Date().toLocaleString('it-IT'), 105, 37, {align:'center'});
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+            doc.text(scuola, 105, 20, { align: 'center' });
+            doc.setFontSize(14); doc.text('Elenco Partecipanti - Saggio ' + anno, 105, 30, { align: 'center' });
+            doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+            doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 37, { align: 'center' });
 
-            const tableData = filtered.map((c,i)=>[i+1, c.cognome+' '+c.nome, c.telefono, c.tipo, c.servizio, c.quantita, c.importo+'€']);
+            const tableData = filtered.map((c, i) => [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.servizio, c.quantita, c.importo + '€']);
             doc.autoTable({
-                startY:43, head:[['#','Cognome Nome','Tel','Tipo','Servizio','Qtà','€']], body:tableData, theme:'grid',
-                headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold',fontSize:9},
-                bodyStyles:{fontSize:8,cellPadding:2.5}, alternateRowStyles:{fillColor:[240,240,255]},
-                columnStyles:{0:{cellWidth:10,halign:'center',fontStyle:'bold'},1:{fontStyle:'bold',cellWidth:50},2:{cellWidth:30},3:{cellWidth:20},4:{cellWidth:45},5:{cellWidth:10,halign:'center'},6:{cellWidth:20,halign:'right',fontStyle:'bold'}},
-                margin:{left:10,right:10},
-                didDrawPage:function(data){
-                    const pw=doc.internal.pageSize.getWidth(), ph=doc.internal.pageSize.getHeight();
-                    doc.line(10,ph-18,pw-10,ph-18);
-                    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.text('G&L Studio',105,ph-13,{align:'center'});
-                    doc.setFont('helvetica','normal'); doc.setFontSize(8);
-                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it',105,ph-8,{align:'center'});
-                    doc.setFontSize(7); doc.text('Pagina '+doc.internal.getNumberOfPages(),pw-15,ph-4,{align:'right'});
+                startY: 43, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Servizio', 'Qtà', '€']], body: tableData, theme: 'grid',
+                headStyles: { fillColor: [102, 126, 234], textColor: 255, fontStyle: 'bold', fontSize: 9 },
+                bodyStyles: { fontSize: 8, cellPadding: 2.5 }, alternateRowStyles: { fillColor: [240, 240, 255] },
+                columnStyles: { 0: { cellWidth: 10, halign: 'center', fontStyle: 'bold' }, 1: { fontStyle: 'bold', cellWidth: 50 }, 2: { cellWidth: 30 }, 3: { cellWidth: 20 }, 4: { cellWidth: 45 }, 5: { cellWidth: 10, halign: 'center' }, 6: { cellWidth: 20, halign: 'right', fontStyle: 'bold' } },
+                margin: { left: 10, right: 10 },
+                didDrawPage: function (data) {
+                    const pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight();
+                    doc.line(10, ph - 18, pw - 10, ph - 18);
+                    doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.text('G&L Studio', 105, ph - 13, { align: 'center' });
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, ph - 8, { align: 'center' });
+                    doc.setFontSize(7); doc.text('Pagina ' + doc.internal.getNumberOfPages(), pw - 15, ph - 4, { align: 'right' });
                 }
             });
-            doc.save(`Elenco_${scuola.replace(/\s+/g,'_')}_${anno}.pdf`);
+            doc.save(`Elenco_${scuola.replace(/\s+/g, '_')}_${anno}.pdf`);
         }
 
         function saggi_mostraContabilita() {
@@ -1708,99 +1701,99 @@
             const totalDiv = document.getElementById('saggi_cont_total');
             const btnDiv = document.getElementById('saggi_cont_btn_pdf');
 
-            if(!scuola) { contentDiv.innerHTML=''; totalDiv.innerHTML=''; btnDiv.style.display='none'; return alert("Seleziona scuola!"); }
+            if (!scuola) { contentDiv.innerHTML = ''; totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return alert("Seleziona scuola!"); }
 
-            let filtered = saggi_clienti.filter(c => c.scuola===scuola && c.anno==anno);
-            filtered.sort((a,b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
 
-            if(filtered.length===0) {
-                contentDiv.innerHTML='<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun cliente.</div>';
-                totalDiv.innerHTML=''; btnDiv.style.display='none'; return;
+            if (filtered.length === 0) {
+                contentDiv.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun cliente.</div>';
+                totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return;
             }
 
-            let totale=0;
-            let html=`<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;">💰 ${scuola} - Anno ${anno}</h3>
+            let totale = 0;
+            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;">💰 ${scuola} - Anno ${anno}</h3>
             <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th style="text-align:right;">Importo</th></tr></thead><tbody>`;
-            filtered.forEach((c,i)=>{
-                totale += parseFloat(c.importo||0);
-                html+=`<tr><td>${i+1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td style="text-align:right;font-weight:bold;color:#27ae60;">${c.importo}€</td></tr>`;
+            filtered.forEach((c, i) => {
+                totale += parseFloat(c.importo || 0);
+                html += `<tr><td>${i + 1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td style="text-align:right;font-weight:bold;color:#27ae60;">${c.importo}€</td></tr>`;
             });
-            html+='</tbody></table></div>';
+            html += '</tbody></table></div>';
             contentDiv.innerHTML = html;
             totalDiv.innerHTML = `<div style="background:linear-gradient(135deg,#00bcd4,#0097a7);color:white;padding:20px;border-radius:10px;text-align:center;"><h3>Totale Incassato</h3><div style="font-size:36px;font-weight:bold;">${totale}€</div><small>${filtered.length} clienti</small></div>`;
-            btnDiv.style.display='block';
+            btnDiv.style.display = 'block';
         }
 
         function saggi_pdfContabilita() {
             const scuola = document.getElementById('saggi_cont_scuola').value;
             const anno = document.getElementById('saggi_cont_anno').value;
-            let filtered = saggi_clienti.filter(c => c.scuola===scuola && c.anno==anno);
-            filtered.sort((a,b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
-            if(filtered.length===0) return alert("Nessun dato!");
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+            if (filtered.length === 0) return alert("Nessun dato!");
 
-            let totale=0;
+            let totale = 0;
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            doc.setFont('helvetica','bold'); doc.setFontSize(20);
-            doc.text(scuola, 105, 20, {align:'center'});
-            doc.setFontSize(16); doc.text('Report Contabilità - Saggio '+anno, 105, 32, {align:'center'});
-            doc.setFontSize(10); doc.setFont('helvetica','normal');
-            doc.text('Generato: '+new Date().toLocaleString('it-IT'), 105, 40, {align:'center'});
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+            doc.text(scuola, 105, 20, { align: 'center' });
+            doc.setFontSize(16); doc.text('Report Contabilità - Saggio ' + anno, 105, 32, { align: 'center' });
+            doc.setFontSize(10); doc.setFont('helvetica', 'normal');
+            doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 40, { align: 'center' });
 
-            const tableData = filtered.map((c,i)=>{ totale+=parseFloat(c.importo||0); return [i+1, c.cognome+' '+c.nome, c.telefono, c.tipo, c.importo+'€']; });
+            const tableData = filtered.map((c, i) => { totale += parseFloat(c.importo || 0); return [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.importo + '€']; });
             doc.autoTable({
-                startY:48, head:[['#','Cognome Nome','Tel','Tipo','Importo']], body:tableData, theme:'grid',
-                headStyles:{fillColor:[0,188,212],textColor:255,fontStyle:'bold',fontSize:9},
-                bodyStyles:{fontSize:8,cellPadding:3}, alternateRowStyles:{fillColor:[240,255,255]},
-                columnStyles:{0:{cellWidth:10,halign:'center',fontStyle:'bold'},1:{fontStyle:'bold',cellWidth:55},2:{cellWidth:32},3:{cellWidth:25},4:{cellWidth:28,halign:'right',fontStyle:'bold'}},
-                margin:{left:10,right:10},
-                didDrawPage:function(data){
-                    const pw=doc.internal.pageSize.getWidth(), ph=doc.internal.pageSize.getHeight();
-                    doc.line(10,ph-25,pw-10,ph-25);
-                    doc.setFontSize(9); doc.setFont('helvetica','bold'); doc.text('G&L Studio',105,ph-20,{align:'center'});
-                    doc.setFont('helvetica','normal'); doc.setFontSize(8);
-                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it',105,ph-15,{align:'center'});
-                    doc.setFontSize(7); doc.text('Pagina '+doc.internal.getNumberOfPages(),pw-15,ph-4,{align:'right'});
+                startY: 48, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Importo']], body: tableData, theme: 'grid',
+                headStyles: { fillColor: [0, 188, 212], textColor: 255, fontStyle: 'bold', fontSize: 9 },
+                bodyStyles: { fontSize: 8, cellPadding: 3 }, alternateRowStyles: { fillColor: [240, 255, 255] },
+                columnStyles: { 0: { cellWidth: 10, halign: 'center', fontStyle: 'bold' }, 1: { fontStyle: 'bold', cellWidth: 55 }, 2: { cellWidth: 32 }, 3: { cellWidth: 25 }, 4: { cellWidth: 28, halign: 'right', fontStyle: 'bold' } },
+                margin: { left: 10, right: 10 },
+                didDrawPage: function (data) {
+                    const pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight();
+                    doc.line(10, ph - 25, pw - 10, ph - 25);
+                    doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.text('G&L Studio', 105, ph - 20, { align: 'center' });
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, ph - 15, { align: 'center' });
+                    doc.setFontSize(7); doc.text('Pagina ' + doc.internal.getNumberOfPages(), pw - 15, ph - 4, { align: 'right' });
                 }
             });
 
             const finalY = doc.lastAutoTable.finalY + 10;
-            doc.setFillColor(0,188,212); doc.rect(10,finalY,190,25,'F');
-            doc.setFontSize(14); doc.setFont('helvetica','bold'); doc.setTextColor(255);
-            doc.text('TOTALE INCASSATO: '+totale+'€', 105, finalY+12, {align:'center'});
-            doc.save(`Contabilita_${scuola.replace(/\s+/g,'_')}_${anno}.pdf`);
+            doc.setFillColor(0, 188, 212); doc.rect(10, finalY, 190, 25, 'F');
+            doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.setTextColor(255);
+            doc.text('TOTALE INCASSATO: ' + totale + '€', 105, finalY + 12, { align: 'center' });
+            doc.save(`Contabilita_${scuola.replace(/\s+/g, '_')}_${anno}.pdf`);
         }
 
         function saggi_backup() {
-            const blob = new Blob([JSON.stringify(saggi_clienti, null, 2)], {type:'application/json'});
+            const blob = new Blob([JSON.stringify(saggi_clienti, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-            a.download = `backup_saggi_${new Date().toISOString().slice(0,10)}.json`; a.click();
+            a.download = `backup_saggi_${new Date().toISOString().slice(0, 10)}.json`; a.click();
         }
 
         function saggi_ripristinaFile(event) {
             const file = event.target.files[0];
-            if(!file) return;
-            
+            if (!file) return;
+
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     const nuoviClienti = Array.isArray(data) ? data : (data.clienti || []);
-                    
-                    if(!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
-                    
+
+                    if (!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
+
                     const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
-                    
-                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+
+                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
                         saggi_aggiornaDashboard();
                     }
-                } catch(err) {
-                    alert('❌ Errore: ' + err.message);
+                } catch (err) {
+                    alert(' Errore: ' + err.message);
                 }
             };
             reader.readAsText(file);
@@ -1815,13 +1808,13 @@
             try {
                 const data = localStorage.getItem('galleryClients');
                 gallery_allClients = data ? JSON.parse(data) : [];
-            } catch(e) { gallery_allClients = []; }
+            } catch (e) { gallery_allClients = []; }
             gallery_loadClients();
         }
 
         function gallery_saveDB() {
             try { localStorage.setItem('galleryClients', JSON.stringify(gallery_allClients)); }
-            catch(e) { alert("Spazio esaurito!"); }
+            catch (e) { alert("Spazio esaurito!"); }
             gallery_loadClients();
             updateDashboardCounts();
         }
@@ -1830,11 +1823,11 @@
             document.getElementById('gallery_count').textContent = gallery_allClients.length;
             const searchTerm = document.getElementById('gallery_search').value.toLowerCase();
             const filtered = searchTerm ? gallery_allClients.filter(c => c.name.toLowerCase().includes(searchTerm) || c.username.toLowerCase().includes(searchTerm)) : gallery_allClients;
-            filtered.sort((a,b) => b.createdAt - a.createdAt);
-            
+            filtered.sort((a, b) => b.createdAt - a.createdAt);
+
             const list = document.getElementById('gallery_clients_list');
             list.innerHTML = '';
-            if(filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
 
             filtered.forEach(client => {
                 const card = document.createElement('div');
@@ -1870,16 +1863,16 @@
             const password = document.getElementById('gallery_password').value.trim();
             const mega = document.getElementById('gallery_mega').value.trim();
             const notes = document.getElementById('gallery_notes').value.trim();
-            
-            if(!name||!username||!password||!mega) return alert("Compila tutti i campi obbligatori!");
-            
+
+            if (!name || !username || !password || !mega) return alert("Compila tutti i campi obbligatori!");
+
             const editId = document.getElementById('gallery_edit_id').value;
-            if(editId) {
+            if (editId) {
                 const idx = gallery_allClients.findIndex(c => c.id === editId);
-                if(idx !== -1) gallery_allClients[idx] = {...gallery_allClients[idx], name, username, password, megaLink:mega, notes};
+                if (idx !== -1) gallery_allClients[idx] = { ...gallery_allClients[idx], name, username, password, megaLink: mega, notes };
                 alert("✅ Aggiornato!");
             } else {
-                gallery_allClients.push({ id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000), name, username, password, megaLink:mega, notes, createdAt:Date.now() });
+                gallery_allClients.push({ id: 'client_' + Date.now() + '_' + Math.floor(Math.random() * 900000 + 100000), name, username, password, megaLink: mega, notes, createdAt: Date.now() });
                 alert("✅ Aggiunto!");
             }
             gallery_saveDB();
@@ -1890,7 +1883,7 @@
 
         function gallery_editClient(id) {
             const c = gallery_allClients.find(x => x.id === id);
-            if(!c) return;
+            if (!c) return;
             document.getElementById('gallery_edit_id').value = c.id;
             document.getElementById('gallery_name').value = c.name;
             document.getElementById('gallery_username').value = c.username;
@@ -1898,13 +1891,13 @@
             document.getElementById('gallery_mega').value = c.megaLink;
             document.getElementById('gallery_notes').value = c.notes || '';
             document.getElementById('gallery_submit_btn').textContent = 'Aggiorna Cliente';
-            window.scrollTo(0,0);
+            window.scrollTo(0, 0);
         }
 
         function gallery_deleteClient(id) {
             const c = gallery_allClients.find(x => x.id === id);
-            if(!c) return;
-            if(confirm(`Eliminare ${c.name}?\nUsername: ${c.username}\nPassword: ${c.password}`)) {
+            if (!c) return;
+            if (confirm(`Eliminare ${c.name}?\nUsername: ${c.username}\nPassword: ${c.password}`)) {
                 gallery_allClients = gallery_allClients.filter(x => x.id !== id);
                 gallery_saveDB();
             }
@@ -1912,29 +1905,29 @@
 
         function gallery_getClientUrl(clientId) {
             const client = gallery_allClients.find(c => c.id === clientId);
-            if(!client) return '#';
-            const payload = { u:client.username, p:client.password, m:client.megaLink, i:client.id, t:Date.now() };
-            const token = btoa(JSON.stringify(payload)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
-            return `${window.location.origin}${window.location.pathname.replace('index.html','')}client.html?token=${token}`;
+            if (!client) return '#';
+            const payload = { u: client.username, p: client.password, m: client.megaLink, i: client.id, t: Date.now() };
+            const token = btoa(JSON.stringify(payload)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            return `${window.location.origin}${window.location.pathname.replace('index.html', '')}client.html?token=${token}`;
         }
 
         function gallery_copyLink(clientId) {
             const url = gallery_getClientUrl(clientId);
-            navigator.clipboard.writeText(url).then(()=>alert("✅ Copiato!")).catch(()=>alert("Errore copia"));
+            navigator.clipboard.writeText(url).then(() => alert("✅ Copiato!")).catch(() => alert("Errore copia"));
         }
 
         function gallery_openDetail(id) {
             const c = gallery_allClients.find(x => x.id === id);
-            if(!c) return;
+            if (!c) return;
             const created = new Date(c.createdAt).toLocaleString('it-IT');
             document.getElementById('gallery_detail_content').innerHTML = `
                 <div style="display:grid;gap:15px;">
-                    <div><strong>👤 Nome:</strong><br>${gallery_escapeHtml(c.name)}</div>
-                    <div><strong>🔑 Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
-                    <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
-                    <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length>60?c.megaLink.substring(0,60)+'...':c.megaLink}</a></div>
+                    <div><strong> Nome:</strong><br>${gallery_escapeHtml(c.name)}</div>
+                    <div><strong> Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
+                    <div><strong> Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
+                    <div><strong> Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
                     <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
-                    ${c.notes?`<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g,'<br>')}</div>`:''}
+                    ${c.notes ? `<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g, '<br>')}</div>` : ''}
                     <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
                 </div>
             `;
@@ -1944,48 +1937,48 @@
         function gallery_closeDetail() { document.getElementById('gallery_detail_modal').style.display = 'none'; }
 
         function gallery_backup() {
-            const data = { version:'3.0', timestamp:new Date().toISOString(), clients:gallery_allClients };
-            const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+            const data = { version: '3.0', timestamp: new Date().toISOString(), clients: gallery_allClients };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-            a.download = `gallery-backup-${new Date().toISOString().replace(/[:.]/g,'-')}.json`; a.click();
+            a.download = `gallery-backup-${new Date().toISOString().replace(/[:.]/g, '-')}.json`; a.click();
         }
 
         function gallery_openRestore() { document.getElementById('gallery_restore_modal').style.display = 'flex'; }
-        function gallery_closeRestore() { document.getElementById('gallery_restore_modal').style.display = 'none'; document.getElementById('gallery_restore_file').value=''; document.getElementById('gallery_restore_msg').textContent=''; }
+        function gallery_closeRestore() { document.getElementById('gallery_restore_modal').style.display = 'none'; document.getElementById('gallery_restore_file').value = ''; document.getElementById('gallery_restore_msg').textContent = ''; }
 
         function gallery_handleRestore() {
             const file = document.getElementById('gallery_restore_file').files[0];
-            if(!file) return alert("Seleziona un file!");
-            if(!file.name.endsWith('.json')) return alert("Solo file JSON!");
-            
+            if (!file) return alert("Seleziona un file!");
+            if (!file.name.endsWith('.json')) return alert("Solo file JSON!");
+
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if(!data.clients) throw new Error("Formato non valido");
-                    
+                    if (!data.clients) throw new Error("Formato non valido");
+
                     const currentClients = JSON.parse(localStorage.getItem('galleryClients') || '[]');
                     const currentCount = currentClients.length;
                     const newCount = data.clients.length;
-                    
-                    if(confirm(`Sovrascrivere ${currentCount} clienti con ${newCount} dal backup?`)) {
+
+                    if (confirm(`Sovrascrivere ${currentCount} clienti con ${newCount} dal backup?`)) {
                         gallery_allClients = data.clients;
                         gallery_saveDB();
                         document.getElementById('gallery_restore_msg').textContent = `✅ Ripristinato ${gallery_allClients.length} clienti!`;
                         document.getElementById('gallery_restore_msg').style.color = '#27ae60';
                         setTimeout(gallery_closeRestore, 2000);
                     }
-                } catch(err) { 
-                    document.getElementById('gallery_restore_msg').textContent = '❌ '+err.message; 
-                    document.getElementById('gallery_restore_msg').style.color = '#e74c3c'; 
+                } catch (err) {
+                    document.getElementById('gallery_restore_msg').textContent = '❌ ' + err.message;
+                    document.getElementById('gallery_restore_msg').style.color = '#e74c3c';
                 }
             };
             reader.readAsText(file);
         }
 
         function gallery_escapeHtml(text) {
-            if(!text) return '';
-            return text.toString().replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+            if (!text) return '';
+            return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         }
 
         // ==========================================
@@ -1994,7 +1987,7 @@
 
         function ricevute_init() {
             try { ricevute_data = JSON.parse(localStorage.getItem('glRicevuteFotografiche')) || []; }
-            catch(e) { ricevute_data = []; }
+            catch (e) { ricevute_data = []; }
             document.getElementById('ricevute_data').valueAsDate = new Date();
             ricevute_caricaLista();
         }
@@ -2034,14 +2027,14 @@
             const importo = parseFloat(document.getElementById('ricevute_importo').value);
             const note = document.getElementById('ricevute_note').value.trim();
 
-            if(!cliente||!telefono||!servizio||!dataEvento||isNaN(importo)) return alert("Compila tutti i campi obbligatori!");
+            if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi obbligatori!");
 
-            if(ricevute_isModifica) {
+            if (ricevute_isModifica) {
                 const idx = ricevute_data.findIndex(r => r.id === ricevute_editId);
-                if(idx !== -1) ricevute_data[idx] = { id:ricevute_editId, cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio:new Date().toISOString() };
+                if (idx !== -1) ricevute_data[idx] = { id: ricevute_editId, cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio: new Date().toISOString() };
                 alert("✅ Aggiornata!");
             } else {
-                ricevute_data.push({ id:Date.now(), cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio:new Date().toISOString() });
+                ricevute_data.push({ id: Date.now(), cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio: new Date().toISOString() });
                 alert("✅ Salvata!");
             }
             ricevute_saveDB();
@@ -2051,12 +2044,12 @@
         function ricevute_caricaLista() {
             const lista = document.getElementById('ricevute_list');
             lista.innerHTML = '';
-            if(ricevute_data.length === 0) { lista.innerHTML = '<p style="text-align:center;color:#777;padding:20px;">Nessuna ricevuta.</p>'; return; }
-            
-            const sorted = [...ricevute_data].sort((a,b) => new Date(b.dataEvento) - new Date(a.dataEvento));
+            if (ricevute_data.length === 0) { lista.innerHTML = '<p style="text-align:center;color:#777;padding:20px;">Nessuna ricevuta.</p>'; return; }
+
+            const sorted = [...ricevute_data].sort((a, b) => new Date(b.dataEvento) - new Date(a.dataEvento));
             sorted.forEach(r => {
                 const dataFmt = new Date(r.dataEvento).toLocaleDateString('it-IT');
-                const impFmt = r.importo.toFixed(2).replace('.',',');
+                const impFmt = r.importo.toFixed(2).replace('.', ',');
                 const item = document.createElement('div');
                 item.className = 'archive-item';
                 item.innerHTML = `
@@ -2072,7 +2065,7 @@
 
         function ricevute_modifica(id) {
             const r = ricevute_data.find(x => x.id === id);
-            if(!r) return;
+            if (!r) return;
             ricevute_isModifica = true;
             ricevute_editId = id;
             document.getElementById('ricevute_form_title').textContent = '✏️ Modifica Ricevuta';
@@ -2088,7 +2081,7 @@
         }
 
         function ricevute_elimina(id) {
-            if(!confirm('Eliminare questa ricevuta?')) return;
+            if (!confirm('Eliminare questa ricevuta?')) return;
             ricevute_data = ricevute_data.filter(r => r.id !== id);
             ricevute_saveDB();
         }
@@ -2109,73 +2102,73 @@
             const importo = parseFloat(document.getElementById('ricevute_importo').value);
             const note = document.getElementById('ricevute_note').value.trim();
 
-            if(!cliente||!telefono||!servizio||!dataEvento||isNaN(importo)) return alert("Compila tutti i campi per il PDF!");
+            if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi per il PDF!");
 
             const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p','mm','a4');
+            const pdf = new jsPDF('p', 'mm', 'a4');
             const dataFmt = new Date(dataEvento).toLocaleDateString('it-IT');
-            const impFmt = importo.toFixed(2).replace('.',',');
+            const impFmt = importo.toFixed(2).replace('.', ',');
 
             pdf.setFontSize(22); pdf.text('Studio Fotografico G&L', 105, 20, null, null, 'center');
             pdf.setFontSize(12); pdf.text('Via Ciarrocco, 21 – Canicattì (AG)', 105, 28, null, null, 'center');
             pdf.text('Tel: +39 366 9381103 | Email: weddinggel@aruba.it', 105, 34, null, null, 'center');
-            pdf.line(15,40,195,40);
+            pdf.line(15, 40, 195, 40);
             pdf.setFontSize(18); pdf.text('RICEVUTA - COPIA CLIENTE', 105, 50, null, null, 'center');
             pdf.setFontSize(14);
             pdf.text(`Cliente: ${cliente}`, 20, 65);
             pdf.text(`Telefono: ${telefono}`, 20, 73);
-            if(facebook) pdf.text(`Facebook: ${facebook}`, 20, 81);
+            if (facebook) pdf.text(`Facebook: ${facebook}`, 20, 81);
             const y1 = facebook ? 91 : 89;
             pdf.text(`Servizio: ${servizio}`, 20, y1);
-            pdf.text(`Data Evento: ${dataFmt}`, 20, y1+8);
-            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y1+16);
-            if(note) { const lines = pdf.splitTextToSize('Note: '+note, 170); pdf.text(lines, 20, y1+26); }
+            pdf.text(`Data Evento: ${dataFmt}`, 20, y1 + 8);
+            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y1 + 16);
+            if (note) { const lines = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines, 20, y1 + 26); }
             pdf.setFontSize(10); pdf.text('Grazie per la fiducia!', 105, 135, null, null, 'center');
-            pdf.line(15,140,195,140);
+            pdf.line(15, 140, 195, 140);
 
             pdf.setFontSize(18); pdf.text('RICEVUTA - COPIA STUDIO', 105, 150, null, null, 'center');
             pdf.setFontSize(14);
             pdf.text(`Cliente: ${cliente}`, 20, 165);
             pdf.text(`Telefono: ${telefono}`, 20, 173);
-            if(facebook) pdf.text(`Facebook: ${facebook}`, 20, 181);
+            if (facebook) pdf.text(`Facebook: ${facebook}`, 20, 181);
             const y2 = facebook ? 191 : 189;
             pdf.text(`Servizio: ${servizio}`, 20, y2);
-            pdf.text(`Data Evento: ${dataFmt}`, 20, y2+8);
-            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y2+16);
-            if(note) { const lines2 = pdf.splitTextToSize('Note: '+note, 170); pdf.text(lines2, 20, y2+26); }
+            pdf.text(`Data Evento: ${dataFmt}`, 20, y2 + 8);
+            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y2 + 16);
+            if (note) { const lines2 = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines2, 20, y2 + 26); }
             pdf.setFontSize(10); pdf.text('Documento fiscale ai fini contabili', 105, 285, null, null, 'center');
 
-            pdf.save(`Ricevuta_${cliente.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.pdf`);
+            pdf.save(`Ricevuta_${cliente.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`);
         }
 
         function ricevute_backup() {
-            if(ricevute_data.length===0) return alert("Nessun dato!");
-            const data = { version:'G&L Ricevute v1.0', exportDate:new Date().toISOString(), ricevute:ricevute_data };
-            const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+            if (ricevute_data.length === 0) return alert("Nessun dato!");
+            const data = { version: 'G&L Ricevute v1.0', exportDate: new Date().toISOString(), ricevute: ricevute_data };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-            a.download = `backup_ricevute_${new Date().toISOString().slice(0,10)}.json`; a.click();
+            a.download = `backup_ricevute_${new Date().toISOString().slice(0, 10)}.json`; a.click();
         }
 
         function ricevute_ripristinaTrigger() { document.getElementById('ricevute_restore_input').click(); }
         function ricevute_ripristinaFile(event) {
             const file = event.target.files[0];
-            if(!file) return;
+            if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
-                    if(!data.ricevute) throw new Error("File non valido");
-                    
+                    if (!data.ricevute) throw new Error("File non valido");
+
                     const currentData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
                     const currentCount = currentData.length;
                     const newCount = data.ricevute.length;
-                    
-                    if(confirm(`Sovrascrivere ${currentCount} ricevute attuali con ${newCount} dal backup?`)) {
+
+                    if (confirm(`Sovrascrivere ${currentCount} ricevute attuali con ${newCount} dal backup?`)) {
                         ricevute_data = data.ricevute;
                         ricevute_saveDB();
                         alert("✅ Ripristinato!");
                     }
-                } catch(err) { alert("❌ "+err.message); }
+                } catch (err) { alert("❌ " + err.message); }
             };
             reader.readAsText(file);
             event.target.value = '';
