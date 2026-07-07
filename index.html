@@ -94,21 +94,55 @@
         .btn-backup { background: var(--accent-green); }
         .btn-restore { background: var(--accent-blue); }
 
-        /* CIBOZ72 */
-        #app-ciboz72 { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
-        #app-ciboz72 .sheet-container { display: none; }
-        #app-ciboz72 .sheet-container.active { display: block; }
-        #app-ciboz72 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        #app-ciboz72 .full-width { grid-column: 1 / -1; }
-        #app-ciboz72 .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
-        #app-ciboz72 .btn-save, #app-ciboz72 .btn-convert { width: 100%; padding: 15px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
-        #app-ciboz72 .btn-save { background: linear-gradient(135deg, #667eea, #764ba2); }
-        #app-ciboz72 .btn-convert { background: linear-gradient(135deg, #11998e, #38ef7d); }
-        #app-ciboz72 .input-group { display: flex; gap: 10px; }
-        #app-ciboz72 .btn-action-icon { padding: 0 15px; border: none; border-radius: 8px; color: white; cursor: pointer; }
-        #app-ciboz72 .importo-highlight { background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 15px; }
-        #app-ciboz72 .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
-        #app-ciboz72 .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
+        /* CIBOX72 */
+        #app-cibox72 { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        #app-cibox72 .sheet-container { display: none; }
+        #app-cibox72 .sheet-container.active { display: block; }
+        #app-cibox72 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        #app-cibox72 .full-width { grid-column: 1 / -1; }
+        #app-cibox72 .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+        #app-cibox72 .btn-save, #app-cibox72 .btn-convert { width: 100%; padding: 15px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        #app-cibox72 .btn-save { background: linear-gradient(135deg, #667eea, #764ba2); }
+        #app-cibox72 .btn-convert { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        #app-cibox72 .input-group { display: flex; gap: 10px; }
+        #app-cibox72 .btn-action-icon { padding: 0 15px; border: none; border-radius: 8px; color: white; cursor: pointer; }
+        #app-cibox72 .importo-highlight { background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        #app-cibox72 .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        #app-cibox72 .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
+
+        /* Stato Lavori Styles */
+        .stato-lavori-container {
+            background: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 20px;
+        }
+        .stato-lavori-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+        }
+        .stato-lavori-header h3 { color: var(--primary-dark); }
+        .stato-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;
+        }
+        .stato-card {
+            background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--accent-blue);
+        }
+        .stato-card.stato-nuovo { border-left-color: #3498db; }
+        .stato-card.stato-lavorazione { border-left-color: #f39c12; }
+        .stato-card.stato-completato { border-left-color: #27ae60; }
+        .stato-card.stato-consegnato { border-left-color: #9b59b6; }
+        
+        .stato-badge {
+            display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold;
+            color: white; margin-bottom: 10px;
+        }
+        .stato-nuovo .stato-badge { background: #3498db; }
+        .stato-lavorazione .stato-badge { background: #f39c12; }
+        .stato-completato .stato-badge { background: #27ae60; }
+        .stato-consegnato .stato-badge { background: #9b59b6; }
+        
+        .stato-card h4 { margin-bottom: 10px; color: var(--primary-dark); }
+        .stato-card p { font-size: 13px; color: #666; margin: 5px 0; }
+        .stato-card .cliente-nome { font-weight: bold; color: var(--primary-dark); }
+        .stato-card .data-creazione { font-size: 12px; color: #999; }
 
         .acconti-section {
             background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-top: 15px;
@@ -205,6 +239,7 @@
             .nav-btn { width: 100%; text-align: center; }
             .acconto-row { grid-template-columns: 1fr; }
             .acconti-summary { grid-template-columns: 1fr; }
+            .stato-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -229,10 +264,10 @@
 
         <nav class="unified-nav">
             <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
-            <button class="nav-btn" onclick="switchApp('ciboz72', this)">📷 Gestione Foto</button>
+            <button class="nav-btn" onclick="switchApp('cibox72', this)">📷 Gestione Cibox72</button>
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
-            <button class="nav-btn" onclick="switchApp('ricevute', this)"> Ricevute</button>
+            <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
             <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
         </nav>
 
@@ -243,8 +278,8 @@
                 <p style="text-align: center; color: #777; margin-bottom: 30px;">Seleziona un modulo per iniziare</p>
                 
                 <div class="dashboard-grid">
-                    <div class="dash-card card-ciboz" onclick="switchApp('ciboz72', document.querySelectorAll('.nav-btn')[1])">
-                        <h3>📷 Gestione Ciboz72</h3>
+                    <div class="dash-card card-ciboz" onclick="switchApp('cibox72', document.querySelectorAll('.nav-btn')[1])">
+                        <h3>📷 Gestione Cibox72</h3>
                         <div class="count" id="dash-count-ciboz">0</div>
                         <small>Clienti Foto & Preventivi</small>
                     </div>
@@ -272,10 +307,10 @@
                 </div>
             </div>
 
-            <!-- CIBOZ72 -->
-            <div id="app-ciboz72" class="app-section">
+            <!-- CIBOX72 -->
+            <div id="app-cibox72" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>📷 Gestione Ciboz72</h2>
+                    <h2>📷 Gestione Cibox72</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ciboz_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="document.getElementById('ciboz_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -299,11 +334,12 @@
                 </div>
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-anagrafica')"> Anagrafica</button>
+                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-anagrafica')">👥 Anagrafica</button>
                     <button class="nav-btn" onclick="ciboz_showView('ciboz-view-preventivo')">📄 Nuovo Preventivo</button>
-                    <button class="nav-btn" onclick="ciboz_renderArchive('preventivi')"> Archivio Prev.</button>
+                    <button class="nav-btn" onclick="ciboz_showView('ciboz-view-stato-lavori')">📊 Stato Lavori</button>
+                    <button class="nav-btn" onclick="ciboz_renderArchive('preventivi')">📁 Archivio Prev.</button>
                     <button class="nav-btn" onclick="ciboz_renderArchive('contratti')">📑 Archivio Contr.</button>
-                    <button class="nav-btn" onclick="ciboz_renderArchive('clienti')"> Archivio Clienti</button>
+                    <button class="nav-btn" onclick="ciboz_renderArchive('clienti')">👥 Archivio Clienti</button>
                 </div>
 
                 <div id="ciboz-view-dashboard" class="sheet-container active" style="padding:20px; background:#f8f9fa; border-radius:8px;">
@@ -331,7 +367,7 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="ciboz_salvaCoppia()">💾 Salva Coppia</button>
-                    <button class="btn-convert" onclick="ciboz_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="ciboz_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="ciboz-view-preventivo" class="sheet-container">
@@ -419,7 +455,7 @@
                         <div class="full-width acconti-section">
                             <div class="acconti-header">
                                 <h4>💰 Acconti Versati</h4>
-                                <button type="button" class="btn-add-acconto" onclick="ciboz_addAcconto()"> Aggiungi Acconto</button>
+                                <button type="button" class="btn-add-acconto" onclick="ciboz_addAcconto()">➕ Aggiungi Acconto</button>
                             </div>
                             <div id="ciboz_acconti_list"></div>
                             <div class="acconti-summary">
@@ -439,7 +475,20 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="ciboz_salvaPrev()">✅ Crea Preventivo & PDF</button>
-                    <button class="btn-convert" onclick="ciboz_convertiContratto()"> Converti in Contratto</button>
+                    <button class="btn-convert" onclick="ciboz_convertiContratto()">📑 Converti in Contratto</button>
+                </div>
+
+                <!-- SEZIONE STATO LAVORI -->
+                <div id="ciboz-view-stato-lavori" class="sheet-container">
+                    <div class="stato-lavori-container">
+                        <div class="stato-lavori-header">
+                            <h3>📊 Stato Avanzamento Lavori</h3>
+                            <button class="btn-global btn-backup" onclick="ciboz_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;">🔄 Aggiorna</button>
+                        </div>
+                        <div id="stato-lavori-content" class="stato-grid">
+                            <!-- Contenuto generato dinamicamente -->
+                        </div>
+                    </div>
                 </div>
 
                 <div id="ciboz-view-archive" class="sheet-container">
@@ -454,8 +503,8 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                     <h2>💃 Gestione Saggi Danza</h2>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
-                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
+                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
                         <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
                     </div>
                 </div>
@@ -463,8 +512,8 @@
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)"> Archivio</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">️ Stampa Elenco</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)">💰 Contabilità</button>
                 </div>
 
@@ -508,14 +557,14 @@
                     </div>
                     <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
-                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">️ Carica per Modifica</button>
+                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
                         <button class="btn btn-info" onclick="saggi_generaPDFSingolo()">📄 PDF Scheda</button>
                         <button class="btn btn-secondary" onclick="saggi_resetForm()">🔄 Reset</button>
                     </div>
                 </div>
 
                 <div id="saggi-archivio" class="section">
-                    <h3> Archivio Partecipanti</h3>
+                    <h3>📁 Archivio Partecipanti</h3>
                     <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
@@ -646,7 +695,7 @@
                     <div class="actions">
                         <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
                         <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
-                        <button class="btn btn-danger" onclick="ricevute_pdf()">️ PDF Doppia Copia</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
                     </div>
                 </div>
             </div>
@@ -721,7 +770,7 @@
             }
 
             if(appId === 'dashboard') updateDashboardCounts();
-            if(appId === 'ciboz72') ciboz_updateStats();
+            if(appId === 'cibox72') { ciboz_updateStats(); ciboz_showView('ciboz-view-dashboard'); }
             if(appId === 'saggi') saggi_aggiornaDashboard();
             if(appId === 'gallery') gallery_loadClients();
             if(appId === 'ricevute') ricevute_caricaLista();
@@ -793,7 +842,7 @@
         }
 
         // ==========================================
-        // CIBOZ72
+        // CIBOX72
         // ==========================================
 
         function ciboz_init() {
@@ -816,8 +865,12 @@
         }
 
         function ciboz_showView(viewId) {
-            document.querySelectorAll('#app-ciboz72 .sheet-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#app-cibox72 .sheet-container').forEach(el => el.classList.remove('active'));
             document.getElementById('ciboz-view-' + viewId.replace('ciboz-view-', '')).classList.add('active');
+            
+            if(viewId === 'ciboz-view-stato-lavori') {
+                ciboz_renderStatoLavori();
+            }
         }
 
         function ciboz_populateSelect() {
@@ -978,7 +1031,8 @@
                 importo: document.getElementById('ciboz_prev_importo').value,
                 acconti: JSON.parse(JSON.stringify(ciboz_acconti)),
                 totaleAcconti: totaleAcconti,
-                saldo: (parseFloat(document.getElementById('ciboz_prev_importo').value) || 0) - totaleAcconti
+                saldo: (parseFloat(document.getElementById('ciboz_prev_importo').value) || 0) - totaleAcconti,
+                stato: 'Nuovo'
             };
         }
 
@@ -1044,7 +1098,7 @@
                 ciboz_db.contratti[existing] = {...data, stato:"Attivo", dataConversione:ciboz_db.contratti[existing].dataConversione};
                 alert("✅ Contratto aggiornato!");
             } else {
-                ciboz_db.contratti.push({...data, stato:"Attivo", dataConversione:new Date().toISOString()});
+                ciboz_db.contratti.push({...data, stato:"In Lavorazione", dataConversione:new Date().toISOString()});
                 alert("✅ Convertito in contratto!");
             }
             ciboz_saveDB();
@@ -1106,7 +1160,6 @@
             
             addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 6;
             
-            // ✅ PRANZO/CENA STAFF PER INTERO
             doc.setFontSize(8);
             addRow(y, "Pranzo/Cena STAFF:", p.pranzo);
             doc.setFontSize(9);
@@ -1209,6 +1262,67 @@
             doc.save(`Preventivo_${cliente.cognome}_${Date.now()}.pdf`);
         }
 
+        // ===== STATO LAVORI =====
+        function ciboz_renderStatoLavori() {
+            const container = document.getElementById('stato-lavori-content');
+            const tuttiLavori = [...ciboz_db.preventivi, ...ciboz_db.contratti];
+            
+            if(tuttiLavori.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:40px; grid-column:1/-1;">Nessun lavoro presente</p>';
+                return;
+            }
+
+            const stati = {
+                'Nuovo': { class: 'stato-nuovo', label: '🆕 Nuovo', count: 0 },
+                'In Lavorazione': { class: 'stato-lavorazione', label: '🔨 In Lavorazione', count: 0 },
+                'Completato': { class: 'stato-completato', label: '✅ Completato', count: 0 },
+                'Consegnato': { class: 'stato-consegnato', label: '📦 Consegnato', count: 0 }
+            };
+
+            let html = '';
+            
+            // Raggruppa per stato
+            tuttiLavori.forEach(lavoro => {
+                const stato = lavoro.stato || 'Nuovo';
+                if(stati[stato]) stati[stato].count++;
+                
+                const cliente = ciboz_db.clienti[lavoro.clienteIdx] || { cognome:'?', nome:'' };
+                const dataStr = new Date(lavoro.dataCreazione).toLocaleDateString('it-IT');
+                const tipo = ciboz_db.contratti.find(c => c.id === lavoro.id) ? 'Contratto' : 'Preventivo';
+                
+                html += `
+                    <div class="stato-card ${stati[stato].class}">
+                        <span class="stato-badge">${stati[stato].label}</span>
+                        <h4>${tipo} #${lavoro.id.toString().slice(-4)}</h4>
+                        <p class="cliente-nome">${cliente.cognome} ${cliente.nome}</p>
+                        <p>📅 ${dataStr}</p>
+                        <p>💰 € ${parseFloat(lavoro.importo).toFixed(2)}</p>
+                        <p>📝 ${lavoro.servizio}</p>
+                        <p class="data-creazione">ID: ${lavoro.id}</p>
+                    </div>
+                `;
+            });
+
+            // Aggiungi riepilogo
+            let riepilogo = '<div style="grid-column:1/-1; background:#f8f9fa; padding:15px; border-radius:8px; margin-bottom:20px;">';
+            riepilogo += '<h4 style="margin-bottom:10px;">📊 Riepilogo Stato Lavori</h4>';
+            riepilogo += '<div style="display:flex; gap:20px; flex-wrap:wrap;">';
+            Object.entries(stati).forEach(([stato, info]) => {
+                riepilogo += `<div style="background:white; padding:10px 20px; border-radius:8px; border-left:4px solid ${stato === 'Nuovo' ? '#3498db' : stato === 'In Lavorazione' ? '#f39c12' : stato === 'Completato' ? '#27ae60' : '#9b59b6'};">
+                    <strong>${info.label}</strong><br>
+                    <span style="font-size:24px; font-weight:bold;">${info.count}</span>
+                </div>`;
+            });
+            riepilogo += '</div></div>';
+            
+            container.innerHTML = riepilogo + html;
+        }
+
+        function ciboz_refreshStatoLavori() {
+            ciboz_renderStatoLavori();
+            alert('✅ Stato lavori aggiornato!');
+        }
+
         function ciboz_renderArchive(type) {
             ciboz_currentArchive = type;
             ciboz_showView('ciboz-view-archive');
@@ -1243,8 +1357,9 @@
                     const c = ciboz_db.clienti[item.clienteIdx] || {cognome:'?',nome:''};
                     const totAcc = item.totaleAcconti || 0;
                     const saldo = item.saldo !== undefined ? item.saldo : ((parseFloat(item.importo)||0) - totAcc);
+                    const stato = item.stato || 'Nuovo';
                     info = `<strong>${item.servizio} - ${c.cognome} ${c.nome}</strong><br>
-                            <small>${new Date(item.dataCreazione).toLocaleDateString()} | € ${item.importo} | Acconti: € ${totAcc.toFixed(2)} | Saldo: € ${saldo.toFixed(2)}</small>`;
+                            <small>${new Date(item.dataCreazione).toLocaleDateString()} | € ${item.importo} | Stato: ${stato} | Acconti: € ${totAcc.toFixed(2)} | Saldo: € ${saldo.toFixed(2)}</small>`;
                 }
                 html += `<div class="archive-item">
                     <div>${info}</div>
@@ -1342,7 +1457,7 @@
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
                     
-                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Ciboz72 attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Cibox72 attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         ciboz_db = nuoviDati;
                         ciboz_saveDB();
                         ciboz_populateSelect();
@@ -1539,7 +1654,7 @@
             if(filtered.length===0) { area.innerHTML='<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
             
             let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px;">
-                <h3 style="text-align:center;margin-bottom:15px;"> 📋 ${scuola} - Anno ${anno}</h3>
+                <h3 style="text-align:center;margin-bottom:15px;">📋 ${scuola} - Anno ${anno}</h3>
                 <div style="display:flex;justify-content:space-around;margin-bottom:15px;background:#e8eaf6;padding:10px;border-radius:8px;">
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.length}</strong><br><small>Partecipanti</small></div>
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c=>c.tipo==='Fratelli').length}</strong><br><small>Fratelli</small></div>
@@ -1678,7 +1793,7 @@
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
                     
-                    if(confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
@@ -1728,8 +1843,8 @@
                 card.innerHTML = `
                     <h3>${gallery_escapeHtml(client.name)}</h3>
                     <div style="margin:10px 0;font-size:14px;">
-                        <p><strong> Username:</strong> ${gallery_escapeHtml(client.username)}</p>
-                        <p><strong> Password:</strong> ${gallery_escapeHtml(client.password)}</p>
+                        <p><strong>👤 Username:</strong> ${gallery_escapeHtml(client.username)}</p>
+                        <p><strong>🔒 Password:</strong> ${gallery_escapeHtml(client.password)}</p>
                         <div style="background:#e8f4fd;border-left:4px solid #3498db;padding:12px;border-radius:4px;margin-top:15px;font-size:13px;">
                             <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
                             <div style="display:flex;gap:8px;margin-top:8px;">
@@ -1742,7 +1857,7 @@
                     <div class="button-group">
                         <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
-                        <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">️ Elimina</button>
+                        <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
                 `;
                 list.appendChild(card);
@@ -1819,7 +1934,7 @@
                     <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
                     <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length>60?c.megaLink.substring(0,60)+'...':c.megaLink}</a></div>
                     <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
-                    ${c.notes?`<div><strong> Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g,'<br>')}</div>`:''}
+                    ${c.notes?`<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g,'<br>')}</div>`:''}
                     <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
                 </div>
             `;
@@ -1895,7 +2010,7 @@
             document.getElementById('ricevute-form-view').style.display = 'block';
             ricevute_isModifica = false;
             ricevute_editId = null;
-            document.getElementById('ricevute_form_title').textContent = ' Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
             document.getElementById('ricevute_cliente').value = '';
             document.getElementById('ricevute_telefono').value = '';
             document.getElementById('ricevute_facebook').value = '';
