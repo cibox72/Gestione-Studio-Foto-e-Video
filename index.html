@@ -238,7 +238,7 @@
 
     <div id="login-screen">
         <div class="login-box">
-            <h1> G&L Studio</h1>
+            <h1>📸 G&L Studio</h1>
             <p style="margin-bottom: 20px; color: #666;">Gestionale Unificato</p>
             <input type="text" id="global-username" placeholder="Username (gelStudio)">
             <input type="password" id="global-password" placeholder="Password (12763Mlg)">
@@ -259,7 +259,7 @@
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
             <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
-            <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;"> Esci</button>
+            <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
         </nav>
 
         <main class="content-area">
@@ -285,7 +285,7 @@
                         <small>Accessi Clienti Gallery</small>
                     </div>
                     <div class="dash-card card-ricevute" onclick="switchApp('ricevute', document.querySelectorAll('.nav-btn')[4])">
-                        <h3>🧾 Ricevute</h3>
+                        <h3> Ricevute</h3>
                         <div class="count" id="dash-count-ricevute">0</div>
                         <small>Ricevute Emesse</small>
                     </div>
@@ -293,7 +293,7 @@
 
                 <div class="global-actions">
                     <button class="btn-global btn-backup" onclick="createGlobalBackup()">💾 Backup Globale</button>
-                    <button class="btn-global btn-restore" onclick="document.getElementById('global-restore-input').click()"> Ripristina Globale</button>
+                    <button class="btn-global btn-restore" onclick="document.getElementById('global-restore-input').click()">🔄 Ripristina Globale</button>
                     <input type="file" id="global-restore-input" accept=".json" style="display: none;" onchange="restoreGlobalBackup(event)">
                 </div>
             </div>
@@ -303,8 +303,8 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                     <h2>📷 Gestione Eventi</h2>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn-global btn-backup" onclick="eventi_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
-                        <button class="btn-global btn-restore" onclick="document.getElementById('eventi_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
+                        <button class="btn-global btn-backup" onclick="eventi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('eventi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
                         <input type="file" id="eventi_restore_input" accept=".json" style="display:none;" onchange="eventi_ripristinaFile(event)">
                     </div>
                 </div>
@@ -330,7 +330,7 @@
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')">📊 Stato Lavori</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('contratti')">📑 Archivio Contr.</button>
-                    <button class="nav-btn" onclick="eventi_renderArchive('clienti')">👥 Archivio Clienti</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('clienti')"> Archivio Clienti</button>
                 </div>
 
                 <div id="eventi-view-dashboard" class="sheet-container active" style="padding:20px; background:#f8f9fa; border-radius:8px;">
@@ -352,13 +352,13 @@
                             <h4 style="color:#666; border-bottom:2px solid #ccc; padding-bottom:5px; margin-bottom:15px;">Cliente B (Facoltativo)</h4>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="eventi_cognomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="eventi_nomeB" class="form-control"></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">🗺️</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')">💬</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaCoppia()">💾 Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -446,6 +446,11 @@
                                 <option>Nessuno</option><option>Con drone</option>
                             </select>
                         </div>
+                        <div><label>Pennino USB</label>
+                            <select id="eventi_prev_pennino" class="form-control">
+                                <!-- Generato via JS -->
+                            </select>
+                        </div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
                         <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
@@ -473,7 +478,7 @@
                         <div class="full-width acconti-section">
                             <div class="acconti-header">
                                 <h4>💰 Acconti Versati</h4>
-                                <button type="button" class="btn-add-acconto" onclick="eventi_addAcconto()">➕ Aggiungi Acconto</button>
+                                <button type="button" class="btn-add-acconto" onclick="eventi_addAcconto()"> Aggiungi Acconto</button>
                             </div>
                             <div id="eventi_acconti_list"></div>
                             <div class="acconti-summary">
@@ -493,7 +498,7 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaPrev()">✅ Crea Preventivo & PDF</button>
-                    <button class="btn-convert" onclick="eventi_convertiContratto()">📑 Converti in Contratto</button>
+                    <button class="btn-convert" onclick="eventi_convertiContratto()"> Converti in Contratto</button>
                 </div>
 
                 <!-- SEZIONE STATO LAVORI -->
@@ -594,7 +599,7 @@
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">️ Anteprima</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
                     </div>
                     <div id="saggi_preview_area" style="margin-top:20px;"></div>
                     <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
@@ -643,7 +648,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -678,10 +683,10 @@
                 </div>
 
                 <div id="ricevute-list-view">
-                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;"> Nuova Ricevuta</button>
+                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;">➕ Nuova Ricevuta</button>
                     <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                         <h3>Archivio Ricevute</h3>
-                        <input type="text" id="ricevute_search" placeholder=" Cerca per nome cliente..." style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin:20px 0;" oninput="ricevute_filtra()">
+                        <input type="text" id="ricevute_search" placeholder="🔍 Cerca per nome cliente..." style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin:20px 0;" oninput="ricevute_filtra()">
                         <div id="ricevute_list" class="archive-list"></div>
                     </div>
                 </div>
@@ -711,7 +716,7 @@
                     <div class="actions">
                         <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
                         <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
-                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">️ PDF Doppia Copia</button>
                     </div>
                 </div>
             </div>
@@ -867,6 +872,16 @@
                 eventi_db = JSON.parse(localStorage.getItem('gl_studio_db')) || { clienti: [], preventivi: [], contratti: [] };
             } catch(e) { eventi_db = { clienti: [], preventivi: [], contratti: [] }; }
             eventi_populateSelect();
+            eventi_populatePennino();
+        }
+
+        // Popola menu Pennino USB da 1 a 50
+        function eventi_populatePennino() {
+            const sel = document.getElementById('eventi_prev_pennino');
+            sel.innerHTML = '<option value="0">Nessuno</option>';
+            for (let i = 1; i <= 50; i++) {
+                sel.add(new Option(i, i));
+            }
         }
 
         function eventi_saveDB() {
@@ -1040,6 +1055,7 @@
                 telaQta: document.getElementById('eventi_prev_tela_qta').value,
                 video: document.getElementById('eventi_prev_video').value,
                 drone: document.getElementById('eventi_prev_drone').value,
+                pennino: document.getElementById('eventi_prev_pennino').value,
                 chiesa: document.getElementById('eventi_prev_chiesa').value,
                 location: document.getElementById('eventi_prev_location').value,
                 anteprima: document.getElementById('eventi_prev_anteprima').value,
@@ -1098,6 +1114,7 @@
             document.getElementById('eventi_prev_tela_qta').value = 1;
             document.getElementById('eventi_prev_video').selectedIndex = 0;
             document.getElementById('eventi_prev_drone').selectedIndex = 0;
+            document.getElementById('eventi_prev_pennino').value = "0";
             document.getElementById('eventi_prev_chiesa').value = "";
             document.getElementById('eventi_prev_location').value = "";
             document.getElementById('eventi_prev_anteprima').selectedIndex = 0;
@@ -1178,6 +1195,10 @@
             }
             
             addRow(y, "Video:", p.video, "Drone:", p.drone); y += 6;
+            
+            if(p.pennino && p.pennino !== "0") {
+                addRow(y, "Pennino USB:", p.pennino); y += 6;
+            }
 
             if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 6; }
             if (p.location) { addRow(y, "Location:", p.location); y += 6; }
@@ -1298,7 +1319,7 @@
             }
 
             const stati = {
-                'Nuovo': { class: 'stato-nuovo', label: ' Nuovo', count: 0 },
+                'Nuovo': { class: 'stato-nuovo', label: '🆕 Nuovo', count: 0 },
                 'In Lavorazione': { class: 'stato-lavorazione', label: '🔨 In Lavorazione', count: 0 },
                 'Completato': { class: 'stato-completato', label: '✅ Completato', count: 0 },
                 'Consegnato': { class: 'stato-consegnato', label: '📦 Consegnato', count: 0 }
@@ -1321,7 +1342,7 @@
                         <p class="cliente-nome">${cliente.cognome} ${cliente.nome}</p>
                         <p>📅 ${dataStr}</p>
                         <p>💰 € ${parseFloat(lavoro.importo).toFixed(2)}</p>
-                        <p> ${lavoro.servizio}</p>
+                        <p>📝 ${lavoro.servizio}</p>
                         <p class="data-creazione">ID: ${lavoro.id}</p>
                     </div>
                 `;
@@ -1389,9 +1410,9 @@
                 html += `<div class="archive-item">
                     <div>${info}</div>
                     <div style="display:flex;gap:8px;">
-                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
+                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')"></button>
                         <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
-                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
                     </div>
                 </div>`;
             });
@@ -1430,6 +1451,7 @@
                 document.getElementById('eventi_prev_tela_qta').value = item.telaQta || 1;
                 document.getElementById('eventi_prev_video').value = item.video;
                 document.getElementById('eventi_prev_drone').value = item.drone;
+                document.getElementById('eventi_prev_pennino').value = item.pennino || "0";
                 document.getElementById('eventi_prev_chiesa').value = item.chiesa || '';
                 document.getElementById('eventi_prev_location').value = item.location || '';
                 document.getElementById('eventi_prev_anteprima').value = item.anteprima;
@@ -1610,7 +1632,7 @@
             let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
             filtered.forEach(c => {
                 html += `<tr><td>${c.id}</td><td><strong>${c.cognome}</strong></td><td>${c.nome}</td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td>
-                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">✏️</button> 
+                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">️</button> 
                 <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="saggi_elimina(${c.id})">🗑️</button></td></tr>`;
             });
             html += '</tbody></table>';
@@ -1870,8 +1892,8 @@
                 card.innerHTML = `
                     <h3>${gallery_escapeHtml(client.name)}</h3>
                     <div style="margin:10px 0;font-size:14px;">
-                        <p><strong>👤 Username:</strong> ${gallery_escapeHtml(client.username)}</p>
-                        <p><strong>🔒 Password:</strong> ${gallery_escapeHtml(client.password)}</p>
+                        <p><strong> Username:</strong> ${gallery_escapeHtml(client.username)}</p>
+                        <p><strong> Password:</strong> ${gallery_escapeHtml(client.password)}</p>
                         <div style="background:#e8f4fd;border-left:4px solid #3498db;padding:12px;border-radius:4px;margin-top:15px;font-size:13px;">
                             <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
                             <div style="display:flex;gap:8px;margin-top:8px;">
@@ -1880,9 +1902,9 @@
                             </div>
                         </div>
                     </div>
-                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;"> Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
+                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2037,7 +2059,7 @@
             document.getElementById('ricevute-form-view').style.display = 'block';
             ricevute_isModifica = false;
             ricevute_editId = null;
-            document.getElementById('ricevute_form_title').textContent = ' Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
             document.getElementById('ricevute_cliente').value = '';
             document.getElementById('ricevute_telefono').value = '';
             document.getElementById('ricevute_facebook').value = '';
