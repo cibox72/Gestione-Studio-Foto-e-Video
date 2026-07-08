@@ -60,7 +60,7 @@
         .nav-btn.active { background: var(--accent-purple); color: white; }
         .nav-btn:hover:not(.active) { background: #e0e2e5; }
 
-        .content-area { flex: 1; padding: 30px; max-width: 1400px; margin: 0 auto; width: 100%; }
+        .content-area { flex: 1; padding: 30px; max-width: 100%; margin: 0 auto; width: 100%; overflow-x: auto; }
         
         .app-section { display: none; animation: fadeIn 0.3s ease; }
         .app-section.active { display: block; }
@@ -109,36 +109,56 @@
         #app-eventi .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         #app-eventi .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
 
-        .stato-lavori-container { background: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 20px; }
-        .stato-lavori-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        .stato-lavori-header h3 { color: var(--primary-dark); }
-        .stato-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; }
-        .stato-card {
-            background: white; border-radius: 8px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            border-left: 4px solid var(--accent-blue);
+        /* STATO LAVORI - TABELLA FLUSSO */
+        .stato-lavori-container { 
+            background: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 20px; 
+            overflow-x: auto;
         }
-        .stato-card.stato-nuovo { border-left-color: #3498db; }
-        .stato-card.stato-lavorazione { border-left-color: #f39c12; }
-        .stato-card.stato-completato { border-left-color: #27ae60; }
-        .stato-card.stato-consegnato { border-left-color: #9b59b6; }
-        
-        .stato-badge {
-            display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold;
-            color: white; margin-bottom: 10px;
+        .stato-lavori-header { 
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            background: var(--primary-dark); color: white; padding: 15px 20px; border-radius: 8px;
         }
-        .stato-nuovo .stato-badge { background: #3498db; }
-        .stato-lavorazione .stato-badge { background: #f39c12; }
-        .stato-completato .stato-badge { background: #27ae60; }
-        .stato-consegnato .stato-badge { background: #9b59b6; }
+        .stato-lavori-header h3 { color: white; }
         
-        .stato-card h4 { margin-bottom: 10px; color: var(--primary-dark); }
-        .stato-card p { font-size: 13px; color: #666; margin: 5px 0; }
-        .stato-card .cliente-nome { font-weight: bold; color: var(--primary-dark); }
-        .stato-card .data-creazione { font-size: 12px; color: #999; }
+        .flusso-table {
+            width: 100%; border-collapse: collapse; background: white; font-size: 12px;
+            min-width: 1400px;
+        }
+        .flusso-table thead {
+            background: var(--primary-dark); color: white;
+        }
+        .flusso-table th {
+            padding: 10px 8px; text-align: center; font-weight: 600; font-size: 11px;
+            border: 1px solid #34495e;
+        }
+        .flusso-table td {
+            padding: 6px 8px; border: 1px solid #e0e0e0; text-align: center;
+        }
+        .flusso-table tbody tr:nth-child(even) { background: #f8f9fa; }
+        .flusso-table tbody tr:hover { background: #e8f4fd; }
         
-        .stato-select {
-            width: 100%; padding: 6px; margin-top: 8px; border: 1px solid #ddd; border-radius: 6px;
-            font-size: 12px; font-weight: 600; cursor: pointer;
+        .flusso-table .data-evento {
+            color: var(--accent-red); font-weight: bold;
+        }
+        .flusso-table .nome-clienti {
+            font-weight: 600; text-align: left; white-space: nowrap;
+        }
+        .flusso-table .tipo-servizio {
+            white-space: nowrap;
+        }
+        
+        .flusso-date-input {
+            width: 100%; padding: 4px; border: 1px solid #ddd; border-radius: 4px;
+            font-size: 11px; cursor: pointer;
+        }
+        .flusso-date-input.filled {
+            background: #d4edda; border-color: var(--accent-green); color: #155724;
+        }
+        .flusso-date-input:not(.filled) {
+            background: #fff3cd; border-color: #ffc107;
+        }
+        .flusso-date-input.cancellato {
+            background: #f8d7da; border-color: var(--accent-red); color: #721c24;
         }
 
         .acconti-section {
@@ -231,7 +251,6 @@
             .nav-btn { width: 100%; text-align: center; }
             .acconto-row { grid-template-columns: 1fr; }
             .acconti-summary { grid-template-columns: 1fr; }
-            .stato-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -250,12 +269,12 @@
 
     <div id="main-app">
         <header class="unified-header">
-            <h1> G&L Studio</h1>
+            <h1>📸 G&L Studio</h1>
             <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
         </header>
 
         <nav class="unified-nav">
-            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
             <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
@@ -330,7 +349,7 @@
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-preventivo')">📄 Nuovo Preventivo</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')">📊 Stato Lavori</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
-                    <button class="nav-btn" onclick="eventi_renderArchive('contratti')">📑 Archivio Contr.</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('contratti')"> Archivio Contr.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('clienti')">👥 Archivio Clienti</button>
                 </div>
 
@@ -345,7 +364,7 @@
                             <h4 style="color:#2c3e50; border-bottom:2px solid #3498db; padding-bottom:5px; margin-bottom:15px;">Cliente A (Principale)</h4>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome *</label><input type="text" id="eventi_cognomeA" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome *</label><input type="text" id="eventi_nomeA" class="form-control"></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">🗺️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">️</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')">💬</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailA" class="form-control"></div>
                         </div>
@@ -359,7 +378,7 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaCoppia()">💾 Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -450,7 +469,7 @@
                         <div><label>Pennino USB</label>
                             <select id="eventi_prev_pennino" class="form-control"></select>
                         </div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">️ Maps</button></div></div>
                         <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
                             <select id="eventi_prev_anteprima" class="form-control">
@@ -497,17 +516,17 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaPrev()">✅ Crea Preventivo & PDF</button>
-                    <button class="btn-convert" onclick="eventi_convertiContratto()"> Converti in Contratto</button>
+                    <button class="btn-convert" onclick="eventi_convertiContratto()">📑 Converti in Contratto</button>
                 </div>
 
-                <!-- SEZIONE STATO LAVORI -->
+                <!-- SEZIONE STATO LAVORI - TABELLA FLUSSO -->
                 <div id="eventi-view-stato-lavori" class="sheet-container">
                     <div class="stato-lavori-container">
                         <div class="stato-lavori-header">
-                            <h3>📊 Stato Avanzamento Lavori</h3>
+                            <h3>📋 STATO LAVORI - Flusso Contratti</h3>
                             <button class="btn-global btn-backup" onclick="eventi_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;">🔄 Aggiorna</button>
                         </div>
-                        <div id="stato-lavori-content" class="stato-grid"></div>
+                        <div id="stato-lavori-content"></div>
                     </div>
                 </div>
 
@@ -531,17 +550,17 @@
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)"> Nuovo Cliente</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)">💰 Contabilità</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)"> Contabilità</button>
                 </div>
 
                 <div id="saggi-dashboard" class="section active">
                     <div class="dashboard-cards">
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
-                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p></p><small>Lista partecipanti PDF</small></div>
                         <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
                     </div>
                 </div>
@@ -613,14 +632,14 @@
                     </div>
                     <div id="saggi_cont_content" style="margin-top:20px;"></div>
                     <div id="saggi_cont_total" style="margin-top:20px;"></div>
-                    <button class="btn btn-print" id="saggi_cont_btn_pdf" onclick="saggi_pdfContabilita()" style="margin-top:20px; width:100%; display:none;">️ PDF Contabilità</button>
+                    <button class="btn btn-print" id="saggi_cont_btn_pdf" onclick="saggi_pdfContabilita()" style="margin-top:20px; width:100%; display:none;">🖨️ PDF Contabilità</button>
                 </div>
             </div>
 
             <!-- GALLERY -->
             <div id="app-gallery" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2> Gallery Manager</h2>
+                    <h2>🔐 Gallery Manager</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="gallery_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="gallery_openRestore()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -647,7 +666,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -673,7 +692,7 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>🧾 Gestione Ricevute</h2>
+                    <h2> Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -715,7 +734,7 @@
                     <div class="actions">
                         <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
                         <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
-                        <button class="btn btn-danger" onclick="ricevute_pdf()">️ PDF Doppia Copia</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
                     </div>
                 </div>
             </div>
@@ -750,7 +769,18 @@
 
         const TIPI_ACCONTO = ['Caparra', 'Prima Anteprima', 'Prima Evento', 'Selezione Foto', 'Saldo Laboratorio'];
         const METODI_PAGAMENTO = ['Contanti', 'Bonifico', 'Carta', 'Assegno', 'Altro'];
-        const STATI_LAVORO = ['Nuovo', 'In Lavorazione', 'Completato', 'Consegnato'];
+
+        // Campi flusso contratti
+        const CAMPI_FLUSSO = [
+            { key: 'dataConvertito', label: 'CONVERTITO' },
+            { key: 'dataGraficaPronta', label: 'GRAFICA PRONTA' },
+            { key: 'dataInvioLaboratorio', label: 'INVIO LABORATORIO' },
+            { key: 'dataRicevutoLaboratorio', label: 'RICEVUTO DAL LABORATORIO' },
+            { key: 'dataConsegnatoVideo', label: 'CONSEGNATO VIDEO AL CLIENTE' },
+            { key: 'dataConsegnatoAlbum', label: 'CONSEGNATO ALBUM' },
+            { key: 'dataConsegnaFiles', label: 'CONSEGNA CLIENTI FILES' },
+            { key: 'dataCancellazione', label: 'CANCELLAZIONE SERVIZIO' }
+        ];
 
         function checkGlobalLogin() {
             const u = document.getElementById('global-username').value.trim();
@@ -1139,25 +1169,37 @@
             if(!data.importo) return alert("Inserisci l'importo!");
             if(data.clienteIdx === "") return alert("Seleziona un cliente!");
 
+            // Inizializza campi flusso
+            const flussoInit = {};
+            CAMPI_FLUSSO.forEach(c => { flussoInit[c.key] = ''; });
+
             const existing = eventi_db.contratti.findIndex(c => c.id === data.id);
             if(existing !== -1) {
-                eventi_db.contratti[existing] = {...data, stato: eventi_db.contratti[existing].stato, dataConversione: eventi_db.contratti[existing].dataConversione};
+                eventi_db.contratti[existing] = {...data, stato: "In Lavorazione", dataConversione: eventi_db.contratti[existing].dataConversione || new Date().toISOString(), ...flussoInit};
                 alert("✅ Contratto aggiornato!");
             } else {
-                eventi_db.contratti.push({...data, stato: "In Lavorazione", dataConversione: new Date().toISOString()});
+                eventi_db.contratti.push({...data, stato: "In Lavorazione", dataConversione: new Date().toISOString(), ...flussoInit});
                 alert("✅ Convertito in contratto!");
             }
             eventi_saveDB();
         }
 
-        // ===== CAMBIO STATO LAVORI =====
-        function eventi_cambiaStato(tipo, id, nuovoStato) {
-            const lista = tipo === 'preventivi' ? eventi_db.preventivi : eventi_db.contratti;
-            const idx = lista.findIndex(item => item.id === id);
+        // ===== AGGIORNA DATA FLUSSO =====
+        function eventi_updateFlussoData(id, campo, valore) {
+            const idx = eventi_db.contratti.findIndex(c => c.id === id);
             if(idx !== -1) {
-                lista[idx].stato = nuovoStato;
+                eventi_db.contratti[idx][campo] = valore;
                 eventi_saveDB();
-                eventi_renderStatoLavori();
+                // Aggiorna stile input
+                const input = document.getElementById(`flusso-${id}-${campo}`);
+                if(input) {
+                    if(valore) {
+                        input.classList.add('filled');
+                        if(campo === 'dataCancellazione') input.classList.add('cancellato');
+                    } else {
+                        input.classList.remove('filled', 'cancellato');
+                    }
+                }
             }
         }
 
@@ -1176,7 +1218,6 @@
 
             const titoloDoc = tipo === 'contratto' ? "G&L STUDIO - CONTRATTO DI SERVIZIO" : "G&L STUDIO - PREVENTIVO DI SERVIZIO";
 
-            // Header compatto
             doc.setFontSize(13);
             doc.setFont(undefined, 'bold');
             doc.text(titoloDoc, 105, 10, { align: "center" });
@@ -1185,21 +1226,17 @@
             doc.text("Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it", 105, 14, { align: "center" });
             doc.line(15, 16, 195, 16);
 
-            // Dati evento
             doc.setFontSize(8);
             doc.setFont(undefined, 'bold');
             doc.text(`Evento: ${p.tipo}`, 15, 20);
             doc.text(`Data: ${new Date(p.dataCreazione).toLocaleDateString()}`, 105, 20);
 
-            // CLIENTE A (sinistra)
-            doc.setFontSize(8);
             let yA = 24;
             doc.text(`Cliente A: ${clienteA.cognome} ${clienteA.nome}`, 15, yA); yA += 4;
             if (clienteA.indirizzo) { doc.text(`Ind.: ${clienteA.indirizzo}`, 15, yA); yA += 4; }
             if (clienteA.cellulare) { doc.text(`Tel: ${clienteA.cellulare}`, 15, yA); yA += 4; }
             if (clienteA.email) { doc.text(`Email: ${clienteA.email}`, 15, yA); }
 
-            // CLIENTE B (destra) - se presente
             if (clienteB) {
                 let yB = 24;
                 doc.text(`Cliente B: ${clienteB.cognome} ${clienteB.nome}`, 105, yB); yB += 4;
@@ -1344,66 +1381,63 @@
             doc.save(nomeFile);
         }
 
+        // ===== STATO LAVORI - TABELLA FLUSSO =====
         function eventi_renderStatoLavori() {
             const container = document.getElementById('stato-lavori-content');
-            const tuttiLavori = [...eventi_db.preventivi, ...eventi_db.contratti];
+            
+            // Ordina contratti per data evento (se presente) o data creazione
+            const contratti = [...eventi_db.contratti].sort((a, b) => {
+                const dataA = a.dataEvento || a.dataCreazione;
+                const dataB = b.dataEvento || b.dataCreazione;
+                return new Date(dataA) - new Date(dataB);
+            });
 
-            if (tuttiLavori.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#888; padding:40px; grid-column:1/-1;">Nessun lavoro presente</p>';
+            if (contratti.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:40px;">Nessun contratto presente. Converti un preventivo in contratto per vederlo qui.</p>';
                 return;
             }
 
-            let html = '';
+            let html = '<table class="flusso-table"><thead><tr>';
+            html += '<th>DATA EVENTO</th>';
+            html += '<th>TIPO SERVIZIO</th>';
+            html += '<th>NOME CLIENTI</th>';
+            CAMPI_FLUSSO.forEach(c => {
+                html += `<th>${c.label}</th>`;
+            });
+            html += '</tr></thead><tbody>';
 
-            tuttiLavori.forEach(lavoro => {
-                const stato = lavoro.stato || 'Nuovo';
-                const statoClass = 'stato-' + stato.toLowerCase().replace(' ', '-');
-                const cliente = eventi_db.clienti[lavoro.clienteIdx] || { cognome: '?', nome: '' };
-                const dataStr = new Date(lavoro.dataCreazione).toLocaleDateString('it-IT');
-                const tipo = eventi_db.contratti.find(c => c.id === lavoro.id) ? 'Contratto' : 'Preventivo';
-                const listaTipo = eventi_db.contratti.find(c => c.id === lavoro.id) ? 'contratti' : 'preventivi';
+            contratti.forEach(c => {
+                const clienteA = eventi_db.clienti[c.clienteIdx] || { cognome: '?', nome: '' };
+                let nomeClienti = `${clienteA.cognome} ${clienteA.nome}`;
+                
+                if (c.clienteBIdx && c.clienteBIdx !== "") {
+                    const bIdx = parseInt(c.clienteBIdx);
+                    if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) {
+                        const clienteB = eventi_db.clienti[bIdx];
+                        nomeClienti += ` & ${clienteB.cognome}`;
+                    }
+                }
 
-                let statoOptions = STATI_LAVORO.map(s => 
-                    `<option value="${s}" ${s === stato ? 'selected' : ''}>${s}</option>`
-                ).join('');
+                const dataEvento = c.dataEvento || c.dataCreazione;
+                const dataEventoFmt = dataEvento ? new Date(dataEvento).toLocaleDateString('it-IT') : '-';
 
-                html += `
-                    <div class="stato-card ${statoClass}">
-                        <span class="stato-badge">${stato}</span>
-                        <h4>${tipo} #${lavoro.id.toString().slice(-4)}</h4>
-                        <p class="cliente-nome">${cliente.cognome} ${cliente.nome}</p>
-                        <p>📅 ${dataStr}</p>
-                        <p>💰 € ${parseFloat(lavoro.importo).toFixed(2)}</p>
-                        <p>📝 ${lavoro.servizio}</p>
-                        <p class="data-creazione">ID: ${lavoro.id}</p>
-                        <label style="font-size:11px; font-weight:600; color:#555; margin-top:8px; display:block;">Cambia Stato:</label>
-                        <select class="stato-select" onchange="eventi_cambiaStato('${listaTipo}', ${lavoro.id}, this.value)">
-                            ${statoOptions}
-                        </select>
-                    </div>
-                `;
+                html += '<tr>';
+                html += `<td class="data-evento">${dataEventoFmt}</td>`;
+                html += `<td class="tipo-servizio">${c.tipo || '-'}</td>`;
+                html += `<td class="nome-clienti">${nomeClienti}</td>`;
+
+                CAMPI_FLUSSO.forEach(campo => {
+                    const val = c[campo.key] || '';
+                    const isFilled = val ? 'filled' : '';
+                    const isCancellato = campo.key === 'dataCancellazione' && val ? 'cancellato' : '';
+                    html += `<td><input type="date" id="flusso-${c.id}-${campo.key}" class="flusso-date-input ${isFilled} ${isCancellato}" value="${val}" onchange="eventi_updateFlussoData(${c.id}, '${campo.key}', this.value)"></td>`;
+                });
+
+                html += '</tr>';
             });
 
-            // Riepilogo
-            const counts = { 'Nuovo': 0, 'In Lavorazione': 0, 'Completato': 0, 'Consegnato': 0 };
-            tuttiLavori.forEach(l => {
-                const s = l.stato || 'Nuovo';
-                if (counts[s] !== undefined) counts[s]++;
-            });
-
-            let riepilogo = '<div style="grid-column:1/-1; background:#f8f9fa; padding:15px; border-radius:8px; margin-bottom:20px;">';
-            riepilogo += '<h4 style="margin-bottom:10px;">📊 Riepilogo Stato Lavori</h4>';
-            riepilogo += '<div style="display:flex; gap:20px; flex-wrap:wrap;">';
-            Object.entries(counts).forEach(([stato, count]) => {
-                const color = stato === 'Nuovo' ? '#3498db' : stato === 'In Lavorazione' ? '#f39c12' : stato === 'Completato' ? '#27ae60' : '#9b59b6';
-                riepilogo += `<div style="background:white; padding:10px 20px; border-radius:8px; border-left:4px solid ${color};">
-                    <strong>${stato}</strong><br>
-                    <span style="font-size:24px; font-weight:bold;">${count}</span>
-                </div>`;
-            });
-            riepilogo += '</div></div>';
-
-            container.innerHTML = riepilogo + html;
+            html += '</tbody></table>';
+            container.innerHTML = html;
         }
 
         function eventi_refreshStatoLavori() {
@@ -1455,7 +1489,7 @@
                     <div style="display:flex;gap:8px;">
                         <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
                         <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
-                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
                     </div>
                 </div>`;
             });
@@ -1550,14 +1584,14 @@
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
 
-                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         eventi_db = nuoviDati;
                         eventi_saveDB();
                         eventi_populateSelect();
                         alert(`✅ Ripristinato! ${eventi_db.clienti.length} clienti caricati.`);
                     }
                 } catch (err) {
-                    alert('❌ Errore: ' + err.message);
+                    alert(' Errore: ' + err.message);
                 }
             };
             reader.readAsText(file);
@@ -1661,7 +1695,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -1927,7 +1961,7 @@
 
             const list = document.getElementById('gallery_clients_list');
             list.innerHTML = '';
-            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;"></div><p>Nessun cliente trovato</p></div>'; return; }
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
 
             filtered.forEach(client => {
                 const card = document.createElement('div');
@@ -1936,7 +1970,7 @@
                 card.innerHTML = `
                     <h3>${gallery_escapeHtml(client.name)}</h3>
                     <div style="margin:10px 0;font-size:14px;">
-                        <p><strong> Username:</strong> ${gallery_escapeHtml(client.username)}</p>
+                        <p><strong>👤 Username:</strong> ${gallery_escapeHtml(client.username)}</p>
                         <p><strong>🔒 Password:</strong> ${gallery_escapeHtml(client.password)}</p>
                         <div style="background:#e8f4fd;border-left:4px solid #3498db;padding:12px;border-radius:4px;margin-top:15px;font-size:13px;">
                             <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
@@ -1948,7 +1982,7 @@
                     </div>
                     ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2028,7 +2062,7 @@
                     <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
                     <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
                     ${c.notes ? `<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g, '<br>')}</div>` : ''}
-                    <div><strong> Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
+                    <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
                 </div>
             `;
             document.getElementById('gallery_detail_modal').style.display = 'flex';
@@ -2069,7 +2103,7 @@
                         setTimeout(gallery_closeRestore, 2000);
                     }
                 } catch (err) {
-                    document.getElementById('gallery_restore_msg').textContent = '❌ ' + err.message;
+                    document.getElementById('gallery_restore_msg').textContent = ' ' + err.message;
                     document.getElementById('gallery_restore_msg').style.color = '#e74c3c';
                 }
             };
@@ -2156,7 +2190,7 @@
                     <div><strong>${r.cliente}</strong><br><small>${dataFmt} • ${r.servizio}</small></div>
                     <div><strong>€ ${impFmt}</strong>
                         <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">✏️</button>
-                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">🗑️</button>
+                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">️</button>
                     </div>
                 `;
                 lista.appendChild(item);
