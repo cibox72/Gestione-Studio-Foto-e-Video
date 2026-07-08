@@ -122,7 +122,7 @@
         
         .flusso-table {
             width: 100%; border-collapse: collapse; background: white; font-size: 12px;
-            min-width: 1400px;
+            min-width: 1500px;
         }
         .flusso-table thead {
             background: var(--primary-dark); color: white;
@@ -274,7 +274,7 @@
         </header>
 
         <nav class="unified-nav">
-            <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
             <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
@@ -523,8 +523,8 @@
                 <div id="eventi-view-stato-lavori" class="sheet-container">
                     <div class="stato-lavori-container">
                         <div class="stato-lavori-header">
-                            <h3>📋 STATO LAVORI - Flusso Contratti</h3>
-                            <button class="btn-global btn-backup" onclick="eventi_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;">🔄 Aggiorna</button>
+                            <h3> STATO LAVORI - Flusso Contratti</h3>
+                            <button class="btn-global btn-backup" onclick="eventi_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;"> Aggiorna</button>
                         </div>
                         <div id="stato-lavori-content"></div>
                     </div>
@@ -542,7 +542,7 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                     <h2>💃 Gestione Saggi Danza</h2>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
                         <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
                         <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
                     </div>
@@ -550,17 +550,17 @@
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
                     <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)"> Nuovo Cliente</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)"> Contabilità</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)">💰 Contabilità</button>
                 </div>
 
                 <div id="saggi-dashboard" class="section active">
                     <div class="dashboard-cards">
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
-                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p></p><small>Lista partecipanti PDF</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
                         <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
                     </div>
                 </div>
@@ -603,7 +603,7 @@
                 </div>
 
                 <div id="saggi-archivio" class="section">
-                    <h3>📁 Archivio Partecipanti</h3>
+                    <h3> Archivio Partecipanti</h3>
                     <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
@@ -666,7 +666,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -692,7 +692,7 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2> Gestione Ricevute</h2>
+                    <h2>🧾 Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -770,9 +770,10 @@
         const TIPI_ACCONTO = ['Caparra', 'Prima Anteprima', 'Prima Evento', 'Selezione Foto', 'Saldo Laboratorio'];
         const METODI_PAGAMENTO = ['Contanti', 'Bonifico', 'Carta', 'Assegno', 'Altro'];
 
-        // Campi flusso contratti
+        // Campi flusso contratti - AGGIORNATO CON SELEZIONE FOTO
         const CAMPI_FLUSSO = [
             { key: 'dataConvertito', label: 'CONVERTITO' },
+            { key: 'dataSelezioneFoto', label: 'SELEZIONE FOTO' },
             { key: 'dataGraficaPronta', label: 'GRAFICA PRONTA' },
             { key: 'dataInvioLaboratorio', label: 'INVIO LABORATORIO' },
             { key: 'dataRicevutoLaboratorio', label: 'RICEVUTO DAL LABORATORIO' },
@@ -1053,7 +1054,7 @@
                         </div>
                         <div>
                             <label>&nbsp;</label>
-                            <button type="button" class="btn-remove-acconto" onclick="eventi_removeAcconto(${i})">🗑️</button>
+                            <button type="button" class="btn-remove-acconto" onclick="eventi_removeAcconto(${i})">️</button>
                         </div>
                     </div>
                 `;
@@ -1591,7 +1592,7 @@
                         alert(`✅ Ripristinato! ${eventi_db.clienti.length} clienti caricati.`);
                     }
                 } catch (err) {
-                    alert(' Errore: ' + err.message);
+                    alert('❌ Errore: ' + err.message);
                 }
             };
             reader.readAsText(file);
@@ -1677,7 +1678,7 @@
             document.getElementById('saggi_telefono').value = '';
             document.getElementById('saggi_qta').value = '1';
             document.getElementById('saggi_importo').value = '5';
-            document.getElementById('saggi_form_title').textContent = '➕ Nuovo Partecipante';
+            document.getElementById('saggi_form_title').textContent = ' Nuovo Partecipante';
         }
 
         function saggi_caricaModifica() {
@@ -1695,7 +1696,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -1961,7 +1962,7 @@
 
             const list = document.getElementById('gallery_clients_list');
             list.innerHTML = '';
-            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;"></div><p>Nessun cliente trovato</p></div>'; return; }
 
             filtered.forEach(client => {
                 const card = document.createElement('div');
@@ -1982,7 +1983,7 @@
                     </div>
                     ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2057,7 +2058,7 @@
             document.getElementById('gallery_detail_content').innerHTML = `
                 <div style="display:grid;gap:15px;">
                     <div><strong>👤 Nome:</strong><br>${gallery_escapeHtml(c.name)}</div>
-                    <div><strong>🔑 Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
+                    <div><strong> Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
                     <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
                     <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
                     <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
@@ -2103,7 +2104,7 @@
                         setTimeout(gallery_closeRestore, 2000);
                     }
                 } catch (err) {
-                    document.getElementById('gallery_restore_msg').textContent = ' ' + err.message;
+                    document.getElementById('gallery_restore_msg').textContent = '❌ ' + err.message;
                     document.getElementById('gallery_restore_msg').style.color = '#e74c3c';
                 }
             };
@@ -2137,7 +2138,7 @@
             document.getElementById('ricevute-form-view').style.display = 'block';
             ricevute_isModifica = false;
             ricevute_editId = null;
-            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_form_title').textContent = ' Nuova Ricevuta Fotografica';
             document.getElementById('ricevute_cliente').value = '';
             document.getElementById('ricevute_telefono').value = '';
             document.getElementById('ricevute_facebook').value = '';
@@ -2202,7 +2203,7 @@
             if (!r) return;
             ricevute_isModifica = true;
             ricevute_editId = id;
-            document.getElementById('ricevute_form_title').textContent = '✏️ Modifica Ricevuta';
+            document.getElementById('ricevute_form_title').textContent = '️ Modifica Ricevuta';
             document.getElementById('ricevute_cliente').value = r.cliente;
             document.getElementById('ricevute_telefono').value = r.telefono;
             document.getElementById('ricevute_facebook').value = r.facebook || '';
