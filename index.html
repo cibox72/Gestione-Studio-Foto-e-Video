@@ -1,1 +1,2393 @@
-nserisci tra Misura e Orientamento, Interni Q.Tà con menù a tendina : Nessuno e da 1 a 50
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>G&L Studio - Gestionale Unificato</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    <style>
+        :root {
+            --primary-dark: #2c3e50;
+            --accent-blue: #3498db;
+            --accent-purple: #764ba2;
+            --accent-green: #27ae60;
+            --accent-red: #e74c3c;
+            --accent-orange: #f39c12;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+            --shadow: 0 4px 15px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--bg-light); color: #333; min-height: 100vh; }
+        
+        #login-screen {
+            display: flex; justify-content: center; align-items: center; height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .login-box {
+            background: var(--white); padding: 40px; border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); width: 100%; max-width: 400px; text-align: center;
+        }
+        .login-box h1 { color: var(--primary-dark); margin-bottom: 10px; }
+        .login-box input {
+            width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd;
+            border-radius: 8px; font-size: 16px;
+        }
+        .btn-login {
+            width: 100%; padding: 12px; background: var(--accent-purple); color: white;
+            border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px;
+        }
+        .btn-login:hover { opacity: 0.9; }
+
+        #main-app { display: none; min-height: 100vh; flex-direction: column; }
+        
+        .unified-header {
+            background: var(--primary-dark); color: white; padding: 20px; text-align: center;
+        }
+        .unified-header h1 { font-size: 24px; margin-bottom: 5px; }
+        .unified-header p { font-size: 13px; opacity: 0.9; }
+
+        .unified-nav {
+            background: white; padding: 15px; display: flex; justify-content: center; gap: 10px;
+            box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; flex-wrap: wrap;
+        }
+        .nav-btn {
+            padding: 10px 20px; border: none; border-radius: 8px; background: #f0f2f5;
+            color: var(--primary-dark); cursor: pointer; font-weight: 600; transition: all 0.3s;
+        }
+        .nav-btn.active { background: var(--accent-purple); color: white; }
+        .nav-btn:hover:not(.active) { background: #e0e2e5; }
+
+        .content-area { flex: 1; padding: 30px; max-width: 100%; margin: 0 auto; width: 100%; overflow-x: auto; }
+        
+        .app-section { display: none; animation: fadeIn 0.3s ease; }
+        .app-section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;
+        }
+        .dash-card {
+            background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow);
+            text-align: center; cursor: pointer; transition: transform 0.3s; border-top: 5px solid transparent;
+        }
+        .dash-card:hover { transform: translateY(-5px); }
+        .dash-card h3 { margin-bottom: 10px; color: var(--primary-dark); }
+        .dash-card .count { font-size: 36px; font-weight: bold; margin: 15px 0; }
+        .dash-card small { color: #777; font-size: 13px; }
+
+        .card-eventi { border-color: #2c3e50; }
+        .card-saggi { border-color: #667eea; }
+        .card-gallery { border-color: #764ba2; }
+        .card-ricevute { border-color: #3498db; }
+
+        .global-actions {
+            display: flex; gap: 15px; justify-content: center; margin-top: 30px;
+        }
+        .btn-global {
+            padding: 12px 25px; border: none; border-radius: 8px; color: white; 
+            font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px;
+        }
+        .btn-backup { background: var(--accent-green); }
+        .btn-restore { background: var(--accent-blue); }
+
+        #app-eventi { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        #app-eventi .sheet-container { display: none; }
+        #app-eventi .sheet-container.active { display: block; }
+        #app-eventi .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        #app-eventi .full-width { grid-column: 1 / -1; }
+        #app-eventi .form-control { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+        #app-eventi .btn-save, #app-eventi .btn-convert { width: 100%; padding: 15px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        #app-eventi .btn-save { background: linear-gradient(135deg, #667eea, #764ba2); }
+        #app-eventi .btn-convert { background: linear-gradient(135deg, #11998e, #38ef7d); }
+        #app-eventi .input-group { display: flex; gap: 10px; }
+        #app-eventi .btn-action-icon { padding: 0 15px; border: none; border-radius: 8px; color: white; cursor: pointer; }
+        #app-eventi .importo-highlight { background: #fff3cd; border: 2px solid #ffc107; padding: 15px; border-radius: 8px; margin-top: 15px; }
+        #app-eventi .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        #app-eventi .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
+
+        /* DATA EVENTO - Campo ben visibile */
+        .data-evento-container {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 15px 0;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .data-evento-container label {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .data-evento-container input[type="date"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: 3px solid white;
+            border-radius: 8px;
+            background: white;
+            color: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+        .data-evento-container input[type="date"]:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        /* STATO LAVORI - TABELLA FLUSSO */
+        .stato-lavori-container { 
+            background: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 20px; 
+            overflow-x: auto;
+        }
+        .stato-lavori-header { 
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+            background: var(--primary-dark); color: white; padding: 15px 20px; border-radius: 8px;
+        }
+        .stato-lavori-header h3 { color: white; }
+        
+        .flusso-table {
+            width: 100%; border-collapse: collapse; background: white; font-size: 12px;
+            min-width: 1500px;
+        }
+        .flusso-table thead {
+            background: var(--primary-dark); color: white;
+        }
+        .flusso-table th {
+            padding: 10px 8px; text-align: center; font-weight: 600; font-size: 11px;
+            border: 1px solid #34495e;
+        }
+        .flusso-table td {
+            padding: 6px 8px; border: 1px solid #e0e0e0; text-align: center;
+        }
+        .flusso-table tbody tr:nth-child(even) { background: #f8f9fa; }
+        .flusso-table tbody tr:hover { background: #e8f4fd; }
+        
+        .flusso-table .data-evento {
+            color: var(--accent-red); font-weight: bold;
+        }
+        .flusso-table .nome-clienti {
+            font-weight: 600; text-align: left; white-space: nowrap;
+        }
+        .flusso-table .tipo-servizio {
+            white-space: nowrap;
+        }
+        
+        .flusso-date-input {
+            width: 100%; padding: 4px; border: 1px solid #ddd; border-radius: 4px;
+            font-size: 11px; cursor: pointer;
+        }
+        .flusso-date-input.filled {
+            background: #d4edda; border-color: var(--accent-green); color: #155724;
+        }
+        .flusso-date-input:not(.filled) {
+            background: #fff3cd; border-color: #ffc107;
+        }
+        .flusso-date-input.cancellato {
+            background: #f8d7da; border-color: var(--accent-red); color: #721c24;
+        }
+
+        .acconti-section {
+            background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-top: 15px;
+        }
+        .acconti-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+        }
+        .acconti-header h4 { color: var(--primary-dark); }
+        .btn-add-acconto {
+            background: var(--accent-green); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;
+        }
+        .acconto-row {
+            display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px; align-items: end;
+            background: white; padding: 8px; border-radius: 6px;
+        }
+        .acconto-row label { font-size: 11px; font-weight: 600; color: #555; display: block; margin-bottom: 3px; }
+        .acconto-row input, .acconto-row select { width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+        .btn-remove-acconto {
+            background: var(--accent-red); color: white; border: none; border-radius: 6px; cursor: pointer; padding: 6px 10px; font-size: 14px;
+        }
+        .acconti-summary {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;
+        }
+        .summary-box { background: white; padding: 10px; border-radius: 6px; text-align: center; }
+        .summary-box label { font-size: 11px; color: #666; display: block; }
+        .summary-box .value { font-size: 18px; font-weight: bold; color: var(--primary-dark); }
+        .summary-box.saldo .value { color: var(--accent-green); }
+
+        #app-saggi { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        #app-saggi .section { display: none; }
+        #app-saggi .section.active { display: block; }
+        #app-saggi .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
+        #app-saggi .form-group label { font-weight: 600; margin-bottom: 5px; display: block; }
+        #app-saggi .form-group input, #app-saggi .form-group select { width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px; }
+        #app-saggi .btn { padding: 10px 20px; border: none; border-radius: 8px; color: white; cursor: pointer; font-weight: 600; }
+        #app-saggi .btn-primary { background: #28a745; }
+        #app-saggi .btn-warning { background: #ffc107; color: #000; }
+        #app-saggi .btn-info { background: #17a2b8; }
+        #app-saggi .btn-danger { background: #dc3545; }
+        #app-saggi .btn-secondary { background: #6c757d; }
+        #app-saggi .btn-print { background: #e91e63; }
+        #app-saggi table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        #app-saggi th { background: #667eea; color: white; padding: 12px; text-align: left; }
+        #app-saggi td { padding: 10px; border-bottom: 1px solid #eee; }
+        #app-saggi .dashboard-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        #app-saggi .card { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; }
+        #app-saggi .card.print-card { background: linear-gradient(135deg, #e91e63, #9c27b0); }
+        #app-saggi .card.accounting-card { background: linear-gradient(135deg, #00bcd4, #0097a7); }
+
+        #app-gallery { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        #app-gallery .form-row { display: flex; gap: 20px; margin-bottom: 15px; }
+        #app-gallery .form-group { flex: 1; }
+        #app-gallery .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+        #app-gallery .form-group input, #app-gallery .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        #app-gallery .btn-primary { background: #667eea; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600; }
+        #app-gallery .clients-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+        #app-gallery .client-card { background: #f8f9fa; padding: 20px; border-radius: 8px; border-left: 4px solid #3498db; }
+        #app-gallery .button-group { display: flex; gap: 10px; margin-top: 15px; }
+        #app-gallery .button-group button { padding: 8px 15px; border: none; border-radius: 6px; color: white; cursor: pointer; font-size: 13px; }
+        #app-gallery .open-btn { background: #3498db; }
+        #app-gallery .edit-btn { background: #f39c12; }
+        #app-gallery .delete-btn { background: #e74c3c; }
+        #app-gallery .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
+        #app-gallery .modal-content { background: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
+        #app-gallery .close-btn { float: right; font-size: 24px; cursor: pointer; color: #999; }
+
+        #app-ricevute { background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); }
+        #app-ricevute .archive-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        #app-ricevute .archive-item { padding: 15px; border: 1px solid #eee; border-radius: 8px; background: #fafafa; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        #app-ricevute .btn { padding: 10px 20px; border: none; border-radius: 6px; color: white; cursor: pointer; font-weight: 600; }
+        #app-ricevute .btn-primary { background: #3498db; }
+        #app-ricevute .btn-success { background: #27ae60; }
+        #app-ricevute .btn-danger { background: #e74c3c; }
+        
+        #ricevute-form-view { display: none; background: white; padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 800px; margin: 0 auto; }
+        #ricevute-form-view .form-group { margin-bottom: 20px; }
+        #ricevute-form-view label { display: block; margin-bottom: 8px; font-weight: 600; }
+        #ricevute-form-view input, #ricevute-form-view select, #ricevute-form-view textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+        #ricevute-form-view .actions { display: flex; gap: 15px; margin-top: 20px; }
+
+        .unified-footer {
+            background: var(--primary-dark); color: white; text-align: center; padding: 20px; margin-top: auto; font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row { flex-direction: column; gap: 0; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .unified-nav { flex-direction: column; }
+            .nav-btn { width: 100%; text-align: center; }
+            .acconto-row { grid-template-columns: 1fr; }
+            .acconti-summary { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h1>📸 G&L Studio</h1>
+            <p style="margin-bottom: 20px; color: #666;">Gestionale Unificato</p>
+            <input type="text" id="global-username" placeholder="Username (gelStudio)">
+            <input type="password" id="global-password" placeholder="Password (12763Mlg)">
+            <button class="btn-login" onclick="checkGlobalLogin()">Accedi</button>
+            <p id="login-error" style="color: red; margin-top: 10px; display: none;">Credenziali errate!</p>
+        </div>
+    </div>
+
+    <div id="main-app">
+        <header class="unified-header">
+            <h1>📸 G&L Studio</h1>
+            <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
+        </header>
+
+        <nav class="unified-nav">
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
+            <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
+            <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
+            <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
+            <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
+            <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
+        </nav>
+
+        <main class="content-area">
+            
+            <div id="app-dashboard" class="app-section active">
+                <h2 style="text-align: center; margin-bottom: 10px; color: var(--primary-dark);">Dashboard Principale</h2>
+                <p style="text-align: center; color: #777; margin-bottom: 30px;">Seleziona un modulo per iniziare</p>
+                
+                <div class="dashboard-grid">
+                    <div class="dash-card card-eventi" onclick="switchApp('eventi', document.querySelectorAll('.nav-btn')[1])">
+                        <h3>📷 Gestione Eventi</h3>
+                        <div class="count" id="dash-count-eventi">0</div>
+                        <small>Clienti Foto & Preventivi</small>
+                    </div>
+                    <div class="dash-card card-saggi" onclick="switchApp('saggi', document.querySelectorAll('.nav-btn')[2])">
+                        <h3>💃 Gestione Saggi</h3>
+                        <div class="count" id="dash-count-saggi">0</div>
+                        <small>Partecipanti Danza</small>
+                    </div>
+                    <div class="dash-card card-gallery" onclick="switchApp('gallery', document.querySelectorAll('.nav-btn')[3])">
+                        <h3>🔐 Gallery Manager</h3>
+                        <div class="count" id="dash-count-gallery">0</div>
+                        <small>Accessi Clienti Gallery</small>
+                    </div>
+                    <div class="dash-card card-ricevute" onclick="switchApp('ricevute', document.querySelectorAll('.nav-btn')[4])">
+                        <h3>🧾 Ricevute</h3>
+                        <div class="count" id="dash-count-ricevute">0</div>
+                        <small>Ricevute Emesse</small>
+                    </div>
+                </div>
+
+                <div class="global-actions">
+                    <button class="btn-global btn-backup" onclick="createGlobalBackup()">💾 Backup Globale</button>
+                    <button class="btn-global btn-restore" onclick="document.getElementById('global-restore-input').click()">🔄 Ripristina Globale</button>
+                    <input type="file" id="global-restore-input" accept=".json" style="display: none;" onchange="restoreGlobalBackup(event)">
+                </div>
+            </div>
+
+            <!-- GESTIONE EVENTI -->
+            <div id="app-eventi" class="app-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <h2>📷 Gestione Eventi</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="eventi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('eventi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <input type="file" id="eventi_restore_input" accept=".json" style="display:none;" onchange="eventi_ripristinaFile(event)">
+                    </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:15px; margin-bottom:20px;">
+                    <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center;">
+                        <div style="font-size:24px; font-weight:bold; color:#2c3e50;" id="eventi-stat-clienti">0</div>
+                        <small>Clienti</small>
+                    </div>
+                    <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center;">
+                        <div style="font-size:24px; font-weight:bold; color:#2c3e50;" id="eventi-stat-preventivi">0</div>
+                        <small>Preventivi</small>
+                    </div>
+                    <div style="background:#f8f9fa; padding:15px; border-radius:8px; text-align:center;">
+                        <div style="font-size:24px; font-weight:bold; color:#2c3e50;" id="eventi-stat-contratti">0</div>
+                        <small>Contratti</small>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')">👥 Anagrafica</button>
+                    <button class="nav-btn" onclick="eventi_showView('eventi-view-preventivo')">📄 Nuovo Preventivo</button>
+                    <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')">📊 Stato Lavori</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('contratti')">📑 Archivio Contr.</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('clienti')">👥 Archivio Clienti</button>
+                </div>
+
+                <div id="eventi-view-dashboard" class="sheet-container active" style="padding:20px; background:#f8f9fa; border-radius:8px;">
+                    <p style="text-align:center; color:#777;">Seleziona una voce dal menu sopra.</p>
+                </div>
+
+                <div id="eventi-view-anagrafica" class="sheet-container">
+                    <h3>Nuova Anagrafica Coppia</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin:20px 0; background:#f8f9fa; padding:20px; border-radius:8px;">
+                        <div>
+                            <h4 style="color:#2c3e50; border-bottom:2px solid #3498db; padding-bottom:5px; margin-bottom:15px;">Cliente A (Principale)</h4>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cognome *</label><input type="text" id="eventi_cognomeA" class="form-control"></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Nome *</label><input type="text" id="eventi_nomeA" class="form-control"></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">🗺️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')"></button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailA" class="form-control"></div>
+                        </div>
+                        <div>
+                            <h4 style="color:#666; border-bottom:2px solid #ccc; padding-bottom:5px; margin-bottom:15px;">Cliente B (Facoltativo)</h4>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="eventi_cognomeB" class="form-control"></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="eventi_nomeB" class="form-control"></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">🗺️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')"></button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
+                        </div>
+                    </div>
+                    <button class="btn-save" onclick="eventi_salvaCoppia()"> Salva Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
+                </div>
+
+                <div id="eventi-view-preventivo" class="sheet-container">
+                    <h3 id="eventi_prev_title">Nuovo Preventivo</h3>
+                    <div class="form-grid" style="margin-top:20px;">
+                        <div class="full-width"><label>Seleziona Cliente A</label><select id="eventi_prev_cliente" class="form-control"></select></div>
+                        <div class="full-width"><label>Seleziona Cliente B (opzionale)</label><select id="eventi_prev_clienteB" class="form-control"><option value="">-- Nessun Cliente B --</option></select></div>
+                        
+                        <!-- DATA EVENTO - Ben visibile -->
+                        <div class="full-width data-evento-container">
+                            <label> DATA EVENTO</label>
+                            <input type="date" id="eventi_prev_dataEvento">
+                        </div>
+                        
+                        <div><label>Tipo Evento</label>
+                            <select id="eventi_prev_tipo" class="form-control">
+                                <option>Nessuno</option>
+                                <option>MATRIMONIO</option><option>BATTESIMO</option><option>COMPLEANNO</option><option>EVENTO</option><option>ANNIVERSARIO</option>
+                            </select>
+                        </div>
+                        <div><label>Servizio</label>
+                            <select id="eventi_prev_servizio" class="form-control">
+                                <option>Nessuno</option>
+                                <option>SOLO FILES</option><option>ALBUM CLASSICO</option><option>ALBUM DIGITALE</option><option>STAMPE</option>
+                            </select>
+                        </div>
+                        <div><label>Misura</label>
+                            <select id="eventi_prev_misura" class="form-control">
+                                <option>Nessuno</option>
+                                <option>15x20 cm</option><option>20x30 cm</option><option>24x30 cm</option><option>30x30 cm</option><option>40x40 cm</option>
+                                <option>Digitale 20x30 cm</option><option>Digitale 25x35 cm</option><option>Digitale 30x40 cm</option><option>Digitale 35x45 cm</option>
+                            </select>
+                        </div>
+                        <div><label>Interni Q.Tà</label>
+                            <select id="eventi_prev_interni" class="form-control">
+                                <option>Nessuno</option>
+                            </select>
+                        </div>
+                        <div><label>Orientamento</label>
+                            <select id="eventi_prev_orientamento" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Album verticale</option><option>Album orizzontale</option>
+                            </select>
+                        </div>
+                        <div><label>Qta Foto</label><input type="number" id="eventi_prev_qta" class="form-control" value="100" min="1" max="500"></div>
+                        <div><label>Copertina</label>
+                            <select id="eventi_prev_copertina" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Nessuna</option><option>Foto Telata</option><option>Extra/Catalogo</option>
+                            </select>
+                        </div>
+                        <div><label>Effetti</label>
+                            <select id="eventi_prev_effetti" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Senza effetti</option><option>5 effetti</option><option>10 effetti</option><option>15 effetti</option><option>20 effetti</option>
+                            </select>
+                        </div>
+                        <div><label>Mini Album</label><input type="number" id="eventi_prev_mini" class="form-control" value="0" min="0" max="50"></div>
+                        
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;">
+                            <label>Ingrandimenti e Tele</label>
+                            <div style="display: grid; grid-template-columns: 2fr 0.8fr 2fr 0.8fr; gap: 15px;">
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Ingrandimenti</label>
+                                    <select id="eventi_prev_ingrandimento" class="form-control">
+                                        <option>Nessuno</option>
+                                        <option>Stampa 30x40 cm</option>
+                                        <option>Stampa 50x70 cm</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Qta Ingrand.</label>
+                                    <input type="number" id="eventi_prev_ingrandimento_qta" class="form-control" value="1" min="1" max="100">
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Tele</label>
+                                    <select id="eventi_prev_tela" class="form-control">
+                                        <option>Nessuno</option>
+                                        <option>Tela 30x40 cm</option>
+                                        <option>Tela 50x70 cm</option>
+                                        <option>Tela 30x40 cm con telaio</option>
+                                        <option>Tela 50x70 cm con telaio</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Qta Tele</label>
+                                    <input type="number" id="eventi_prev_tela_qta" class="form-control" value="1" min="1" max="100">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Video</label>
+                            <select id="eventi_prev_video" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Solo Casa</option><option>Solo Chiesa</option>
+                                <option>Solo Locale+ taglio torta iniziale</option><option>Solo Locale intera serata</option>
+                                <option>Casa+Chiesa</option><option>Chiesa+Locale taglio torta</option><option>Chiesa+ Locale intera serata</option>
+                                <option>Casa+Chiesa+Locale taglio torta</option><option>Casa+Chiesa+Locale intera serata</option>
+                                <option>Esterni</option><option>Esterni+Locale taglio torta</option><option>Esterni+Locale intera serata</option>
+                            </select>
+                        </div>
+                        <div><label>Drone</label>
+                            <select id="eventi_prev_drone" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Con drone</option>
+                            </select>
+                        </div>
+                        <div><label>Pennino USB</label>
+                            <select id="eventi_prev_pennino" class="form-control"></select>
+                        </div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
+                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
+                            <select id="eventi_prev_anteprima" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option>
+                                <option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option>
+                                <option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option>
+                            </select>
+                        </div>
+                        <div class="full-width"><label>Post-Servizio</label>
+                            <select id="eventi_prev_post" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option>
+                                <option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option>
+                                <option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option>
+                            </select>
+                        </div>
+                        <div><label>Pranzo/Cena STAFF</label>
+                            <select id="eventi_prev_pranzo" class="form-control">
+                                <option>Nessuno</option>
+                                <option>Nessuna</option><option>SI</option><option>NO</option>
+                            </select>
+                        </div>
+                        <div class="full-width"><label>Note</label><textarea id="eventi_prev_note" class="form-control" rows="3"></textarea></div>
+                        <div class="full-width importo-highlight"><label>IMPORTO TOTALE SERVIZIO (€)</label><input type="number" id="eventi_prev_importo" class="form-control" step="0.01" style="font-size:20px; font-weight:bold;" oninput="eventi_calcolaSaldo()"></div>
+                        
+                        <div class="full-width acconti-section">
+                            <div class="acconti-header">
+                                <h4>💰 Acconti Versati</h4>
+                                <button type="button" class="btn-add-acconto" onclick="eventi_addAcconto()">➕ Aggiungi Acconto</button>
+                            </div>
+                            <div id="eventi_acconti_list"></div>
+                            <div class="acconti-summary">
+                                <div class="summary-box">
+                                    <label>Totale Servizio</label>
+                                    <div class="value" id="eventi_sum_totale">€ 0,00</div>
+                                </div>
+                                <div class="summary-box">
+                                    <label>Totale Acconti</label>
+                                    <div class="value" id="eventi_sum_acconti">€ 0,00</div>
+                                </div>
+                                <div class="summary-box saldo">
+                                    <label>A Saldo</label>
+                                    <div class="value" id="eventi_sum_saldo">€ 0,00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-save" onclick="eventi_salvaPrev()">✅ Crea Preventivo & PDF</button>
+                    <button class="btn-convert" onclick="eventi_convertiContratto()">📑 Converti in Contratto</button>
+                </div>
+
+                <!-- SEZIONE STATO LAVORI - TABELLA FLUSSO -->
+                <div id="eventi-view-stato-lavori" class="sheet-container">
+                    <div class="stato-lavori-container">
+                        <div class="stato-lavori-header">
+                            <h3>📋 STATO LAVORI - Flusso Contratti</h3>
+                            <button class="btn-global btn-backup" onclick="eventi_refreshStatoLavori()" style="font-size:12px; padding:8px 15px;">🔄 Aggiorna</button>
+                        </div>
+                        <div id="stato-lavori-content"></div>
+                    </div>
+                </div>
+
+                <div id="eventi-view-archive" class="sheet-container">
+                    <h3 id="eventi_archive_title">Archivio</h3>
+                    <div class="search-bar"><input type="text" id="eventi_search" placeholder="🔍 Cerca cognome o nome..." oninput="eventi_filterArchive()"></div>
+                    <div id="eventi_archive_list"></div>
+                </div>
+            </div>
+
+            <!-- SAGGI -->
+            <div id="app-saggi" class="app-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <h2>💃 Gestione Saggi Danza</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-contabilita', this)">💰 Contabilità</button>
+                </div>
+
+                <div id="saggi-dashboard" class="section active">
+                    <div class="dashboard-cards">
+                        <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
+                        <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
+                    </div>
+                </div>
+
+                <div id="saggi-nuovo" class="section">
+                    <h3 id="saggi_form_title">➕ Nuovo Partecipante</h3>
+                    <input type="hidden" id="saggi_edit_id">
+                    <div class="form-grid" style="margin-top:20px;">
+                        <div class="form-group"><label>Scuola</label>
+                            <select id="saggi_scuola">
+                                <option value="">-- Seleziona --</option>
+                                <option>Scuola Enza Clementi</option>
+                                <option>Giada Dance</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Anno Saggio</label><select id="saggi_anno"></select></div>
+                        <div class="form-group"><label>Cognome</label><input type="text" id="saggi_cognome"></div>
+                        <div class="form-group"><label>Nome</label><input type="text" id="saggi_nome"></div>
+                        <div class="form-group"><label>Telefono</label><input type="tel" id="saggi_telefono"></div>
+                        <div class="form-group"><label>Tipo Cliente</label>
+                            <select id="saggi_tipo">
+                                <option>Singolo</option>
+                                <option>Fratelli</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Servizio</label>
+                            <select id="saggi_servizio">
+                                <option>Pacchetto 4 foto 20x25 cm</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Quantità</label><select id="saggi_qta"></select></div>
+                        <div class="form-group"><label>Importo (€)</label><select id="saggi_importo"></select></div>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
+                        <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
+                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
+                        <button class="btn btn-info" onclick="saggi_generaPDFSingolo()">📄 PDF Scheda</button>
+                        <button class="btn btn-secondary" onclick="saggi_resetForm()">🔄 Reset</button>
+                    </div>
+                </div>
+
+                <div id="saggi-archivio" class="section">
+                    <h3>📁 Archivio Partecipanti</h3>
+                    <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
+                        <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+                        <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraArchivio()">🔍 Filtra</button></div>
+                    </div>
+                    <div id="saggi_archivio_content"></div>
+                </div>
+
+                <div id="saggi-stampa" class="section">
+                    <h3>🖨️ Stampa Elenco Partecipanti</h3>
+                    <div class="form-grid" style="margin-top:20px;">
+                        <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+                        <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
+                    </div>
+                    <div id="saggi_preview_area" style="margin-top:20px;"></div>
+                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
+                </div>
+
+                <div id="saggi-contabilita" class="section">
+                    <h3>💰 Report Contabilità</h3>
+                    <div class="form-grid" style="margin-top:20px;">
+                        <div class="form-group"><label>Scuola</label><select id="saggi_cont_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+                        <div class="form-group"><label>Anno</label><select id="saggi_cont_anno"></select></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraContabilita()">📊 Visualizza</button></div>
+                    </div>
+                    <div id="saggi_cont_content" style="margin-top:20px;"></div>
+                    <div id="saggi_cont_total" style="margin-top:20px;"></div>
+                    <button class="btn btn-print" id="saggi_cont_btn_pdf" onclick="saggi_pdfContabilita()" style="margin-top:20px; width:100%; display:none;">🖨️ PDF Contabilità</button>
+                </div>
+            </div>
+
+            <!-- GALLERY -->
+            <div id="app-gallery" class="app-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <h2>🔐 Gallery Manager</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="gallery_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="gallery_openRestore()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                    </div>
+                </div>
+
+                <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow); margin-bottom:30px;">
+                    <h3 style="color:#667eea; margin-bottom:20px;">Aggiungi Nuovo Cliente Gallery</h3>
+                    <form id="gallery_client_form" onsubmit="event.preventDefault(); gallery_handleForm();">
+                        <input type="hidden" id="gallery_edit_id">
+                        <div class="form-row">
+                            <div class="form-group"><label>Nome Cliente:</label><input type="text" id="gallery_name" required></div>
+                            <div class="form-group"><label>Username Cliente:</label><input type="text" id="gallery_username" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Password Cliente:</label><input type="password" id="gallery_password" required></div>
+                            <div class="form-group"><label>Link MEGA:</label><input type="url" id="gallery_mega" required></div>
+                        </div>
+                        <div class="form-group"><label>Note (opzionale):</label><textarea id="gallery_notes" rows="2"></textarea></div>
+                        <button type="submit" class="btn-primary" id="gallery_submit_btn">Aggiungi Cliente</button>
+                    </form>
+                </div>
+
+                <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                        <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
+                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                    </div>
+                    <div id="gallery_clients_list" class="clients-grid"></div>
+                </div>
+
+                <div id="gallery_restore_modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="gallery_closeRestore()">&times;</span>
+                        <h3>Ripristina Backup Gallery</h3>
+                        <input type="file" id="gallery_restore_file" accept=".json" style="margin:20px 0; width:100%;">
+                        <div id="gallery_restore_msg" style="margin-bottom:15px;"></div>
+                        <button class="btn-primary" onclick="gallery_handleRestore()">Ripristina</button>
+                    </div>
+                </div>
+                <div id="gallery_detail_modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-btn" onclick="gallery_closeDetail()">&times;</span>
+                        <h3>Dettagli Cliente</h3>
+                        <div id="gallery_detail_content" style="margin-top:20px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RICEVUTE -->
+            <div id="app-ricevute" class="app-section">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                    <h2>🧾 Gestione Ricevute</h2>
+                    <div style="display:flex; gap:10px;">
+                        <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <input type="file" id="ricevute_restore_input" accept=".json" style="display:none;" onchange="ricevute_ripristinaFile(event)">
+                    </div>
+                </div>
+
+                <div id="ricevute-list-view">
+                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;">➕ Nuova Ricevuta</button>
+                    <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
+                        <h3>Archivio Ricevute</h3>
+                        <input type="text" id="ricevute_search" placeholder=" Cerca per nome cliente..." style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin:20px 0;" oninput="ricevute_filtra()">
+                        <div id="ricevute_list" class="archive-list"></div>
+                    </div>
+                </div>
+
+                <div id="ricevute-form-view">
+                    <h3 id="ricevute_form_title">📄 Nuova Ricevuta Fotografica</h3>
+                    <p style="color:#7f8c8d; margin-bottom:20px; font-size:14px;">Studio Fotografico G&L • Via Ciarrocco, 21 – Canicattì (AG)<br>Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
+                    
+                    <input type="hidden" id="ricevute_edit_id">
+                    <div class="form-group"><label>Nome Cliente *</label><input type="text" id="ricevute_cliente"></div>
+                    <div class="form-group"><label>Telefono *</label><input type="tel" id="ricevute_telefono"></div>
+                    <div class="form-group"><label>Profilo Facebook (opzionale)</label><input type="text" id="ricevute_facebook"></div>
+                    <div class="form-group"><label>Servizio *</label>
+                        <select id="ricevute_servizio">
+                            <option value="">Seleziona...</option>
+                            <option>Matrimonio</option><option>Battesimo</option><option>Anniversario</option>
+                            <option>Compleanno</option><option>Comunione</option><option>Cresima</option>
+                            <option>Comunione e Cresima</option><option>Carnevale</option><option>Natale</option>
+                            <option>New Born</option><option>Maternity</option><option>Smash Cake</option>
+                            <option>Bagno di Latte</option><option>Anteprima</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Data Evento *</label><input type="date" id="ricevute_data"></div>
+                    <div class="form-group"><label>Importo Ricevuto (€) *</label><input type="number" id="ricevute_importo" step="0.01"></div>
+                    <div class="form-group"><label>Note</label><textarea id="ricevute_note" rows="3"></textarea></div>
+                    
+                    <div class="actions">
+                        <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
+                        <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="unified-footer">
+            <p><strong>G&L Studio</strong> - Via Ciarrocco 21, Canicattì (AG)</p>
+            <p>Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
+        </footer>
+    </div>
+
+    <script>
+        // ==========================================
+        // INIZIALIZZAZIONE VARIABILI GLOBALI
+        // ==========================================
+        let eventi_db = { clienti: [], preventivi: [], contratti: [] };
+        let saggi_clienti = [];
+        let gallery_allClients = [];
+        let ricevute_data = [];
+        
+        let eventi_editingId = null;
+        let eventi_editingType = null;
+        let eventi_currentArchive = null;
+        let eventi_acconti = [];
+        
+        let ricevute_isModifica = false;
+        let ricevute_editId = null;
+
+        const GLOBAL_USER = 'gelStudio';
+        const GLOBAL_PASS = '12763Mlg';
+
+        const TIPI_ACCONTO = ['Caparra', 'Prima Anteprima', 'Prima Evento', 'Selezione Foto', 'Saldo Laboratorio'];
+        const METODI_PAGAMENTO = ['Contanti', 'Bonifico', 'Carta', 'Assegno', 'Altro'];
+
+        // Campi flusso contratti
+        const CAMPI_FLUSSO = [
+            { key: 'dataConvertito', label: 'CONVERTITO' },
+            { key: 'dataSelezioneFoto', label: 'SELEZIONE FOTO' },
+            { key: 'dataGraficaPronta', label: 'GRAFICA PRONTA' },
+            { key: 'dataInvioLaboratorio', label: 'INVIO LABORATORIO' },
+            { key: 'dataRicevutoLaboratorio', label: 'RICEVUTO DAL LABORATORIO' },
+            { key: 'dataConsegnatoVideo', label: 'CONSEGNATO VIDEO AL CLIENTE' },
+            { key: 'dataConsegnatoAlbum', label: 'CONSEGNATO ALBUM' },
+            { key: 'dataConsegnaFiles', label: 'CONSEGNA CLIENTI FILES' },
+            { key: 'dataCancellazione', label: 'CANCELLAZIONE SERVIZIO' }
+        ];
+
+        function checkGlobalLogin() {
+            const u = document.getElementById('global-username').value.trim();
+            const p = document.getElementById('global-password').value.trim();
+            if (u === GLOBAL_USER && p === GLOBAL_PASS) {
+                localStorage.setItem('gl_unified_session', 'true');
+                initApp();
+            } else {
+                const err = document.getElementById('login-error');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 3000);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('gl_unified_session');
+            location.reload();
+        }
+
+        function initApp() {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-app').style.display = 'flex';
+            
+            eventi_init();
+            saggi_init();
+            gallery_init();
+            ricevute_init();
+            updateDashboardCounts();
+        }
+
+        function switchApp(appId, btnElement) {
+            document.querySelectorAll('.app-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('app-' + appId).classList.add('active');
+            
+            if(btnElement) {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            if(appId === 'dashboard') updateDashboardCounts();
+            if(appId === 'eventi') { eventi_updateStats(); eventi_showView('eventi-view-dashboard'); }
+            if(appId === 'saggi') saggi_aggiornaDashboard();
+            if(appId === 'gallery') gallery_loadClients();
+            if(appId === 'ricevute') ricevute_caricaLista();
+        }
+
+        function updateDashboardCounts() {
+            const eventiDB = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
+            document.getElementById('dash-count-eventi').textContent = (eventiDB.clienti || []).length;
+            
+            const saggiData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+            document.getElementById('dash-count-saggi').textContent = saggiData.length;
+            
+            const galleryData = JSON.parse(localStorage.getItem('galleryClients') || '[]');
+            document.getElementById('dash-count-gallery').textContent = galleryData.length;
+            
+            const ricevuteData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
+            document.getElementById('dash-count-ricevute').textContent = ricevuteData.length;
+        }
+
+        function createGlobalBackup() {
+            const backup = {
+                version: 'G&L Unified v2.0',
+                date: new Date().toISOString(),
+                eventi: JSON.parse(localStorage.getItem('gl_studio_db') || '{}'),
+                saggi: JSON.parse(localStorage.getItem('saggi_clienti') || '[]'),
+                gallery: JSON.parse(localStorage.getItem('galleryClients') || '[]'),
+                ricevute: JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]')
+            };
+            
+            const blob = new Blob([JSON.stringify(backup, null, 2)], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_G&L_Studio_Completo_${new Date().toISOString().slice(0,10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            alert('✅ Backup globale scaricato!');
+        }
+
+        function restoreGlobalBackup(event) {
+            const file = event.target.files[0];
+            if(!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    const eventiData = data.eventi || data.ciboz72;
+                    if(!eventiData && !data.saggi && !data.gallery && !data.ricevute) throw new Error('Formato non valido');
+                    
+                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà TUTTI i dati attuali.\n\nSei sicuro?`)) {
+                        if(eventiData) localStorage.setItem('gl_studio_db', JSON.stringify(eventiData));
+                        if(data.saggi) localStorage.setItem('saggi_clienti', JSON.stringify(data.saggi));
+                        if(data.gallery) localStorage.setItem('galleryClients', JSON.stringify(data.gallery));
+                        if(data.ricevute) localStorage.setItem('glRicevuteFotografiche', JSON.stringify(data.ricevute));
+                        
+                        alert('✅ Ripristino globale completato!');
+                        location.reload();
+                    }
+                } catch(err) {
+                    alert('❌ Errore: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        if(localStorage.getItem('gl_unified_session') === 'true') {
+            initApp();
+        }
+
+        // ==========================================
+        // GESTIONE EVENTI
+        // ==========================================
+
+        function eventi_init() {
+            try {
+                eventi_db = JSON.parse(localStorage.getItem('gl_studio_db')) || { clienti: [], preventivi: [], contratti: [] };
+            } catch(e) { eventi_db = { clienti: [], preventivi: [], contratti: [] }; }
+            eventi_populateSelect();
+            eventi_populatePennino();
+            eventi_populateInterni();
+        }
+
+        function eventi_populatePennino() {
+            const sel = document.getElementById('eventi_prev_pennino');
+            sel.innerHTML = '<option value="0">Nessuno</option>';
+            for (let i = 1; i <= 50; i++) {
+                sel.add(new Option(i, i));
+            }
+        }
+
+        function eventi_populateInterni() {
+            const sel = document.getElementById('eventi_prev_interni');
+            sel.innerHTML = '<option>Nessuno</option>';
+            for (let i = 1; i <= 50; i++) {
+                sel.add(new Option(i, i));
+            }
+        }
+
+        function eventi_saveDB() {
+            localStorage.setItem('gl_studio_db', JSON.stringify(eventi_db));
+            eventi_updateStats();
+            updateDashboardCounts();
+        }
+
+        function eventi_updateStats() {
+            document.getElementById('eventi-stat-clienti').textContent = eventi_db.clienti.length;
+            document.getElementById('eventi-stat-preventivi').textContent = eventi_db.preventivi.length;
+            document.getElementById('eventi-stat-contratti').textContent = eventi_db.contratti.length;
+        }
+
+        function eventi_showView(viewId) {
+            document.querySelectorAll('#app-eventi .sheet-container').forEach(el => el.classList.remove('active'));
+            document.getElementById('eventi-view-' + viewId.replace('eventi-view-', '')).classList.add('active');
+            
+            if(viewId === 'eventi-view-stato-lavori') {
+                eventi_renderStatoLavori();
+            }
+        }
+
+        function eventi_populateSelect() {
+            const selA = document.getElementById('eventi_prev_cliente');
+            const selB = document.getElementById('eventi_prev_clienteB');
+            selA.innerHTML = '<option value="">-- Seleziona Cliente A --</option>';
+            selB.innerHTML = '<option value="">-- Nessun Cliente B --</option>';
+            eventi_db.clienti.forEach((c, i) => {
+                const opt = `<option value="${i}">${c.cognome} ${c.nome}</option>`;
+                selA.innerHTML += opt;
+                selB.innerHTML += opt;
+            });
+        }
+
+        function eventi_getClienteData(suffix) {
+            return {
+                cognome: document.getElementById(`eventi_cognome${suffix}`).value.trim(),
+                nome: document.getElementById(`eventi_nome${suffix}`).value.trim(),
+                indirizzo: document.getElementById(`eventi_indirizzo${suffix}`).value.trim(),
+                cellulare: document.getElementById(`eventi_cellulare${suffix}`).value.trim(),
+                email: document.getElementById(`eventi_email${suffix}`).value.trim()
+            };
+        }
+
+        function eventi_salvaCoppia() {
+            const cliA = eventi_getClienteData('A');
+            if(!cliA.cognome || !cliA.nome) return alert("Il Cliente A è obbligatorio!");
+            
+            eventi_db.clienti.push({ id: Date.now(), ...cliA });
+            
+            const cliB = eventi_getClienteData('B');
+            if(cliB.cognome && cliB.nome) eventi_db.clienti.push({ id: Date.now()+1, ...cliB });
+            
+            eventi_saveDB();
+            eventi_populateSelect();
+            alert("✅ Coppia salvata!");
+            document.getElementById('eventi_cognomeA').value = '';
+            document.getElementById('eventi_nomeA').value = '';
+            document.getElementById('eventi_indirizzoA').value = '';
+            document.getElementById('eventi_cellulareA').value = '';
+            document.getElementById('eventi_emailA').value = '';
+            document.getElementById('eventi_cognomeB').value = '';
+            document.getElementById('eventi_nomeB').value = '';
+            document.getElementById('eventi_indirizzoB').value = '';
+            document.getElementById('eventi_cellulareB').value = '';
+            document.getElementById('eventi_emailB').value = '';
+        }
+
+        function eventi_creaPrevDaCoppia() {
+            const cliA = eventi_getClienteData('A');
+            if(!cliA.cognome || !cliA.nome) return alert("Compila almeno Cognome e Nome del Cliente A!");
+            
+            const idA = Date.now();
+            eventi_db.clienti.push({ id: idA, ...cliA });
+            const cliB = eventi_getClienteData('B');
+            if(cliB.cognome && cliB.nome) eventi_db.clienti.push({ id: idA+1, ...cliB });
+            eventi_saveDB();
+            eventi_populateSelect();
+            
+            const idx = eventi_db.clienti.findIndex(c => c.id === idA);
+            document.getElementById('eventi_prev_cliente').value = idx;
+            if(cliB.cognome && cliB.nome) {
+                const idxB = eventi_db.clienti.findIndex(c => c.id === idA+1);
+                document.getElementById('eventi_prev_clienteB').value = idxB;
+            }
+            eventi_showView('eventi-view-preventivo');
+        }
+
+        function eventi_addAcconto() {
+            eventi_acconti.push({
+                tipo: 'Caparra',
+                data: new Date().toISOString().split('T')[0],
+                importo: 0,
+                metodo: 'Contanti'
+            });
+            eventi_renderAcconti();
+        }
+
+        function eventi_removeAcconto(index) {
+            eventi_acconti.splice(index, 1);
+            eventi_renderAcconti();
+        }
+
+        function eventi_updateAcconto(index, field, value) {
+            eventi_acconti[index][field] = value;
+            eventi_calcolaSaldo();
+        }
+
+        function eventi_renderAcconti() {
+            const container = document.getElementById('eventi_acconti_list');
+            if(eventi_acconti.length === 0) {
+                container.innerHTML = '<p style="color:#888; font-size:13px; text-align:center; padding:10px;">Nessun acconto inserito. Clicca "Aggiungi Acconto" per iniziare.</p>';
+                eventi_calcolaSaldo();
+                return;
+            }
+
+            let html = '';
+            eventi_acconti.forEach((acc, i) => {
+                let tipoOptions = TIPI_ACCONTO.map(t => `<option value="${t}" ${t === acc.tipo ? 'selected' : ''}>${t}</option>`).join('');
+                let metodoOptions = METODI_PAGAMENTO.map(m => `<option value="${m}" ${m === acc.metodo ? 'selected' : ''}>${m}</option>`).join('');
+                
+                html += `
+                    <div class="acconto-row">
+                        <div>
+                            <label>Tipo</label>
+                            <select onchange="eventi_updateAcconto(${i}, 'tipo', this.value)">${tipoOptions}</select>
+                        </div>
+                        <div>
+                            <label>Data</label>
+                            <input type="date" value="${acc.data}" onchange="eventi_updateAcconto(${i}, 'data', this.value)">
+                        </div>
+                        <div>
+                            <label>Importo (€)</label>
+                            <input type="number" step="0.01" value="${acc.importo}" onchange="eventi_updateAcconto(${i}, 'importo', parseFloat(this.value) || 0)">
+                        </div>
+                        <div>
+                            <label>Pagamento</label>
+                            <select onchange="eventi_updateAcconto(${i}, 'metodo', this.value)">${metodoOptions}</select>
+                        </div>
+                        <div>
+                            <label>&nbsp;</label>
+                            <button type="button" class="btn-remove-acconto" onclick="eventi_removeAcconto(${i})">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            eventi_calcolaSaldo();
+        }
+
+        function eventi_calcolaSaldo() {
+            const totale = parseFloat(document.getElementById('eventi_prev_importo').value) || 0;
+            const totaleAcconti = eventi_acconti.reduce((sum, acc) => sum + (parseFloat(acc.importo) || 0), 0);
+            const saldo = totale - totaleAcconti;
+
+            document.getElementById('eventi_sum_totale').textContent = '€ ' + totale.toFixed(2).replace('.', ',');
+            document.getElementById('eventi_sum_acconti').textContent = '€ ' + totaleAcconti.toFixed(2).replace('.', ',');
+            document.getElementById('eventi_sum_saldo').textContent = '€ ' + saldo.toFixed(2).replace('.', ',');
+        }
+
+        function eventi_getPrevData() {
+            const totaleAcconti = eventi_acconti.reduce((sum, acc) => sum + (parseFloat(acc.importo) || 0), 0);
+            return {
+                id: eventi_editingId || Date.now(),
+                dataCreazione: eventi_editingId ? (eventi_db.preventivi.find(p=>p.id===eventi_editingId)?.dataCreazione || new Date().toISOString()) : new Date().toISOString(),
+                dataEvento: document.getElementById('eventi_prev_dataEvento').value,
+                clienteIdx: document.getElementById('eventi_prev_cliente').value,
+                clienteBIdx: document.getElementById('eventi_prev_clienteB').value,
+                tipo: document.getElementById('eventi_prev_tipo').value,
+                servizio: document.getElementById('eventi_prev_servizio').value,
+                misura: document.getElementById('eventi_prev_misura').value,
+                interni: document.getElementById('eventi_prev_interni').value,
+                orientamento: document.getElementById('eventi_prev_orientamento').value,
+                qta: document.getElementById('eventi_prev_qta').value,
+                copertina: document.getElementById('eventi_prev_copertina').value,
+                effetti: document.getElementById('eventi_prev_effetti').value,
+                miniAlbum: document.getElementById('eventi_prev_mini').value,
+                ingrandimento: document.getElementById('eventi_prev_ingrandimento').value,
+                ingrandimentoQta: document.getElementById('eventi_prev_ingrandimento_qta').value,
+                tela: document.getElementById('eventi_prev_tela').value,
+                telaQta: document.getElementById('eventi_prev_tela_qta').value,
+                video: document.getElementById('eventi_prev_video').value,
+                drone: document.getElementById('eventi_prev_drone').value,
+                pennino: document.getElementById('eventi_prev_pennino').value,
+                chiesa: document.getElementById('eventi_prev_chiesa').value,
+                location: document.getElementById('eventi_prev_location').value,
+                anteprima: document.getElementById('eventi_prev_anteprima').value,
+                postServizio: document.getElementById('eventi_prev_post').value,
+                pranzo: document.getElementById('eventi_prev_pranzo').value,
+                note: document.getElementById('eventi_prev_note').value,
+                importo: document.getElementById('eventi_prev_importo').value,
+                acconti: JSON.parse(JSON.stringify(eventi_acconti)),
+                totaleAcconti: totaleAcconti,
+                saldo: (parseFloat(document.getElementById('eventi_prev_importo').value) || 0) - totaleAcconti,
+                stato: 'Nuovo'
+            };
+        }
+
+        function eventi_salvaPrev() {
+            const data = eventi_getPrevData();
+            if(!data.importo) return alert("Inserisci l'importo!");
+            if(data.clienteIdx === "") return alert("Seleziona un cliente!");
+
+            if(eventi_editingId && eventi_editingType === 'preventivi') {
+                const idx = eventi_db.preventivi.findIndex(p => p.id === eventi_editingId);
+                if(idx !== -1) {
+                    eventi_db.preventivi[idx] = data;
+                    const cIdx = eventi_db.contratti.findIndex(c => c.id === eventi_editingId);
+                    if(cIdx !== -1) {
+                        eventi_db.contratti[cIdx] = {...data, stato: eventi_db.contratti[cIdx].stato, dataConversione: eventi_db.contratti[cIdx].dataConversione};
+                        alert("✅ Preventivo e contratto aggiornati!");
+                    } else alert("✅ Preventivo aggiornato!");
+                }
+            } else {
+                eventi_db.preventivi.push(data);
+                eventi_generaPDF(data, 'preventivo');
+                alert("✅ Nuovo preventivo creato!");
+            }
+            eventi_saveDB();
+            eventi_resetPrevForm();
+        }
+
+        function eventi_resetPrevForm() {
+            eventi_editingId = null;
+            eventi_editingType = null;
+            eventi_acconti = [];
+            document.getElementById('eventi_prev_title').textContent = "Nuovo Preventivo";
+            document.getElementById('eventi_prev_cliente').value = "";
+            document.getElementById('eventi_prev_clienteB').value = "";
+            document.getElementById('eventi_prev_dataEvento').value = "";
+            document.getElementById('eventi_prev_tipo').selectedIndex = 0;
+            document.getElementById('eventi_prev_servizio').selectedIndex = 0;
+            document.getElementById('eventi_prev_misura').selectedIndex = 0;
+            document.getElementById('eventi_prev_interni').selectedIndex = 0;
+            document.getElementById('eventi_prev_orientamento').selectedIndex = 0;
+            document.getElementById('eventi_prev_qta').value = 100;
+            document.getElementById('eventi_prev_copertina').selectedIndex = 0;
+            document.getElementById('eventi_prev_effetti').selectedIndex = 0;
+            document.getElementById('eventi_prev_mini').value = 0;
+            document.getElementById('eventi_prev_ingrandimento').selectedIndex = 0;
+            document.getElementById('eventi_prev_ingrandimento_qta').value = 1;
+            document.getElementById('eventi_prev_tela').selectedIndex = 0;
+            document.getElementById('eventi_prev_tela_qta').value = 1;
+            document.getElementById('eventi_prev_video').selectedIndex = 0;
+            document.getElementById('eventi_prev_drone').selectedIndex = 0;
+            document.getElementById('eventi_prev_pennino').value = "0";
+            document.getElementById('eventi_prev_chiesa').value = "";
+            document.getElementById('eventi_prev_location').value = "";
+            document.getElementById('eventi_prev_anteprima').selectedIndex = 0;
+            document.getElementById('eventi_prev_post').selectedIndex = 0;
+            document.getElementById('eventi_prev_pranzo').selectedIndex = 0;
+            document.getElementById('eventi_prev_note').value = "";
+            document.getElementById('eventi_prev_importo').value = "";
+            eventi_renderAcconti();
+        }
+
+        function eventi_convertiContratto() {
+            const data = eventi_getPrevData();
+            if(!data.importo) return alert("Inserisci l'importo!");
+            if(data.clienteIdx === "") return alert("Seleziona un cliente!");
+
+            // Inizializza campi flusso
+            const flussoInit = {};
+            CAMPI_FLUSSO.forEach(c => { flussoInit[c.key] = ''; });
+
+            const existing = eventi_db.contratti.findIndex(c => c.id === data.id);
+            if(existing !== -1) {
+                eventi_db.contratti[existing] = {...data, stato: "In Lavorazione", dataConversione: eventi_db.contratti[existing].dataConversione || new Date().toISOString(), ...flussoInit};
+                alert("✅ Contratto aggiornato!");
+            } else {
+                eventi_db.contratti.push({...data, stato: "In Lavorazione", dataConversione: new Date().toISOString(), ...flussoInit});
+                alert("✅ Convertito in contratto!");
+            }
+            eventi_saveDB();
+        }
+
+        // ===== AGGIORNA DATA FLUSSO =====
+        function eventi_updateFlussoData(id, campo, valore) {
+            const idx = eventi_db.contratti.findIndex(c => c.id === id);
+            if(idx !== -1) {
+                eventi_db.contratti[idx][campo] = valore;
+                eventi_saveDB();
+                const input = document.getElementById(`flusso-${id}-${campo}`);
+                if(input) {
+                    if(valore) {
+                        input.classList.add('filled');
+                        if(campo === 'dataCancellazione') input.classList.add('cancellato');
+                    } else {
+                        input.classList.remove('filled', 'cancellato');
+                    }
+                }
+            }
+        }
+
+        function eventi_generaPDF(p, tipo = 'preventivo') {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            const clienteA = eventi_db.clienti[p.clienteIdx] || { cognome: "N/A", nome: "N/A", indirizzo: "", cellulare: "", email: "" };
+            
+            let clienteB = null;
+            if (p.clienteBIdx !== "" && p.clienteBIdx !== undefined && p.clienteBIdx !== null) {
+                const bIdx = parseInt(p.clienteBIdx);
+                if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) {
+                    clienteB = eventi_db.clienti[bIdx];
+                }
+            }
+
+            const titoloDoc = tipo === 'contratto' ? "G&L STUDIO - CONTRATTO DI SERVIZIO" : "G&L STUDIO - PREVENTIVO DI SERVIZIO";
+
+            doc.setFontSize(13);
+            doc.setFont(undefined, 'bold');
+            doc.text(titoloDoc, 105, 10, { align: "center" });
+            doc.setFontSize(7);
+            doc.setFont(undefined, 'normal');
+            doc.text("Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it", 105, 14, { align: "center" });
+            doc.line(15, 16, 195, 16);
+
+            // Data evento ben visibile
+            const dataEventoPdf = p.dataEvento ? new Date(p.dataEvento).toLocaleDateString('it-IT') : new Date(p.dataCreazione).toLocaleDateString('it-IT');
+            
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'bold');
+            doc.text(`Evento: ${p.tipo}`, 15, 20);
+            doc.text(`Data Evento: ${dataEventoPdf}`, 105, 20);
+
+            let yA = 24;
+            doc.text(`Cliente A: ${clienteA.cognome} ${clienteA.nome}`, 15, yA); yA += 4;
+            if (clienteA.indirizzo) { doc.text(`Ind.: ${clienteA.indirizzo}`, 15, yA); yA += 4; }
+            if (clienteA.cellulare) { doc.text(`Tel: ${clienteA.cellulare}`, 15, yA); yA += 4; }
+            if (clienteA.email) { doc.text(`Email: ${clienteA.email}`, 15, yA); }
+
+            if (clienteB) {
+                let yB = 24;
+                doc.text(`Cliente B: ${clienteB.cognome} ${clienteB.nome}`, 105, yB); yB += 4;
+                if (clienteB.indirizzo) { doc.text(`Ind.: ${clienteB.indirizzo}`, 105, yB); yB += 4; }
+                if (clienteB.cellulare) { doc.text(`Tel: ${clienteB.cellulare}`, 105, yB); yB += 4; }
+                if (clienteB.email) { doc.text(`Email: ${clienteB.email}`, 105, yB); }
+            }
+
+            let y = 38;
+            doc.setFontSize(7);
+            const red = [180, 50, 50], black = [0, 0, 0];
+
+            function addRow(yPos, label, value, label2, value2) {
+                doc.setTextColor(...red);
+                doc.setFont(undefined, 'bold');
+                doc.text(label, 15, yPos);
+                doc.setTextColor(...black);
+                doc.setFont(undefined, 'normal');
+                doc.text(String(value), 42, yPos);
+
+                if (label2) {
+                    doc.setTextColor(...red);
+                    doc.setFont(undefined, 'bold');
+                    doc.text(label2, 105, yPos);
+                    doc.setTextColor(...black);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(String(value2), 135, yPos);
+                }
+            }
+
+            addRow(y, "Servizio:", p.servizio, "Misura:", p.misura); y += 4;
+            if(p.interni && p.interni !== 'Nessuno') {
+                addRow(y, "Interni:", p.interni); y += 4;
+            }
+            addRow(y, "Orient.:", p.orientamento, "Qta Foto:", p.qta); y += 4;
+            addRow(y, "Copert.:", p.copertina, "Effetti:", p.effetti); y += 4;
+            addRow(y, "Mini Alb.:", p.miniAlbum, "Ingrandim.:", `${p.ingrandimento} (q:${p.ingrandimentoQta})`); y += 4;
+            
+            if(p.tela && p.tela !== 'Nessuno') {
+                addRow(y, "Tele:", `${p.tela} (q:${p.telaQta})`); y += 4;
+            }
+            
+            addRow(y, "Video:", p.video, "Drone:", p.drone); y += 4;
+            
+            if(p.pennino && p.pennino !== "0") {
+                addRow(y, "Pennino USB:", p.pennino); y += 4;
+            }
+
+            if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 4; }
+            if (p.location) { addRow(y, "Location:", p.location); y += 4; }
+
+            addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 4;
+
+            doc.setFontSize(7);
+            addRow(y, "Pranzo/Cena STAFF:", p.pranzo); y += 5;
+
+            if (p.note) {
+                doc.setTextColor(...black);
+                doc.setFont(undefined, 'italic');
+                doc.text(`Note: ${p.note}`, 15, y);
+                y += 4;
+                doc.setFont(undefined, 'normal');
+            }
+
+            y += 2;
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...red);
+            doc.text("ACCONTI VERSATI:", 15, y);
+            y += 3;
+
+            if (p.acconti && p.acconti.length > 0) {
+                doc.setFontSize(6);
+                doc.setTextColor(...black);
+                doc.setFont(undefined, 'bold');
+                doc.text("Tipo", 15, y);
+                doc.text("Data", 50, y);
+                doc.text("Importo", 80, y);
+                doc.text("Pagam.", 110, y);
+                y += 2;
+                doc.line(15, y, 195, y);
+                y += 3;
+                doc.setFont(undefined, 'normal');
+
+                p.acconti.forEach(acc => {
+                    doc.text(acc.tipo, 15, y);
+                    doc.text(acc.data ? new Date(acc.data).toLocaleDateString('it-IT') : '-', 50, y);
+                    doc.text('€ ' + (parseFloat(acc.importo) || 0).toFixed(2).replace('.', ','), 80, y);
+                    doc.text(acc.metodo, 110, y);
+                    y += 4;
+                });
+            } else {
+                doc.setFontSize(7);
+                doc.setTextColor(...black);
+                doc.text("Nessun acconto versato", 15, y);
+                y += 4;
+            }
+
+            y += 2;
+            const totale = parseFloat(p.importo) || 0;
+            const totAcc = p.totaleAcconti || 0;
+            const saldo = p.saldo !== undefined ? p.saldo : (totale - totAcc);
+
+            doc.setDrawColor(0);
+            doc.setFillColor(240, 240, 240);
+            doc.rect(15, y - 2, 180, 12, 'F');
+
+            doc.setFontSize(8);
+            doc.setFont(undefined, 'normal');
+            doc.setTextColor(...black);
+            doc.text(`Totale Servizio: € ${totale.toFixed(2).replace('.', ',')}`, 18, y + 2);
+            doc.text(`Totale Acconti: € ${totAcc.toFixed(2).replace('.', ',')}`, 18, y + 6);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(39, 174, 96);
+            doc.text(`A SALDO: € ${saldo.toFixed(2).replace('.', ',')}`, 18, y + 10);
+
+            y += 16;
+
+            const titoloAccettazione = tipo === 'contratto' ? "ACCETTAZIONE DEL CONTRATTO" : "ACCETTAZIONE DEL PREVENTIVO";
+            doc.setFontSize(9);
+            doc.setFont(undefined, 'bold');
+            doc.setTextColor(...black);
+            doc.text(titoloAccettazione, 105, y, { align: "center" });
+            y += 4;
+
+            doc.setFontSize(7);
+            doc.setFont(undefined, 'normal');
+            doc.text("Per accettazione e autorizzazione trattamento dati personali, si appone firma in calce.", 105, y, { align: "center" });
+            y += 8;
+
+            doc.setLineWidth(0.3);
+            doc.rect(20, y, 75, 20);
+            doc.rect(115, y, 75, 20);
+            doc.setFontSize(8);
+            doc.text("Firma Cliente A", 57.5, y + 4, { align: "center" });
+            doc.text("Firma Cliente B", 152.5, y + 4, { align: "center" });
+
+            y += 26;
+            doc.text("Luogo e Data: ___________________", 20, y);
+
+            const nomeFile = tipo === 'contratto' 
+                ? `Contratto_${clienteA.cognome}_${Date.now()}.pdf` 
+                : `Preventivo_${clienteA.cognome}_${Date.now()}.pdf`;
+            
+            doc.save(nomeFile);
+        }
+
+        // ===== STATO LAVORI - TABELLA FLUSSO =====
+        function eventi_renderStatoLavori() {
+            const container = document.getElementById('stato-lavori-content');
+            
+            const contratti = [...eventi_db.contratti].sort((a, b) => {
+                const dataA = a.dataEvento || a.dataCreazione;
+                const dataB = b.dataEvento || b.dataCreazione;
+                return new Date(dataA) - new Date(dataB);
+            });
+
+            if (contratti.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:40px;">Nessun contratto presente. Converti un preventivo in contratto per vederlo qui.</p>';
+                return;
+            }
+
+            let html = '<table class="flusso-table"><thead><tr>';
+            html += '<th>DATA EVENTO</th>';
+            html += '<th>TIPO SERVIZIO</th>';
+            html += '<th>NOME CLIENTI</th>';
+            CAMPI_FLUSSO.forEach(c => {
+                html += `<th>${c.label}</th>`;
+            });
+            html += '</tr></thead><tbody>';
+
+            contratti.forEach(c => {
+                const clienteA = eventi_db.clienti[c.clienteIdx] || { cognome: '?', nome: '' };
+                let nomeClienti = `${clienteA.cognome} ${clienteA.nome}`;
+                
+                if (c.clienteBIdx && c.clienteBIdx !== "") {
+                    const bIdx = parseInt(c.clienteBIdx);
+                    if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) {
+                        const clienteB = eventi_db.clienti[bIdx];
+                        nomeClienti += ` & ${clienteB.cognome}`;
+                    }
+                }
+
+                const dataEvento = c.dataEvento || c.dataCreazione;
+                const dataEventoFmt = dataEvento ? new Date(dataEvento).toLocaleDateString('it-IT') : '-';
+
+                html += '<tr>';
+                html += `<td class="data-evento">${dataEventoFmt}</td>`;
+                html += `<td class="tipo-servizio">${c.tipo || '-'}</td>`;
+                html += `<td class="nome-clienti">${nomeClienti}</td>`;
+
+                CAMPI_FLUSSO.forEach(campo => {
+                    const val = c[campo.key] || '';
+                    const isFilled = val ? 'filled' : '';
+                    const isCancellato = campo.key === 'dataCancellazione' && val ? 'cancellato' : '';
+                    html += `<td><input type="date" id="flusso-${c.id}-${campo.key}" class="flusso-date-input ${isFilled} ${isCancellato}" value="${val}" onchange="eventi_updateFlussoData(${c.id}, '${campo.key}', this.value)"></td>`;
+                });
+
+                html += '</tr>';
+            });
+
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+
+        function eventi_refreshStatoLavori() {
+            eventi_renderStatoLavori();
+            alert('✅ Stato lavori aggiornato!');
+        }
+
+        function eventi_renderArchive(type) {
+            eventi_currentArchive = type;
+            eventi_showView('eventi-view-archive');
+            const titleMap = { preventivi: 'Archivio Preventivi', contratti: 'Archivio Contratti', clienti: 'Archivio Clienti' };
+            document.getElementById('eventi_archive_title').textContent = titleMap[type];
+            document.getElementById('eventi_search').value = '';
+            eventi_filterArchive();
+        }
+
+        function eventi_filterArchive() {
+            const query = document.getElementById('eventi_search').value.toLowerCase();
+            let items = eventi_db[eventi_currentArchive] || [];
+
+            if (eventi_currentArchive === 'clienti') {
+                items = items.filter(i => i.cognome.toLowerCase().includes(query) || i.nome.toLowerCase().includes(query));
+            } else {
+                items = items.filter(i => {
+                    const c = eventi_db.clienti[i.clienteIdx] || {cognome:'',nome:''};
+                    return c.cognome.toLowerCase().includes(query) || c.nome.toLowerCase().includes(query);
+                });
+            }
+
+            const container = document.getElementById('eventi_archive_list');
+            if (items.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nessun risultato.</p>'; return; }
+
+            let html = '';
+            items.forEach(item => {
+                let info = '', itemStr = JSON.stringify(item).replace(/"/g, '&quot;');
+                if (eventi_currentArchive === 'clienti') {
+                    info = `<strong>${item.cognome} ${item.nome}</strong><br><small>${item.cellulare || '-'} | ${item.email || '-'}</small>`;
+                } else {
+                    const c = eventi_db.clienti[item.clienteIdx] || {cognome:'?',nome:''};
+                    const totAcc = item.totaleAcconti || 0;
+                    const saldo = item.saldo !== undefined ? item.saldo : ((parseFloat(item.importo) || 0) - totAcc);
+                    const stato = item.stato || 'Nuovo';
+                    info = `<strong>${item.servizio} - ${c.cognome} ${c.nome}</strong><br>
+                            <small>${new Date(item.dataCreazione).toLocaleDateString()} | € ${item.importo} | Stato: ${stato} | Acconti: € ${totAcc.toFixed(2)} | Saldo: € ${saldo.toFixed(2)}</small>`;
+                }
+                const tipoDoc = eventi_currentArchive === 'contratti' ? 'contratto' : 'preventivo';
+                html += `<div class="archive-item">
+                    <div>${info}</div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
+                        <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function eventi_modifica(type, id) {
+            eventi_editingId = id;
+            eventi_editingType = type;
+
+            if (type === 'clienti') {
+                const item = eventi_db.clienti.find(c => c.id === id);
+                if (!item) return;
+                document.getElementById('eventi_cognomeA').value = item.cognome;
+                document.getElementById('eventi_nomeA').value = item.nome;
+                document.getElementById('eventi_indirizzoA').value = item.indirizzo || '';
+                document.getElementById('eventi_cellulareA').value = item.cellulare || '';
+                document.getElementById('eventi_emailA').value = item.email || '';
+                eventi_showView('eventi-view-anagrafica');
+            } else {
+                const item = eventi_db[type].find(i => i.id === id);
+                if (!item) return;
+                document.getElementById('eventi_prev_title').textContent = "Modifica " + (type === 'preventivi' ? 'Preventivo' : 'Contratto');
+                document.getElementById('eventi_prev_cliente').value = item.clienteIdx;
+                document.getElementById('eventi_prev_clienteB').value = item.clienteBIdx || "";
+                document.getElementById('eventi_prev_dataEvento').value = item.dataEvento || '';
+                document.getElementById('eventi_prev_tipo').value = item.tipo;
+                document.getElementById('eventi_prev_servizio').value = item.servizio;
+                document.getElementById('eventi_prev_misura').value = item.misura;
+                document.getElementById('eventi_prev_interni').value = item.interni || 'Nessuno';
+                document.getElementById('eventi_prev_orientamento').value = item.orientamento;
+                document.getElementById('eventi_prev_qta').value = item.qta;
+                document.getElementById('eventi_prev_copertina').value = item.copertina;
+                document.getElementById('eventi_prev_effetti').value = item.effetti;
+                document.getElementById('eventi_prev_mini').value = item.miniAlbum;
+                document.getElementById('eventi_prev_ingrandimento').value = item.ingrandimento;
+                document.getElementById('eventi_prev_ingrandimento_qta').value = item.ingrandimentoQta;
+                document.getElementById('eventi_prev_tela').value = item.tela || 'Nessuno';
+                document.getElementById('eventi_prev_tela_qta').value = item.telaQta || 1;
+                document.getElementById('eventi_prev_video').value = item.video;
+                document.getElementById('eventi_prev_drone').value = item.drone;
+                document.getElementById('eventi_prev_pennino').value = item.pennino || "0";
+                document.getElementById('eventi_prev_chiesa').value = item.chiesa || '';
+                document.getElementById('eventi_prev_location').value = item.location || '';
+                document.getElementById('eventi_prev_anteprima').value = item.anteprima;
+                document.getElementById('eventi_prev_post').value = item.postServizio;
+                document.getElementById('eventi_prev_pranzo').value = item.pranzo;
+                document.getElementById('eventi_prev_note').value = item.note || '';
+                document.getElementById('eventi_prev_importo').value = item.importo;
+
+                eventi_acconti = item.acconti ? JSON.parse(JSON.stringify(item.acconti)) : [];
+                eventi_renderAcconti();
+
+                eventi_showView('eventi-view-preventivo');
+            }
+        }
+
+        function eventi_elimina(type, id) {
+            if (!confirm('Eliminare questo elemento?')) return;
+            eventi_db[type] = eventi_db[type].filter(i => i.id !== id);
+            if (type === 'preventivi') eventi_db.contratti = eventi_db.contratti.filter(c => c.id !== id);
+            eventi_saveDB();
+            eventi_filterArchive();
+        }
+
+        function eventi_openMaps(fieldId) {
+            const val = document.getElementById(fieldId).value.trim();
+            if (val) window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(val)}`, '_blank');
+            else alert("Inserisci prima l'indirizzo!");
+        }
+
+        function eventi_openWA(fieldId) {
+            const num = document.getElementById(fieldId).value.replace(/\D/g, '');
+            if (num && num.length >= 9) window.open(`https://wa.me/39${num}`, '_blank');
+            else alert("Numero non valido!");
+        }
+
+        function eventi_backup() {
+            const blob = new Blob([JSON.stringify(eventi_db, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = `backup_eventi_${new Date().toISOString().slice(0, 10)}.json`; a.click();
+        }
+
+        function eventi_ripristinaFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
+
+                    const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
+                    const currentCount = (currentData.clienti || []).length;
+                    const newCount = (nuoviDati.clienti || []).length;
+
+                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                        eventi_db = nuoviDati;
+                        eventi_saveDB();
+                        eventi_populateSelect();
+                        alert(`✅ Ripristinato! ${eventi_db.clienti.length} clienti caricati.`);
+                    }
+                } catch (err) {
+                    alert('❌ Errore: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // ==========================================
+        // SAGGI
+        // ==========================================
+
+        function saggi_init() {
+            try {
+                saggi_clienti = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+            } catch (e) { saggi_clienti = []; }
+
+            const currentYear = new Date().getFullYear();
+            ['saggi_anno', 'saggi_filtro_anno', 'saggi_stampa_anno', 'saggi_cont_anno'].forEach(id => {
+                const sel = document.getElementById(id);
+                sel.innerHTML = '';
+                for (let y = 2020; y <= 2035; y++) sel.add(new Option(y === currentYear ? y + ' (corrente)' : y, y));
+                sel.value = currentYear;
+            });
+
+            const qSel = document.getElementById('saggi_qta');
+            for (let i = 1; i <= 10; i++) qSel.add(new Option(i, i));
+            const iSel = document.getElementById('saggi_importo');
+            for (let i = 5; i <= 100; i += 5) iSel.add(new Option(i + ' €', i));
+        }
+
+        function saggi_saveDB() {
+            localStorage.setItem('saggi_clienti', JSON.stringify(saggi_clienti));
+            saggi_aggiornaDashboard();
+            updateDashboardCounts();
+        }
+
+        function saggi_aggiornaDashboard() {
+            document.getElementById('saggi_total_clients').textContent = saggi_clienti.length;
+        }
+
+        function saggi_showSection(id, btn) {
+            document.querySelectorAll('#app-saggi .section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.querySelectorAll('#app-saggi .nav-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            if (id === 'saggi-dashboard') saggi_aggiornaDashboard();
+            if (id === 'saggi-archivio') saggi_mostraArchivio();
+        }
+
+        function saggi_salva() {
+            const data = {
+                id: document.getElementById('saggi_edit_id').value || Date.now(),
+                scuola: document.getElementById('saggi_scuola').value,
+                anno: document.getElementById('saggi_anno').value,
+                cognome: document.getElementById('saggi_cognome').value.trim(),
+                nome: document.getElementById('saggi_nome').value.trim(),
+                telefono: document.getElementById('saggi_telefono').value.trim(),
+                tipo: document.getElementById('saggi_tipo').value,
+                servizio: document.getElementById('saggi_servizio').value,
+                quantita: document.getElementById('saggi_qta').value,
+                importo: document.getElementById('saggi_importo').value,
+                dataCreazione: new Date().toLocaleString('it-IT')
+            };
+
+            if (!data.scuola || !data.cognome || !data.nome) return alert("Compila Scuola, Cognome e Nome!");
+
+            const editId = document.getElementById('saggi_edit_id').value;
+            if (editId) {
+                const idx = saggi_clienti.findIndex(c => c.id == editId);
+                if (idx >= 0) { data.id = parseInt(editId); data.dataCreazione = saggi_clienti[idx].dataCreazione; saggi_clienti[idx] = data; }
+                alert("✅ Modificato!");
+            } else {
+                saggi_clienti.push(data);
+                alert("✅ Creato!");
+            }
+            saggi_saveDB();
+            saggi_resetForm();
+        }
+
+        function saggi_resetForm() {
+            document.getElementById('saggi_edit_id').value = '';
+            document.getElementById('saggi_cognome').value = '';
+            document.getElementById('saggi_nome').value = '';
+            document.getElementById('saggi_telefono').value = '';
+            document.getElementById('saggi_qta').value = '1';
+            document.getElementById('saggi_importo').value = '5';
+            document.getElementById('saggi_form_title').textContent = '➕ Nuovo Partecipante';
+        }
+
+        function saggi_caricaModifica() {
+            const id = prompt('ID cliente da modificare:');
+            if (!id) return;
+            const c = saggi_clienti.find(x => x.id == id);
+            if (!c) return alert("Non trovato!");
+            document.getElementById('saggi_edit_id').value = c.id;
+            document.getElementById('saggi_scuola').value = c.scuola;
+            document.getElementById('saggi_anno').value = c.anno;
+            document.getElementById('saggi_cognome').value = c.cognome;
+            document.getElementById('saggi_nome').value = c.nome;
+            document.getElementById('saggi_telefono').value = c.telefono;
+            document.getElementById('saggi_tipo').value = c.tipo;
+            document.getElementById('saggi_servizio').value = c.servizio;
+            document.getElementById('saggi_qta').value = c.quantita;
+            document.getElementById('saggi_importo').value = c.importo;
+            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
+            saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
+        }
+
+        function saggi_mostraArchivio() {
+            const scuola = document.getElementById('saggi_filtro_scuola').value;
+            const anno = document.getElementById('saggi_filtro_anno').value;
+            let filtered = saggi_clienti.filter(c => (!scuola || c.scuola === scuola) && (!anno || c.anno == anno));
+
+            const content = document.getElementById('saggi_archivio_content');
+            if (filtered.length === 0) { content.innerHTML = '<p style="text-align:center;padding:20px;color:#888;">Nessun risultato.</p>'; return; }
+
+            let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
+            filtered.forEach(c => {
+                html += `<tr><td>${c.id}</td><td><strong>${c.cognome}</strong></td><td>${c.nome}</td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td>
+                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">✏️</button> 
+                <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="saggi_elimina(${c.id})">🗑️</button></td></tr>`;
+            });
+            html += '</tbody></table>';
+            content.innerHTML = html;
+        }
+
+        function saggi_editFromArchivio(id) {
+            const c = saggi_clienti.find(x => x.id === id);
+            if (!c) return;
+            document.getElementById('saggi_edit_id').value = c.id;
+            document.getElementById('saggi_scuola').value = c.scuola;
+            document.getElementById('saggi_anno').value = c.anno;
+            document.getElementById('saggi_cognome').value = c.cognome;
+            document.getElementById('saggi_nome').value = c.nome;
+            document.getElementById('saggi_telefono').value = c.telefono;
+            document.getElementById('saggi_tipo').value = c.tipo;
+            document.getElementById('saggi_servizio').value = c.servizio;
+            document.getElementById('saggi_qta').value = c.quantita;
+            document.getElementById('saggi_importo').value = c.importo;
+            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
+            saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
+        }
+
+        function saggi_elimina(id) {
+            if (!confirm('Eliminare?')) return;
+            saggi_clienti = saggi_clienti.filter(c => c.id !== id);
+            saggi_saveDB();
+            saggi_mostraArchivio();
+        }
+
+        function saggi_generaPDFSingolo() {
+            const id = document.getElementById('saggi_edit_id').value;
+            if (!id) return alert("Salva o carica un cliente prima!");
+            const c = saggi_clienti.find(x => x.id == id);
+            if (!c) return;
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
+            doc.text(c.scuola, 105, 30, { align: 'center' });
+            doc.setFontSize(18); doc.text('Saggio Danza - Anno ' + c.anno, 105, 42, { align: 'center' });
+            doc.line(20, 50, 190, 50);
+            doc.setFontSize(16); doc.text('Scheda Cliente', 105, 62, { align: 'center' });
+            doc.setFont('helvetica', 'normal'); doc.setFontSize(12);
+            let y = 75;
+            [['Cognome:', c.cognome], ['Nome:', c.nome], ['Tel:', c.telefono], ['Tipo:', c.tipo], ['Servizio:', c.servizio], ['Qtà:', c.quantita], ['Importo:', c.importo + '€']].forEach(([l, v]) => {
+                doc.setFont('helvetica', 'bold'); doc.text(l, 30, y);
+                doc.setFont('helvetica', 'normal'); doc.text(String(v), 90, y); y += 10;
+            });
+            doc.line(20, 270, 190, 270);
+            doc.setFontSize(10); doc.setFont('helvetica', 'bold');
+            doc.text('G&L Studio', 105, 278, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            doc.text('Via Ciarrocco 21, Canicattì (AG)', 105, 284, { align: 'center' });
+            doc.text('Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, 290, { align: 'center' });
+            doc.save(`Scheda_${c.cognome}_${c.nome}_${c.anno}.pdf`);
+        }
+
+        function saggi_anteprimaElenco() {
+            const scuola = document.getElementById('saggi_stampa_scuola').value;
+            const anno = document.getElementById('saggi_stampa_anno').value;
+            const area = document.getElementById('saggi_preview_area');
+            if (!scuola) { area.innerHTML = ''; return alert("Seleziona scuola!"); }
+
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+
+            if (filtered.length === 0) { area.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
+
+            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px;">
+                <h3 style="text-align:center;margin-bottom:15px;">📋 ${scuola} - Anno ${anno}</h3>
+                <div style="display:flex;justify-content:space-around;margin-bottom:15px;background:#e8eaf6;padding:10px;border-radius:8px;">
+                    <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.length}</strong><br><small>Partecipanti</small></div>
+                    <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c => c.tipo === 'Fratelli').length}</strong><br><small>Fratelli</small></div>
+                </div>
+                <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th></tr></thead><tbody>`;
+            filtered.forEach((c, i) => {
+                html += `<tr><td>${i + 1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td></tr>`;
+            });
+            html += '</tbody></table></div>';
+            area.innerHTML = html;
+        }
+
+        function saggi_stampaPDF() {
+            const scuola = document.getElementById('saggi_stampa_scuola').value;
+            const anno = document.getElementById('saggi_stampa_anno').value;
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+            if (filtered.length === 0) return alert("Nessun partecipante!");
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+            doc.text(scuola, 105, 20, { align: 'center' });
+            doc.setFontSize(14); doc.text('Elenco Partecipanti - Saggio ' + anno, 105, 30, { align: 'center' });
+            doc.setFontSize(9); doc.setFont('helvetica', 'normal');
+            doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 37, { align: 'center' });
+
+            const tableData = filtered.map((c, i) => [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.servizio, c.quantita, c.importo + '€']);
+            doc.autoTable({
+                startY: 43, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Servizio', 'Qtà', '€']], body: tableData, theme: 'grid',
+                headStyles: { fillColor: [102, 126, 234], textColor: 255, fontStyle: 'bold', fontSize: 9 },
+                bodyStyles: { fontSize: 8, cellPadding: 2.5 }, alternateRowStyles: { fillColor: [240, 240, 255] },
+                columnStyles: { 0: { cellWidth: 10, halign: 'center', fontStyle: 'bold' }, 1: { fontStyle: 'bold', cellWidth: 50 }, 2: { cellWidth: 30 }, 3: { cellWidth: 20 }, 4: { cellWidth: 45 }, 5: { cellWidth: 10, halign: 'center' }, 6: { cellWidth: 20, halign: 'right', fontStyle: 'bold' } },
+                margin: { left: 10, right: 10 },
+                didDrawPage: function (data) {
+                    const pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight();
+                    doc.line(10, ph - 18, pw - 10, ph - 18);
+                    doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.text('G&L Studio', 105, ph - 13, { align: 'center' });
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, ph - 8, { align: 'center' });
+                    doc.setFontSize(7); doc.text('Pagina ' + doc.internal.getNumberOfPages(), pw - 15, ph - 4, { align: 'right' });
+                }
+            });
+            doc.save(`Elenco_${scuola.replace(/\s+/g, '_')}_${anno}.pdf`);
+        }
+
+        function saggi_mostraContabilita() {
+            const scuola = document.getElementById('saggi_cont_scuola').value;
+            const anno = document.getElementById('saggi_cont_anno').value;
+            const contentDiv = document.getElementById('saggi_cont_content');
+            const totalDiv = document.getElementById('saggi_cont_total');
+            const btnDiv = document.getElementById('saggi_cont_btn_pdf');
+
+            if (!scuola) { contentDiv.innerHTML = ''; totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return alert("Seleziona scuola!"); }
+
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+
+            if (filtered.length === 0) {
+                contentDiv.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun cliente.</div>';
+                totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return;
+            }
+
+            let totale = 0;
+            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;">💰 ${scuola} - Anno ${anno}</h3>
+            <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th style="text-align:right;">Importo</th></tr></thead><tbody>`;
+            filtered.forEach((c, i) => {
+                totale += parseFloat(c.importo || 0);
+                html += `<tr><td>${i + 1}</td><td><strong>${c.cognome} ${c.nome}</strong></td><td>${c.telefono}</td><td>${c.tipo}</td><td style="text-align:right;font-weight:bold;color:#27ae60;">${c.importo}€</td></tr>`;
+            });
+            html += '</tbody></table></div>';
+            contentDiv.innerHTML = html;
+            totalDiv.innerHTML = `<div style="background:linear-gradient(135deg,#00bcd4,#0097a7);color:white;padding:20px;border-radius:10px;text-align:center;"><h3>Totale Incassato</h3><div style="font-size:36px;font-weight:bold;">${totale}€</div><small>${filtered.length} clienti</small></div>`;
+            btnDiv.style.display = 'block';
+        }
+
+        function saggi_pdfContabilita() {
+            const scuola = document.getElementById('saggi_cont_scuola').value;
+            const anno = document.getElementById('saggi_cont_anno').value;
+            let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
+            filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
+            if (filtered.length === 0) return alert("Nessun dato!");
+
+            let totale = 0;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
+            doc.text(scuola, 105, 20, { align: 'center' });
+            doc.setFontSize(16); doc.text('Report Contabilità - Saggio ' + anno, 105, 32, { align: 'center' });
+            doc.setFontSize(10); doc.setFont('helvetica', 'normal');
+            doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 40, { align: 'center' });
+
+            const tableData = filtered.map((c, i) => { totale += parseFloat(c.importo || 0); return [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.importo + '€']; });
+            doc.autoTable({
+                startY: 48, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Importo']], body: tableData, theme: 'grid',
+                headStyles: { fillColor: [0, 188, 212], textColor: 255, fontStyle: 'bold', fontSize: 9 },
+                bodyStyles: { fontSize: 8, cellPadding: 3 }, alternateRowStyles: { fillColor: [240, 255, 255] },
+                columnStyles: { 0: { cellWidth: 10, halign: 'center', fontStyle: 'bold' }, 1: { fontStyle: 'bold', cellWidth: 55 }, 2: { cellWidth: 32 }, 3: { cellWidth: 25 }, 4: { cellWidth: 28, halign: 'right', fontStyle: 'bold' } },
+                margin: { left: 10, right: 10 },
+                didDrawPage: function (data) {
+                    const pw = doc.internal.pageSize.getWidth(), ph = doc.internal.pageSize.getHeight();
+                    doc.line(10, ph - 25, pw - 10, ph - 25);
+                    doc.setFontSize(9); doc.setFont('helvetica', 'bold'); doc.text('G&L Studio', 105, ph - 20, { align: 'center' });
+                    doc.setFont('helvetica', 'normal'); doc.setFontSize(8);
+                    doc.text('Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it', 105, ph - 15, { align: 'center' });
+                    doc.setFontSize(7); doc.text('Pagina ' + doc.internal.getNumberOfPages(), pw - 15, ph - 4, { align: 'right' });
+                }
+            });
+
+            const finalY = doc.lastAutoTable.finalY + 10;
+            doc.setFillColor(0, 188, 212); doc.rect(10, finalY, 190, 25, 'F');
+            doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.setTextColor(255);
+            doc.text('TOTALE INCASSATO: ' + totale + '€', 105, finalY + 12, { align: 'center' });
+            doc.save(`Contabilita_${scuola.replace(/\s+/g, '_')}_${anno}.pdf`);
+        }
+
+        function saggi_backup() {
+            const blob = new Blob([JSON.stringify(saggi_clienti, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = `backup_saggi_${new Date().toISOString().slice(0, 10)}.json`; a.click();
+        }
+
+        function saggi_ripristinaFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    const nuoviClienti = Array.isArray(data) ? data : (data.clienti || []);
+
+                    if (!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
+
+                    const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
+                    const currentCount = currentData.length;
+                    const newCount = nuoviClienti.length;
+
+                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                        saggi_clienti = nuoviClienti;
+                        saggi_saveDB();
+                        alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
+                        saggi_aggiornaDashboard();
+                    }
+                } catch (err) {
+                    alert('❌ Errore: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // ==========================================
+        // GALLERY
+        // ==========================================
+
+        function gallery_init() {
+            try {
+                const data = localStorage.getItem('galleryClients');
+                gallery_allClients = data ? JSON.parse(data) : [];
+            } catch (e) { gallery_allClients = []; }
+            gallery_loadClients();
+        }
+
+        function gallery_saveDB() {
+            try { localStorage.setItem('galleryClients', JSON.stringify(gallery_allClients)); }
+            catch (e) { alert("Spazio esaurito!"); }
+            gallery_loadClients();
+            updateDashboardCounts();
+        }
+
+        function gallery_loadClients() {
+            document.getElementById('gallery_count').textContent = gallery_allClients.length;
+            const searchTerm = document.getElementById('gallery_search').value.toLowerCase();
+            const filtered = searchTerm ? gallery_allClients.filter(c => c.name.toLowerCase().includes(searchTerm) || c.username.toLowerCase().includes(searchTerm)) : gallery_allClients;
+            filtered.sort((a, b) => b.createdAt - a.createdAt);
+
+            const list = document.getElementById('gallery_clients_list');
+            list.innerHTML = '';
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
+
+            filtered.forEach(client => {
+                const card = document.createElement('div');
+                card.className = 'client-card';
+                const clientUrl = gallery_getClientUrl(client.id);
+                card.innerHTML = `
+                    <h3>${gallery_escapeHtml(client.name)}</h3>
+                    <div style="margin:10px 0;font-size:14px;">
+                        <p><strong>👤 Username:</strong> ${gallery_escapeHtml(client.username)}</p>
+                        <p><strong>🔒 Password:</strong> ${gallery_escapeHtml(client.password)}</p>
+                        <div style="background:#e8f4fd;border-left:4px solid #3498db;padding:12px;border-radius:4px;margin-top:15px;font-size:13px;">
+                            <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
+                            <div style="display:flex;gap:8px;margin-top:8px;">
+                                <input type="text" value="${clientUrl}" readonly style="flex:1;padding:6px;border:1px solid #ddd;border-radius:4px;font-family:monospace;font-size:11px;" id="link-${client.id}">
+                                <button onclick="gallery_copyLink('${client.id}')" style="background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">📋</button>
+                            </div>
+                        </div>
+                    </div>
+                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
+                    <div class="button-group">
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
+                        <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
+                        <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function gallery_handleForm() {
+            const name = document.getElementById('gallery_name').value.trim();
+            const username = document.getElementById('gallery_username').value.trim();
+            const password = document.getElementById('gallery_password').value.trim();
+            const mega = document.getElementById('gallery_mega').value.trim();
+            const notes = document.getElementById('gallery_notes').value.trim();
+
+            if (!name || !username || !password || !mega) return alert("Compila tutti i campi obbligatori!");
+
+            const editId = document.getElementById('gallery_edit_id').value;
+            if (editId) {
+                const idx = gallery_allClients.findIndex(c => c.id === editId);
+                if (idx !== -1) gallery_allClients[idx] = { ...gallery_allClients[idx], name, username, password, megaLink: mega, notes };
+                alert("✅ Aggiornato!");
+            } else {
+                gallery_allClients.push({ id: 'client_' + Date.now() + '_' + Math.floor(Math.random() * 900000 + 100000), name, username, password, megaLink: mega, notes, createdAt: Date.now() });
+                alert("✅ Aggiunto!");
+            }
+            gallery_saveDB();
+            document.getElementById('gallery_client_form').reset();
+            document.getElementById('gallery_edit_id').value = '';
+            document.getElementById('gallery_submit_btn').textContent = 'Aggiungi Cliente';
+        }
+
+        function gallery_editClient(id) {
+            const c = gallery_allClients.find(x => x.id === id);
+            if (!c) return;
+            document.getElementById('gallery_edit_id').value = c.id;
+            document.getElementById('gallery_name').value = c.name;
+            document.getElementById('gallery_username').value = c.username;
+            document.getElementById('gallery_password').value = c.password;
+            document.getElementById('gallery_mega').value = c.megaLink;
+            document.getElementById('gallery_notes').value = c.notes || '';
+            document.getElementById('gallery_submit_btn').textContent = 'Aggiorna Cliente';
+            window.scrollTo(0, 0);
+        }
+
+        function gallery_deleteClient(id) {
+            const c = gallery_allClients.find(x => x.id === id);
+            if (!c) return;
+            if (confirm(`Eliminare ${c.name}?\nUsername: ${c.username}\nPassword: ${c.password}`)) {
+                gallery_allClients = gallery_allClients.filter(x => x.id !== id);
+                gallery_saveDB();
+            }
+        }
+
+        function gallery_getClientUrl(clientId) {
+            const client = gallery_allClients.find(c => c.id === clientId);
+            if (!client) return '#';
+            const payload = { u: client.username, p: client.password, m: client.megaLink, i: client.id, t: Date.now() };
+            const token = btoa(JSON.stringify(payload)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+            return `${window.location.origin}${window.location.pathname.replace('index.html', '')}client.html?token=${token}`;
+        }
+
+        function gallery_copyLink(clientId) {
+            const url = gallery_getClientUrl(clientId);
+            navigator.clipboard.writeText(url).then(() => alert("✅ Copiato!")).catch(() => alert("Errore copia"));
+        }
+
+        function gallery_openDetail(id) {
+            const c = gallery_allClients.find(x => x.id === id);
+            if (!c) return;
+            const created = new Date(c.createdAt).toLocaleString('it-IT');
+            document.getElementById('gallery_detail_content').innerHTML = `
+                <div style="display:grid;gap:15px;">
+                    <div><strong> Nome:</strong><br>${gallery_escapeHtml(c.name)}</div>
+                    <div><strong>🔑 Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
+                    <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
+                    <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
+                    <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
+                    ${c.notes ? `<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g, '<br>')}</div>` : ''}
+                    <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
+                </div>
+            `;
+            document.getElementById('gallery_detail_modal').style.display = 'flex';
+        }
+
+        function gallery_closeDetail() { document.getElementById('gallery_detail_modal').style.display = 'none'; }
+
+        function gallery_backup() {
+            const data = { version: '3.0', timestamp: new Date().toISOString(), clients: gallery_allClients };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = `gallery-backup-${new Date().toISOString().replace(/[:.]/g, '-')}.json`; a.click();
+        }
+
+        function gallery_openRestore() { document.getElementById('gallery_restore_modal').style.display = 'flex'; }
+        function gallery_closeRestore() { document.getElementById('gallery_restore_modal').style.display = 'none'; document.getElementById('gallery_restore_file').value = ''; document.getElementById('gallery_restore_msg').textContent = ''; }
+
+        function gallery_handleRestore() {
+            const file = document.getElementById('gallery_restore_file').files[0];
+            if (!file) return alert("Seleziona un file!");
+            if (!file.name.endsWith('.json')) return alert("Solo file JSON!");
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.clients) throw new Error("Formato non valido");
+
+                    const currentClients = JSON.parse(localStorage.getItem('galleryClients') || '[]');
+                    const currentCount = currentClients.length;
+                    const newCount = data.clients.length;
+
+                    if (confirm(`Sovrascrivere ${currentCount} clienti con ${newCount} dal backup?`)) {
+                        gallery_allClients = data.clients;
+                        gallery_saveDB();
+                        document.getElementById('gallery_restore_msg').textContent = `✅ Ripristinato ${gallery_allClients.length} clienti!`;
+                        document.getElementById('gallery_restore_msg').style.color = '#27ae60';
+                        setTimeout(gallery_closeRestore, 2000);
+                    }
+                } catch (err) {
+                    document.getElementById('gallery_restore_msg').textContent = '❌ ' + err.message;
+                    document.getElementById('gallery_restore_msg').style.color = '#e74c3c';
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function gallery_escapeHtml(text) {
+            if (!text) return '';
+            return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+
+        // ==========================================
+        // RICEVUTE
+        // ==========================================
+
+        function ricevute_init() {
+            try { ricevute_data = JSON.parse(localStorage.getItem('glRicevuteFotografiche')) || []; }
+            catch (e) { ricevute_data = []; }
+            document.getElementById('ricevute_data').valueAsDate = new Date();
+            ricevute_caricaLista();
+        }
+
+        function ricevute_saveDB() {
+            localStorage.setItem('glRicevuteFotografiche', JSON.stringify(ricevute_data));
+            ricevute_caricaLista();
+            updateDashboardCounts();
+        }
+
+        function ricevute_showForm() {
+            document.getElementById('ricevute-list-view').style.display = 'none';
+            document.getElementById('ricevute-form-view').style.display = 'block';
+            ricevute_isModifica = false;
+            ricevute_editId = null;
+            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_cliente').value = '';
+            document.getElementById('ricevute_telefono').value = '';
+            document.getElementById('ricevute_facebook').value = '';
+            document.getElementById('ricevute_servizio').value = '';
+            document.getElementById('ricevute_data').valueAsDate = new Date();
+            document.getElementById('ricevute_importo').value = '';
+            document.getElementById('ricevute_note').value = '';
+        }
+
+        function ricevute_hideForm() {
+            document.getElementById('ricevute-form-view').style.display = 'none';
+            document.getElementById('ricevute-list-view').style.display = 'block';
+        }
+
+        function ricevute_salva() {
+            const cliente = document.getElementById('ricevute_cliente').value.trim();
+            const telefono = document.getElementById('ricevute_telefono').value.trim();
+            const facebook = document.getElementById('ricevute_facebook').value.trim();
+            const servizio = document.getElementById('ricevute_servizio').value;
+            const dataEvento = document.getElementById('ricevute_data').value;
+            const importo = parseFloat(document.getElementById('ricevute_importo').value);
+            const note = document.getElementById('ricevute_note').value.trim();
+
+            if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi obbligatori!");
+
+            if (ricevute_isModifica) {
+                const idx = ricevute_data.findIndex(r => r.id === ricevute_editId);
+                if (idx !== -1) ricevute_data[idx] = { id: ricevute_editId, cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio: new Date().toISOString() };
+                alert("✅ Aggiornata!");
+            } else {
+                ricevute_data.push({ id: Date.now(), cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio: new Date().toISOString() });
+                alert("✅ Salvata!");
+            }
+            ricevute_saveDB();
+            ricevute_hideForm();
+        }
+
+        function ricevute_caricaLista() {
+            const lista = document.getElementById('ricevute_list');
+            lista.innerHTML = '';
+            if (ricevute_data.length === 0) { lista.innerHTML = '<p style="text-align:center;color:#777;padding:20px;">Nessuna ricevuta.</p>'; return; }
+
+            const sorted = [...ricevute_data].sort((a, b) => new Date(b.dataEvento) - new Date(a.dataEvento));
+            sorted.forEach(r => {
+                const dataFmt = new Date(r.dataEvento).toLocaleDateString('it-IT');
+                const impFmt = r.importo.toFixed(2).replace('.', ',');
+                const item = document.createElement('div');
+                item.className = 'archive-item';
+                item.innerHTML = `
+                    <div><strong>${r.cliente}</strong><br><small>${dataFmt} • ${r.servizio}</small></div>
+                    <div><strong>€ ${impFmt}</strong>
+                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">✏️</button>
+                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">🗑️</button>
+                    </div>
+                `;
+                lista.appendChild(item);
+            });
+        }
+
+        function ricevute_modifica(id) {
+            const r = ricevute_data.find(x => x.id === id);
+            if (!r) return;
+            ricevute_isModifica = true;
+            ricevute_editId = id;
+            document.getElementById('ricevute_form_title').textContent = '✏️ Modifica Ricevuta';
+            document.getElementById('ricevute_cliente').value = r.cliente;
+            document.getElementById('ricevute_telefono').value = r.telefono;
+            document.getElementById('ricevute_facebook').value = r.facebook || '';
+            document.getElementById('ricevute_servizio').value = r.servizio;
+            document.getElementById('ricevute_data').value = r.dataEvento;
+            document.getElementById('ricevute_importo').value = r.importo;
+            document.getElementById('ricevute_note').value = r.note || '';
+            document.getElementById('ricevute-list-view').style.display = 'none';
+            document.getElementById('ricevute-form-view').style.display = 'block';
+        }
+
+        function ricevute_elimina(id) {
+            if (!confirm('Eliminare questa ricevuta?')) return;
+            ricevute_data = ricevute_data.filter(r => r.id !== id);
+            ricevute_saveDB();
+        }
+
+        function ricevute_filtra() {
+            const termine = document.getElementById('ricevute_search').value.toLowerCase().trim();
+            document.querySelectorAll('#ricevute_list .archive-item').forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(termine) ? 'flex' : 'none';
+            });
+        }
+
+        function ricevute_pdf() {
+            const cliente = document.getElementById('ricevute_cliente').value.trim();
+            const telefono = document.getElementById('ricevute_telefono').value.trim();
+            const facebook = document.getElementById('ricevute_facebook').value.trim();
+            const servizio = document.getElementById('ricevute_servizio').value;
+            const dataEvento = document.getElementById('ricevute_data').value;
+            const importo = parseFloat(document.getElementById('ricevute_importo').value);
+            const note = document.getElementById('ricevute_note').value.trim();
+
+            if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi per il PDF!");
+
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const dataFmt = new Date(dataEvento).toLocaleDateString('it-IT');
+            const impFmt = importo.toFixed(2).replace('.', ',');
+
+            pdf.setFontSize(22); pdf.text('Studio Fotografico G&L', 105, 20, null, null, 'center');
+            pdf.setFontSize(12); pdf.text('Via Ciarrocco, 21 – Canicattì (AG)', 105, 28, null, null, 'center');
+            pdf.text('Tel: +39 366 9381103 | Email: weddinggel@aruba.it', 105, 34, null, null, 'center');
+            pdf.line(15, 40, 195, 40);
+            pdf.setFontSize(18); pdf.text('RICEVUTA - COPIA CLIENTE', 105, 50, null, null, 'center');
+            pdf.setFontSize(14);
+            pdf.text(`Cliente: ${cliente}`, 20, 65);
+            pdf.text(`Telefono: ${telefono}`, 20, 73);
+            if (facebook) pdf.text(`Facebook: ${facebook}`, 20, 81);
+            const y1 = facebook ? 91 : 89;
+            pdf.text(`Servizio: ${servizio}`, 20, y1);
+            pdf.text(`Data Evento: ${dataFmt}`, 20, y1 + 8);
+            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y1 + 16);
+            if (note) { const lines = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines, 20, y1 + 26); }
+            pdf.setFontSize(10); pdf.text('Grazie per la fiducia!', 105, 135, null, null, 'center');
+            pdf.line(15, 140, 195, 140);
+
+            pdf.setFontSize(18); pdf.text('RICEVUTA - COPIA STUDIO', 105, 150, null, null, 'center');
+            pdf.setFontSize(14);
+            pdf.text(`Cliente: ${cliente}`, 20, 165);
+            pdf.text(`Telefono: ${telefono}`, 20, 173);
+            if (facebook) pdf.text(`Facebook: ${facebook}`, 20, 181);
+            const y2 = facebook ? 191 : 189;
+            pdf.text(`Servizio: ${servizio}`, 20, y2);
+            pdf.text(`Data Evento: ${dataFmt}`, 20, y2 + 8);
+            pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y2 + 16);
+            if (note) { const lines2 = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines2, 20, y2 + 26); }
+            pdf.setFontSize(10); pdf.text('Documento fiscale ai fini contabili', 105, 285, null, null, 'center');
+
+            pdf.save(`Ricevuta_${cliente.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`);
+        }
+
+        function ricevute_backup() {
+            if (ricevute_data.length === 0) return alert("Nessun dato!");
+            const data = { version: 'G&L Ricevute v1.0', exportDate: new Date().toISOString(), ricevute: ricevute_data };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = `backup_ricevute_${new Date().toISOString().slice(0, 10)}.json`; a.click();
+        }
+
+        function ricevute_ripristinaTrigger() { document.getElementById('ricevute_restore_input').click(); }
+        function ricevute_ripristinaFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (!data.ricevute) throw new Error("File non valido");
+
+                    const currentData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
+                    const currentCount = currentData.length;
+                    const newCount = data.ricevute.length;
+
+                    if (confirm(`Sovrascrivere ${currentCount} ricevute attuali con ${newCount} dal backup?`)) {
+                        ricevute_data = data.ricevute;
+                        ricevute_saveDB();
+                        alert("✅ Ripristinato!");
+                    }
+                } catch (err) { alert("❌ " + err.message); }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+    </script>
+</body>
+</html>
