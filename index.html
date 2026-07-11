@@ -172,29 +172,17 @@
         .flusso-table tbody tr:nth-child(even) { background: #f8f9fa; }
         .flusso-table tbody tr:hover { background: #e8f4fd; }
         
-        .flusso-table .data-evento {
-            color: var(--accent-red); font-weight: bold;
-        }
-        .flusso-table .nome-clienti {
-            font-weight: 600; text-align: left; white-space: nowrap;
-        }
-        .flusso-table .tipo-servizio {
-            white-space: nowrap;
-        }
+        .flusso-table .data-evento { color: var(--accent-red); font-weight: bold; }
+        .flusso-table .nome-clienti { font-weight: 600; text-align: left; white-space: nowrap; }
+        .flusso-table .tipo-servizio { white-space: nowrap; }
         
         .flusso-date-input {
             width: 100%; padding: 4px; border: 1px solid #ddd; border-radius: 4px;
             font-size: 11px; cursor: pointer;
         }
-        .flusso-date-input.filled {
-            background: #d4edda; border-color: var(--accent-green); color: #155724;
-        }
-        .flusso-date-input:not(.filled) {
-            background: #fff3cd; border-color: #ffc107;
-        }
-        .flusso-date-input.cancellato {
-            background: #f8d7da; border-color: var(--accent-red); color: #721c24;
-        }
+        .flusso-date-input.filled { background: #d4edda; border-color: var(--accent-green); color: #155724; }
+        .flusso-date-input:not(.filled) { background: #fff3cd; border-color: #ffc107; }
+        .flusso-date-input.cancellato { background: #f8d7da; border-color: var(--accent-red); color: #721c24; }
 
         .acconti-section {
             background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-top: 15px;
@@ -295,8 +283,8 @@
         <div class="login-box">
             <h1>📸 G&L Studio</h1>
             <p style="margin-bottom: 20px; color: #666;">Gestionale Unificato</p>
-            <input type="text" id="global-username" placeholder="Username (gelStudio)">
-            <input type="password" id="global-password" placeholder="Password (12763Mlg)">
+            <input type="text" id="global-username" placeholder="Username (G&LStudio)">
+            <input type="password" id="global-password" placeholder="Password (12763Mlg@)">
             <button class="btn-login" onclick="checkGlobalLogin()">Accedi</button>
             <p id="login-error" style="color: red; margin-top: 10px; display: none;">Credenziali errate!</p>
         </div>
@@ -304,14 +292,14 @@
 
     <div id="main-app">
         <header class="unified-header">
-            <h1> G&L Studio</h1>
+            <h1>📸 G&L Studio</h1>
             <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
         </header>
 
         <nav class="unified-nav">
-            <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
             <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
-            <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
+            <button class="nav-btn" onclick="switchApp('saggi', this)"> Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
             <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
             <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
@@ -325,7 +313,7 @@
                 
                 <div class="dashboard-grid">
                     <div class="dash-card card-eventi" onclick="switchApp('eventi', document.querySelectorAll('.nav-btn')[1])">
-                        <h3>📷 Gestione Eventi</h3>
+                        <h3> Gestione Eventi</h3>
                         <div class="count" id="dash-count-eventi">0</div>
                         <small>Clienti Foto & Preventivi</small>
                     </div>
@@ -380,10 +368,10 @@
                 </div>
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')"> Anagrafica</button>
+                    <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')">👥 Anagrafica</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-preventivo')">📄 Nuovo Preventivo</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')">📊 Stato Lavori</button>
-                    <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('preventivi')"> Archivio Prev.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('contratti')">📑 Archivio Contr.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('clienti')">👥 Archivio Clienti</button>
                 </div>
@@ -399,8 +387,8 @@
                             <h4 style="color:#2c3e50; border-bottom:2px solid #3498db; padding-bottom:5px; margin-bottom:15px;">Cliente A (Principale)</h4>
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome *</label><input type="text" id="eventi_cognomeA" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome *</label><input type="text" id="eventi_nomeA" class="form-control"></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')"></button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">🗺️</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')">💬</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailA" class="form-control"></div>
                         </div>
                         <div>
@@ -408,12 +396,12 @@
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="eventi_cognomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="eventi_nomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">🗺️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')"></button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')">💬</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaCoppia()"> Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -423,7 +411,7 @@
                         <div class="full-width"><label>Seleziona Cliente B (opzionale)</label><select id="eventi_prev_clienteB" class="form-control"><option value="">-- Nessun Cliente B --</option></select></div>
                         
                         <div class="full-width data-evento-container">
-                            <label> DATA EVENTO</label>
+                            <label>📅 DATA EVENTO</label>
                             <input type="date" id="eventi_prev_dataEvento">
                         </div>
                         
@@ -555,7 +543,7 @@
                             </select>
                         </div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
-                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
+                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
                             <select id="eventi_prev_anteprima" class="form-control">
                                 <option>Nessuno</option>
@@ -619,7 +607,7 @@
 
                 <div id="eventi-view-archive" class="sheet-container">
                     <h3 id="eventi_archive_title">Archivio</h3>
-                    <div class="search-bar"><input type="text" id="eventi_search" placeholder="🔍 Cerca cognome o nome..." oninput="eventi_filterArchive()"></div>
+                    <div class="search-bar"><input type="text" id="eventi_search" placeholder=" Cerca cognome o nome..." oninput="eventi_filterArchive()"></div>
                     <div id="eventi_archive_list"></div>
                 </div>
             </div>
@@ -630,13 +618,13 @@
                     <h2>💃 Gestione Saggi Danza</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
-                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
                         <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
                     </div>
                 </div>
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)"> Dashboard</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
@@ -647,8 +635,8 @@
                     <div class="dashboard-cards">
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
-                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p></p><small>Lista partecipanti PDF</small></div>
-                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p></p><small>Report incassi</small></div>
                     </div>
                 </div>
 
@@ -683,31 +671,31 @@
                     </div>
                     <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
-                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">️ Carica per Modifica</button>
-                        <button class="btn btn-info" onclick="saggi_generaPDFSingolo()"> PDF Scheda</button>
-                        <button class="btn btn-secondary" onclick="saggi_resetForm()"> Reset</button>
+                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
+                        <button class="btn btn-info" onclick="saggi_generaPDFSingolo()">📄 PDF Scheda</button>
+                        <button class="btn btn-secondary" onclick="saggi_resetForm()">🔄 Reset</button>
                     </div>
                 </div>
 
                 <div id="saggi-archivio" class="section">
-                    <h3>📁 Archivio Partecipanti</h3>
+                    <h3> Archivio Partecipanti</h3>
                     <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraArchivio()"> Filtra</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraArchivio()">🔍 Filtra</button></div>
                     </div>
                     <div id="saggi_archivio_content"></div>
                 </div>
 
                 <div id="saggi-stampa" class="section">
-                    <h3>️ Stampa Elenco Partecipanti</h3>
+                    <h3>🖨️ Stampa Elenco Partecipanti</h3>
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">️ Anteprima</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
                     </div>
                     <div id="saggi_preview_area" style="margin-top:20px;"></div>
-                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">️ Genera PDF Elenco</button>
+                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
                 </div>
 
                 <div id="saggi-contabilita" class="section">
@@ -753,7 +741,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -779,16 +767,16 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2> Gestione Ricevute</h2>
+                    <h2>🧾 Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
-                        <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
+                        <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
                         <input type="file" id="ricevute_restore_input" accept=".json" style="display:none;" onchange="ricevute_ripristinaFile(event)">
                     </div>
                 </div>
 
                 <div id="ricevute-list-view">
-                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;"> Nuova Ricevuta</button>
+                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;">➕ Nuova Ricevuta</button>
                     <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                         <h3>Archivio Ricevute</h3>
                         <input type="text" id="ricevute_search" placeholder="🔍 Cerca per nome cliente..." style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin:20px 0;" oninput="ricevute_filtra()">
@@ -797,7 +785,7 @@
                 </div>
 
                 <div id="ricevute-form-view">
-                    <h3 id="ricevute_form_title"> Nuova Ricevuta Fotografica</h3>
+                    <h3 id="ricevute_form_title">📄 Nuova Ricevuta Fotografica</h3>
                     <p style="color:#7f8c8d; margin-bottom:20px; font-size:14px;">Studio Fotografico G&L • Via Ciarrocco, 21 – Canicattì (AG)<br>Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
                     
                     <input type="hidden" id="ricevute_edit_id">
@@ -848,8 +836,11 @@
         let ricevute_isModifica = false;
         let ricevute_editId = null;
 
-        const GLOBAL_USER = 'gelStudio';
-        const GLOBAL_PASS = '12763Mlg';
+        // ============================================
+        // NUOVE CREDENZIALI UNIFICATE
+        // ============================================
+        const GLOBAL_USER = 'G&LStudio';
+        const GLOBAL_PASS = '12763Mlg@';
 
         const TIPI_ACCONTO = ['Caparra', 'Prima Anteprima', 'Prima Evento', 'Selezione Foto', 'Saldo Laboratorio'];
         const METODI_PAGAMENTO = ['Contanti', 'Bonifico', 'Carta', 'Assegno', 'Altro'];
@@ -987,51 +978,39 @@
         function eventi_populatePennino() {
             const sel = document.getElementById('eventi_prev_pennino');
             sel.innerHTML = '<option value="0">Nessuno</option>';
-            for (let i = 1; i <= 50; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 1; i <= 50; i++) { sel.add(new Option(i, i)); }
         }
 
         function eventi_populateInterni() {
             const sel = document.getElementById('eventi_prev_interni');
             sel.innerHTML = '<option>Nessuno</option>';
-            for (let i = 1; i <= 50; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 1; i <= 50; i++) { sel.add(new Option(i, i)); }
         }
 
         function eventi_populateExtra() {
             const sel = document.getElementById('eventi_prev_extra');
             sel.innerHTML = '<option>Nessuno</option>';
-            for (let i = 1; i <= 50; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 1; i <= 50; i++) { sel.add(new Option(i, i)); }
         }
 
         function eventi_populateQtaFoto() {
             const sel = document.getElementById('eventi_prev_qta');
             sel.innerHTML = '<option>Nessuno</option>';
-            for (let i = 0; i <= 200; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 0; i <= 200; i++) { sel.add(new Option(i, i)); }
             sel.value = "100";
         }
 
         function eventi_populateQtaIngrand() {
             const sel = document.getElementById('eventi_prev_ingrandimento_qta');
             sel.innerHTML = '<option>Nessuno</option>';
-            for (let i = 0; i <= 200; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 0; i <= 200; i++) { sel.add(new Option(i, i)); }
             sel.value = "1";
         }
 
         function eventi_populateQtaTele() {
             const sel = document.getElementById('eventi_prev_tela_qta');
             sel.innerHTML = '<option>Nessuno</option>';
-            for (let i = 0; i <= 200; i++) {
-                sel.add(new Option(i, i));
-            }
+            for (let i = 0; i <= 200; i++) { sel.add(new Option(i, i)); }
             sel.value = "1";
         }
 
@@ -1050,9 +1029,7 @@
         function eventi_showView(viewId) {
             document.querySelectorAll('#app-eventi .sheet-container').forEach(el => el.classList.remove('active'));
             document.getElementById('eventi-view-' + viewId.replace('eventi-view-', '')).classList.add('active');
-            if(viewId === 'eventi-view-stato-lavori') {
-                eventi_renderStatoLavori();
-            }
+            if(viewId === 'eventi-view-stato-lavori') { eventi_renderStatoLavori(); }
         }
 
         function eventi_populateSelect() {
@@ -1149,26 +1126,11 @@
                 let metodoOptions = METODI_PAGAMENTO.map(m => `<option value="${m}" ${m === acc.metodo ? 'selected' : ''}>${m}</option>`).join('');
                 html += `
                     <div class="acconto-row">
-                        <div>
-                            <label>Tipo</label>
-                            <select onchange="eventi_updateAcconto(${i}, 'tipo', this.value)">${tipoOptions}</select>
-                        </div>
-                        <div>
-                            <label>Data</label>
-                            <input type="date" value="${acc.data}" onchange="eventi_updateAcconto(${i}, 'data', this.value)">
-                        </div>
-                        <div>
-                            <label>Importo (€)</label>
-                            <input type="number" step="0.01" value="${acc.importo}" onchange="eventi_updateAcconto(${i}, 'importo', parseFloat(this.value) || 0)">
-                        </div>
-                        <div>
-                            <label>Pagamento</label>
-                            <select onchange="eventi_updateAcconto(${i}, 'metodo', this.value)">${metodoOptions}</select>
-                        </div>
-                        <div>
-                            <label>&nbsp;</label>
-                            <button type="button" class="btn-remove-acconto" onclick="eventi_removeAcconto(${i})">🗑️</button>
-                        </div>
+                        <div><label>Tipo</label><select onchange="eventi_updateAcconto(${i}, 'tipo', this.value)">${tipoOptions}</select></div>
+                        <div><label>Data</label><input type="date" value="${acc.data}" onchange="eventi_updateAcconto(${i}, 'data', this.value)"></div>
+                        <div><label>Importo (€)</label><input type="number" step="0.01" value="${acc.importo}" onchange="eventi_updateAcconto(${i}, 'importo', parseFloat(this.value) || 0)"></div>
+                        <div><label>Pagamento</label><select onchange="eventi_updateAcconto(${i}, 'metodo', this.value)">${metodoOptions}</select></div>
+                        <div><label>&nbsp;</label><button type="button" class="btn-remove-acconto" onclick="eventi_removeAcconto(${i})">🗑️</button></div>
                     </div>
                 `;
             });
@@ -1327,9 +1289,7 @@
             let clienteB = null;
             if (p.clienteBIdx !== "" && p.clienteBIdx !== undefined && p.clienteBIdx !== null) {
                 const bIdx = parseInt(p.clienteBIdx);
-                if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) {
-                    clienteB = eventi_db.clienti[bIdx];
-                }
+                if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) { clienteB = eventi_db.clienti[bIdx]; }
             }
             const titoloDoc = tipo === 'contratto' ? "G&L STUDIO - CONTRATTO DI SERVIZIO" : "G&L STUDIO - PREVENTIVO DI SERVIZIO";
             doc.setFontSize(13);
@@ -1376,29 +1336,17 @@
                 }
             }
             addRow(y, "Servizio:", p.servizio, "Misura:", p.misura); y += 4;
-            if(p.interni && p.interni !== 'Nessuno') {
-                addRow(y, "Interni:", p.interni); y += 4;
-            }
+            if(p.interni && p.interni !== 'Nessuno') { addRow(y, "Interni:", p.interni); y += 4; }
             addRow(y, "Orient.:", p.orientamento, "Qta Foto:", p.qta); y += 4;
             addRow(y, "Copert.:", p.copertina, "Effetti:", p.effetti); y += 4;
             addRow(y, "Mini Alb.:", p.miniAlbum, "Ingrandim.:", `${p.ingrandimento} (q:${p.ingrandimentoQta})`); y += 4;
-            if(p.tela && p.tela !== 'Nessuno') {
-                addRow(y, "Tele:", `${p.tela} (q:${p.telaQta})`); y += 4;
-            }
+            if(p.tela && p.tela !== 'Nessuno') { addRow(y, "Tele:", `${p.tela} (q:${p.telaQta})`); y += 4; }
             addRow(y, "Video:", p.video); y += 4;
-            if(p.proiezione && p.proiezione !== 'Nessuna') {
-                addRow(y, "Proiezione:", p.proiezione); y += 4;
-            }
+            if(p.proiezione && p.proiezione !== 'Nessuna') { addRow(y, "Proiezione:", p.proiezione); y += 4; }
             addRow(y, "Drone:", p.drone); y += 4;
-            if(p.pennino && p.pennino !== "0" && p.pennino !== "Nessuno") {
-                addRow(y, "Pennino USB:", p.pennino); y += 4;
-            }
-            if(p.extra && p.extra !== 'Nessuno') {
-                addRow(y, "Foto EXTRA E:", p.extra); y += 4;
-            }
-            if(p.consegna && p.consegna !== 'NO' && p.consegna !== 'Nessuno') {
-                addRow(y, "Consegna Files:", p.consegna); y += 4;
-            }
+            if(p.pennino && p.pennino !== "0" && p.pennino !== "Nessuno") { addRow(y, "Pennino USB:", p.pennino); y += 4; }
+            if(p.extra && p.extra !== 'Nessuno') { addRow(y, "Foto EXTRA E:", p.extra); y += 4; }
+            if(p.consegna && p.consegna !== 'NO' && p.consegna !== 'Nessuno') { addRow(y, "Consegna Files:", p.consegna); y += 4; }
             if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 4; }
             if (p.location) { addRow(y, "Location:", p.location); y += 4; }
             addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 4;
@@ -1497,9 +1445,7 @@
             html += '<th>DATA EVENTO</th>';
             html += '<th>TIPO SERVIZIO</th>';
             html += '<th>NOME CLIENTI</th>';
-            CAMPI_FLUSSO.forEach(c => {
-                html += `<th>${c.label}</th>`;
-            });
+            CAMPI_FLUSSO.forEach(c => { html += `<th>${c.label}</th>`; });
             html += '</tr></thead><tbody>';
             contratti.forEach(c => {
                 const clienteA = eventi_db.clienti[c.clienteIdx] || { cognome: '?', nome: '' };
@@ -1573,9 +1519,9 @@
                 html += `<div class="archive-item">
                     <div>${info}</div>
                     <div style="display:flex;gap:8px;">
-                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
-                        <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">️</button>
-                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">️</button>
+                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')"></button>
+                        <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
                     </div>
                 </div>`;
             });
@@ -1790,7 +1736,7 @@
             let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
             filtered.forEach(c => {
                 html += `<tr><td>${c.id}</td><td><strong>${c.cognome}</strong></td><td>${c.nome}</td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td>
-                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">️</button> 
+                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">✏️</button> 
                 <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="saggi_elimina(${c.id})">🗑️</button></td></tr>`;
             });
             html += '</tbody></table>';
@@ -1810,7 +1756,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -1857,7 +1803,7 @@
             filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
             if (filtered.length === 0) { area.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
             let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px;">
-                <h3 style="text-align:center;margin-bottom:15px;"> ${scuola} - Anno ${anno}</h3>
+                <h3 style="text-align:center;margin-bottom:15px;">📋 ${scuola} - Anno ${anno}</h3>
                 <div style="display:flex;justify-content:space-around;margin-bottom:15px;background:#e8eaf6;padding:10px;border-radius:8px;">
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.length}</strong><br><small>Partecipanti</small></div>
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c => c.tipo === 'Fratelli').length}</strong><br><small>Fratelli</small></div>
@@ -1916,7 +1862,7 @@
                 totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return;
             }
             let totale = 0;
-            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;"> ${scuola} - Anno ${anno}</h3>
+            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;">💰 ${scuola} - Anno ${anno}</h3>
             <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th style="text-align:right;">Importo</th></tr></thead><tbody>`;
             filtered.forEach((c, i) => {
                 totale += parseFloat(c.importo || 0);
@@ -1983,7 +1929,7 @@
                     const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
-                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
@@ -2023,7 +1969,7 @@
             filtered.sort((a, b) => b.createdAt - a.createdAt);
             const list = document.getElementById('gallery_clients_list');
             list.innerHTML = '';
-            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;"></div><p>Nessun cliente trovato</p></div>'; return; }
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
             filtered.forEach(client => {
                 const card = document.createElement('div');
                 card.className = 'client-card';
@@ -2041,9 +1987,9 @@
                             </div>
                         </div>
                     </div>
-                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;"> Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
+                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2119,7 +2065,7 @@
                     <div><strong>🔑 Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
                     <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
                     <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
-                    <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
+                    <div><strong> Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
                     ${c.notes ? `<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g, '<br>')}</div>` : ''}
                     <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
                 </div>
@@ -2193,7 +2139,7 @@
             document.getElementById('ricevute-form-view').style.display = 'block';
             ricevute_isModifica = false;
             ricevute_editId = null;
-            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_form_title').textContent = ' Nuova Ricevuta Fotografica';
             document.getElementById('ricevute_cliente').value = '';
             document.getElementById('ricevute_telefono').value = '';
             document.getElementById('ricevute_facebook').value = '';
@@ -2242,8 +2188,8 @@
                 item.innerHTML = `
                     <div><strong>${r.cliente}</strong><br><small>${dataFmt} • ${r.servizio}</small></div>
                     <div><strong>€ ${impFmt}</strong>
-                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">️</button>
-                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">️</button>
+                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">✏️</button>
+                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">🗑️</button>
                     </div>
                 `;
                 lista.appendChild(item);
