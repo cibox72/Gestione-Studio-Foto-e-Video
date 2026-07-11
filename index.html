@@ -304,7 +304,7 @@
 
     <div id="main-app">
         <header class="unified-header">
-            <h1>📸 G&L Studio</h1>
+            <h1> G&L Studio</h1>
             <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
         </header>
 
@@ -400,7 +400,7 @@
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome *</label><input type="text" id="eventi_cognomeA" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome *</label><input type="text" id="eventi_nomeA" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoA" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoA')">️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')">💬</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareA" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareA')"></button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailA" class="form-control"></div>
                         </div>
                         <div>
@@ -408,12 +408,12 @@
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="eventi_cognomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="eventi_nomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">🗺️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')">💬</button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')"></button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
                         </div>
                     </div>
-                    <button class="btn-save" onclick="eventi_salvaCoppia()">💾 Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
+                    <button class="btn-save" onclick="eventi_salvaCoppia()"> Salva Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -423,7 +423,7 @@
                         <div class="full-width"><label>Seleziona Cliente B (opzionale)</label><select id="eventi_prev_clienteB" class="form-control"><option value="">-- Nessun Cliente B --</option></select></div>
                         
                         <div class="full-width data-evento-container">
-                            <label>📅 DATA EVENTO</label>
+                            <label> DATA EVENTO</label>
                             <input type="date" id="eventi_prev_dataEvento">
                         </div>
                         
@@ -506,16 +506,32 @@
                             </div>
                         </div>
                         
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Video</label>
-                            <select id="eventi_prev_video" class="form-control">
-                                <option>Nessuno</option>
-                                <option>Solo Casa</option><option>Solo Chiesa</option>
-                                <option>Solo Locale+ taglio torta iniziale</option><option>Solo Locale intera serata</option>
-                                <option>Casa+Chiesa</option><option>Chiesa+Locale taglio torta</option><option>Chiesa+ Locale intera serata</option>
-                                <option>Casa+Chiesa+Locale taglio torta</option><option>Casa+Chiesa+Locale intera serata</option>
-                                <option>Esterni</option><option>Esterni+Locale taglio torta</option><option>Esterni+Locale intera serata</option>
-                            </select>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;">
+                            <label>Video e Proiezione</label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Video</label>
+                                    <select id="eventi_prev_video" class="form-control">
+                                        <option>Nessuno</option>
+                                        <option>Solo Casa</option><option>Solo Chiesa</option>
+                                        <option>Solo Locale+ taglio torta iniziale</option><option>Solo Locale intera serata</option>
+                                        <option>Casa+Chiesa</option><option>Chiesa+Locale taglio torta</option><option>Chiesa+ Locale intera serata</option>
+                                        <option>Casa+Chiesa+Locale taglio torta</option><option>Casa+Chiesa+Locale intera serata</option>
+                                        <option>Esterni</option><option>Esterni+Locale taglio torta</option><option>Esterni+Locale intera serata</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="font-size: 12px; color: #666;">Proiezione in sala</label>
+                                    <select id="eventi_prev_proiezione" class="form-control">
+                                        <option>Nessuna</option>
+                                        <option>Solo anteprima</option>
+                                        <option>Solo Live</option>
+                                        <option>Anteprima + Live</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
+                        
                         <div><label>Drone</label>
                             <select id="eventi_prev_drone" class="form-control">
                                 <option>Nessuno</option>
@@ -538,8 +554,8 @@
                                 <option>Tutti (non ritoccate)</option>
                             </select>
                         </div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">️ Maps</button></div></div>
-                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
+                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
                             <select id="eventi_prev_anteprima" class="form-control">
                                 <option>Nessuno</option>
@@ -614,7 +630,7 @@
                     <h2>💃 Gestione Saggi Danza</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="saggi_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
-                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
+                        <button class="btn-global btn-restore" onclick="document.getElementById('saggi_restore_input').click()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
                         <input type="file" id="saggi_restore_input" accept=".json" style="display:none;" onchange="saggi_ripristinaFile(event)">
                     </div>
                 </div>
@@ -631,8 +647,8 @@
                     <div class="dashboard-cards">
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
-                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
-                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p></p><small>Report incassi</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p></p><small>Lista partecipanti PDF</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
                     </div>
                 </div>
 
@@ -667,7 +683,7 @@
                     </div>
                     <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
-                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
+                        <button class="btn btn-warning" onclick="saggi_caricaModifica()">️ Carica per Modifica</button>
                         <button class="btn btn-info" onclick="saggi_generaPDFSingolo()"> PDF Scheda</button>
                         <button class="btn btn-secondary" onclick="saggi_resetForm()"> Reset</button>
                     </div>
@@ -678,20 +694,20 @@
                     <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraArchivio()">🔍 Filtra</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraArchivio()"> Filtra</button></div>
                     </div>
                     <div id="saggi_archivio_content"></div>
                 </div>
 
                 <div id="saggi-stampa" class="section">
-                    <h3>🖨️ Stampa Elenco Partecipanti</h3>
+                    <h3>️ Stampa Elenco Partecipanti</h3>
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">️ Anteprima</button></div>
                     </div>
                     <div id="saggi_preview_area" style="margin-top:20px;"></div>
-                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
+                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">️ Genera PDF Elenco</button>
                 </div>
 
                 <div id="saggi-contabilita" class="section">
@@ -737,7 +753,7 @@
                 <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
                         <h3>Lista Clienti <span id="gallery_count" style="color:#667eea;">0</span></h3>
-                        <input type="text" id="gallery_search" placeholder="🔍 Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
+                        <input type="text" id="gallery_search" placeholder=" Cerca cliente..." style="padding:10px; border:1px solid #ddd; border-radius:8px; width:250px;" oninput="gallery_loadClients()">
                     </div>
                     <div id="gallery_clients_list" class="clients-grid"></div>
                 </div>
@@ -763,7 +779,7 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>🧾 Gestione Ricevute</h2>
+                    <h2> Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -772,7 +788,7 @@
                 </div>
 
                 <div id="ricevute-list-view">
-                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;">➕ Nuova Ricevuta</button>
+                    <button class="btn btn-primary" onclick="ricevute_showForm()" style="margin-bottom:20px; width:100%;"> Nuova Ricevuta</button>
                     <div style="background:white; padding:25px; border-radius:var(--radius); box-shadow:var(--shadow);">
                         <h3>Archivio Ricevute</h3>
                         <input type="text" id="ricevute_search" placeholder="🔍 Cerca per nome cliente..." style="width:100%; padding:12px; border:1px solid #ddd; border-radius:8px; margin:20px 0;" oninput="ricevute_filtra()">
@@ -1191,6 +1207,7 @@
                 tela: document.getElementById('eventi_prev_tela').value,
                 telaQta: document.getElementById('eventi_prev_tela_qta').value,
                 video: document.getElementById('eventi_prev_video').value,
+                proiezione: document.getElementById('eventi_prev_proiezione').value,
                 drone: document.getElementById('eventi_prev_drone').value,
                 pennino: document.getElementById('eventi_prev_pennino').value,
                 extra: document.getElementById('eventi_prev_extra').value,
@@ -1254,6 +1271,7 @@
             document.getElementById('eventi_prev_tela').selectedIndex = 0;
             document.getElementById('eventi_prev_tela_qta').value = "1";
             document.getElementById('eventi_prev_video').selectedIndex = 0;
+            document.getElementById('eventi_prev_proiezione').selectedIndex = 0;
             document.getElementById('eventi_prev_drone').selectedIndex = 0;
             document.getElementById('eventi_prev_pennino').value = "0";
             document.getElementById('eventi_prev_extra').selectedIndex = 0;
@@ -1367,7 +1385,11 @@
             if(p.tela && p.tela !== 'Nessuno') {
                 addRow(y, "Tele:", `${p.tela} (q:${p.telaQta})`); y += 4;
             }
-            addRow(y, "Video:", p.video, "Drone:", p.drone); y += 4;
+            addRow(y, "Video:", p.video); y += 4;
+            if(p.proiezione && p.proiezione !== 'Nessuna') {
+                addRow(y, "Proiezione:", p.proiezione); y += 4;
+            }
+            addRow(y, "Drone:", p.drone); y += 4;
             if(p.pennino && p.pennino !== "0" && p.pennino !== "Nessuno") {
                 addRow(y, "Pennino USB:", p.pennino); y += 4;
             }
@@ -1553,7 +1575,7 @@
                     <div style="display:flex;gap:8px;">
                         <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
                         <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">️</button>
-                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">️</button>
                     </div>
                 </div>`;
             });
@@ -1593,6 +1615,7 @@
                 document.getElementById('eventi_prev_tela').value = item.tela || 'Nessuno';
                 document.getElementById('eventi_prev_tela_qta').value = item.telaQta !== undefined && item.telaQta !== '' ? item.telaQta : "1";
                 document.getElementById('eventi_prev_video').value = item.video || 'Nessuno';
+                document.getElementById('eventi_prev_proiezione').value = item.proiezione || 'Nessuna';
                 document.getElementById('eventi_prev_drone').value = item.drone || 'Nessuno';
                 document.getElementById('eventi_prev_pennino').value = item.pennino || "0";
                 document.getElementById('eventi_prev_extra').value = item.extra || 'Nessuno';
@@ -1767,7 +1790,7 @@
             let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
             filtered.forEach(c => {
                 html += `<tr><td>${c.id}</td><td><strong>${c.cognome}</strong></td><td>${c.nome}</td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td>
-                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">✏️</button> 
+                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">️</button> 
                 <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="saggi_elimina(${c.id})">🗑️</button></td></tr>`;
             });
             html += '</tbody></table>';
@@ -1787,7 +1810,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -2018,9 +2041,9 @@
                             </div>
                         </div>
                     </div>
-                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
+                    ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;"> Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2219,8 +2242,8 @@
                 item.innerHTML = `
                     <div><strong>${r.cliente}</strong><br><small>${dataFmt} • ${r.servizio}</small></div>
                     <div><strong>€ ${impFmt}</strong>
-                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">✏️</button>
-                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">🗑️</button>
+                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">️</button>
+                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">️</button>
                     </div>
                 `;
                 lista.appendChild(item);
