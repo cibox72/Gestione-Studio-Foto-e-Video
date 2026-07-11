@@ -109,7 +109,6 @@
         #app-eventi .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         #app-eventi .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
 
-        /* DATA EVENTO - Campo ben visibile */
         .data-evento-container {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
@@ -146,7 +145,6 @@
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
         }
 
-        /* STATO LAVORI - TABELLA FLUSSO */
         .stato-lavori-container { 
             background: #f8f9fa; border-radius: 8px; padding: 20px; margin-top: 20px; 
             overflow-x: auto;
@@ -342,7 +340,7 @@
                         <small>Accessi Clienti Gallery</small>
                     </div>
                     <div class="dash-card card-ricevute" onclick="switchApp('ricevute', document.querySelectorAll('.nav-btn')[4])">
-                        <h3> Ricevute</h3>
+                        <h3>🧾 Ricevute</h3>
                         <div class="count" id="dash-count-ricevute">0</div>
                         <small>Ricevute Emesse</small>
                     </div>
@@ -410,12 +408,12 @@
                             <div class="form-group" style="margin-bottom:10px;"><label>Cognome</label><input type="text" id="eventi_cognomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="eventi_nomeB" class="form-control"></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Indirizzo</label><div class="input-group"><input type="text" id="eventi_indirizzoB" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_indirizzoB')">🗺️</button></div></div>
-                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')"></button></div></div>
+                            <div class="form-group" style="margin-bottom:10px;"><label>Cellulare</label><div class="input-group"><input type="tel" id="eventi_cellulareB" class="form-control"><button class="btn-action-icon" style="background:#25D366;" onclick="eventi_openWA('eventi_cellulareB')">💬</button></div></div>
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaCoppia()">💾 Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -424,7 +422,6 @@
                         <div class="full-width"><label>Seleziona Cliente A</label><select id="eventi_prev_cliente" class="form-control"></select></div>
                         <div class="full-width"><label>Seleziona Cliente B (opzionale)</label><select id="eventi_prev_clienteB" class="form-control"><option value="">-- Nessun Cliente B --</option></select></div>
                         
-                        <!-- DATA EVENTO - Ben visibile -->
                         <div class="full-width data-evento-container">
                             <label>📅 DATA EVENTO</label>
                             <input type="date" id="eventi_prev_dataEvento">
@@ -460,7 +457,9 @@
                                 <option>Album verticale</option><option>Album orizzontale</option>
                             </select>
                         </div>
-                        <div><label>Qta Foto</label><input type="number" id="eventi_prev_qta" class="form-control" value="100" min="1" max="500"></div>
+                        <div><label>Qta Foto</label>
+                            <select id="eventi_prev_qta" class="form-control"></select>
+                        </div>
                         <div><label>Copertina</label>
                             <select id="eventi_prev_copertina" class="form-control">
                                 <option>Nessuno</option>
@@ -488,7 +487,7 @@
                                 </div>
                                 <div>
                                     <label style="font-size: 12px; color: #666;">Qta Ingrand.</label>
-                                    <input type="number" id="eventi_prev_ingrandimento_qta" class="form-control" value="1" min="1" max="100">
+                                    <select id="eventi_prev_ingrandimento_qta" class="form-control"></select>
                                 </div>
                                 <div>
                                     <label style="font-size: 12px; color: #666;">Tele</label>
@@ -502,7 +501,7 @@
                                 </div>
                                 <div>
                                     <label style="font-size: 12px; color: #666;">Qta Tele</label>
-                                    <input type="number" id="eventi_prev_tela_qta" class="form-control" value="1" min="1" max="100">
+                                    <select id="eventi_prev_tela_qta" class="form-control"></select>
                                 </div>
                             </div>
                         </div>
@@ -533,13 +532,14 @@
                         </div>
                         <div><label>Consegna Files</label>
                             <select id="eventi_prev_consegna" class="form-control">
+                                <option>Nessuno</option>
                                 <option>NO</option>
                                 <option>Solo acquistati</option>
                                 <option>Tutti (non ritoccate)</option>
                             </select>
                         </div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
-                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">️ Maps</button></div></div>
+                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
                             <select id="eventi_prev_anteprima" class="form-control">
                                 <option>Nessuno</option>
@@ -591,7 +591,6 @@
                     <button class="btn-convert" onclick="eventi_convertiContratto()">📑 Converti in Contratto</button>
                 </div>
 
-                <!-- SEZIONE STATO LAVORI - TABELLA FLUSSO -->
                 <div id="eventi-view-stato-lavori" class="sheet-container">
                     <div class="stato-lavori-container">
                         <div class="stato-lavori-header">
@@ -632,8 +631,8 @@
                     <div class="dashboard-cards">
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
-                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p></p><small>Lista partecipanti PDF</small></div>
-                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
+                        <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p></p><small>Report incassi</small></div>
                     </div>
                 </div>
 
@@ -669,8 +668,8 @@
                     <div style="display:flex; gap:10px; margin-top:20px; flex-wrap:wrap;">
                         <button class="btn btn-primary" onclick="saggi_salva()">💾 Salva</button>
                         <button class="btn btn-warning" onclick="saggi_caricaModifica()">✏️ Carica per Modifica</button>
-                        <button class="btn btn-info" onclick="saggi_generaPDFSingolo()">📄 PDF Scheda</button>
-                        <button class="btn btn-secondary" onclick="saggi_resetForm()">🔄 Reset</button>
+                        <button class="btn btn-info" onclick="saggi_generaPDFSingolo()"> PDF Scheda</button>
+                        <button class="btn btn-secondary" onclick="saggi_resetForm()"> Reset</button>
                     </div>
                 </div>
 
@@ -685,14 +684,14 @@
                 </div>
 
                 <div id="saggi-stampa" class="section">
-                    <h3>️ Stampa Elenco Partecipanti</h3>
+                    <h3>🖨️ Stampa Elenco Partecipanti</h3>
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">️ Anteprima</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
                     </div>
                     <div id="saggi_preview_area" style="margin-top:20px;"></div>
-                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">️ Genera PDF Elenco</button>
+                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
                 </div>
 
                 <div id="saggi-contabilita" class="section">
@@ -700,7 +699,7 @@
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_cont_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_cont_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraContabilita()">📊 Visualizza</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraContabilita()"> Visualizza</button></div>
                     </div>
                     <div id="saggi_cont_content" style="margin-top:20px;"></div>
                     <div id="saggi_cont_total" style="margin-top:20px;"></div>
@@ -764,7 +763,7 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2> Gestione Ricevute</h2>
+                    <h2>🧾 Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
                         <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
                         <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
@@ -782,7 +781,7 @@
                 </div>
 
                 <div id="ricevute-form-view">
-                    <h3 id="ricevute_form_title">📄 Nuova Ricevuta Fotografica</h3>
+                    <h3 id="ricevute_form_title"> Nuova Ricevuta Fotografica</h3>
                     <p style="color:#7f8c8d; margin-bottom:20px; font-size:14px;">Studio Fotografico G&L • Via Ciarrocco, 21 – Canicattì (AG)<br>Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
                     
                     <input type="hidden" id="ricevute_edit_id">
@@ -804,9 +803,9 @@
                     <div class="form-group"><label>Note</label><textarea id="ricevute_note" rows="3"></textarea></div>
                     
                     <div class="actions">
-                        <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
+                        <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">️ Torna alla Lista</button>
                         <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
-                        <button class="btn btn-danger" onclick="ricevute_pdf()">️ PDF Doppia Copia</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
                     </div>
                 </div>
             </div>
@@ -820,9 +819,6 @@
     </div>
 
     <script>
-        // ==========================================
-        // INIZIALIZZAZIONE VARIABILI GLOBALI
-        // ==========================================
         let eventi_db = { clienti: [], preventivi: [], contratti: [] };
         let saggi_clienti = [];
         let gallery_allClients = [];
@@ -842,7 +838,6 @@
         const TIPI_ACCONTO = ['Caparra', 'Prima Anteprima', 'Prima Evento', 'Selezione Foto', 'Saldo Laboratorio'];
         const METODI_PAGAMENTO = ['Contanti', 'Bonifico', 'Carta', 'Assegno', 'Altro'];
 
-        // Campi flusso contratti
         const CAMPI_FLUSSO = [
             { key: 'dataConvertito', label: 'CONVERTITO' },
             { key: 'dataSelezioneFoto', label: 'SELEZIONE FOTO' },
@@ -876,7 +871,6 @@
         function initApp() {
             document.getElementById('login-screen').style.display = 'none';
             document.getElementById('main-app').style.display = 'flex';
-            
             eventi_init();
             saggi_init();
             gallery_init();
@@ -887,12 +881,10 @@
         function switchApp(appId, btnElement) {
             document.querySelectorAll('.app-section').forEach(el => el.classList.remove('active'));
             document.getElementById('app-' + appId).classList.add('active');
-            
             if(btnElement) {
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btnElement.classList.add('active');
             }
-
             if(appId === 'dashboard') updateDashboardCounts();
             if(appId === 'eventi') { eventi_updateStats(); eventi_showView('eventi-view-dashboard'); }
             if(appId === 'saggi') saggi_aggiornaDashboard();
@@ -903,13 +895,10 @@
         function updateDashboardCounts() {
             const eventiDB = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
             document.getElementById('dash-count-eventi').textContent = (eventiDB.clienti || []).length;
-            
             const saggiData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
             document.getElementById('dash-count-saggi').textContent = saggiData.length;
-            
             const galleryData = JSON.parse(localStorage.getItem('galleryClients') || '[]');
             document.getElementById('dash-count-gallery').textContent = galleryData.length;
-            
             const ricevuteData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
             document.getElementById('dash-count-ricevute').textContent = ricevuteData.length;
         }
@@ -923,7 +912,6 @@
                 gallery: JSON.parse(localStorage.getItem('galleryClients') || '[]'),
                 ricevute: JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]')
             };
-            
             const blob = new Blob([JSON.stringify(backup, null, 2)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -937,20 +925,17 @@
         function restoreGlobalBackup(event) {
             const file = event.target.files[0];
             if(!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     const eventiData = data.eventi || data.ciboz72;
                     if(!eventiData && !data.saggi && !data.gallery && !data.ricevute) throw new Error('Formato non valido');
-                    
                     if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà TUTTI i dati attuali.\n\nSei sicuro?`)) {
                         if(eventiData) localStorage.setItem('gl_studio_db', JSON.stringify(eventiData));
                         if(data.saggi) localStorage.setItem('saggi_clienti', JSON.stringify(data.saggi));
                         if(data.gallery) localStorage.setItem('galleryClients', JSON.stringify(data.gallery));
                         if(data.ricevute) localStorage.setItem('glRicevuteFotografiche', JSON.stringify(data.ricevute));
-                        
                         alert('✅ Ripristino globale completato!');
                         location.reload();
                     }
@@ -978,6 +963,9 @@
             eventi_populatePennino();
             eventi_populateInterni();
             eventi_populateExtra();
+            eventi_populateQtaFoto();
+            eventi_populateQtaIngrand();
+            eventi_populateQtaTele();
         }
 
         function eventi_populatePennino() {
@@ -1004,6 +992,33 @@
             }
         }
 
+        function eventi_populateQtaFoto() {
+            const sel = document.getElementById('eventi_prev_qta');
+            sel.innerHTML = '<option>Nessuno</option>';
+            for (let i = 0; i <= 200; i++) {
+                sel.add(new Option(i, i));
+            }
+            sel.value = "100";
+        }
+
+        function eventi_populateQtaIngrand() {
+            const sel = document.getElementById('eventi_prev_ingrandimento_qta');
+            sel.innerHTML = '<option>Nessuno</option>';
+            for (let i = 0; i <= 200; i++) {
+                sel.add(new Option(i, i));
+            }
+            sel.value = "1";
+        }
+
+        function eventi_populateQtaTele() {
+            const sel = document.getElementById('eventi_prev_tela_qta');
+            sel.innerHTML = '<option>Nessuno</option>';
+            for (let i = 0; i <= 200; i++) {
+                sel.add(new Option(i, i));
+            }
+            sel.value = "1";
+        }
+
         function eventi_saveDB() {
             localStorage.setItem('gl_studio_db', JSON.stringify(eventi_db));
             eventi_updateStats();
@@ -1019,7 +1034,6 @@
         function eventi_showView(viewId) {
             document.querySelectorAll('#app-eventi .sheet-container').forEach(el => el.classList.remove('active'));
             document.getElementById('eventi-view-' + viewId.replace('eventi-view-', '')).classList.add('active');
-            
             if(viewId === 'eventi-view-stato-lavori') {
                 eventi_renderStatoLavori();
             }
@@ -1050,12 +1064,9 @@
         function eventi_salvaCoppia() {
             const cliA = eventi_getClienteData('A');
             if(!cliA.cognome || !cliA.nome) return alert("Il Cliente A è obbligatorio!");
-            
             eventi_db.clienti.push({ id: Date.now(), ...cliA });
-            
             const cliB = eventi_getClienteData('B');
             if(cliB.cognome && cliB.nome) eventi_db.clienti.push({ id: Date.now()+1, ...cliB });
-            
             eventi_saveDB();
             eventi_populateSelect();
             alert("✅ Coppia salvata!");
@@ -1074,14 +1085,12 @@
         function eventi_creaPrevDaCoppia() {
             const cliA = eventi_getClienteData('A');
             if(!cliA.cognome || !cliA.nome) return alert("Compila almeno Cognome e Nome del Cliente A!");
-            
             const idA = Date.now();
             eventi_db.clienti.push({ id: idA, ...cliA });
             const cliB = eventi_getClienteData('B');
             if(cliB.cognome && cliB.nome) eventi_db.clienti.push({ id: idA+1, ...cliB });
             eventi_saveDB();
             eventi_populateSelect();
-            
             const idx = eventi_db.clienti.findIndex(c => c.id === idA);
             document.getElementById('eventi_prev_cliente').value = idx;
             if(cliB.cognome && cliB.nome) {
@@ -1118,12 +1127,10 @@
                 eventi_calcolaSaldo();
                 return;
             }
-
             let html = '';
             eventi_acconti.forEach((acc, i) => {
                 let tipoOptions = TIPI_ACCONTO.map(t => `<option value="${t}" ${t === acc.tipo ? 'selected' : ''}>${t}</option>`).join('');
                 let metodoOptions = METODI_PAGAMENTO.map(m => `<option value="${m}" ${m === acc.metodo ? 'selected' : ''}>${m}</option>`).join('');
-                
                 html += `
                     <div class="acconto-row">
                         <div>
@@ -1157,7 +1164,6 @@
             const totale = parseFloat(document.getElementById('eventi_prev_importo').value) || 0;
             const totaleAcconti = eventi_acconti.reduce((sum, acc) => sum + (parseFloat(acc.importo) || 0), 0);
             const saldo = totale - totaleAcconti;
-
             document.getElementById('eventi_sum_totale').textContent = '€ ' + totale.toFixed(2).replace('.', ',');
             document.getElementById('eventi_sum_acconti').textContent = '€ ' + totaleAcconti.toFixed(2).replace('.', ',');
             document.getElementById('eventi_sum_saldo').textContent = '€ ' + saldo.toFixed(2).replace('.', ',');
@@ -1207,7 +1213,6 @@
             const data = eventi_getPrevData();
             if(!data.importo) return alert("Inserisci l'importo!");
             if(data.clienteIdx === "") return alert("Seleziona un cliente!");
-
             if(eventi_editingId && eventi_editingType === 'preventivi') {
                 const idx = eventi_db.preventivi.findIndex(p => p.id === eventi_editingId);
                 if(idx !== -1) {
@@ -1240,14 +1245,14 @@
             document.getElementById('eventi_prev_misura').selectedIndex = 0;
             document.getElementById('eventi_prev_interni').selectedIndex = 0;
             document.getElementById('eventi_prev_orientamento').selectedIndex = 0;
-            document.getElementById('eventi_prev_qta').value = 100;
+            document.getElementById('eventi_prev_qta').value = "100";
             document.getElementById('eventi_prev_copertina').selectedIndex = 0;
             document.getElementById('eventi_prev_effetti').selectedIndex = 0;
             document.getElementById('eventi_prev_mini').value = 0;
             document.getElementById('eventi_prev_ingrandimento').selectedIndex = 0;
-            document.getElementById('eventi_prev_ingrandimento_qta').value = 1;
+            document.getElementById('eventi_prev_ingrandimento_qta').value = "1";
             document.getElementById('eventi_prev_tela').selectedIndex = 0;
-            document.getElementById('eventi_prev_tela_qta').value = 1;
+            document.getElementById('eventi_prev_tela_qta').value = "1";
             document.getElementById('eventi_prev_video').selectedIndex = 0;
             document.getElementById('eventi_prev_drone').selectedIndex = 0;
             document.getElementById('eventi_prev_pennino').value = "0";
@@ -1267,11 +1272,8 @@
             const data = eventi_getPrevData();
             if(!data.importo) return alert("Inserisci l'importo!");
             if(data.clienteIdx === "") return alert("Seleziona un cliente!");
-
-            // Inizializza campi flusso
             const flussoInit = {};
             CAMPI_FLUSSO.forEach(c => { flussoInit[c.key] = ''; });
-
             const existing = eventi_db.contratti.findIndex(c => c.id === data.id);
             if(existing !== -1) {
                 eventi_db.contratti[existing] = {...data, stato: "In Lavorazione", dataConversione: eventi_db.contratti[existing].dataConversione || new Date().toISOString(), ...flussoInit};
@@ -1283,7 +1285,6 @@
             eventi_saveDB();
         }
 
-        // ===== AGGIORNA DATA FLUSSO =====
         function eventi_updateFlussoData(id, campo, valore) {
             const idx = eventi_db.contratti.findIndex(c => c.id === id);
             if(idx !== -1) {
@@ -1305,7 +1306,6 @@
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF('p', 'mm', 'a4');
             const clienteA = eventi_db.clienti[p.clienteIdx] || { cognome: "N/A", nome: "N/A", indirizzo: "", cellulare: "", email: "" };
-            
             let clienteB = null;
             if (p.clienteBIdx !== "" && p.clienteBIdx !== undefined && p.clienteBIdx !== null) {
                 const bIdx = parseInt(p.clienteBIdx);
@@ -1313,9 +1313,7 @@
                     clienteB = eventi_db.clienti[bIdx];
                 }
             }
-
             const titoloDoc = tipo === 'contratto' ? "G&L STUDIO - CONTRATTO DI SERVIZIO" : "G&L STUDIO - PREVENTIVO DI SERVIZIO";
-
             doc.setFontSize(13);
             doc.setFont(undefined, 'bold');
             doc.text(titoloDoc, 105, 10, { align: "center" });
@@ -1323,21 +1321,16 @@
             doc.setFont(undefined, 'normal');
             doc.text("Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it", 105, 14, { align: "center" });
             doc.line(15, 16, 195, 16);
-
-            // Data evento ben visibile
             const dataEventoPdf = p.dataEvento ? new Date(p.dataEvento).toLocaleDateString('it-IT') : new Date(p.dataCreazione).toLocaleDateString('it-IT');
-            
             doc.setFontSize(8);
             doc.setFont(undefined, 'bold');
             doc.text(`Evento: ${p.tipo}`, 15, 20);
             doc.text(`Data Evento: ${dataEventoPdf}`, 105, 20);
-
             let yA = 24;
             doc.text(`Cliente A: ${clienteA.cognome} ${clienteA.nome}`, 15, yA); yA += 4;
             if (clienteA.indirizzo) { doc.text(`Ind.: ${clienteA.indirizzo}`, 15, yA); yA += 4; }
             if (clienteA.cellulare) { doc.text(`Tel: ${clienteA.cellulare}`, 15, yA); yA += 4; }
             if (clienteA.email) { doc.text(`Email: ${clienteA.email}`, 15, yA); }
-
             if (clienteB) {
                 let yB = 24;
                 doc.text(`Cliente B: ${clienteB.cognome} ${clienteB.nome}`, 105, yB); yB += 4;
@@ -1345,11 +1338,9 @@
                 if (clienteB.cellulare) { doc.text(`Tel: ${clienteB.cellulare}`, 105, yB); yB += 4; }
                 if (clienteB.email) { doc.text(`Email: ${clienteB.email}`, 105, yB); }
             }
-
             let y = 38;
             doc.setFontSize(7);
             const red = [180, 50, 50], black = [0, 0, 0];
-
             function addRow(yPos, label, value, label2, value2) {
                 doc.setTextColor(...red);
                 doc.setFont(undefined, 'bold');
@@ -1357,7 +1348,6 @@
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'normal');
                 doc.text(String(value), 42, yPos);
-
                 if (label2) {
                     doc.setTextColor(...red);
                     doc.setFont(undefined, 'bold');
@@ -1367,7 +1357,6 @@
                     doc.text(String(value2), 135, yPos);
                 }
             }
-
             addRow(y, "Servizio:", p.servizio, "Misura:", p.misura); y += 4;
             if(p.interni && p.interni !== 'Nessuno') {
                 addRow(y, "Interni:", p.interni); y += 4;
@@ -1375,33 +1364,24 @@
             addRow(y, "Orient.:", p.orientamento, "Qta Foto:", p.qta); y += 4;
             addRow(y, "Copert.:", p.copertina, "Effetti:", p.effetti); y += 4;
             addRow(y, "Mini Alb.:", p.miniAlbum, "Ingrandim.:", `${p.ingrandimento} (q:${p.ingrandimentoQta})`); y += 4;
-            
             if(p.tela && p.tela !== 'Nessuno') {
                 addRow(y, "Tele:", `${p.tela} (q:${p.telaQta})`); y += 4;
             }
-            
             addRow(y, "Video:", p.video, "Drone:", p.drone); y += 4;
-            
-            if(p.pennino && p.pennino !== "0") {
+            if(p.pennino && p.pennino !== "0" && p.pennino !== "Nessuno") {
                 addRow(y, "Pennino USB:", p.pennino); y += 4;
             }
-
             if(p.extra && p.extra !== 'Nessuno') {
                 addRow(y, "Foto EXTRA E:", p.extra); y += 4;
             }
-
-            if(p.consegna && p.consegna !== 'NO') {
+            if(p.consegna && p.consegna !== 'NO' && p.consegna !== 'Nessuno') {
                 addRow(y, "Consegna Files:", p.consegna); y += 4;
             }
-
             if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 4; }
             if (p.location) { addRow(y, "Location:", p.location); y += 4; }
-
             addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 4;
-
             doc.setFontSize(7);
             addRow(y, "Pranzo/Cena STAFF:", p.pranzo); y += 5;
-
             if (p.note) {
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'italic');
@@ -1409,14 +1389,12 @@
                 y += 4;
                 doc.setFont(undefined, 'normal');
             }
-
             y += 2;
             doc.setFontSize(8);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(...red);
             doc.text("ACCONTI VERSATI:", 15, y);
             y += 3;
-
             if (p.acconti && p.acconti.length > 0) {
                 doc.setFontSize(6);
                 doc.setTextColor(...black);
@@ -1429,7 +1407,6 @@
                 doc.line(15, y, 195, y);
                 y += 3;
                 doc.setFont(undefined, 'normal');
-
                 p.acconti.forEach(acc => {
                     doc.text(acc.tipo, 15, y);
                     doc.text(acc.data ? new Date(acc.data).toLocaleDateString('it-IT') : '-', 50, y);
@@ -1443,16 +1420,13 @@
                 doc.text("Nessun acconto versato", 15, y);
                 y += 4;
             }
-
             y += 2;
             const totale = parseFloat(p.importo) || 0;
             const totAcc = p.totaleAcconti || 0;
             const saldo = p.saldo !== undefined ? p.saldo : (totale - totAcc);
-
             doc.setDrawColor(0);
             doc.setFillColor(240, 240, 240);
             doc.rect(15, y - 2, 180, 12, 'F');
-
             doc.setFontSize(8);
             doc.setFont(undefined, 'normal');
             doc.setTextColor(...black);
@@ -1461,53 +1435,42 @@
             doc.setFont(undefined, 'bold');
             doc.setTextColor(39, 174, 96);
             doc.text(`A SALDO: € ${saldo.toFixed(2).replace('.', ',')}`, 18, y + 10);
-
             y += 16;
-
             const titoloAccettazione = tipo === 'contratto' ? "ACCETTAZIONE DEL CONTRATTO" : "ACCETTAZIONE DEL PREVENTIVO";
             doc.setFontSize(9);
             doc.setFont(undefined, 'bold');
             doc.setTextColor(...black);
             doc.text(titoloAccettazione, 105, y, { align: "center" });
             y += 4;
-
             doc.setFontSize(7);
             doc.setFont(undefined, 'normal');
             doc.text("Per accettazione e autorizzazione trattamento dati personali, si appone firma in calce.", 105, y, { align: "center" });
             y += 8;
-
             doc.setLineWidth(0.3);
             doc.rect(20, y, 75, 20);
             doc.rect(115, y, 75, 20);
             doc.setFontSize(8);
             doc.text("Firma Cliente A", 57.5, y + 4, { align: "center" });
             doc.text("Firma Cliente B", 152.5, y + 4, { align: "center" });
-
             y += 26;
             doc.text("Luogo e Data: ___________________", 20, y);
-
             const nomeFile = tipo === 'contratto' 
                 ? `Contratto_${clienteA.cognome}_${Date.now()}.pdf` 
                 : `Preventivo_${clienteA.cognome}_${Date.now()}.pdf`;
-            
             doc.save(nomeFile);
         }
 
-        // ===== STATO LAVORI - TABELLA FLUSSO =====
         function eventi_renderStatoLavori() {
             const container = document.getElementById('stato-lavori-content');
-            
             const contratti = [...eventi_db.contratti].sort((a, b) => {
                 const dataA = a.dataEvento || a.dataCreazione;
                 const dataB = b.dataEvento || b.dataCreazione;
                 return new Date(dataA) - new Date(dataB);
             });
-
             if (contratti.length === 0) {
                 container.innerHTML = '<p style="text-align:center; color:#888; padding:40px;">Nessun contratto presente. Converti un preventivo in contratto per vederlo qui.</p>';
                 return;
             }
-
             let html = '<table class="flusso-table"><thead><tr>';
             html += '<th>DATA EVENTO</th>';
             html += '<th>TIPO SERVIZIO</th>';
@@ -1516,11 +1479,9 @@
                 html += `<th>${c.label}</th>`;
             });
             html += '</tr></thead><tbody>';
-
             contratti.forEach(c => {
                 const clienteA = eventi_db.clienti[c.clienteIdx] || { cognome: '?', nome: '' };
                 let nomeClienti = `${clienteA.cognome} ${clienteA.nome}`;
-                
                 if (c.clienteBIdx && c.clienteBIdx !== "") {
                     const bIdx = parseInt(c.clienteBIdx);
                     if (!isNaN(bIdx) && eventi_db.clienti[bIdx]) {
@@ -1528,25 +1489,20 @@
                         nomeClienti += ` & ${clienteB.cognome}`;
                     }
                 }
-
                 const dataEvento = c.dataEvento || c.dataCreazione;
                 const dataEventoFmt = dataEvento ? new Date(dataEvento).toLocaleDateString('it-IT') : '-';
-
                 html += '<tr>';
                 html += `<td class="data-evento">${dataEventoFmt}</td>`;
                 html += `<td class="tipo-servizio">${c.tipo || '-'}</td>`;
                 html += `<td class="nome-clienti">${nomeClienti}</td>`;
-
                 CAMPI_FLUSSO.forEach(campo => {
                     const val = c[campo.key] || '';
                     const isFilled = val ? 'filled' : '';
                     const isCancellato = campo.key === 'dataCancellazione' && val ? 'cancellato' : '';
                     html += `<td><input type="date" id="flusso-${c.id}-${campo.key}" class="flusso-date-input ${isFilled} ${isCancellato}" value="${val}" onchange="eventi_updateFlussoData(${c.id}, '${campo.key}', this.value)"></td>`;
                 });
-
                 html += '</tr>';
             });
-
             html += '</tbody></table>';
             container.innerHTML = html;
         }
@@ -1568,7 +1524,6 @@
         function eventi_filterArchive() {
             const query = document.getElementById('eventi_search').value.toLowerCase();
             let items = eventi_db[eventi_currentArchive] || [];
-
             if (eventi_currentArchive === 'clienti') {
                 items = items.filter(i => i.cognome.toLowerCase().includes(query) || i.nome.toLowerCase().includes(query));
             } else {
@@ -1577,10 +1532,8 @@
                     return c.cognome.toLowerCase().includes(query) || c.nome.toLowerCase().includes(query);
                 });
             }
-
             const container = document.getElementById('eventi_archive_list');
             if (items.length === 0) { container.innerHTML = '<p style="text-align:center;color:#999;padding:20px;">Nessun risultato.</p>'; return; }
-
             let html = '';
             items.forEach(item => {
                 let info = '', itemStr = JSON.stringify(item).replace(/"/g, '&quot;');
@@ -1599,8 +1552,8 @@
                     <div>${info}</div>
                     <div style="display:flex;gap:8px;">
                         <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
-                        <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
-                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">️</button>
+                        <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">️</button>
+                        <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
                     </div>
                 </div>`;
             });
@@ -1610,7 +1563,6 @@
         function eventi_modifica(type, id) {
             eventi_editingId = id;
             eventi_editingType = type;
-
             if (type === 'clienti') {
                 const item = eventi_db.clienti.find(c => c.id === id);
                 if (!item) return;
@@ -1627,35 +1579,33 @@
                 document.getElementById('eventi_prev_cliente').value = item.clienteIdx;
                 document.getElementById('eventi_prev_clienteB').value = item.clienteBIdx || "";
                 document.getElementById('eventi_prev_dataEvento').value = item.dataEvento || '';
-                document.getElementById('eventi_prev_tipo').value = item.tipo;
-                document.getElementById('eventi_prev_servizio').value = item.servizio;
-                document.getElementById('eventi_prev_misura').value = item.misura;
+                document.getElementById('eventi_prev_tipo').value = item.tipo || 'Nessuno';
+                document.getElementById('eventi_prev_servizio').value = item.servizio || 'Nessuno';
+                document.getElementById('eventi_prev_misura').value = item.misura || 'Nessuno';
                 document.getElementById('eventi_prev_interni').value = item.interni || 'Nessuno';
-                document.getElementById('eventi_prev_orientamento').value = item.orientamento;
-                document.getElementById('eventi_prev_qta').value = item.qta;
-                document.getElementById('eventi_prev_copertina').value = item.copertina;
-                document.getElementById('eventi_prev_effetti').value = item.effetti;
-                document.getElementById('eventi_prev_mini').value = item.miniAlbum;
-                document.getElementById('eventi_prev_ingrandimento').value = item.ingrandimento;
-                document.getElementById('eventi_prev_ingrandimento_qta').value = item.ingrandimentoQta;
+                document.getElementById('eventi_prev_orientamento').value = item.orientamento || 'Nessuno';
+                document.getElementById('eventi_prev_qta').value = item.qta !== undefined && item.qta !== '' ? item.qta : "100";
+                document.getElementById('eventi_prev_copertina').value = item.copertina || 'Nessuno';
+                document.getElementById('eventi_prev_effetti').value = item.effetti || 'Nessuno';
+                document.getElementById('eventi_prev_mini').value = item.miniAlbum || 0;
+                document.getElementById('eventi_prev_ingrandimento').value = item.ingrandimento || 'Nessuno';
+                document.getElementById('eventi_prev_ingrandimento_qta').value = item.ingrandimentoQta !== undefined && item.ingrandimentoQta !== '' ? item.ingrandimentoQta : "1";
                 document.getElementById('eventi_prev_tela').value = item.tela || 'Nessuno';
-                document.getElementById('eventi_prev_tela_qta').value = item.telaQta || 1;
-                document.getElementById('eventi_prev_video').value = item.video;
-                document.getElementById('eventi_prev_drone').value = item.drone;
+                document.getElementById('eventi_prev_tela_qta').value = item.telaQta !== undefined && item.telaQta !== '' ? item.telaQta : "1";
+                document.getElementById('eventi_prev_video').value = item.video || 'Nessuno';
+                document.getElementById('eventi_prev_drone').value = item.drone || 'Nessuno';
                 document.getElementById('eventi_prev_pennino').value = item.pennino || "0";
                 document.getElementById('eventi_prev_extra').value = item.extra || 'Nessuno';
-                document.getElementById('eventi_prev_consegna').value = item.consegna || 'NO';
+                document.getElementById('eventi_prev_consegna').value = item.consegna || 'Nessuno';
                 document.getElementById('eventi_prev_chiesa').value = item.chiesa || '';
                 document.getElementById('eventi_prev_location').value = item.location || '';
-                document.getElementById('eventi_prev_anteprima').value = item.anteprima;
-                document.getElementById('eventi_prev_post').value = item.postServizio;
-                document.getElementById('eventi_prev_pranzo').value = item.pranzo;
+                document.getElementById('eventi_prev_anteprima').value = item.anteprima || 'Nessuno';
+                document.getElementById('eventi_prev_post').value = item.postServizio || 'Nessuno';
+                document.getElementById('eventi_prev_pranzo').value = item.pranzo || 'Nessuno';
                 document.getElementById('eventi_prev_note').value = item.note || '';
                 document.getElementById('eventi_prev_importo').value = item.importo;
-
                 eventi_acconti = item.acconti ? JSON.parse(JSON.stringify(item.acconti)) : [];
                 eventi_renderAcconti();
-
                 eventi_showView('eventi-view-preventivo');
             }
         }
@@ -1694,11 +1644,9 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     const nuoviDati = data.clienti ? data : { clienti: Array.isArray(data) ? data : [] };
-
                     const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
-
                     if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         eventi_db = nuoviDati;
                         eventi_saveDB();
@@ -1706,7 +1654,7 @@
                         alert(`✅ Ripristinato! ${eventi_db.clienti.length} clienti caricati.`);
                     }
                 } catch (err) {
-                    alert('❌ Errore: ' + err.message);
+                    alert(' Errore: ' + err.message);
                 }
             };
             reader.readAsText(file);
@@ -1721,7 +1669,6 @@
             try {
                 saggi_clienti = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
             } catch (e) { saggi_clienti = []; }
-
             const currentYear = new Date().getFullYear();
             ['saggi_anno', 'saggi_filtro_anno', 'saggi_stampa_anno', 'saggi_cont_anno'].forEach(id => {
                 const sel = document.getElementById(id);
@@ -1729,7 +1676,6 @@
                 for (let y = 2020; y <= 2035; y++) sel.add(new Option(y === currentYear ? y + ' (corrente)' : y, y));
                 sel.value = currentYear;
             });
-
             const qSel = document.getElementById('saggi_qta');
             for (let i = 1; i <= 10; i++) qSel.add(new Option(i, i));
             const iSel = document.getElementById('saggi_importo');
@@ -1769,9 +1715,7 @@
                 importo: document.getElementById('saggi_importo').value,
                 dataCreazione: new Date().toLocaleString('it-IT')
             };
-
             if (!data.scuola || !data.cognome || !data.nome) return alert("Compila Scuola, Cognome e Nome!");
-
             const editId = document.getElementById('saggi_edit_id').value;
             if (editId) {
                 const idx = saggi_clienti.findIndex(c => c.id == editId);
@@ -1818,14 +1762,12 @@
             const scuola = document.getElementById('saggi_filtro_scuola').value;
             const anno = document.getElementById('saggi_filtro_anno').value;
             let filtered = saggi_clienti.filter(c => (!scuola || c.scuola === scuola) && (!anno || c.anno == anno));
-
             const content = document.getElementById('saggi_archivio_content');
             if (filtered.length === 0) { content.innerHTML = '<p style="text-align:center;padding:20px;color:#888;">Nessun risultato.</p>'; return; }
-
             let html = `<table><thead><tr><th>ID</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Qtà</th><th>€</th><th>Azioni</th></tr></thead><tbody>`;
             filtered.forEach(c => {
                 html += `<tr><td>${c.id}</td><td><strong>${c.cognome}</strong></td><td>${c.nome}</td><td>${c.telefono}</td><td>${c.tipo}</td><td>${c.quantita}</td><td>${c.importo}€</td>
-                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">️</button> 
+                <td><button class="btn btn-warning" style="padding:5px 10px;font-size:12px;" onclick="saggi_editFromArchivio(${c.id})">✏️</button> 
                 <button class="btn btn-danger" style="padding:5px 10px;font-size:12px;" onclick="saggi_elimina(${c.id})">🗑️</button></td></tr>`;
             });
             html += '</tbody></table>';
@@ -1845,7 +1787,7 @@
             document.getElementById('saggi_servizio').value = c.servizio;
             document.getElementById('saggi_qta').value = c.quantita;
             document.getElementById('saggi_importo').value = c.importo;
-            document.getElementById('saggi_form_title').textContent = '️ Modifica #' + c.id;
+            document.getElementById('saggi_form_title').textContent = '✏️ Modifica #' + c.id;
             saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1]);
         }
 
@@ -1861,7 +1803,6 @@
             if (!id) return alert("Salva o carica un cliente prima!");
             const c = saggi_clienti.find(x => x.id == id);
             if (!c) return;
-
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFont('helvetica', 'bold'); doc.setFontSize(24);
@@ -1889,14 +1830,11 @@
             const anno = document.getElementById('saggi_stampa_anno').value;
             const area = document.getElementById('saggi_preview_area');
             if (!scuola) { area.innerHTML = ''; return alert("Seleziona scuola!"); }
-
             let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
             filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
-
             if (filtered.length === 0) { area.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun partecipante.</div>'; return; }
-
             let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;margin-top:20px;">
-                <h3 style="text-align:center;margin-bottom:15px;">📋 ${scuola} - Anno ${anno}</h3>
+                <h3 style="text-align:center;margin-bottom:15px;"> ${scuola} - Anno ${anno}</h3>
                 <div style="display:flex;justify-content:space-around;margin-bottom:15px;background:#e8eaf6;padding:10px;border-radius:8px;">
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.length}</strong><br><small>Partecipanti</small></div>
                     <div style="text-align:center;"><strong style="font-size:24px;color:#667eea;">${filtered.filter(c => c.tipo === 'Fratelli').length}</strong><br><small>Fratelli</small></div>
@@ -1915,7 +1853,6 @@
             let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
             filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
             if (filtered.length === 0) return alert("Nessun partecipante!");
-
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             doc.setFont('helvetica', 'bold'); doc.setFontSize(20);
@@ -1923,7 +1860,6 @@
             doc.setFontSize(14); doc.text('Elenco Partecipanti - Saggio ' + anno, 105, 30, { align: 'center' });
             doc.setFontSize(9); doc.setFont('helvetica', 'normal');
             doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 37, { align: 'center' });
-
             const tableData = filtered.map((c, i) => [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.servizio, c.quantita, c.importo + '€']);
             doc.autoTable({
                 startY: 43, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Servizio', 'Qtà', '€']], body: tableData, theme: 'grid',
@@ -1949,19 +1885,15 @@
             const contentDiv = document.getElementById('saggi_cont_content');
             const totalDiv = document.getElementById('saggi_cont_total');
             const btnDiv = document.getElementById('saggi_cont_btn_pdf');
-
             if (!scuola) { contentDiv.innerHTML = ''; totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return alert("Seleziona scuola!"); }
-
             let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
             filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
-
             if (filtered.length === 0) {
                 contentDiv.innerHTML = '<div style="background:#f8f9fa;padding:20px;border-radius:8px;text-align:center;color:#888;">Nessun cliente.</div>';
                 totalDiv.innerHTML = ''; btnDiv.style.display = 'none'; return;
             }
-
             let totale = 0;
-            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;">💰 ${scuola} - Anno ${anno}</h3>
+            let html = `<div style="background:#f8f9fa;padding:20px;border-radius:8px;"><h3 style="text-align:center;margin-bottom:15px;"> ${scuola} - Anno ${anno}</h3>
             <table><thead><tr><th>#</th><th>Cognome Nome</th><th>Tel</th><th>Tipo</th><th style="text-align:right;">Importo</th></tr></thead><tbody>`;
             filtered.forEach((c, i) => {
                 totale += parseFloat(c.importo || 0);
@@ -1979,7 +1911,6 @@
             let filtered = saggi_clienti.filter(c => c.scuola === scuola && c.anno == anno);
             filtered.sort((a, b) => a.cognome.localeCompare(b.cognome) || a.nome.localeCompare(b.nome));
             if (filtered.length === 0) return alert("Nessun dato!");
-
             let totale = 0;
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -1988,7 +1919,6 @@
             doc.setFontSize(16); doc.text('Report Contabilità - Saggio ' + anno, 105, 32, { align: 'center' });
             doc.setFontSize(10); doc.setFont('helvetica', 'normal');
             doc.text('Generato: ' + new Date().toLocaleString('it-IT'), 105, 40, { align: 'center' });
-
             const tableData = filtered.map((c, i) => { totale += parseFloat(c.importo || 0); return [i + 1, c.cognome + ' ' + c.nome, c.telefono, c.tipo, c.importo + '€']; });
             doc.autoTable({
                 startY: 48, head: [['#', 'Cognome Nome', 'Tel', 'Tipo', 'Importo']], body: tableData, theme: 'grid',
@@ -2005,7 +1935,6 @@
                     doc.setFontSize(7); doc.text('Pagina ' + doc.internal.getNumberOfPages(), pw - 15, ph - 4, { align: 'right' });
                 }
             });
-
             const finalY = doc.lastAutoTable.finalY + 10;
             doc.setFillColor(0, 188, 212); doc.rect(10, finalY, 190, 25, 'F');
             doc.setFontSize(14); doc.setFont('helvetica', 'bold'); doc.setTextColor(255);
@@ -2022,20 +1951,16 @@
         function saggi_ripristinaFile(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     const nuoviClienti = Array.isArray(data) ? data : (data.clienti || []);
-
                     if (!Array.isArray(nuoviClienti)) throw new Error("Formato non valido");
-
                     const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
-
-                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
@@ -2073,11 +1998,9 @@
             const searchTerm = document.getElementById('gallery_search').value.toLowerCase();
             const filtered = searchTerm ? gallery_allClients.filter(c => c.name.toLowerCase().includes(searchTerm) || c.username.toLowerCase().includes(searchTerm)) : gallery_allClients;
             filtered.sort((a, b) => b.createdAt - a.createdAt);
-
             const list = document.getElementById('gallery_clients_list');
             list.innerHTML = '';
-            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;">📭</div><p>Nessun cliente trovato</p></div>'; return; }
-
+            if (filtered.length === 0) { list.innerHTML = '<div style="text-align:center;padding:40px;color:#999;grid-column:1/-1;"><div style="font-size:48px;margin-bottom:20px;"></div><p>Nessun cliente trovato</p></div>'; return; }
             filtered.forEach(client => {
                 const card = document.createElement('div');
                 card.className = 'client-card';
@@ -2112,9 +2035,7 @@
             const password = document.getElementById('gallery_password').value.trim();
             const mega = document.getElementById('gallery_mega').value.trim();
             const notes = document.getElementById('gallery_notes').value.trim();
-
             if (!name || !username || !password || !mega) return alert("Compila tutti i campi obbligatori!");
-
             const editId = document.getElementById('gallery_edit_id').value;
             if (editId) {
                 const idx = gallery_allClients.findIndex(c => c.id === editId);
@@ -2199,17 +2120,14 @@
             const file = document.getElementById('gallery_restore_file').files[0];
             if (!file) return alert("Seleziona un file!");
             if (!file.name.endsWith('.json')) return alert("Solo file JSON!");
-
             const reader = new FileReader();
             reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
                     if (!data.clients) throw new Error("Formato non valido");
-
                     const currentClients = JSON.parse(localStorage.getItem('galleryClients') || '[]');
                     const currentCount = currentClients.length;
                     const newCount = data.clients.length;
-
                     if (confirm(`Sovrascrivere ${currentCount} clienti con ${newCount} dal backup?`)) {
                         gallery_allClients = data.clients;
                         gallery_saveDB();
@@ -2275,9 +2193,7 @@
             const dataEvento = document.getElementById('ricevute_data').value;
             const importo = parseFloat(document.getElementById('ricevute_importo').value);
             const note = document.getElementById('ricevute_note').value.trim();
-
             if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi obbligatori!");
-
             if (ricevute_isModifica) {
                 const idx = ricevute_data.findIndex(r => r.id === ricevute_editId);
                 if (idx !== -1) ricevute_data[idx] = { id: ricevute_editId, cliente, telefono, facebook, servizio, dataEvento, importo, note, dataSalvataggio: new Date().toISOString() };
@@ -2294,7 +2210,6 @@
             const lista = document.getElementById('ricevute_list');
             lista.innerHTML = '';
             if (ricevute_data.length === 0) { lista.innerHTML = '<p style="text-align:center;color:#777;padding:20px;">Nessuna ricevuta.</p>'; return; }
-
             const sorted = [...ricevute_data].sort((a, b) => new Date(b.dataEvento) - new Date(a.dataEvento));
             sorted.forEach(r => {
                 const dataFmt = new Date(r.dataEvento).toLocaleDateString('it-IT');
@@ -2304,8 +2219,8 @@
                 item.innerHTML = `
                     <div><strong>${r.cliente}</strong><br><small>${dataFmt} • ${r.servizio}</small></div>
                     <div><strong>€ ${impFmt}</strong>
-                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">️</button>
-                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">️</button>
+                        <button class="btn" style="margin-left:10px;background:#3498db;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_modifica(${r.id})">✏️</button>
+                        <button class="btn" style="margin-left:10px;background:#e74c3c;color:white;padding:8px 15px;font-size:13px;" onclick="ricevute_elimina(${r.id})">🗑️</button>
                     </div>
                 `;
                 lista.appendChild(item);
@@ -2350,14 +2265,11 @@
             const dataEvento = document.getElementById('ricevute_data').value;
             const importo = parseFloat(document.getElementById('ricevute_importo').value);
             const note = document.getElementById('ricevute_note').value.trim();
-
             if (!cliente || !telefono || !servizio || !dataEvento || isNaN(importo)) return alert("Compila tutti i campi per il PDF!");
-
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
             const dataFmt = new Date(dataEvento).toLocaleDateString('it-IT');
             const impFmt = importo.toFixed(2).replace('.', ',');
-
             pdf.setFontSize(22); pdf.text('Studio Fotografico G&L', 105, 20, null, null, 'center');
             pdf.setFontSize(12); pdf.text('Via Ciarrocco, 21 – Canicattì (AG)', 105, 28, null, null, 'center');
             pdf.text('Tel: +39 366 9381103 | Email: weddinggel@aruba.it', 105, 34, null, null, 'center');
@@ -2374,7 +2286,6 @@
             if (note) { const lines = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines, 20, y1 + 26); }
             pdf.setFontSize(10); pdf.text('Grazie per la fiducia!', 105, 135, null, null, 'center');
             pdf.line(15, 140, 195, 140);
-
             pdf.setFontSize(18); pdf.text('RICEVUTA - COPIA STUDIO', 105, 150, null, null, 'center');
             pdf.setFontSize(14);
             pdf.text(`Cliente: ${cliente}`, 20, 165);
@@ -2386,7 +2297,6 @@
             pdf.text(`Importo Ricevuto: € ${impFmt}`, 20, y2 + 16);
             if (note) { const lines2 = pdf.splitTextToSize('Note: ' + note, 170); pdf.text(lines2, 20, y2 + 26); }
             pdf.setFontSize(10); pdf.text('Documento fiscale ai fini contabili', 105, 285, null, null, 'center');
-
             pdf.save(`Ricevuta_${cliente.replace(/\s+/g, '_')}_${new Date().toISOString().slice(0, 10)}.pdf`);
         }
 
@@ -2407,11 +2317,9 @@
                 try {
                     const data = JSON.parse(e.target.result);
                     if (!data.ricevute) throw new Error("File non valido");
-
                     const currentData = JSON.parse(localStorage.getItem('glRicevuteFotografiche') || '[]');
                     const currentCount = currentData.length;
                     const newCount = data.ricevute.length;
-
                     if (confirm(`Sovrascrivere ${currentCount} ricevute attuali con ${newCount} dal backup?`)) {
                         ricevute_data = data.ricevute;
                         ricevute_saveDB();
