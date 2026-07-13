@@ -109,6 +109,100 @@
         #app-eventi .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         #app-eventi .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
 
+        /* BOX METODO PAGAMENTO */
+        .metodo-pagamento-box {
+            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
+            border: 3px solid #e74c3c;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-top: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+        .metodo-pagamento-box h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .metodo-pagamento-box ol {
+            margin: 0;
+            padding-left: 25px;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        .metodo-pagamento-box ol li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .metodo-pagamento-box ol li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* BOX PROCEDURA PAGAMENTO */
+        .procedura-pagamento-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 3px solid #5a67d8;
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin-top: 15px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .procedura-pagamento-box h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        .procedura-row {
+            display: grid;
+            grid-template-columns: 1fr 180px;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 12px;
+            background: rgba(255,255,255,0.15);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+        .procedura-row:last-child {
+            margin-bottom: 0;
+        }
+        .procedura-row label {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+        .procedura-row .importo-input-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 6px;
+        }
+        .procedura-row .importo-input-group span {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        .procedura-row .importo-input-group input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: right;
+            min-width: 80px;
+        }
+
         .data-evento-container {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
@@ -274,6 +368,7 @@
             .nav-btn { width: 100%; text-align: center; }
             .acconto-row { grid-template-columns: 1fr; }
             .acconti-summary { grid-template-columns: 1fr; }
+            .procedura-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -297,9 +392,9 @@
         </header>
 
         <nav class="unified-nav">
-            <button class="nav-btn active" onclick="switchApp('dashboard', this)">🏠 Dashboard</button>
+            <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
             <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
-            <button class="nav-btn" onclick="switchApp('saggi', this)"> Gestione Saggi</button>
+            <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)">🔐 Gallery Manager</button>
             <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
             <button class="nav-btn" onclick="logout()" style="background: #e74c3c; color: white; margin-left: auto;">🚪 Esci</button>
@@ -313,7 +408,7 @@
                 
                 <div class="dashboard-grid">
                     <div class="dash-card card-eventi" onclick="switchApp('eventi', document.querySelectorAll('.nav-btn')[1])">
-                        <h3> Gestione Eventi</h3>
+                        <h3>📷 Gestione Eventi</h3>
                         <div class="count" id="dash-count-eventi">0</div>
                         <small>Clienti Foto & Preventivi</small>
                     </div>
@@ -371,7 +466,7 @@
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')">👥 Anagrafica</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-preventivo')">📄 Nuovo Preventivo</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')">📊 Stato Lavori</button>
-                    <button class="nav-btn" onclick="eventi_renderArchive('preventivi')"> Archivio Prev.</button>
+                    <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('contratti')">📑 Archivio Contr.</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('clienti')">👥 Archivio Clienti</button>
                 </div>
@@ -400,8 +495,8 @@
                             <div class="form-group" style="margin-bottom:10px;"><label>Email</label><input type="email" id="eventi_emailB" class="form-control"></div>
                         </div>
                     </div>
-                    <button class="btn-save" onclick="eventi_salvaCoppia()"> Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
+                    <button class="btn-save" onclick="eventi_salvaCoppia()">💾 Salva Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -529,7 +624,7 @@
                         <div><label>Pennino USB</label>
                             <select id="eventi_prev_pennino" class="form-control"></select>
                         </div>
-                        <div><label>Foto EXTRA E</label>
+                        <div><label>Ogni foto extra Euro</label>
                             <select id="eventi_prev_extra" class="form-control">
                                 <option>Nessuno</option>
                             </select>
@@ -569,6 +664,50 @@
                         <div class="full-width"><label>Note</label><textarea id="eventi_prev_note" class="form-control" rows="3"></textarea></div>
                         <div class="full-width importo-highlight"><label>IMPORTO TOTALE SERVIZIO (€)</label><input type="number" id="eventi_prev_importo" class="form-control" step="0.01" style="font-size:20px; font-weight:bold;" oninput="eventi_calcolaSaldo()"></div>
                         
+                        <!-- BOX METODO DI PAGAMENTO -->
+                        <div class="full-width metodo-pagamento-box">
+                            <h4>💳 METODO DI PAGAMENTO</h4>
+                            <ol>
+                                <li>Caparra al momento della firma del contratto o accettazione preventivo</li>
+                                <li>Video pagamento anticipato</li>
+                                <li>Pagamento del 50% servizio fotografico</li>
+                                <li>La rimanenza viene divisa in 50% alla scelta delle foto e il 50% (Saldo) prima della Stampa del servizio</li>
+                            </ol>
+                        </div>
+                        
+                        <!-- NUOVO: BOX PROCEDURA PAGAMENTO -->
+                        <div class="full-width procedura-pagamento-box">
+                            <h4>💶 PROCEDURA PAGAMENTO</h4>
+                            <div class="procedura-row">
+                                <label>1. Accettazione Preventivo/Contratto</label>
+                                <div class="importo-input-group">
+                                    <span>€</span>
+                                    <input type="number" id="proc_accettazione" step="0.01" placeholder="0,00">
+                                </div>
+                            </div>
+                            <div class="procedura-row">
+                                <label>2. Prima del Servizio</label>
+                                <div class="importo-input-group">
+                                    <span>€</span>
+                                    <input type="number" id="proc_prima_servizio" step="0.01" placeholder="0,00">
+                                </div>
+                            </div>
+                            <div class="procedura-row">
+                                <label>3. Alla scelta foto</label>
+                                <div class="importo-input-group">
+                                    <span>€</span>
+                                    <input type="number" id="proc_scelta_foto" step="0.01" placeholder="0,00">
+                                </div>
+                            </div>
+                            <div class="procedura-row">
+                                <label>4. Prima della stampa (Saldo)</label>
+                                <div class="importo-input-group">
+                                    <span>€</span>
+                                    <input type="number" id="proc_saldo_stampa" step="0.01" placeholder="0,00">
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="full-width acconti-section">
                             <div class="acconti-header">
                                 <h4>💰 Acconti Versati</h4>
@@ -607,7 +746,7 @@
 
                 <div id="eventi-view-archive" class="sheet-container">
                     <h3 id="eventi_archive_title">Archivio</h3>
-                    <div class="search-bar"><input type="text" id="eventi_search" placeholder=" Cerca cognome o nome..." oninput="eventi_filterArchive()"></div>
+                    <div class="search-bar"><input type="text" id="eventi_search" placeholder="🔍 Cerca cognome o nome..." oninput="eventi_filterArchive()"></div>
                     <div id="eventi_archive_list"></div>
                 </div>
             </div>
@@ -624,7 +763,7 @@
                 </div>
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)"> Dashboard</button>
+                    <button class="nav-btn" onclick="saggi_showSection('saggi-dashboard', this)">🏠 Dashboard</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-nuovo', this)">➕ Nuovo Cliente</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-archivio', this)">📁 Archivio</button>
                     <button class="nav-btn" onclick="saggi_showSection('saggi-stampa', this)">🖨️ Stampa Elenco</button>
@@ -636,7 +775,7 @@
                         <div class="card" onclick="saggi_showSection('saggi-nuovo', document.querySelectorAll('#app-saggi .nav-btn')[1])"><h3>Nuovo Cliente</h3><p>➕</p><small>Inserisci partecipante</small></div>
                         <div class="card" onclick="saggi_showSection('saggi-archivio', document.querySelectorAll('#app-saggi .nav-btn')[2])"><h3>Archivio</h3><p id="saggi_total_clients">0</p><small>Totale iscritti</small></div>
                         <div class="card print-card" onclick="saggi_showSection('saggi-stampa', document.querySelectorAll('#app-saggi .nav-btn')[3])"><h3>🖨️ Stampa Elenco</h3><p>📋</p><small>Lista partecipanti PDF</small></div>
-                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p></p><small>Report incassi</small></div>
+                        <div class="card accounting-card" onclick="saggi_showSection('saggi-contabilita', document.querySelectorAll('#app-saggi .nav-btn')[4])"><h3>💰 Contabilità</h3><p>📊</p><small>Report incassi</small></div>
                     </div>
                 </div>
 
@@ -678,7 +817,7 @@
                 </div>
 
                 <div id="saggi-archivio" class="section">
-                    <h3> Archivio Partecipanti</h3>
+                    <h3>📁 Archivio Partecipanti</h3>
                     <div style="display:flex; gap:15px; margin:20px 0; flex-wrap:wrap; background:#f8f9fa; padding:15px; border-radius:8px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_filtro_scuola" onchange="saggi_mostraArchivio()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_filtro_anno" onchange="saggi_mostraArchivio()"></select></div>
@@ -688,14 +827,14 @@
                 </div>
 
                 <div id="saggi-stampa" class="section">
-                    <h3>🖨️ Stampa Elenco Partecipanti</h3>
+                    <h3>️ Stampa Elenco Partecipanti</h3>
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_stampa_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_stampa_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">👁️ Anteprima</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_anteprimaElenco()">️ Anteprima</button></div>
                     </div>
                     <div id="saggi_preview_area" style="margin-top:20px;"></div>
-                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">🖨️ Genera PDF Elenco</button>
+                    <button class="btn btn-print" onclick="saggi_stampaPDF()" style="margin-top:20px; width:100%;">️ Genera PDF Elenco</button>
                 </div>
 
                 <div id="saggi-contabilita" class="section">
@@ -703,7 +842,7 @@
                     <div class="form-grid" style="margin-top:20px;">
                         <div class="form-group"><label>Scuola</label><select id="saggi_cont_scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
                         <div class="form-group"><label>Anno</label><select id="saggi_cont_anno"></select></div>
-                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraContabilita()"> Visualizza</button></div>
+                        <div class="form-group" style="align-self:flex-end;"><button class="btn btn-info" onclick="saggi_mostraContabilita()">📊 Visualizza</button></div>
                     </div>
                     <div id="saggi_cont_content" style="margin-top:20px;"></div>
                     <div id="saggi_cont_total" style="margin-top:20px;"></div>
@@ -767,10 +906,10 @@
             <!-- RICEVUTE -->
             <div id="app-ricevute" class="app-section">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
-                    <h2>🧾 Gestione Ricevute</h2>
+                    <h2> Gestione Ricevute</h2>
                     <div style="display:flex; gap:10px;">
-                        <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;"> Backup</button>
-                        <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;"> Ripristina</button>
+                        <button class="btn-global btn-backup" onclick="ricevute_backup()" style="font-size:12px; padding:8px 15px;">💾 Backup</button>
+                        <button class="btn-global btn-restore" onclick="ricevute_ripristinaTrigger()" style="font-size:12px; padding:8px 15px;">🔄 Ripristina</button>
                         <input type="file" id="ricevute_restore_input" accept=".json" style="display:none;" onchange="ricevute_ripristinaFile(event)">
                     </div>
                 </div>
@@ -807,9 +946,9 @@
                     <div class="form-group"><label>Note</label><textarea id="ricevute_note" rows="3"></textarea></div>
                     
                     <div class="actions">
-                        <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">️ Torna alla Lista</button>
+                        <button class="btn" style="background:#3498db; color:white;" onclick="ricevute_hideForm()">⬅️ Torna alla Lista</button>
                         <button class="btn btn-success" onclick="ricevute_salva()">✅ Salva Ricevuta</button>
-                        <button class="btn btn-danger" onclick="ricevute_pdf()">🖨️ PDF Doppia Copia</button>
+                        <button class="btn btn-danger" onclick="ricevute_pdf()">️ PDF Doppia Copia</button>
                     </div>
                 </div>
             </div>
@@ -836,9 +975,6 @@
         let ricevute_isModifica = false;
         let ricevute_editId = null;
 
-        // ============================================
-        // NUOVE CREDENZIALI UNIFICATE
-        // ============================================
         const GLOBAL_USER = 'G&LStudio';
         const GLOBAL_PASS = '12763Mlg@';
 
@@ -1181,6 +1317,11 @@
                 pranzo: document.getElementById('eventi_prev_pranzo').value,
                 note: document.getElementById('eventi_prev_note').value,
                 importo: document.getElementById('eventi_prev_importo').value,
+                // NUOVI CAMPI PROCEDURA PAGAMENTO
+                proc_accettazione: document.getElementById('proc_accettazione').value,
+                proc_prima_servizio: document.getElementById('proc_prima_servizio').value,
+                proc_scelta_foto: document.getElementById('proc_scelta_foto').value,
+                proc_saldo_stampa: document.getElementById('proc_saldo_stampa').value,
                 acconti: JSON.parse(JSON.stringify(eventi_acconti)),
                 totaleAcconti: totaleAcconti,
                 saldo: (parseFloat(document.getElementById('eventi_prev_importo').value) || 0) - totaleAcconti,
@@ -1245,6 +1386,11 @@
             document.getElementById('eventi_prev_pranzo').selectedIndex = 0;
             document.getElementById('eventi_prev_note').value = "";
             document.getElementById('eventi_prev_importo').value = "";
+            // Reset nuovi campi
+            document.getElementById('proc_accettazione').value = "";
+            document.getElementById('proc_prima_servizio').value = "";
+            document.getElementById('proc_scelta_foto').value = "";
+            document.getElementById('proc_saldo_stampa').value = "";
             eventi_renderAcconti();
         }
 
@@ -1345,13 +1491,40 @@
             if(p.proiezione && p.proiezione !== 'Nessuna') { addRow(y, "Proiezione:", p.proiezione); y += 4; }
             addRow(y, "Drone:", p.drone); y += 4;
             if(p.pennino && p.pennino !== "0" && p.pennino !== "Nessuno") { addRow(y, "Pennino USB:", p.pennino); y += 4; }
-            if(p.extra && p.extra !== 'Nessuno') { addRow(y, "Foto EXTRA E:", p.extra); y += 4; }
+            if(p.extra && p.extra !== 'Nessuno') { addRow(y, "Foto extra €:", p.extra); y += 4; }
             if(p.consegna && p.consegna !== 'NO' && p.consegna !== 'Nessuno') { addRow(y, "Consegna Files:", p.consegna); y += 4; }
             if (p.chiesa) { addRow(y, "Chiesa:", p.chiesa); y += 4; }
             if (p.location) { addRow(y, "Location:", p.location); y += 4; }
             addRow(y, "Antepr.:", p.anteprima, "Post-Serv.:", p.postServizio); y += 4;
             doc.setFontSize(7);
             addRow(y, "Pranzo/Cena STAFF:", p.pranzo); y += 5;
+            
+            // PROCEDURA PAGAMENTO nel PDF
+            if((p.proc_accettazione && p.proc_accettazione !== '') || 
+               (p.proc_prima_servizio && p.proc_prima_servizio !== '') || 
+               (p.proc_scelta_foto && p.proc_scelta_foto !== '') || 
+               (p.proc_saldo_stampa && p.proc_saldo_stampa !== '')) {
+                doc.setFontSize(8);
+                doc.setFont(undefined, 'bold');
+                doc.setTextColor(102, 126, 234);
+                doc.text("PROCEDURA PAGAMENTO:", 15, y); y += 4;
+                doc.setFont(undefined, 'normal');
+                doc.setTextColor(...black);
+                if(p.proc_accettazione && p.proc_accettazione !== '') {
+                    doc.text(`1. Accettazione Prev./Contratto: € ${parseFloat(p.proc_accettazione).toFixed(2).replace('.', ',')}`, 15, y); y += 4;
+                }
+                if(p.proc_prima_servizio && p.proc_prima_servizio !== '') {
+                    doc.text(`2. Prima del Servizio: € ${parseFloat(p.proc_prima_servizio).toFixed(2).replace('.', ',')}`, 15, y); y += 4;
+                }
+                if(p.proc_scelta_foto && p.proc_scelta_foto !== '') {
+                    doc.text(`3. Alla scelta foto: € ${parseFloat(p.proc_scelta_foto).toFixed(2).replace('.', ',')}`, 15, y); y += 4;
+                }
+                if(p.proc_saldo_stampa && p.proc_saldo_stampa !== '') {
+                    doc.text(`4. Prima della stampa (Saldo): € ${parseFloat(p.proc_saldo_stampa).toFixed(2).replace('.', ',')}`, 15, y); y += 4;
+                }
+                y += 2;
+            }
+            
             if (p.note) {
                 doc.setTextColor(...black);
                 doc.setFont(undefined, 'italic');
@@ -1519,7 +1692,7 @@
                 html += `<div class="archive-item">
                     <div>${info}</div>
                     <div style="display:flex;gap:8px;">
-                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')"></button>
+                        <button class="btn-action-icon" style="background:#3498db;font-size:12px;padding:5px 10px;" onclick="eventi_generaPDF(${itemStr}, '${tipoDoc}')">📄</button>
                         <button class="btn-action-icon" style="background:#f39c12;font-size:12px;padding:5px 10px;" onclick="eventi_modifica('${eventi_currentArchive}', ${item.id})">✏️</button>
                         <button class="btn-action-icon" style="background:#e74c3c;font-size:12px;padding:5px 10px;" onclick="eventi_elimina('${eventi_currentArchive}', ${item.id})">🗑️</button>
                     </div>
@@ -1573,6 +1746,11 @@
                 document.getElementById('eventi_prev_pranzo').value = item.pranzo || 'Nessuno';
                 document.getElementById('eventi_prev_note').value = item.note || '';
                 document.getElementById('eventi_prev_importo').value = item.importo;
+                // Carica nuovi campi PROCEDURA PAGAMENTO
+                document.getElementById('proc_accettazione').value = item.proc_accettazione || '';
+                document.getElementById('proc_prima_servizio').value = item.proc_prima_servizio || '';
+                document.getElementById('proc_scelta_foto').value = item.proc_scelta_foto || '';
+                document.getElementById('proc_saldo_stampa').value = item.proc_saldo_stampa || '';
                 eventi_acconti = item.acconti ? JSON.parse(JSON.stringify(item.acconti)) : [];
                 eventi_renderAcconti();
                 eventi_showView('eventi-view-preventivo');
@@ -1929,7 +2107,7 @@
                     const currentData = JSON.parse(localStorage.getItem('saggi_clienti') || '[]');
                     const currentCount = currentData.length;
                     const newCount = nuoviClienti.length;
-                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} partecipanti attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         saggi_clienti = nuoviClienti;
                         saggi_saveDB();
                         alert(`✅ Ripristinato! ${saggi_clienti.length} partecipanti caricati.`);
@@ -1983,13 +2161,13 @@
                             <strong style="color:#2980b9;display:block;margin-bottom:8px;">📋 Link da inviare:</strong>
                             <div style="display:flex;gap:8px;margin-top:8px;">
                                 <input type="text" value="${clientUrl}" readonly style="flex:1;padding:6px;border:1px solid #ddd;border-radius:4px;font-family:monospace;font-size:11px;" id="link-${client.id}">
-                                <button onclick="gallery_copyLink('${client.id}')" style="background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;"></button>
+                                <button onclick="gallery_copyLink('${client.id}')" style="background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">📋</button>
                             </div>
                         </div>
                     </div>
                     ${client.notes ? `<div style="background:#fff3cd;border-left:4px solid #ffc107;padding:12px;border-radius:4px;margin-top:10px;font-size:13px;"><strong style="color:#856404;">📝 Note:</strong><p style="margin-top:5px;">${gallery_escapeHtml(client.notes)}</p></div>` : ''}
                     <div class="button-group">
-                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')">📁 Apri</button>
+                        <button class="open-btn" onclick="gallery_openDetail('${client.id}')"> Apri</button>
                         <button class="edit-btn" onclick="gallery_editClient('${client.id}')">✏️ Modifica</button>
                         <button class="delete-btn" onclick="gallery_deleteClient('${client.id}')">🗑️ Elimina</button>
                     </div>
@@ -2065,7 +2243,7 @@
                     <div><strong>🔑 Username:</strong><br>${gallery_escapeHtml(c.username)}</div>
                     <div><strong>🔒 Password:</strong><br>${gallery_escapeHtml(c.password)}</div>
                     <div><strong>🔗 Link MEGA:</strong><br><a href="${gallery_escapeHtml(c.megaLink)}" target="_blank" style="color:#667eea;">${c.megaLink.length > 60 ? c.megaLink.substring(0, 60) + '...' : c.megaLink}</a></div>
-                    <div><strong> Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
+                    <div><strong>🌐 Link Galleria:</strong><br><input type="text" value="${gallery_getClientUrl(c.id)}" readonly style="width:100%;padding:8px;margin-top:5px;border:1px solid #ddd;border-radius:4px;font-family:monospace;"><button onclick="navigator.clipboard.writeText('${gallery_getClientUrl(c.id)}');alert('Copiato!')" style="margin-top:8px;background:#27ae60;color:white;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;width:100%;">📋 Copia Link Completo</button></div>
                     ${c.notes ? `<div><strong>📝 Note:</strong><br>${gallery_escapeHtml(c.notes).replace(/\n/g, '<br>')}</div>` : ''}
                     <div><strong>📅 Creazione:</strong><br>${created}<br><small style="color:#999;">ID: ${c.id}</small></div>
                 </div>
@@ -2090,6 +2268,7 @@
             if (!file) return alert("Seleziona un file!");
             if (!file.name.endsWith('.json')) return alert("Solo file JSON!");
             const reader = new FileReader();
+            reader.onload = function gallery_handleRestore;
             reader.onload = function (e) {
                 try {
                     const data = JSON.parse(e.target.result);
@@ -2114,7 +2293,12 @@
 
         function gallery_escapeHtml(text) {
             if (!text) return '';
-            return text.toString().replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+            return text.toString()
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
         }
 
         // ==========================================
@@ -2139,7 +2323,7 @@
             document.getElementById('ricevute-form-view').style.display = 'block';
             ricevute_isModifica = false;
             ricevute_editId = null;
-            document.getElementById('ricevute_form_title').textContent = ' Nuova Ricevuta Fotografica';
+            document.getElementById('ricevute_form_title').textContent = '📄 Nuova Ricevuta Fotografica';
             document.getElementById('ricevute_cliente').value = '';
             document.getElementById('ricevute_telefono').value = '';
             document.getElementById('ricevute_facebook').value = '';
