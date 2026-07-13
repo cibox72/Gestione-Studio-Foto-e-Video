@@ -108,23 +108,6 @@
         #app-eventi .archive-item { background: #f8f9fa; padding: 15px; border-left: 4px solid var(--accent-blue); margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
         #app-eventi .search-bar input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 20px; }
 
-        /* BOX METODO PAGAMENTO */
-        .metodo-pagamento-box {
-            background: linear-gradient(135deg, #ff9a56 0%, #ff6b6b 100%);
-            border: 3px solid #e74c3c;
-            border-radius: 12px;
-            padding: 20px 25px;
-            margin-top: 15px;
-            color: white;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-        .metodo-pagamento-box h4 {
-            font-size: 18px; font-weight: bold; margin-bottom: 15px; text-align: center;
-            text-transform: uppercase; letter-spacing: 1px; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-        }
-        .metodo-pagamento-box ol { margin: 0; padding-left: 25px; font-size: 14px; line-height: 1.8; }
-        .metodo-pagamento-box ol li { margin-bottom: 8px; font-weight: 500; }
-
         /* BOX PROCEDURA PAGAMENTO */
         .procedura-pagamento-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -316,7 +299,7 @@
 
         <nav class="unified-nav">
             <button class="nav-btn active" onclick="switchApp('dashboard', this)"> Dashboard</button>
-            <button class="nav-btn" onclick="switchApp('eventi', this)">📷 Gestione Eventi</button>
+            <button class="nav-btn" onclick="switchApp('eventi', this)"> Gestione Eventi</button>
             <button class="nav-btn" onclick="switchApp('saggi', this)">💃 Gestione Saggi</button>
             <button class="nav-btn" onclick="switchApp('gallery', this)"> Gallery Manager</button>
             <button class="nav-btn" onclick="switchApp('ricevute', this)">🧾 Ricevute</button>
@@ -386,7 +369,7 @@
                 </div>
 
                 <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-                    <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')">👥 Anagrafica</button>
+                    <button class="nav-btn" onclick="eventi_showView('eventi-view-anagrafica')"> Anagrafica</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-preventivo')">📄 Nuovo Preventivo</button>
                     <button class="nav-btn" onclick="eventi_showView('eventi-view-stato-lavori')"> Stato Lavori</button>
                     <button class="nav-btn" onclick="eventi_renderArchive('preventivi')">📁 Archivio Prev.</button>
@@ -419,7 +402,7 @@
                         </div>
                     </div>
                     <button class="btn-save" onclick="eventi_salvaCoppia()"> Salva Coppia</button>
-                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;">📄 Crea Preventivo per questa Coppia</button>
+                    <button class="btn-convert" onclick="eventi_creaPrevDaCoppia()" style="margin-top:10px;"> Crea Preventivo per questa Coppia</button>
                 </div>
 
                 <div id="eventi-view-preventivo" class="sheet-container">
@@ -560,8 +543,8 @@
                                 <option>Tutti (non ritoccate)</option>
                             </select>
                         </div>
-                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">🗺️ Maps</button></div></div>
-                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">🗺️ Maps</button></div></div>
+                        <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="eventi_prev_chiesa" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_chiesa')">️ Maps</button></div></div>
+                        <div class="full-width"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="eventi_prev_location" class="form-control"><button class="btn-action-icon" style="background:#3498db;" onclick="eventi_openMaps('eventi_prev_location')">️ Maps</button></div></div>
                         <div class="full-width" style="border-top:1px solid #eee; padding-top:10px; margin-top:10px;"><label>Anteprima</label>
                             <select id="eventi_prev_anteprima" class="form-control">
                                 <option>Nessuno</option>
@@ -587,20 +570,9 @@
                         <div class="full-width"><label>Note</label><textarea id="eventi_prev_note" class="form-control" rows="3"></textarea></div>
                         <div class="full-width importo-highlight"><label>IMPORTO TOTALE SERVIZIO (€)</label><input type="number" id="eventi_prev_importo" class="form-control" step="0.01" style="font-size:20px; font-weight:bold;" oninput="eventi_calcolaSaldo()"></div>
                         
-                        <!-- BOX METODO DI PAGAMENTO -->
-                        <div class="full-width metodo-pagamento-box">
-                            <h4>💳 METODO DI PAGAMENTO</h4>
-                            <ol>
-                                <li>Caparra al momento della firma del contratto o accettazione preventivo</li>
-                                <li>Video pagamento anticipato</li>
-                                <li>Pagamento del 50% servizio fotografico</li>
-                                <li>La rimanenza viene divisa in 50% alla scelta delle foto e il 50% (Saldo) prima della Stampa del servizio</li>
-                            </ol>
-                        </div>
-                        
-                        <!-- BOX PROCEDURA PAGAMENTO -->
+                        <!-- BOX COME SI PROCEDE CON I PAGAMENTI -->
                         <div class="full-width procedura-pagamento-box">
-                            <h4>💶 PROCEDURA PAGAMENTO</h4>
+                            <h4>💶 COME SI PROCEDE CON I PAGAMENTI</h4>
                             <div class="procedura-row">
                                 <label>1. Accettazione Preventivo/Contratto</label>
                                 <div class="importo-input-group">
@@ -1000,7 +972,7 @@
                     const data = JSON.parse(e.target.result);
                     const eventiData = data.eventi || data.ciboz72;
                     if(!eventiData && !data.saggi && !data.gallery && !data.ricevute) throw new Error('Formato non valido');
-                    if(confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà TUTTI i dati attuali.\n\nSei sicuro?`)) {
+                    if(confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà TUTTI i dati attuali.\n\nSei sicuro?`)) {
                         if(eventiData) localStorage.setItem('gl_studio_db', JSON.stringify(eventiData));
                         if(data.saggi) localStorage.setItem('saggi_clienti', JSON.stringify(data.saggi));
                         if(data.gallery) localStorage.setItem('galleryClients', JSON.stringify(data.gallery));
@@ -1433,7 +1405,7 @@
                 doc.setFontSize(8);
                 doc.setFont(undefined, 'bold');
                 doc.setTextColor(102, 126, 234);
-                doc.text("PROCEDURA PAGAMENTO:", 15, y); y += 4;
+                doc.text("COME SI PROCEDE CON I PAGAMENTI:", 15, y); y += 4;
                 doc.setFont(undefined, 'normal');
                 doc.setTextColor(...black);
                 if(p.proc_accettazione && p.proc_accettazione !== '') {
@@ -1720,7 +1692,7 @@
                     const currentData = JSON.parse(localStorage.getItem('gl_studio_db') || '{}');
                     const currentCount = (currentData.clienti || []).length;
                     const newCount = (nuoviDati.clienti || []).length;
-                    if (confirm(`⚠️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
+                    if (confirm(`️ ATTENZIONE!\n\nQuesto sovrascriverà tutti i ${currentCount} dati Eventi attuali con ${newCount} dal backup.\n\nSei sicuro?`)) {
                         eventi_db = nuoviDati;
                         eventi_saveDB();
                         eventi_populateSelect();
