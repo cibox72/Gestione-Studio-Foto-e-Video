@@ -37,7 +37,6 @@ backupBtn.addEventListener('click', createBackup);
 restoreBtn.addEventListener('click', openRestoreModal);
 if (searchInput) searchInput.addEventListener('input', filterClients);
 
-// Carica dashboard se già loggato
 checkLoginStatus();
 
 // ============================================
@@ -55,7 +54,7 @@ function handleLogin(e) {
         showDashboard();
         loginError.textContent = '';
     } else {
-        loginError.textContent = '❌ Credenziali errate!\n\n💡 Username: G&LStudio\n💡 Password: 12763Mlg@';
+        loginError.textContent = '❌ Credenziali errate!';
         setTimeout(() => alert('❌ Accesso negato!\n\nUsername: G&LStudio\nPassword: 12763Mlg@'), 100);
     }
 }
@@ -82,7 +81,7 @@ function addClient() {
     const clientNotes = document.getElementById('clientNotes').value.trim();
     
     if (!clientName || !clientUsername || !clientPassword || !megaLink) {
-        alert('️ Tutti i campi obbligatori devono essere compilati!');
+        alert('⚠️ Tutti i campi obbligatori devono essere compilati!');
         return;
     }
     
@@ -143,7 +142,7 @@ function updateClient() {
 
 function deleteClient(clientId) {
     if (!clientId || clientId.trim() === '') {
-        alert(' ID cliente non valido!');
+        alert('❌ ID cliente non valido!');
         return;
     }
     
@@ -236,13 +235,13 @@ function loadClients() {
         clientCard.innerHTML = `
             <h3>${escapeHtml(client.name)}</h3>
             <div class="client-info">
-                <p><strong>👤 Username:</strong> ${escapeHtml(client.username)}</p>
+                <p><strong> Username:</strong> ${escapeHtml(client.username)}</p>
                 <p><strong>🔒 Password:</strong> ${escapeHtml(client.password)}</p>
                 <div style="background:#e8f4fd; border-left:4px solid #3498db; padding:12px; border-radius:4px; margin-top:15px; font-size:13px;">
                     <strong style="color:#2980b9; display:block; margin-bottom:8px;">📋 Link da inviare al cliente:</strong>
                     <div style="display:flex; gap:8px; margin-top:8px;">
                         <input type="text" value="${getClientUrl(client.id)}" readonly style="flex:1; padding:6px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:11px;" id="link-${client.id}">
-                        <button onclick="copyLink('${client.id}')" class="copy-btn">📋</button>
+                        <button onclick="copyLink('${client.id}')" class="copy-btn"></button>
                     </div>
                 </div>
             </div>
@@ -285,7 +284,7 @@ function openClientDetail(clientId) {
     detailContent.innerHTML = `
         <div class="client-detail-info">
             <div class="detail-item">
-                <span class="detail-label">👤 Nome Cliente:</span>
+                <span class="detail-label"> Nome Cliente:</span>
                 <div class="detail-value">${escapeHtml(client.name)}</div>
             </div>
             <div class="detail-item">
@@ -293,7 +292,7 @@ function openClientDetail(clientId) {
                 <div class="detail-value">${escapeHtml(client.username)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label">🔒 Password:</span>
+                <span class="detail-label"> Password:</span>
                 <div class="detail-value">${escapeHtml(client.password)}</div>
             </div>
             <div class="detail-item">
@@ -305,7 +304,7 @@ function openClientDetail(clientId) {
                 </div>
             </div>
             <div class="detail-item full-width">
-                <span class="detail-label">🌐 Link Galleria Cliente:</span>
+                <span class="detail-label"> Link Galleria Cliente:</span>
                 <div class="detail-value">
                     <input type="text" value="${getClientUrl(client.id)}" readonly style="width:100%; padding:8px; margin-top:5px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:13px;">
                     <button onclick="copyText('${getClientUrl(client.id)}')" style="margin-top:8px; background:#27ae60; color:white; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-weight:600; width:100%;">📋 Copia Link Completo</button>
@@ -342,7 +341,7 @@ function saveClientsToStorage() {
         if (error.name === 'QuotaExceededError') {
             alert(`❌ Spazio esaurito nel browser!\n\nHai troppi clienti (${allClients.length}).\n\nSOLUZIONE:\n1. Fai un backup\n2. Elimina alcuni clienti`);
         } else {
-            alert(` Errore durante il salvataggio:\n${error.message}`);
+            alert(`❌ Errore durante il salvataggio:\n${error.message}`);
         }
     }
 }
@@ -537,16 +536,6 @@ window.onclick = function(event) {
     if (event.target === clientDetailModal) closeClientDetailModal();
 };
 
-// ============================================
-// DEBUG INIT
-// ============================================
-console.log('══════════════════════════════════════════════════════════════');
-console.log('║          GALLERY MANAGER - CARICATO CORRETTAMENTE          ║');
-console.log('╚════════════════════════════════════════════════════════════╝');
-console.log('');
-console.log(' Credenziali di accesso:');
-console.log('   Username: G&LStudio');
-console.log('   Password: 12763Mlg@');
-console.log('');
-console.log('💡 Suggerimento: copia e incolla le credenziali esatte.');
-console.log('══════════════════════════════════════════════════════════════');
+console.log('GALLERY MANAGER - CARICATO CORRETTAMENTE');
+console.log('Username: G&LStudio');
+console.log('Password: 12763Mlg@');
