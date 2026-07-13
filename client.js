@@ -62,7 +62,7 @@ function showGallery(megaLink) {
     galleryLink.target = '_blank';
 }
 
-// Funzione per decodificare il token
+// Funzione per decodificare il token - VERSIONE CORRETTA
 function decodeClientToken(token) {
     try {
         // Decodifica Base64 URL-safe
