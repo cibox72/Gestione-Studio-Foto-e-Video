@@ -186,7 +186,7 @@ function loadClients() {
     if (totalCount === 0) {
         clientsList.innerHTML = `
             <div style="text-align:center; padding:40px; color:#999;">
-                <div style="font-size:48px; margin-bottom:20px;">📭</div>
+                <div style="font-size:48px; margin-bottom:20px;"></div>
                 <p style="font-size:18px; margin-bottom:10px;">Nessun cliente trovato</p>
                 <p style="font-size:14px;">${searchTerm ? 'Prova con termini di ricerca diversi' : 'Clicca su "Aggiungi Nuovo Cliente" per iniziare'}</p>
             </div>
@@ -206,9 +206,9 @@ function loadClients() {
             <h3>${escapeHtml(client.name)}</h3>
             <div class="client-info">
                 <p><strong>👤 Username:</strong> ${escapeHtml(client.username)}</p>
-                <p><strong> Password:</strong> ${escapeHtml(client.password)}</p>
+                <p><strong>🔒 Password:</strong> ${escapeHtml(client.password)}</p>
                 <div style="background:#e8f4fd; border-left:4px solid #3498db; padding:12px; border-radius:4px; margin-top:15px; font-size:13px;">
-                    <strong style="color:#2980b9; display:block; margin-bottom:8px;"> Link da inviare al cliente:</strong>
+                    <strong style="color:#2980b9; display:block; margin-bottom:8px;">📋 Link da inviare al cliente:</strong>
                     <div style="display:flex; gap:8px; margin-top:8px;">
                         <input type="text" value="${getClientUrl(client.id)}" readonly style="flex:1; padding:6px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:11px;" id="link-${client.id}">
                         <button onclick="copyLink('${client.id}')" class="copy-btn"></button>
@@ -250,19 +250,19 @@ function openClientDetail(clientId) {
     detailContent.innerHTML = `
         <div class="client-detail-info">
             <div class="detail-item">
-                <span class="detail-label">👤 Nome Cliente:</span>
+                <span class="detail-label"> Nome Cliente:</span>
                 <div class="detail-value">${escapeHtml(client.name)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label">🔑 Username:</span>
+                <span class="detail-label"> Username:</span>
                 <div class="detail-value">${escapeHtml(client.username)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label">🔒 Password:</span>
+                <span class="detail-label"> Password:</span>
                 <div class="detail-value">${escapeHtml(client.password)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label">🔗 Link MEGA:</span>
+                <span class="detail-label"> Link MEGA:</span>
                 <div class="detail-value">
                     <a href="${escapeHtml(client.megaLink)}" target="_blank" style="color: #667eea; text-decoration: underline;">
                         ${client.megaLink.length > 60 ? client.megaLink.substring(0, 60) + '...' : client.megaLink}
@@ -270,7 +270,7 @@ function openClientDetail(clientId) {
                 </div>
             </div>
             <div class="detail-item full-width">
-                <span class="detail-label"> Link Galleria Cliente:</span>
+                <span class="detail-label">🌐 Link Galleria Cliente:</span>
                 <div class="detail-value">
                     <input type="text" value="${getClientUrl(client.id)}" readonly style="width:100%; padding:8px; margin-top:5px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:13px;">
                     <button onclick="copyText('${getClientUrl(client.id)}')" style="margin-top:8px; background:#27ae60; color:white; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-weight:600; width:100%;">📋 Copia Link Completo</button>
@@ -304,7 +304,7 @@ function saveClientsToStorage() {
         if (error.name === 'QuotaExceededError') {
             alert(`❌ Spazio esaurito nel browser!\n\nHai troppi clienti (${allClients.length}).\n\nSOLUZIONE:\n1. Fai un backup\n2. Elimina alcuni clienti`);
         } else {
-            alert(` Errore durante il salvataggio:\n${error.message}`);
+            alert(`❌ Errore durante il salvataggio:\n${error.message}`);
         }
     }
 }
@@ -477,7 +477,7 @@ console.log('══════════════════════�
 console.log('║          GALLERY MANAGER - CARICATO CORRETTAMENTE          ║');
 console.log('╚════════════════════════════════════════════════════════════╝');
 console.log('');
-console.log('🔐 Credenziali di accesso:');
+console.log(' Credenziali di accesso:');
 console.log('   Username: G&LStudio');
 console.log('   Password: 12763Mlg@');
 console.log('');
