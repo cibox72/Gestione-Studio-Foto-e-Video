@@ -2,7 +2,7 @@
 // CREDENZIALI DI ACCESSO - AGGIORNATE
 // ============================================
 const ADMIN_USERNAME = 'G&LStudio';
-const ADMIN_PASSWORD = '12763Mlg@';
+const ADMIN_PASSWORD = '12763Mlg';
 
 // ============================================
 // VARIABILI GLOBALI
@@ -55,7 +55,7 @@ function handleLogin(e) {
         loginError.textContent = '';
     } else {
         loginError.textContent = '❌ Credenziali errate!';
-        setTimeout(() => alert('❌ Accesso negato!\n\nUsername: G&LStudio\nPassword: 12763Mlg@'), 100);
+        setTimeout(() => alert('❌ Accesso negato!\n\nUsername: G&LStudio\nPassword: 12763Mlg'), 100);
     }
 }
 
@@ -158,7 +158,7 @@ function deleteClient(clientId) {
         clientBefore.password ? `Password: ${clientBefore.password}` : 'Password: N/D'
     ].join('\n');
     
-    if (confirm(`⚠️ Eliminare questo cliente?\n\n${clientInfo}\n\nQuesta azione non può essere annullata!`)) {
+    if (confirm(`️ Eliminare questo cliente?\n\n${clientInfo}\n\nQuesta azione non può essere annullata!`)) {
         const initialCount = allClients.length;
         allClients = allClients.filter(client => client.id !== clientId);
         
@@ -225,7 +225,7 @@ function loadClients() {
     if (totalCount > 50) {
         const warning = document.createElement('div');
         warning.style.cssText = 'background:#fff3cd; color:#856404; padding:12px; border-radius:8px; margin-bottom:15px; text-align:center; font-weight:500;';
-        warning.innerHTML = `⚠️ Visualizzati solo i primi 50 clienti (su ${totalCount} totali). Usa la ricerca per trovare clienti specifici.`;
+        warning.innerHTML = `⚠️ Visualizzati solo i primi 50 clienti (su ${totalCount} totali). Usa la ricerca.`;
         clientsList.appendChild(warning);
     }
     
@@ -235,10 +235,10 @@ function loadClients() {
         clientCard.innerHTML = `
             <h3>${escapeHtml(client.name)}</h3>
             <div class="client-info">
-                <p><strong> Username:</strong> ${escapeHtml(client.username)}</p>
+                <p><strong>👤 Username:</strong> ${escapeHtml(client.username)}</p>
                 <p><strong>🔒 Password:</strong> ${escapeHtml(client.password)}</p>
                 <div style="background:#e8f4fd; border-left:4px solid #3498db; padding:12px; border-radius:4px; margin-top:15px; font-size:13px;">
-                    <strong style="color:#2980b9; display:block; margin-bottom:8px;">📋 Link da inviare al cliente:</strong>
+                    <strong style="color:#2980b9; display:block; margin-bottom:8px;"> Link da inviare al cliente:</strong>
                     <div style="display:flex; gap:8px; margin-top:8px;">
                         <input type="text" value="${getClientUrl(client.id)}" readonly style="flex:1; padding:6px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:11px;" id="link-${client.id}">
                         <button onclick="copyLink('${client.id}')" class="copy-btn"></button>
@@ -249,8 +249,7 @@ function loadClients() {
             <div class="client-notes">
                 <strong style="color:#856404; display:block; margin-bottom:5px;">📝 Note:</strong>
                 <p>${escapeHtml(client.notes)}</p>
-            </div>
-            ` : ''}
+            </div>` : ''}
             <div class="button-group">
                 <button class="open-btn" onclick="openClientDetail('${client.id}')">📁 Apri</button>
                 <button class="edit-btn" onclick="editClient('${client.id}')">✏️ Modifica</button>
@@ -274,11 +273,7 @@ function openClientDetail(clientId) {
     
     const detailContent = document.getElementById('clientDetailContent');
     const createdAt = new Date(client.createdAt).toLocaleString('it-IT', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit'
+        day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
     });
     
     detailContent.innerHTML = `
@@ -288,11 +283,11 @@ function openClientDetail(clientId) {
                 <div class="detail-value">${escapeHtml(client.name)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label">🔑 Username:</span>
+                <span class="detail-label"> Username:</span>
                 <div class="detail-value">${escapeHtml(client.username)}</div>
             </div>
             <div class="detail-item">
-                <span class="detail-label"> Password:</span>
+                <span class="detail-label">🔒 Password:</span>
                 <div class="detail-value">${escapeHtml(client.password)}</div>
             </div>
             <div class="detail-item">
@@ -304,7 +299,7 @@ function openClientDetail(clientId) {
                 </div>
             </div>
             <div class="detail-item full-width">
-                <span class="detail-label"> Link Galleria Cliente:</span>
+                <span class="detail-label">🌐 Link Galleria Cliente:</span>
                 <div class="detail-value">
                     <input type="text" value="${getClientUrl(client.id)}" readonly style="width:100%; padding:8px; margin-top:5px; border:1px solid #ddd; border-radius:4px; font-family:monospace; font-size:13px;">
                     <button onclick="copyText('${getClientUrl(client.id)}')" style="margin-top:8px; background:#27ae60; color:white; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; font-weight:600; width:100%;">📋 Copia Link Completo</button>
@@ -314,8 +309,7 @@ function openClientDetail(clientId) {
             <div class="detail-item full-width">
                 <span class="detail-label">📝 Note:</span>
                 <div class="detail-value">${escapeHtml(client.notes).replace(/\n/g, '<br>')}</div>
-            </div>
-            ` : ''}
+            </div>` : ''}
             <div class="detail-item full-width">
                 <span class="detail-label">📅 Data Creazione:</span>
                 <div class="detail-value">${createdAt}</div>
@@ -414,10 +408,8 @@ function createBackup() {
         const blob = new Blob([backupString], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        
         a.href = url;
-        a.download = `gallery-backup-${timestamp}.json`;
+        a.download = `gallery-backup-${new Date().toISOString().slice(0, 10)}.json`;
         a.click();
         URL.revokeObjectURL(url);
         
@@ -460,27 +452,23 @@ function handleRestore() {
             const backupData = JSON.parse(e.target.result);
             if (!backupData.clients) throw new Error('File di backup non valido');
             
-            if (!confirm(`️ ATTENZIONE!\n\nQuesta operazione sovrascriverà TUTTI i dati attuali (${allClients.length} clienti).\n\nIl backup contiene ${backupData.clients.length} clienti.\n\nSei SICURO di voler continuare?`)) {
-                return;
-            }
+            if (!confirm(`⚠️ ATTENZIONE!\n\nQuesta operazione sovrascriverà TUTTI i dati attuali (${allClients.length} clienti).\n\nIl backup contiene ${backupData.clients.length} clienti.\n\nSei SICURO di voler continuare?`)) return;
             
             allClients = backupData.clients;
             saveClientsToStorage();
             loadClients();
             
             restoreError.textContent = '';
-            restoreSuccess.textContent = `✅ Backup ripristinato con successo!\n\n${allClients.length} clienti caricati.`;
+            restoreSuccess.textContent = `✅ Ripristino completato!\n\n${allClients.length} clienti caricati.`;
             restoreSuccess.style.display = 'block';
             setTimeout(closeRestoreModal, 2500);
         } catch (error) {
-            restoreError.textContent = `❌ Errore durante il ripristino:\n${error.message}`;
+            restoreError.textContent = `❌ Errore ripristino:\n${error.message}`;
         }
     };
-    
     reader.onerror = () => {
         restoreError.textContent = '❌ Errore durante la lettura del file!';
     };
-    
     reader.readAsText(file);
 }
 
@@ -536,6 +524,7 @@ window.onclick = function(event) {
     if (event.target === clientDetailModal) closeClientDetailModal();
 };
 
-console.log('GALLERY MANAGER - CARICATO CORRETTAMENTE');
-console.log('Username: G&LStudio');
-console.log('Password: 12763Mlg@');
+console.log('══════════════════════════════════════════════════════════════');
+console.log('║      GALLERY MANAGER — Versione stabile (no @, no spazi)     ║');
+console.log('╚════════════════════════════════════════════════════════════╝');
+console.log('🔐 Credenziali: G&LStudio / 12763Mlg');
