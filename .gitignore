@@ -1,0 +1,16 @@
+# File temporanei macOS
+.DS_Store
+Thumbs.db
+
+# File di backup locali
+backup_*.json
+*.backup
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Log
+*.log
