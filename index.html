@@ -65,7 +65,7 @@ th{background:#f8f9fa;font-weight:600}
 .totals-row{display:flex;justify-content:space-between;padding:8px 0;font-size:16px}
 .totals-row strong{font-size:18px;color:#2c3e50}
 .proc-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;background:#f8f9fa;padding:10px;border-radius:6px}
-.proc-row label{min-width:180px;font-weight:600}
+.proc-row label{min-width:200px;font-weight:600}
 .proc-row input{flex:1}
 .calendar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px;margin-top:20px}
 .calendar-card{background:#fff;padding:15px;border-radius:8px;border-left:4px solid #667eea;box-shadow:0 2px 5px rgba(0,0,0,.05)}
@@ -106,12 +106,12 @@ th{background:#f8f9fa;font-weight:600}
 </header>
 
 <nav class="main-nav">
-<button class="nav-btn active" onclick="showSection('dashboard')"> Dashboard</button>
+<button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
 <button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
 <button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
-<button class="nav-btn" onclick="showSection('gallery')">🔐 Gallery Manager</button>
-<button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
-<button class="nav-btn" onclick="showSection('album-selection')">📸 Selezione Album</button>
+<button class="nav-btn" onclick="showSection('gallery')"> Gallery Manager</button>
+<button class="nav-btn" onclick="showSection('ricevute')"> Ricevute</button>
+<button class="nav-btn" onclick="showSection('album-selection')"> Selezione Album</button>
 <button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
 </nav>
 
@@ -120,7 +120,7 @@ th{background:#f8f9fa;font-weight:600}
 <h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
 <p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
 <div class="dashboard-grid">
-<div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
+<div class="dash-card" onclick="showSection('eventi')"><h3> Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
@@ -136,7 +136,7 @@ th{background:#f8f9fa;font-weight:600}
 <!-- GESTIONE EVENTI -->
 <div id="eventi" class="section-content">
 <div class="panel">
-<h2>📷 Gestione Eventi</h2>
+<h2> Gestione Eventi</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupEventi()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreEventi').click()">🔄 Ripristina</button>
@@ -150,10 +150,10 @@ th{background:#f8f9fa;font-weight:600}
 <div class="tabs">
 <button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
 <button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
-<button class="tab-btn" onclick="showEventTab('stato')"> Stato Lavori</button>
+<button class="tab-btn" onclick="showEventTab('stato')">📊 Stato Lavori</button>
 <button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
 <button class="tab-btn" onclick="showEventTab('archivio-contr')">📑 Archivio Contr.</button>
-<button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
+<button class="tab-btn" onclick="showEventTab('archivio-clienti')"> Archivio Clienti</button>
 </div>
 
 <div id="tab-anagrafica" class="tab-content active">
@@ -162,13 +162,13 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Cliente A (Principale) - Cognome *</label><input type="text" id="ev-cognome-a"></div>
 <div class="form-group"><label>Nome *</label><input type="text" id="ev-nome-a"></div>
 <div class="form-group"><label>Indirizzo 🗺️</label><div class="input-group"><input type="text" id="ev-indirizzo-a"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-a')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Cellulare </label><div class="input-group"><input type="tel" id="ev-cell-a"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')">💬 WhatsApp</button></div></div>
+<div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-a"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')">💬 WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-a"></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Cliente B (Facoltativo) - Cognome</label><input type="text" id="ev-cognome-b"></div>
 <div class="form-group"><label>Nome</label><input type="text" id="ev-nome-b"></div>
-<div class="form-group"><label>Indirizzo ️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">️ Maps</button></div></div>
+<div class="form-group"><label>Indirizzo 🗺️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
 <div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-b"></div>
 </div>
@@ -215,8 +215,8 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Foto EXTRA</label><input type="number" id="prev-extra" value="0"></div>
 <div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
-<div class="form-group"><label>Chiesa / Luogo Cerimonia ️</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Location Ricevimento 🗺️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Chiesa / Luogo Cerimonia 🗺️</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Location Ricevimento 🗺️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">️ Maps</button></div></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
@@ -229,7 +229,7 @@ th{background:#f8f9fa;font-weight:600}
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
-<h3 style="margin-top:20px">💰 Acconti Versati</h3>
+<h3 style="margin-top:20px"> Acconti Versati</h3>
 <div id="acconti-container"></div>
 <button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
 
@@ -239,14 +239,14 @@ th{background:#f8f9fa;font-weight:600}
 <div class="totals-row"><span>A Saldo</span><strong id="tot-saldo">€ 0,00</strong></div>
 </div>
 
-<h3 style="margin-top:20px">📋 Processo Lavorazione</h3>
-<div class="proc-row"><label>Accettazione (€)</label><input type="number" id="proc-accettazione" value="0"></div>
-<div class="proc-row"><label>Prima Servizio (€)</label><input type="number" id="proc-prima-servizio" value="0"></div>
-<div class="proc-row"><label>Scelta Foto (€)</label><input type="number" id="proc-scelta-foto" value="0"></div>
-<div class="proc-row"><label>Saldo Stampa (€)</label><input type="number" id="proc-saldo-stampa" value="0"></div>
+<h3 style="margin-top:20px"> Il pagamento viene suddiviso in:</h3>
+<div class="proc-row"><label>Caparra / Accettazione (€)</label><input type="number" id="proc-accettazione" value="0"></div>
+<div class="proc-row"><label>Prima del Servizio (€)</label><input type="number" id="proc-prima-servizio" value="0"></div>
+<div class="proc-row"><label>Alla Scelta Foto (€)</label><input type="number" id="proc-scelta-foto" value="0"></div>
+<div class="proc-row"><label>Saldo alla Stampa (€)</label><input type="number" id="proc-saldo-stampa" value="0"></div>
 
 <button class="btn btn-success" onclick="saveQuote()" style="margin-top:15px">✅ Crea Preventivo & PDF</button>
-<button class="btn btn-warning" onclick="convertToContract()"> Converti in Contratto</button>
+<button class="btn btn-warning" onclick="convertToContract()">📑 Converti in Contratto</button>
 </div>
 
 <div id="tab-stato" class="tab-content">
@@ -286,8 +286,8 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
-<button class="tab-btn" onclick="showSaggiTab('archivio')"> Archivio</button>
-<button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
+<button class="tab-btn" onclick="showSaggiTab('archivio')">📁 Archivio</button>
+<button class="tab-btn" onclick="showSaggiTab('contabilita')"> Contabilità</button>
 </div>
 
 <div id="saggi-tab-nuovo" class="tab-content active">
@@ -305,14 +305,14 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Quantità</label><input type="number" id="sag-qta" value="1"></div>
 <div class="form-group"><label>Importo (€)</label><input type="number" id="sag-importo" value="15"></div>
 </div>
-<button class="btn btn-success" onclick="saveStudent()">💾 Salva</button>
+<button class="btn btn-success" onclick="saveStudent()"> Salva</button>
 <button class="btn btn-warning" onclick="loadStudentForEdit()">✏️ Carica per Modifica</button>
-<button class="btn btn-info" onclick="generateStudentPDF()">📄 PDF Scheda</button>
+<button class="btn btn-info" onclick="generateStudentPDF()"> PDF Scheda</button>
 <button class="btn btn-secondary" onclick="resetStudentForm()">🔄 Reset</button>
 </div>
 
 <div id="saggi-tab-archivio" class="tab-content">
-<h3> Archivio Partecipanti</h3>
+<h3>📁 Archivio Partecipanti</h3>
 <div class="form-row">
 <div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
@@ -328,7 +328,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Scuola</label><select id="cont-scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="cont-anno" value="2026"></div>
 </div>
-<button class="btn btn-primary" onclick="renderContabilita()">👁️ Visualizza</button>
+<button class="btn btn-primary" onclick="renderContabilita()">️ Visualizza</button>
 <button class="btn btn-info" onclick="generateContabilitaPDF()">🖨️ PDF Contabilità</button>
 <div id="contabilita-content"></div>
 </div>
@@ -338,14 +338,14 @@ th{background:#f8f9fa;font-weight:600}
 <!-- GALLERY MANAGER -->
 <div id="gallery" class="section-content">
 <div class="panel">
-<h2> Gallery Manager</h2>
+<h2>🔐 Gallery Manager</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupGallery()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreGallery').click()">🔄 Ripristina</button>
 <input type="file" id="restoreGallery" accept=".json" style="display:none" onchange="restoreGallery(this)">
 </div>
 <div class="tabs">
-<button class="tab-btn active" onclick="showGalleryTab('nuovo')">➕ Nuovo Cliente</button>
+<button class="tab-btn active" onclick="showGalleryTab('nuovo')"> Nuovo Cliente</button>
 <button class="tab-btn" onclick="showGalleryTab('lista')">📁 Lista Clienti</button>
 </div>
 <div id="gallery-tab-nuovo" class="tab-content active">
@@ -371,7 +371,7 @@ th{background:#f8f9fa;font-weight:600}
 <!-- RICEVUTE -->
 <div id="ricevute" class="section-content">
 <div class="panel">
-<h2> Gestione Ricevute</h2>
+<h2>🧾 Gestione Ricevute</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupRicevute()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreRicevute').click()">🔄 Ripristina</button>
@@ -379,7 +379,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showRicevuteTab('nuova')">➕ Nuova Ricevuta</button>
-<button class="tab-btn" onclick="showRicevuteTab('archivio')"> Archivio Ricevute</button>
+<button class="tab-btn" onclick="showRicevuteTab('archivio')">📁 Archivio Ricevute</button>
 </div>
 <div id="ricevute-tab-nuova" class="tab-content active">
 <h3>📄 Nuova Ricevuta Fotografica</h3>
@@ -774,7 +774,7 @@ row.innerHTML=`
 <select onchange="updateAcconto(${idx},'metodo',this.value)">
 <option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option>
 </select>
-<button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">🗑️</button>
+<button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">️</button>
 `;
 container.appendChild(row);
 updateTotals();
@@ -862,7 +862,7 @@ if(!tbody)return;
 tbody.innerHTML=db.eventi.preventivi.map(q=>{
 const c=db.eventi.clienti[parseInt(q.clienteIdx)];
 const nome=c?c.cognome+' '+c.nome:'N/A';
-return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewQuote(${q.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editQuote(${q.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateQuotePDFById(${q.id})">📄 PDF</button></td></tr>`;
+return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewQuote(${q.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editQuote(${q.id})">️</button> <button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateQuotePDFById(${q.id})">📄 PDF</button></td></tr>`;
 }).join('');
 }
 
@@ -1015,7 +1015,7 @@ if(!tbody)return;
 tbody.innerHTML=db.eventi.contratti.map(c=>{
 const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
 const nome=cl?cl.cognome+' '+cl.nome:'N/A';
-return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
+return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
 }).join('');
 }
 
@@ -1141,11 +1141,11 @@ html+=`<div class="date-row"><span>Consegnato Album</span><span>${c.dataConsegna
 html+=`<div class="date-row"><span>Consegna Files</span><span>${c.dataConsegnaFiles||'-'}</span></div>`;
 html+=`<div style="margin-top:10px">`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')"> Selezione Foto</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')">📅 Selezione Foto</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')"> Grafica Pronta</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')">📅 Ricevuto Lab.</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoVideo')"> Cons. Video</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoVideo')">📅 Cons. Video</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoAlbum')">📅 Cons. Album</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnaFiles')">📅 Cons. Files</button>`;
 html+=`</div></div>`;
@@ -1234,7 +1234,7 @@ if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
 if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
 const tbody=document.querySelector('#table-students tbody');
 if(!tbody)return;
-tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
+tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})"> PDF</button></td></tr>`).join('');
 }
 
 function viewStudent(id){
@@ -1409,7 +1409,7 @@ function renderGalleries(){
 const db=getDB();
 const tbody=document.querySelector('#table-galleries tbody');
 if(!tbody)return;
-tbody.innerHTML=db.gallery.map(g=>`<tr><td>${g.id}</td><td>${g.name}</td><td>${g.username||'-'}</td><td>${g.password||'-'}</td><td><a href="${g.megaLink}" target="_blank">Apri</a></td><td>${g.notes||'-'}</td><td><button class="btn btn-info btn-sm" onclick="viewGallery('${g.id}')">👁️</button> <button class="btn btn-warning btn-sm" onclick="editGallery('${g.id}')">️</button> <button class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">🗑️</button></td></tr>`).join('');
+tbody.innerHTML=db.gallery.map(g=>`<tr><td>${g.id}</td><td>${g.name}</td><td>${g.username||'-'}</td><td>${g.password||'-'}</td><td><a href="${g.megaLink}" target="_blank">Apri</a></td><td>${g.notes||'-'}</td><td><button class="btn btn-info btn-sm" onclick="viewGallery('${g.id}')">👁️</button> <button class="btn btn-warning btn-sm" onclick="editGallery('${g.id}')">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">️</button></td></tr>`).join('');
 }
 
 function viewGallery(id){
@@ -1717,7 +1717,7 @@ const db=getDB();
 const g=db.albums.find(x=>x.id===id);
 if(!g)return;
 const items=g.selection.map((url,i)=>`<li style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee"><img src="${url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"><div><strong>Foto ${i+1}</strong><br><small>${g.selectedNames?.[i]||''}</small></div></li>`).join('');
-document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%"> Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px">💡 Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;
+document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%">📥 Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px">💡 Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;
 document.getElementById('albumSelectionModal').classList.add('active');
 }
 
@@ -1768,7 +1768,7 @@ document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family
 }else{
 document.getElementById('loginOverlay').style.display='none';
 document.getElementById('mainApp').style.display='none';
-document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif"><h1>❌ Galleria non trovata</h1></div>`;
+document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif"><h1> Galleria non trovata</h1></div>`;
 }
 }else{
 updateAllCounts();
