@@ -1,826 +1,1779 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>G&L Studio - Gestionale Unificato</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6f9; color: #333; }
-        .main-header { background: #2c3e50; color: white; padding: 15px 20px; text-align: center; }
-        .main-nav { background: #fff; padding: 10px 20px; display: flex; gap: 10px; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); overflow-x: auto; }
-        .nav-btn { padding: 8px 15px; border: none; background: transparent; cursor: pointer; font-weight: 600; color: #555; border-radius: 5px; }
-        .nav-btn:hover, .nav-btn.active { background: #667eea; color: white; }
-        .logout-btn { margin-left: auto; background: #e74c3c; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; }
-        .section-content { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
-        .section-content.active { display: block; }
-        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
-        .dash-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; cursor: pointer; transition: transform 0.2s; border-top: 4px solid #667eea; }
-        .dash-card:hover { transform: translateY(-5px); }
-        .dash-card h3 { margin-bottom: 10px; color: #2c3e50; font-size: 16px; }
-        .dash-number { font-size: 36px; font-weight: bold; color: #667eea; margin: 10px 0; }
-        .panel { background: white; border-radius: 12px; padding: 25px; margin-bottom: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        .form-row { display: flex; gap: 15px; flex-wrap: wrap; }
-        .form-row > div { flex: 1; min-width: 200px; }
-        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
-        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 14px; margin-right: 5px; margin-bottom: 5px; }
-        .btn-primary { background: #667eea; color: white; }
-        .btn-success { background: #27ae60; color: white; }
-        .btn-danger { background: #e74c3c; color: white; }
-        .btn-secondary { background: #95a5a6; color: white; }
-        .btn-sm { padding: 6px 12px; font-size: 12px; }
-        .input-group { display: flex; gap: 10px; align-items: center; }
-        .input-group input { flex: 1; }
-        .input-group .btn { white-space: nowrap; }
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
-        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background: #f8f9fa; font-weight: 600; }
-        .tabs { display: flex; gap: 5px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn { padding: 10px 20px; border: 2px solid #667eea; background: white; color: #667eea; cursor: pointer; border-radius: 6px; font-weight: 600; }
-        .tab-btn.active { background: #667eea; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .stats-box { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
-        .stat-item { background: #f8f9fa; padding: 15px 25px; border-radius: 8px; border-left: 4px solid #667eea; }
-        .stat-item strong { font-size: 24px; color: #667eea; display: block; }
-        .login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; z-index: 2000; }
-        .login-box { background: white; padding: 50px 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 90%; max-width: 400px; text-align: center; }
-        .login-box h2 { color: #2c3e50; margin-bottom: 25px; }
-        .login-error { color: #e74c3c; margin-top: 15px; font-weight: 600; min-height: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G&L Studio - Gestionale Unificato</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,sans-serif;background:#f4f6f9;color:#333}
+.main-header{background:#2c3e50;color:#fff;padding:15px 20px;text-align:center}
+.main-header h1{font-size:28px}
+.main-header p{font-size:13px;opacity:.8;margin-top:5px}
+.main-nav{background:#fff;padding:10px 20px;display:flex;gap:8px;align-items:center;box-shadow:0 2px 5px rgba(0,0,0,.05);overflow-x:auto;flex-wrap:wrap}
+.nav-btn{padding:8px 15px;border:none;background:transparent;cursor:pointer;font-weight:600;color:#555;border-radius:5px;white-space:nowrap;font-size:14px}
+.nav-btn:hover,.nav-btn.active{background:#667eea;color:#fff}
+.logout-btn{margin-left:auto;background:#e74c3c;color:#fff;padding:8px 15px;border:none;border-radius:5px;cursor:pointer;font-weight:600}
+.section-content{display:none;padding:20px;max-width:1400px;margin:0 auto}
+.section-content.active{display:block}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:20px}
+.dash-card{background:#fff;padding:30px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.05);text-align:center;cursor:pointer;transition:transform .2s;border-top:4px solid #667eea}
+.dash-card:hover{transform:translateY(-5px)}
+.dash-card h3{margin-bottom:10px;color:#2c3e50;font-size:16px}
+.dash-number{font-size:36px;font-weight:bold;color:#667eea;margin:10px 0}
+.panel{background:#fff;border-radius:12px;padding:25px;margin-bottom:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;margin-bottom:5px;font-weight:600;font-size:14px}
+.form-row{display:flex;gap:15px;flex-wrap:wrap}
+.form-row>div{flex:1;min-width:200px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:6px;font-size:14px;font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:#667eea}
+.btn{padding:10px 20px;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:14px;margin-right:5px;margin-bottom:5px}
+.btn-primary{background:#667eea;color:#fff}
+.btn-success{background:#27ae60;color:#fff}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-secondary{background:#95a5a6;color:#fff}
+.btn-warning{background:#f39c12;color:#fff}
+.btn-info{background:#17a2b8;color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px}
+table{width:100%;border-collapse:collapse;margin-top:15px;background:#fff;border-radius:8px;overflow:hidden}
+th,td{padding:12px 15px;text-align:left;border-bottom:1px solid #eee;font-size:14px}
+th{background:#f8f9fa;font-weight:600}
+.tabs{display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap}
+.tab-btn{padding:10px 20px;border:2px solid #667eea;background:#fff;color:#667eea;cursor:pointer;border-radius:6px;font-weight:600}
+.tab-btn.active{background:#667eea;color:#fff}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.stats-box{display:flex;gap:20px;margin-bottom:20px;flex-wrap:wrap}
+.stat-item{background:#f8f9fa;padding:15px 25px;border-radius:8px;border-left:4px solid #667eea}
+.stat-item strong{font-size:24px;color:#667eea;display:block}
+.login-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;z-index:2000}
+.login-box{background:#fff;padding:50px 40px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,.3);width:90%;max-width:400px;text-align:center}
+.login-box h2{color:#2c3e50;margin-bottom:25px}
+.login-error{color:#e74c3c;margin-top:15px;font-weight:600;min-height:20px}
+.input-group{display:flex;gap:8px;align-items:center}
+.input-group input{flex:1}
+.input-group .btn{white-space:nowrap}
+.highlight-box{background:#fff3cd;padding:15px;border-radius:8px;border-left:4px solid #f39c12;margin:15px 0}
+.highlight-box label{font-size:16px;font-weight:bold;color:#d68910}
+.highlight-box input{font-size:16px;font-weight:bold}
+.acconto-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;flex-wrap:wrap;background:#f8f9fa;padding:10px;border-radius:6px}
+.acconto-row select,.acconto-row input{flex:1;min-width:100px}
+.totals-box{background:#e8f4fd;padding:20px;border-radius:8px;margin-top:20px;border-left:4px solid #3498db}
+.totals-row{display:flex;justify-content:space-between;padding:8px 0;font-size:16px}
+.totals-row strong{font-size:18px;color:#2c3e50}
+.proc-row{display:flex;gap:10px;align-items:center;margin-bottom:8px;background:#f8f9fa;padding:10px;border-radius:6px}
+.proc-row label{min-width:180px;font-weight:600}
+.proc-row input{flex:1}
+.calendar-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:15px;margin-top:20px}
+.calendar-card{background:#fff;padding:15px;border-radius:8px;border-left:4px solid #667eea;box-shadow:0 2px 5px rgba(0,0,0,.05)}
+.calendar-card h4{color:#2c3e50;margin-bottom:10px}
+.calendar-card .date-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee;font-size:13px}
+.calendar-card .date-row:last-child{border-bottom:none}
+.calendar-card .date-row span:first-child{font-weight:600;color:#555}
+.calendar-card .date-row span:last-child{color:#667eea;font-weight:600}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-content{background:#fff;padding:30px;border-radius:12px;width:90%;max-width:700px;max-height:80vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:15px;right:20px;font-size:24px;cursor:pointer;color:#666}
+.album-row{display:flex;justify-content:space-between;align-items:center;padding:15px;border-left:4px solid #27ae60;background:#fff;margin-bottom:10px;border-radius:8px;flex-wrap:wrap;gap:10px}
+.album-row.downloaded{opacity:.7;border-left-color:#95a5a6}
+.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;margin:20px 0}
+.album-grid .photo-card{border:3px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer}
+.album-grid .photo-card.selected{border-color:#27ae60}
+.album-grid .photo-card img{width:100%;height:120px;object-fit:cover;display:block}
+</style>
 </head>
 <body>
 
 <div id="loginOverlay" class="login-overlay">
-    <div class="login-box">
-        <h2>📸 G&L Studio</h2>
-        <p style="color:#666;margin-bottom:25px">Gestionale Unificato</p>
-        <div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Inserisci username"></div>
-        <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Inserisci password"></div>
-        <button class="btn btn-primary" onclick="doLogin()" style="width:100%;padding:14px;font-size:16px;margin-top:10px">Accedi</button>
-        <div id="loginError" class="login-error"></div>
-    </div>
+<div class="login-box">
+<h2>📸 G&L Studio</h2>
+<p style="color:#666;margin-bottom:25px">Gestionale Unificato</p>
+<div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Inserisci username"></div>
+<div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Inserisci password"></div>
+<button class="btn btn-primary" onclick="doLogin()" style="width:100%;padding:14px;font-size:16px;margin-top:10px">Accedi</button>
+<div id="loginError" class="login-error"></div>
+</div>
 </div>
 
 <div id="mainApp" style="display:none">
 <header class="main-header">
-    <h1>📸 G&L Studio</h1>
-    <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
+<h1>📸 G&L Studio</h1>
+<p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
 </header>
 
 <nav class="main-nav">
-    <button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
-    <button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
-    <button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
-    <button class="nav-btn" onclick="showSection('gallery')"> Gallery Manager</button>
-    <button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
-    <button class="logout-btn" onclick="doLogout()"> Esci</button>
+<button class="nav-btn active" onclick="showSection('dashboard')"> Dashboard</button>
+<button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
+<button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
+<button class="nav-btn" onclick="showSection('gallery')">🔐 Gallery Manager</button>
+<button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
+<button class="nav-btn" onclick="showSection('album-selection')">📸 Selezione Album</button>
+<button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
 </nav>
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="section-content active">
-    <h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
-    <p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
-    <div class="dashboard-grid">
-        <div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
-        <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
-        <div class="dash-card" onclick="showSection('gallery')"><h3> Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
-        <div class="dash-card" onclick="showSection('ricevute')"><h3>🧾 Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
-    </div>
-    <div style="text-align:center;margin-top:30px">
-        <button class="btn btn-success" onclick="globalBackup()">💾 Backup Globale</button>
-        <button class="btn btn-primary" onclick="document.getElementById('restoreFile').click()">🔄 Ripristina Globale</button>
-        <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="globalRestore(this)">
-    </div>
+<h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
+<p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
+<div class="dashboard-grid">
+<div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
+<div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
+<div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
+<div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
+<div class="dash-card" onclick="showSection('album-selection')" style="border-top-color:#8e44ad"><h3>📸 Selezione Album</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
+</div>
+<div style="text-align:center;margin-top:30px">
+<button class="btn btn-success" onclick="globalBackup()">💾 Backup Globale</button>
+<button class="btn btn-primary" onclick="document.getElementById('restoreFile').click()">🔄 Ripristina Globale</button>
+<input type="file" id="restoreFile" accept=".json" style="display:none" onchange="globalRestore(this)">
+</div>
 </div>
 
+<!-- GESTIONE EVENTI -->
 <div id="eventi" class="section-content">
-    <div class="panel">
-        <h2>📷 Gestione Eventi</h2>
-        <div class="stats-box">
-            <div class="stat-item"><strong id="stat-clienti">0</strong>Clienti</div>
-            <div class="stat-item"><strong id="stat-preventivi">0</strong>Preventivi</div>
-            <div class="stat-item"><strong id="stat-contratti">0</strong>Contratti</div>
-        </div>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
-            <button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
-            <button class="tab-btn" onclick="showEventTab('stato')"> Stato Lavori</button>
-            <button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
-            <button class="tab-btn" onclick="showEventTab('archivio-contr')"> Archivio Contr.</button>
-            <button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
-        </div>
-
-        <div id="tab-anagrafica" class="tab-content active">
-            <h3>Nuova Anagrafica Coppia</h3>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Cliente A (Principale) - Cognome *</label>
-                    <input type="text" id="ev-cognome-a">
-                </div>
-                <div class="form-group">
-                    <label>Nome *</label>
-                    <input type="text" id="ev-nome-a">
-                </div>
-                <div class="form-group">
-                    <label>Indirizzo ️</label>
-                    <div class="input-group">
-                        <input type="text" id="ev-indirizzo-a">
-                        <button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-a')">🗺️ Maps</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Cellulare 💬</label>
-                    <div class="input-group">
-                        <input type="tel" id="ev-cell-a">
-                        <button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')"> WhatsApp</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="ev-email-a">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Cliente B (Facoltativo) - Cognome</label>
-                    <input type="text" id="ev-cognome-b">
-                </div>
-                <div class="form-group">
-                    <label>Nome</label>
-                    <input type="text" id="ev-nome-b">
-                </div>
-                <div class="form-group">
-                    <label>Indirizzo 🗺️</label>
-                    <div class="input-group">
-                        <input type="text" id="ev-indirizzo-b">
-                        <button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Cellulare </label>
-                    <div class="input-group">
-                        <input type="tel" id="ev-cell-b">
-                        <button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="ev-email-b">
-                </div>
-            </div>
-            <button class="btn btn-success" onclick="saveCouple()">💾 Salva Coppia</button>
-        </div>
-
-        <div id="tab-preventivi" class="tab-content">
-            <h3>Nuovo Preventivo</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Seleziona Cliente A</label><select id="prev-cliente-a"><option value="">-- Seleziona --</option></select></div>
-                <div class="form-group"><label>Seleziona Cliente B (opzionale)</label><select id="prev-cliente-b"><option value="">-- Nessun Cliente B --</option></select></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label> DATA EVENTO</label><input type="date" id="prev-data"></div>
-                <div class="form-group"><label>Tipo Evento</label><select id="prev-tipo"><option>Nessuno</option><option>MATRIMONIO</option><option>BATTESIMO</option><option>COMPLEANNO</option><option>EVENTO</option><option>ANNIVERSARIO</option></select></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Servizio</label><select id="prev-servizio"><option>Nessuno</option><option>SOLO FILES</option><option>ALBUM CLASSICO</option><option>ALBUM DIGITALE</option><option>STAMPE</option></select></div>
-                <div class="form-group"><label>Misura</label><select id="prev-misura"><option>Nessuno</option><option>15x20 cm</option><option>20x30 cm</option><option>24x30 cm</option><option>30x30 cm</option><option>40x40 cm</option><option>Digitale 20x30 cm</option><option>Digitale 25x35 cm</option><option>Digitale 30x40 cm</option><option>Digitale 35x45 cm</option></select></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Interni Q.Tà</label><input type="number" id="prev-qta" value="0"></div>
-                <div class="form-group"><label>Orientamento</label><select id="prev-orientamento"><option>Nessuno</option><option>Album verticale</option><option>Album orizzontale</option></select></div>
-                <div class="form-group"><label>Copertina</label><select id="prev-copertina"><option>Nessuno</option><option>Nessuna Foto Telata</option><option>Extra/Catalogo</option></select></div>
-                <div class="form-group"><label>Effetti</label><select id="prev-effetti"><option>Nessuno</option><option>Senza effetti</option><option>5 effetti</option><option>10 effetti</option><option>15 effetti</option><option>20 effetti</option></select></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Mini Album</label><input type="number" id="prev-mini" value="0"></div>
-                <div class="form-group"><label>Ingrandimenti</label><select id="prev-ingrandimento"><option>Nessuno</option><option>Stampa 30x40 cm</option><option>Stampa 50x70 cm</option></select></div>
-                <div class="form-group"><label>Qta Ingrand.</label><input type="number" id="prev-ingrandimento-qta" value="0"></div>
-                <div class="form-group"><label>Tele</label><select id="prev-tela"><option>Nessuno</option><option>Tela 30x40 cm</option><option>Tela 50x70 cm</option><option>Tela 30x40 cm con telaio</option><option>Tela 50x70 cm con telaio</option></select></div>
-                <div class="form-group"><label>Qta Tele</label><input type="number" id="prev-tela-qta" value="0"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Video</label><select id="prev-video"><option>Nessuno</option><option>Solo Casa</option><option>Solo Chiesa</option><option>Solo Locale+ taglio torta iniziale</option><option>Solo Locale intera serata</option><option>Casa+Chiesa</option><option>Chiesa+Locale taglio torta</option><option>Chiesa+ Locale intera serata</option><option>Casa+Chiesa+Locale taglio torta</option><option>Casa+Chiesa+Locale intera serata</option><option>Esterni</option><option>Esterni+Locale taglio torta</option><option>Esterni+Locale intera serata</option></select></div>
-                <div class="form-group"><label>Proiezione</label><select id="prev-proiezione"><option>Nessuna</option><option>Solo anteprima</option><option>Solo Live</option><option>Anteprima + Live</option></select></div>
-                <div class="form-group"><label>Drone</label><select id="prev-drone"><option>Nessuno</option><option>Con drone</option></select></div>
-                <div class="form-group"><label>Pennino USB</label><input type="number" id="prev-pennino" value="0"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Foto EXTRA</label><input type="number" id="prev-extra" value="0"></div>
-                <div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
-                <div class="form-group">
-                    <label>Chiesa / Luogo Cerimonia 🗺️</label>
-                    <div class="input-group">
-                        <input type="text" id="prev-chiesa">
-                        <button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">️ Maps</button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Location Ricevimento ️</label>
-                    <div class="input-group">
-                        <input type="text" id="prev-location">
-                        <button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button>
-                    </div>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
-                <div class="form-group"><label>Post-Servizio</label><select id="prev-post"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
-                <div class="form-group"><label>Pranzo/Cena STAFF</label><select id="prev-pranzo"><option>Nessuno</option><option>Nessuna</option><option>SI</option><option>NO</option></select></div>
-            </div>
-            <div class="form-group"><label>Note</label><textarea id="prev-note" rows="3"></textarea></div>
-            <div class="form-group"><label>IMPORTO TOTALE SERVIZIO (€)</label><input type="number" id="prev-importo" value="0"></div>
-            <button class="btn btn-success" onclick="saveQuote()">✅ Crea Preventivo</button>
-        </div>
-
-        <div id="tab-stato" class="tab-content"><h3>📋 STATO LAVORI - Flusso Contratti</h3><div id="stato-lavori-content"></div></div>
-        <div id="tab-archivio-prev" class="tab-content"><h3>📁 Archivio Preventivi</h3><table id="table-quotes"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Tipo</th><th>Servizio</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table></div>
-        <div id="tab-archivio-contr" class="tab-content"><h3>📑 Archivio Contratti</h3><table id="table-contracts"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Tipo</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table></div>
-        <div id="tab-archivio-clienti" class="tab-content"><h3>👥 Archivio Clienti</h3><table id="table-couples"><thead><tr><th>ID</th><th>Cliente A</th><th>Cliente B</th><th>Telefono</th><th>Email</th><th>Azioni</th></tr></thead><tbody></tbody></table></div>
-    </div>
+<div class="panel">
+<h2>📷 Gestione Eventi</h2>
+<div style="margin-bottom:15px">
+<button class="btn btn-success" onclick="backupEventi()">💾 Backup</button>
+<button class="btn btn-primary" onclick="document.getElementById('restoreEventi').click()">🔄 Ripristina</button>
+<input type="file" id="restoreEventi" accept=".json" style="display:none" onchange="restoreEventi(this)">
+</div>
+<div class="stats-box">
+<div class="stat-item"><strong id="stat-clienti">0</strong>Clienti</div>
+<div class="stat-item"><strong id="stat-preventivi">0</strong>Preventivi</div>
+<div class="stat-item"><strong id="stat-contratti">0</strong>Contratti</div>
+</div>
+<div class="tabs">
+<button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
+<button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
+<button class="tab-btn" onclick="showEventTab('stato')"> Stato Lavori</button>
+<button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
+<button class="tab-btn" onclick="showEventTab('archivio-contr')">📑 Archivio Contr.</button>
+<button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
 </div>
 
+<div id="tab-anagrafica" class="tab-content active">
+<h3>Nuova Anagrafica Coppia</h3>
+<div class="form-row">
+<div class="form-group"><label>Cliente A (Principale) - Cognome *</label><input type="text" id="ev-cognome-a"></div>
+<div class="form-group"><label>Nome *</label><input type="text" id="ev-nome-a"></div>
+<div class="form-group"><label>Indirizzo 🗺️</label><div class="input-group"><input type="text" id="ev-indirizzo-a"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-a')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Cellulare </label><div class="input-group"><input type="tel" id="ev-cell-a"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')">💬 WhatsApp</button></div></div>
+<div class="form-group"><label>Email</label><input type="email" id="ev-email-a"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Cliente B (Facoltativo) - Cognome</label><input type="text" id="ev-cognome-b"></div>
+<div class="form-group"><label>Nome</label><input type="text" id="ev-nome-b"></div>
+<div class="form-group"><label>Indirizzo ️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">️ Maps</button></div></div>
+<div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button></div></div>
+<div class="form-group"><label>Email</label><input type="email" id="ev-email-b"></div>
+</div>
+<button class="btn btn-success" onclick="saveCouple()">💾 Salva Coppia</button>
+<button class="btn btn-primary" onclick="createQuoteFromCouple()">📄 Crea Preventivo per questa Coppia</button>
+</div>
+
+<div id="tab-preventivi" class="tab-content">
+<h3>Nuovo Preventivo</h3>
+<div class="form-row">
+<div class="form-group"><label>Seleziona Cliente A</label><select id="prev-cliente-a"><option value="">-- Seleziona --</option></select></div>
+<div class="form-group"><label>Seleziona Cliente B (opzionale)</label><select id="prev-cliente-b"><option value="">-- Nessun Cliente B --</option></select></div>
+</div>
+<div class="highlight-box">
+<label>📅 DATA EVENTO *</label>
+<input type="date" id="prev-data" required>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Tipo Evento</label><select id="prev-tipo"><option>Nessuno</option><option>MATRIMONIO</option><option>BATTESIMO</option><option>COMPLEANNO</option><option>EVENTO</option><option>ANNIVERSARIO</option></select></div>
+<div class="form-group"><label>Servizio</label><select id="prev-servizio"><option>Nessuno</option><option>SOLO FILES</option><option>ALBUM CLASSICO</option><option>ALBUM DIGITALE</option><option>STAMPE</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Misura</label><select id="prev-misura"><option>Nessuno</option><option>15x20 cm</option><option>20x30 cm</option><option>24x30 cm</option><option>30x30 cm</option><option>40x40 cm</option><option>Digitale 20x30 cm</option><option>Digitale 25x35 cm</option><option>Digitale 30x40 cm</option><option>Digitale 35x45 cm</option></select></div>
+<div class="form-group"><label>Orientamento</label><select id="prev-orientamento"><option>Nessuno</option><option>Album verticale</option><option>Album orizzontale</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Interni Q.Tà</label><input type="number" id="prev-qta" value="0"></div>
+<div class="form-group"><label>Copertina</label><select id="prev-copertina"><option>Nessuno</option><option>Nessuna Foto Telata</option><option>Extra/Catalogo</option><option>Foto Telata</option></select></div>
+<div class="form-group"><label>Effetti</label><select id="prev-effetti"><option>Nessuno</option><option>Senza effetti</option><option>5 effetti</option><option>10 effetti</option><option>15 effetti</option><option>20 effetti</option></select></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Mini Album</label><input type="number" id="prev-mini" value="0"></div>
+<div class="form-group"><label>Ingrandimenti</label><select id="prev-ingrandimento"><option>Nessuno</option><option>Stampa 30x40 cm</option><option>Stampa 50x70 cm</option></select></div>
+<div class="form-group"><label>Qta Ingrand.</label><input type="number" id="prev-ingrandimento-qta" value="0"></div>
+<div class="form-group"><label>Tele</label><select id="prev-tela"><option>Nessuno</option><option>Tela 30x40 cm</option><option>Tela 50x70 cm</option><option>Tela 30x40 cm con telaio</option><option>Tela 50x70 cm con telaio</option></select></div>
+<div class="form-group"><label>Qta Tele</label><input type="number" id="prev-tela-qta" value="0"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Video</label><select id="prev-video"><option>Nessuno</option><option>Solo Casa</option><option>Solo Chiesa</option><option>Solo Locale+ taglio torta iniziale</option><option>Solo Locale intera serata</option><option>Casa+Chiesa</option><option>Chiesa+Locale taglio torta</option><option>Chiesa+ Locale intera serata</option><option>Casa+Chiesa+Locale taglio torta</option><option>Casa+Chiesa+Locale intera serata</option><option>Esterni</option><option>Esterni+Locale taglio torta</option><option>Esterni+Locale intera serata</option></select></div>
+<div class="form-group"><label>Proiezione</label><select id="prev-proiezione"><option>Nessuna</option><option>Solo anteprima</option><option>Solo Live</option><option>Anteprima + Live</option></select></div>
+<div class="form-group"><label>Drone</label><select id="prev-drone"><option>Nessuno</option><option>Con drone</option></select></div>
+<div class="form-group"><label>Pennino USB</label><input type="number" id="prev-pennino" value="0"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Foto EXTRA</label><input type="number" id="prev-extra" value="0"></div>
+<div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
+<div class="form-group"><label>Chiesa / Luogo Cerimonia ️</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Location Ricevimento 🗺️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button></div></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
+<div class="form-group"><label>Post-Servizio</label><select id="prev-post"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
+<div class="form-group"><label>Pranzo/Cena STAFF</label><select id="prev-pranzo"><option>Nessuno</option><option>Nessuna</option><option>SI</option><option>NO</option></select></div>
+</div>
+<div class="form-group"><label>Note</label><textarea id="prev-note" rows="3"></textarea></div>
+<div class="highlight-box">
+<label>💰 IMPORTO TOTALE SERVIZIO (€)</label>
+<input type="number" id="prev-importo" value="0" oninput="updateTotals()">
+</div>
+
+<h3 style="margin-top:20px">💰 Acconti Versati</h3>
+<div id="acconti-container"></div>
+<button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
+
+<div class="totals-box">
+<div class="totals-row"><span>Totale Servizio</span><strong id="tot-servizio">€ 0,00</strong></div>
+<div class="totals-row"><span>Totale Acconti</span><strong id="tot-acconti">€ 0,00</strong></div>
+<div class="totals-row"><span>A Saldo</span><strong id="tot-saldo">€ 0,00</strong></div>
+</div>
+
+<h3 style="margin-top:20px">📋 Processo Lavorazione</h3>
+<div class="proc-row"><label>Accettazione (€)</label><input type="number" id="proc-accettazione" value="0"></div>
+<div class="proc-row"><label>Prima Servizio (€)</label><input type="number" id="proc-prima-servizio" value="0"></div>
+<div class="proc-row"><label>Scelta Foto (€)</label><input type="number" id="proc-scelta-foto" value="0"></div>
+<div class="proc-row"><label>Saldo Stampa (€)</label><input type="number" id="proc-saldo-stampa" value="0"></div>
+
+<button class="btn btn-success" onclick="saveQuote()" style="margin-top:15px">✅ Crea Preventivo & PDF</button>
+<button class="btn btn-warning" onclick="convertToContract()"> Converti in Contratto</button>
+</div>
+
+<div id="tab-stato" class="tab-content">
+<h3>📋 STATO LAVORI - Flusso Contratti</h3>
+<div style="margin-bottom:15px">
+<button class="btn btn-primary" onclick="renderStatoLavori()">🔄 Aggiorna</button>
+</div>
+<div id="stato-lavori-content"></div>
+</div>
+
+<div id="tab-archivio-prev" class="tab-content">
+<h3>📁 Archivio Preventivi</h3>
+<table id="table-quotes"><thead><tr><th>ID</th><th>Data Evento</th><th>Cliente</th><th>Tipo</th><th>Servizio</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div id="tab-archivio-contr" class="tab-content">
+<h3>📑 Archivio Contratti</h3>
+<table id="table-contracts"><thead><tr><th>ID</th><th>Data Evento</th><th>Cliente</th><th>Tipo</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div id="tab-archivio-clienti" class="tab-content">
+<h3>👥 Archivio Clienti</h3>
+<table id="table-couples"><thead><tr><th>ID</th><th>Cliente A</th><th>Cliente B</th><th>Telefono</th><th>Email</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+</div>
+</div>
+
+<!-- GESTIONE SAGGI -->
 <div id="saggi" class="section-content">
-    <div class="panel">
-        <h2>💃 Gestione Saggi Danza</h2>
-        <div class="stats-box"><div class="stat-item"><strong id="stat-students">0</strong>Totale iscritti</div></div>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
-            <button class="tab-btn" onclick="showSaggiTab('archivio')">📁 Archivio</button>
-            <button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
-        </div>
-        <div id="saggi-tab-nuovo" class="tab-content active">
-            <h3>➕ Nuovo Partecipante</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Scuola</label><select id="sag-scuola"><option value="">-- Seleziona --</option><option value="Scuola Enza Clementi">Scuola Enza Clementi</option><option value="Giada Dance">Giada Dance</option></select></div>
-                <div class="form-group"><label>Anno Saggio</label><input type="number" id="sag-anno" value="2026"></div>
-                <div class="form-group"><label>Cognome</label><input type="text" id="sag-cognome"></div>
-                <div class="form-group"><label>Nome</label><input type="text" id="sag-nome"></div>
-                <div class="form-group"><label>Telefono</label><input type="tel" id="sag-tel"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Tipo Cliente</label><select id="sag-tipo"><option>Singolo</option><option>Fratelli</option></select></div>
-                <div class="form-group"><label>Servizio</label><select id="sag-servizio"><option>Pacchetto 4 foto 20x25 cm</option></select></div>
-                <div class="form-group"><label>Quantità</label><input type="number" id="sag-qta" value="1"></div>
-                <div class="form-group"><label>Importo (€)</label><input type="number" id="sag-importo" value="15"></div>
-            </div>
-            <button class="btn btn-success" onclick="saveStudent()"> Salva</button>
-            <button class="btn btn-secondary" onclick="resetStudentForm()">🔄 Reset</button>
-        </div>
-        <div id="saggi-tab-archivio" class="tab-content">
-            <h3>📁 Archivio Partecipanti</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
-                <div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
-            </div>
-            <table id="table-students"><thead><tr><th>ID</th><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
-        </div>
-        <div id="saggi-tab-contabilita" class="tab-content"><h3>💰 Report Contabilità</h3><div id="contabilita-content"></div></div>
-    </div>
+<div class="panel">
+<h2>💃 Gestione Saggi Danza</h2>
+<div style="margin-bottom:15px">
+<button class="btn btn-success" onclick="backupSaggi()">💾 Backup</button>
+<button class="btn btn-primary" onclick="document.getElementById('restoreSaggi').click()">🔄 Ripristina</button>
+<input type="file" id="restoreSaggi" accept=".json" style="display:none" onchange="restoreSaggi(this)">
+<button class="btn btn-secondary" onclick="showSection('dashboard')"> Dashboard</button>
+</div>
+<div class="tabs">
+<button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
+<button class="tab-btn" onclick="showSaggiTab('archivio')"> Archivio</button>
+<button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
 </div>
 
+<div id="saggi-tab-nuovo" class="tab-content active">
+<h3>➕ Nuovo Partecipante</h3>
+<div class="form-row">
+<div class="form-group"><label>Scuola</label><select id="sag-scuola"><option value="">-- Seleziona --</option><option value="Scuola Enza Clementi">Scuola Enza Clementi</option><option value="Giada Dance">Giada Dance</option></select></div>
+<div class="form-group"><label>Anno Saggio</label><input type="number" id="sag-anno" value="2026"></div>
+<div class="form-group"><label>Cognome</label><input type="text" id="sag-cognome"></div>
+<div class="form-group"><label>Nome</label><input type="text" id="sag-nome"></div>
+<div class="form-group"><label>Telefono</label><input type="tel" id="sag-tel"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Tipo Cliente</label><select id="sag-tipo"><option>Singolo</option><option>Fratelli</option></select></div>
+<div class="form-group"><label>Servizio</label><select id="sag-servizio"><option>Pacchetto 4 foto 20x25 cm</option></select></div>
+<div class="form-group"><label>Quantità</label><input type="number" id="sag-qta" value="1"></div>
+<div class="form-group"><label>Importo (€)</label><input type="number" id="sag-importo" value="15"></div>
+</div>
+<button class="btn btn-success" onclick="saveStudent()">💾 Salva</button>
+<button class="btn btn-warning" onclick="loadStudentForEdit()">✏️ Carica per Modifica</button>
+<button class="btn btn-info" onclick="generateStudentPDF()">📄 PDF Scheda</button>
+<button class="btn btn-secondary" onclick="resetStudentForm()">🔄 Reset</button>
+</div>
+
+<div id="saggi-tab-archivio" class="tab-content">
+<h3> Archivio Partecipanti</h3>
+<div class="form-row">
+<div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+<div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
+</div>
+<button class="btn btn-success" onclick="printStudentsList()">🖨️ Stampa Elenco Partecipanti</button>
+<button class="btn btn-info" onclick="generateStudentsPDF()"> Lista partecipanti PDF</button>
+<table id="table-students"><thead><tr><th>ID</th><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div id="saggi-tab-contabilita" class="tab-content">
+<h3>💰 Report Contabilità</h3>
+<div class="form-row">
+<div class="form-group"><label>Scuola</label><select id="cont-scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
+<div class="form-group"><label>Anno</label><input type="number" id="cont-anno" value="2026"></div>
+</div>
+<button class="btn btn-primary" onclick="renderContabilita()">👁️ Visualizza</button>
+<button class="btn btn-info" onclick="generateContabilitaPDF()">🖨️ PDF Contabilità</button>
+<div id="contabilita-content"></div>
+</div>
+</div>
+</div>
+
+<!-- GALLERY MANAGER -->
 <div id="gallery" class="section-content">
-    <div class="panel">
-        <h2>🔐 Gallery Manager</h2>
-        <div class="stats-box"><div class="stat-item"><strong id="stat-galleries">0</strong>Clienti Gallery</div></div>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showGalleryTab('nuovo')">➕ Nuovo Cliente</button>
-            <button class="tab-btn" onclick="showGalleryTab('lista')">📁 Lista Clienti</button>
-        </div>
-        <div id="gallery-tab-nuovo" class="tab-content active">
-            <h3>Aggiungi Nuovo Cliente Gallery</h3>
-            <div class="form-row">
-                <div class="form-group"><label>Nome Cliente:</label><input type="text" id="gal-name"></div>
-                <div class="form-group"><label>Username Cliente:</label><input type="text" id="gal-user"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Password Cliente:</label><input type="text" id="gal-pass"></div>
-                <div class="form-group"><label>Link MEGA:</label><input type="text" id="gal-link"></div>
-            </div>
-            <div class="form-group"><label>Note (opzionale):</label><input type="text" id="gal-notes"></div>
-            <button class="btn btn-success" onclick="saveGallery()">➕ Aggiungi Cliente</button>
-        </div>
-        <div id="gallery-tab-lista" class="tab-content">
-            <h3>Lista Clienti</h3>
-            <table id="table-galleries"><thead><tr><th>ID</th><th>Nome</th><th>Username</th><th>Password</th><th>Link MEGA</th><th>Note</th><th>Azioni</th></tr></thead><tbody></tbody></table>
-        </div>
-    </div>
+<div class="panel">
+<h2> Gallery Manager</h2>
+<div style="margin-bottom:15px">
+<button class="btn btn-success" onclick="backupGallery()">💾 Backup</button>
+<button class="btn btn-primary" onclick="document.getElementById('restoreGallery').click()">🔄 Ripristina</button>
+<input type="file" id="restoreGallery" accept=".json" style="display:none" onchange="restoreGallery(this)">
+</div>
+<div class="tabs">
+<button class="tab-btn active" onclick="showGalleryTab('nuovo')">➕ Nuovo Cliente</button>
+<button class="tab-btn" onclick="showGalleryTab('lista')">📁 Lista Clienti</button>
+</div>
+<div id="gallery-tab-nuovo" class="tab-content active">
+<h3>Aggiungi Nuovo Cliente Gallery</h3>
+<div class="form-row">
+<div class="form-group"><label>Nome Cliente:</label><input type="text" id="gal-name"></div>
+<div class="form-group"><label>Username Cliente:</label><input type="text" id="gal-user"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Password Cliente:</label><input type="text" id="gal-pass"></div>
+<div class="form-group"><label>Link MEGA:</label><input type="text" id="gal-link"></div>
+</div>
+<div class="form-group"><label>Note (opzionale):</label><input type="text" id="gal-notes"></div>
+<button class="btn btn-success" onclick="saveGallery()">➕ Aggiungi Cliente</button>
+</div>
+<div id="gallery-tab-lista" class="tab-content">
+<h3>Lista Clienti</h3>
+<table id="table-galleries"><thead><tr><th>ID</th><th>Nome</th><th>Username</th><th>Password</th><th>Link MEGA</th><th>Note</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+</div>
 </div>
 
+<!-- RICEVUTE -->
 <div id="ricevute" class="section-content">
-    <div class="panel">
-        <h2>🧾 Gestione Ricevute</h2>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="showRicevuteTab('nuova')">➕ Nuova Ricevuta</button>
-            <button class="tab-btn" onclick="showRicevuteTab('archivio')">📁 Archivio Ricevute</button>
-        </div>
-        <div id="ricevute-tab-nuova" class="tab-content active">
-            <h3>📄 Nuova Ricevuta Fotografica</h3>
-            <p style="margin-bottom:15px;color:#666"><strong>Studio Fotografico G&L</strong> • Via Ciarrocco, 21 – Canicattì (AG) | Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
-            <div class="form-row">
-                <div class="form-group"><label>Nome Cliente *</label><input type="text" id="ric-nome"></div>
-                <div class="form-group"><label>Telefono *</label><input type="tel" id="ric-tel"></div>
-                <div class="form-group"><label>Profilo Facebook (opzionale)</label><input type="text" id="ric-fb"></div>
-            </div>
-            <div class="form-row">
-                <div class="form-group"><label>Servizio *</label><select id="ric-servizio"><option value="">Seleziona...</option><option>Matrimonio</option><option>Battesimo</option><option>Anniversario</option><option>Compleanno</option><option>Comunione</option><option>Cresima</option><option>Comunione e Cresima</option><option>Carnevale</option><option>Natale</option><option>New Born</option><option>Maternity</option><option>Smash Cake</option><option>Bagno di Latte</option><option>Anteprima</option></select></div>
-                <div class="form-group"><label>Data Evento *</label><input type="date" id="ric-data"></div>
-                <div class="form-group"><label>Importo Ricevuto (€) *</label><input type="number" id="ric-importo"></div>
-            </div>
-            <div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
-            <button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
-        </div>
-        <div id="ricevute-tab-archivio" class="tab-content">
-            <h3>📁 Archivio Ricevute</h3>
-            <table id="table-receipts"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Servizio</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
-        </div>
-    </div>
+<div class="panel">
+<h2> Gestione Ricevute</h2>
+<div style="margin-bottom:15px">
+<button class="btn btn-success" onclick="backupRicevute()">💾 Backup</button>
+<button class="btn btn-primary" onclick="document.getElementById('restoreRicevute').click()">🔄 Ripristina</button>
+<input type="file" id="restoreRicevute" accept=".json" style="display:none" onchange="restoreRicevute(this)">
+</div>
+<div class="tabs">
+<button class="tab-btn active" onclick="showRicevuteTab('nuova')">➕ Nuova Ricevuta</button>
+<button class="tab-btn" onclick="showRicevuteTab('archivio')"> Archivio Ricevute</button>
+</div>
+<div id="ricevute-tab-nuova" class="tab-content active">
+<h3>📄 Nuova Ricevuta Fotografica</h3>
+<p style="margin-bottom:15px;color:#666"><strong>Studio Fotografico G&L</strong> • Via Ciarrocco, 21 – Canicattì (AG) | Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
+<div class="form-row">
+<div class="form-group"><label>Nome Cliente *</label><input type="text" id="ric-nome"></div>
+<div class="form-group"><label>Telefono *</label><input type="tel" id="ric-tel"></div>
+<div class="form-group"><label>Profilo Facebook (opzionale)</label><input type="text" id="ric-fb"></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Servizio *</label><select id="ric-servizio"><option value="">Seleziona...</option><option>Matrimonio</option><option>Battesimo</option><option>Anniversario</option><option>Compleanno</option><option>Comunione</option><option>Cresima</option><option>Comunione e Cresima</option><option>Carnevale</option><option>Natale</option><option>New Born</option><option>Maternity</option><option>Smash Cake</option><option>Bagno di Latte</option><option>Anteprima</option></select></div>
+<div class="form-group"><label>Data Evento *</label><input type="date" id="ric-data"></div>
+<div class="form-group"><label>Importo Ricevuto (€) *</label><input type="number" id="ric-importo"></div>
+</div>
+<div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
+<button class="btn btn-secondary" onclick="showRicevuteTab('archivio')">📋 Torna alla Lista</button>
+<button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
+<button class="btn btn-info" onclick="generateReceiptPDF()">🖨️ PDF Doppia Copia</button>
+</div>
+<div id="ricevute-tab-archivio" class="tab-content">
+<h3>📁 Archivio Ricevute</h3>
+<table id="table-receipts"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Servizio</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
+</div>
+</div>
+</div>
+
+<!-- SELEZIONE ALBUM -->
+<div id="album-selection" class="section-content">
+<div class="panel">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+<h2>📸 Invio Foto da Selezionare Cliente</h2>
+<button class="btn btn-secondary" onclick="showSection('dashboard')">Torna alla Dashboard</button>
+</div>
+<div id="albumLoginPanel" style="max-width:400px;margin:0 auto;text-align:center;padding:40px;background:#f8f9fa;border-radius:12px">
+<h3>🔐 Accesso Area Selezione</h3>
+<div class="form-group" style="margin-top:20px"><input type="password" id="albumPasswordInput" placeholder="Password Admin"></div>
+<button class="btn btn-primary" onclick="loginAlbumAdmin()" style="width:100%">Accedi</button>
+<p id="albumLoginError" style="color:#e74c3c;margin-top:10px"></p>
+</div>
+<div id="albumDashboardPanel" style="display:none">
+<div class="panel" style="background:#fcfcfc">
+<h3>➕ Crea Nuova Selezione</h3>
+<div class="form-group"><label>Nome Cliente:</label><input type="text" id="albumClientName" placeholder="Es. Mario e Lucia"></div>
+<div class="form-group"><label>Cloud Name Cloudinary:</label><input type="text" id="albumCloudName" value="g3439ih4"></div>
+<div style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px">⚠️ Clicca "Apri Widget", trascina le foto e attendi il caricamento.</div>
+<button class="btn btn-primary" style="width:100%;margin:10px 0" onclick="openAlbumUploadWidget()">Apri Widget Upload Cloudinary</button>
+<div id="albumUploadStatus" style="display:none;color:#27ae60;font-weight:bold">✅ <span id="albumUploadedCount">0</span> foto caricate!</div>
+<button class="btn btn-success" onclick="createAlbumGallery()" style="width:100%;margin-top:15px">🔗 Crea Galleria e Link</button>
+<div id="albumGeneratedLink" style="display:none;margin-top:15px;padding:15px;background:#e8f4fd;border-radius:8px">
+<strong>Link da inviare:</strong><input type="text" id="albumLinkOutput" readonly style="margin-top:5px">
+<button class="btn btn-secondary" onclick="copyAlbumLink()">📋 Copia</button>
+</div>
+</div>
+<div class="panel">
+<h3>✅ Selezioni Ricevute</h3>
+<div id="albumSelectionsList"></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- MODALE DETTAGLIO SELEZIONE -->
+<div id="albumSelectionModal" class="modal-overlay">
+<div class="modal-content">
+<span class="modal-close" onclick="closeAlbumModal()">&times;</span>
+<h3>Dettaglio Selezione</h3>
+<div id="albumSelectionDetails"></div>
+</div>
+</div>
+
+<!-- MODALE EDIT -->
+<div id="editModal" class="modal-overlay">
+<div class="modal-content">
+<span class="modal-close" onclick="closeEditModal()">&times;</span>
+<div id="editModalContent"></div>
+</div>
 </div>
 </div>
 
 <script>
-const ADMIN_USER = 'G&LStudio';
-const ADMIN_PASS = '12763Mlg';
-const DB_KEY = 'gl_studio_unified_db';
+const ADMIN_USER='G&LStudio';
+const ADMIN_PASS='12763Mlg';
+const DB_KEY='gl_studio_unified_db';
 
 function doLogin(){
-    const u = document.getElementById('loginUser').value.trim();
-    const p = document.getElementById('loginPass').value;
-    if(u === ADMIN_USER && p === ADMIN_PASS){
-        sessionStorage.setItem('gl_logged','true');
-        document.getElementById('loginOverlay').style.display = 'none';
-        document.getElementById('mainApp').style.display = 'block';
-        updateAllCounts();
-    } else {
-        document.getElementById('loginError').textContent = 'Credenziali errate!';
-    }
+const u=document.getElementById('loginUser').value.trim();
+const p=document.getElementById('loginPass').value;
+if(u===ADMIN_USER&&p===ADMIN_PASS){
+sessionStorage.setItem('gl_logged','true');
+document.getElementById('loginOverlay').style.display='none';
+document.getElementById('mainApp').style.display='block';
+updateAllCounts();
+}else{
+document.getElementById('loginError').textContent='Credenziali errate!';
 }
-
-function doLogout(){
-    sessionStorage.removeItem('gl_logged');
-    location.reload();
 }
-
-if(sessionStorage.getItem('gl_logged') === 'true'){
-    document.getElementById('loginOverlay').style.display = 'none';
-    document.getElementById('mainApp').style.display = 'block';
+function doLogout(){sessionStorage.removeItem('gl_logged');location.reload();}
+if(sessionStorage.getItem('gl_logged')==='true'){
+document.getElementById('loginOverlay').style.display='none';
+document.getElementById('mainApp').style.display='block';
 }
-
-document.addEventListener('keydown', e => {
-    if(e.key === 'Enter' && document.getElementById('loginOverlay').style.display !== 'none'){
-        doLogin();
-    }
-});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('loginOverlay').style.display!=='none')doLogin();});
 
 function getDB(){
-    try{
-        const d = JSON.parse(localStorage.getItem(DB_KEY));
-        if(d && d.version) return d;
-    } catch(e){}
-    return { version: 'G&L Unified v2.0', date: new Date().toISOString(), eventi: { clienti: [], preventivi: [], contratti: [] }, saggi: [], gallery: [], ricevute: [] };
+try{const d=JSON.parse(localStorage.getItem(DB_KEY));if(d&&d.version)return d;}catch(e){}
+return{version:'G&L Unified v2.0',date:new Date().toISOString(),eventi:{clienti:[],preventivi:[],contratti:[]},saggi:[],gallery:[],ricevute:[],albums:[]};
 }
-
-function saveDB(data){
-    data.date = new Date().toISOString();
-    localStorage.setItem(DB_KEY, JSON.stringify(data));
-    updateAllCounts();
-}
+function saveDB(data){data.date=new Date().toISOString();localStorage.setItem(DB_KEY,JSON.stringify(data));updateAllCounts();}
 
 function showSection(id){
-    document.querySelectorAll('.section-content').forEach(el => el.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    const navBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(id));
-    if(navBtn) navBtn.classList.add('active');
-    if(id === 'dashboard') updateAllCounts();
-    if(id === 'eventi'){ renderCouples(); renderQuotes(); renderContracts(); renderStatoLavori(); updateEventStats(); }
-    if(id === 'saggi'){ renderStudents(); updateSaggiStats(); }
-    if(id === 'gallery'){ renderGalleries(); updateGalleryStats(); }
-    if(id === 'ricevute') renderReceipts();
+document.querySelectorAll('.section-content').forEach(el=>el.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav-btn').forEach(btn=>btn.classList.remove('active'));
+const navBtn=Array.from(document.querySelectorAll('.nav-btn')).find(b=>b.getAttribute('onclick')?.includes(id));
+if(navBtn)navBtn.classList.add('active');
+if(id==='dashboard')updateAllCounts();
+if(id==='eventi'){renderCouples();renderQuotes();renderContracts();renderStatoLavori();updateEventStats();}
+if(id==='saggi'){renderStudents();updateSaggiStats();}
+if(id==='gallery'){renderGalleries();updateGalleryStats();}
+if(id==='ricevute')renderReceipts();
+if(id==='album-selection'){updateAlbumDashboardCount();checkAlbumLoginState();}
 }
 
 function updateAllCounts(){
-    const db = getDB();
-    document.getElementById('count-clienti').textContent = db.eventi.clienti.length;
-    document.getElementById('count-saggi').textContent = db.saggi.length;
-    document.getElementById('count-gallery').textContent = db.gallery.length;
-    document.getElementById('count-ricevute').textContent = db.ricevute.length;
+const db=getDB();
+document.getElementById('count-clienti').textContent=db.eventi.clienti.length;
+document.getElementById('count-saggi').textContent=db.saggi.length;
+document.getElementById('count-gallery').textContent=db.gallery.length;
+document.getElementById('count-ricevute').textContent=db.ricevute.length;
+document.getElementById('count-albums').textContent=(db.albums||[]).filter(a=>a.selection).length;
 }
 
 function globalBackup(){
-    const data = getDB();
-    const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `backup_G&L_Studio_Completo_${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
-    alert('✅ Backup globale scaricato!');
+const data=getDB();
+const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=`backup_G&L_Studio_Completo_${new Date().toISOString().split('T')[0]}.json`;
+document.body.appendChild(a);a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+alert('✅ Backup globale scaricato!');
 }
 
 function globalRestore(input){
-    const file = input.files[0];
-    if(!file) return;
-    const reader = new FileReader();
-    reader.onload = event => {
-        try{
-            const data = JSON.parse(event.target.result);
-            if(!data.eventi && !data.saggi && !data.gallery){
-                throw new Error('Struttura non riconosciuta');
-            }
-            if(!data.version) data.version = 'G&L Unified v2.0';
-            if(!data.eventi) data.eventi = { clienti: [], preventivi: [], contratti: [] };
-            if(!data.eventi.clienti) data.eventi.clienti = [];
-            if(!data.eventi.preventivi) data.eventi.preventivi = [];
-            if(!data.eventi.contratti) data.eventi.contratti = [];
-            if(!data.saggi) data.saggi = [];
-            if(!data.gallery) data.gallery = [];
-            if(!data.ricevute) data.ricevute = [];
-            saveDB(data);
-            alert('✅ Ripristino completato! I tuoi dati sono stati caricati.');
-            location.reload();
-        } catch(err){
-            alert('❌ File di backup non valido: ' + err.message);
-        }
-        input.value = '';
-    };
-    reader.readAsText(file);
+const file=input.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=event=>{
+try{
+const data=JSON.parse(event.target.result);
+if(!data.eventi&&!data.saggi&&!data.gallery)throw new Error('Struttura non riconosciuta');
+if(!data.version)data.version='G&L Unified v2.0';
+if(!data.eventi)data.eventi={clienti:[],preventivi:[],contratti:[]};
+if(!data.eventi.clienti)data.eventi.clienti=[];
+if(!data.eventi.preventivi)data.eventi.preventivi=[];
+if(!data.eventi.contratti)data.eventi.contratti=[];
+if(!data.saggi)data.saggi=[];
+if(!data.gallery)data.gallery=[];
+if(!data.ricevute)data.ricevute=[];
+if(!data.albums)data.albums=[];
+saveDB(data);
+alert('✅ Ripristino completato! I tuoi dati sono stati caricati.');
+location.reload();
+}catch(err){alert('❌ File di backup non valido: '+err.message);}
+input.value='';
+};
+reader.readAsText(file);
+}
+
+function backupEventi(){
+const db=getDB();
+const blob=new Blob([JSON.stringify(db.eventi,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=`backup_eventi_${new Date().toISOString().split('T')[0]}.json`;
+document.body.appendChild(a);a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+function restoreEventi(input){
+const file=input.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=event=>{
+try{
+const data=JSON.parse(event.target.result);
+const db=getDB();
+db.eventi=data;
+saveDB(db);
+alert('✅ Ripristino Eventi completato!');
+showSection('eventi');
+}catch(err){alert('❌ Errore: '+err.message);}
+input.value='';
+};
+reader.readAsText(file);
+}
+
+function backupSaggi(){
+const db=getDB();
+const blob=new Blob([JSON.stringify(db.saggi,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=`backup_saggi_${new Date().toISOString().split('T')[0]}.json`;
+document.body.appendChild(a);a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+function restoreSaggi(input){
+const file=input.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=event=>{
+try{
+const data=JSON.parse(event.target.result);
+const db=getDB();
+db.saggi=data;
+saveDB(db);
+alert('✅ Ripristino Saggi completato!');
+showSection('saggi');
+}catch(err){alert('❌ Errore: '+err.message);}
+input.value='';
+};
+reader.readAsText(file);
+}
+
+function backupGallery(){
+const db=getDB();
+const blob=new Blob([JSON.stringify(db.gallery,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=`backup_gallery_${new Date().toISOString().split('T')[0]}.json`;
+document.body.appendChild(a);a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+function restoreGallery(input){
+const file=input.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=event=>{
+try{
+const data=JSON.parse(event.target.result);
+const db=getDB();
+db.gallery=data;
+saveDB(db);
+alert('✅ Ripristino Gallery completato!');
+showSection('gallery');
+}catch(err){alert('❌ Errore: '+err.message);}
+input.value='';
+};
+reader.readAsText(file);
+}
+
+function backupRicevute(){
+const db=getDB();
+const blob=new Blob([JSON.stringify(db.ricevute,null,2)],{type:'application/json'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;a.download=`backup_ricevute_${new Date().toISOString().split('T')[0]}.json`;
+document.body.appendChild(a);a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+function restoreRicevute(input){
+const file=input.files[0];if(!file)return;
+const reader=new FileReader();
+reader.onload=event=>{
+try{
+const data=JSON.parse(event.target.result);
+const db=getDB();
+db.ricevute=data;
+saveDB(db);
+alert('✅ Ripristino Ricevute completato!');
+showSection('ricevute');
+}catch(err){alert('❌ Errore: '+err.message);}
+input.value='';
+};
+reader.readAsText(file);
 }
 
 function updateEventStats(){
-    const db = getDB();
-    document.getElementById('stat-clienti').textContent = db.eventi.clienti.length;
-    document.getElementById('stat-preventivi').textContent = db.eventi.preventivi.length;
-    document.getElementById('stat-contratti').textContent = db.eventi.contratti.length;
+const db=getDB();
+document.getElementById('stat-clienti').textContent=db.eventi.clienti.length;
+document.getElementById('stat-preventivi').textContent=db.eventi.preventivi.length;
+document.getElementById('stat-contratti').textContent=db.eventi.contratti.length;
 }
 
 function showEventTab(tab){
-    document.querySelectorAll('#eventi .tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('#eventi .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-'+tab).classList.add('active');
-    event.target.classList.add('active');
-    if(tab === 'anagrafica') renderCouples();
-    if(tab === 'preventivi') populateClientSelects();
-    if(tab === 'archivio-prev') renderQuotes();
-    if(tab === 'archivio-contr') renderContracts();
-    if(tab === 'stato') renderStatoLavori();
-    if(tab === 'archivio-clienti') renderCouples();
+document.querySelectorAll('#eventi .tab-content').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('#eventi .tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('tab-'+tab).classList.add('active');
+event.target.classList.add('active');
+if(tab==='anagrafica')renderCouples();
+if(tab==='preventivi'){populateClientSelects();initAcconti();}
+if(tab==='archivio-prev')renderQuotes();
+if(tab==='archivio-contr')renderContracts();
+if(tab==='stato')renderStatoLavori();
+if(tab==='archivio-clienti')renderCouples();
 }
 
 function saveCouple(){
-    const db = getDB();
-    const cognomeA = document.getElementById('ev-cognome-a').value.trim();
-    const nomeA = document.getElementById('ev-nome-a').value.trim();
-    if(!cognomeA || !nomeA) return alert('Inserisci almeno Cognome e Nome del Cliente A');
-    db.eventi.clienti.push({
-        id: Date.now(),
-        cognome: cognomeA,
-        nome: nomeA,
-        indirizzo: document.getElementById('ev-indirizzo-a').value,
-        cellulare: document.getElementById('ev-cell-a').value,
-        email: document.getElementById('ev-email-a').value,
-        cognomeB: document.getElementById('ev-cognome-b').value.trim(),
-        nomeB: document.getElementById('ev-nome-b').value.trim(),
-        indirizzoB: document.getElementById('ev-indirizzo-b').value,
-        cellulareB: document.getElementById('ev-cell-b').value,
-        emailB: document.getElementById('ev-email-b').value
-    });
-    saveDB(db);
-    renderCouples();
-    ['ev-cognome-a','ev-nome-a','ev-indirizzo-a','ev-cell-a','ev-email-a','ev-cognome-b','ev-nome-b','ev-indirizzo-b','ev-cell-b','ev-email-b'].forEach(id => document.getElementById(id).value = '');
-    alert('✅ Coppia salvata!');
+const db=getDB();
+const cognomeA=document.getElementById('ev-cognome-a').value.trim();
+const nomeA=document.getElementById('ev-nome-a').value.trim();
+if(!cognomeA||!nomeA)return alert('Inserisci almeno Cognome e Nome del Cliente A');
+db.eventi.clienti.push({
+id:Date.now(),
+cognome:cognomeA,nome:nomeA,
+indirizzo:document.getElementById('ev-indirizzo-a').value,
+cellulare:document.getElementById('ev-cell-a').value,
+email:document.getElementById('ev-email-a').value,
+cognomeB:document.getElementById('ev-cognome-b').value.trim(),
+nomeB:document.getElementById('ev-nome-b').value.trim(),
+indirizzoB:document.getElementById('ev-indirizzo-b').value,
+cellulareB:document.getElementById('ev-cell-b').value,
+emailB:document.getElementById('ev-email-b').value
+});
+saveDB(db);
+renderCouples();
+['ev-cognome-a','ev-nome-a','ev-indirizzo-a','ev-cell-a','ev-email-a','ev-cognome-b','ev-nome-b','ev-indirizzo-b','ev-cell-b','ev-email-b'].forEach(id=>document.getElementById(id).value='');
+alert('✅ Coppia salvata!');
 }
 
 function renderCouples(){
-    const db = getDB();
-    const tbody = document.querySelector('#table-couples tbody');
-    if(tbody){
-        tbody.innerHTML = db.eventi.clienti.map(c => {
-            const nomeA = c.cognome + ' ' + c.nome;
-            const nomeB = (c.cognomeB || '') + ' ' + (c.nomeB || '');
-            return `<tr><td>${c.id}</td><td>${nomeA}</td><td>${nomeB.trim()||'-'}</td><td>${c.cellulare||'-'}</td><td>${c.email||'-'}</td><td><button class="btn btn-danger btn-sm" onclick="deleteCouple(${c.id})">️</button></td></tr>`;
-        }).join('');
-    }
+const db=getDB();
+const tbody=document.querySelector('#table-couples tbody');
+if(tbody){
+tbody.innerHTML=db.eventi.clienti.map(c=>{
+const nomeA=c.cognome+' '+c.nome;
+const nomeB=(c.cognomeB||'')+' '+(c.nomeB||'');
+return `<tr><td>${c.id}</td><td>${nomeA}</td><td>${nomeB.trim()||'-'}</td><td>${c.cellulare||'-'}</td><td>${c.email||'-'}</td><td><button class="btn btn-info btn-sm" onclick="editCouple(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteCouple(${c.id})">🗑️</button></td></tr>`;
+}).join('');
+}
 }
 
-function deleteCouple(id){
-    if(!confirm('Eliminare questo cliente?')) return;
-    const db = getDB();
-    db.eventi.clienti = db.eventi.clienti.filter(c => c.id !== id);
-    saveDB(db);
-    renderCouples();
+function editCouple(id){
+const db=getDB();
+const c=db.eventi.clienti.find(x=>x.id===id);
+if(!c)return;
+document.getElementById('ev-cognome-a').value=c.cognome;
+document.getElementById('ev-nome-a').value=c.nome;
+document.getElementById('ev-indirizzo-a').value=c.indirizzo||'';
+document.getElementById('ev-cell-a').value=c.cellulare||'';
+document.getElementById('ev-email-a').value=c.email||'';
+document.getElementById('ev-cognome-b').value=c.cognomeB||'';
+document.getElementById('ev-nome-b').value=c.nomeB||'';
+document.getElementById('ev-indirizzo-b').value=c.indirizzoB||'';
+document.getElementById('ev-cell-b').value=c.cellulareB||'';
+document.getElementById('ev-email-b').value=c.emailB||'';
+deleteCouple(id,false);
+showEventTab('anagrafica');
+}
+
+function deleteCouple(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questo cliente?'))return;
+const db=getDB();
+db.eventi.clienti=db.eventi.clienti.filter(c=>c.id!==id);
+saveDB(db);
+renderCouples();
+}
+
+function createQuoteFromCouple(){
+const db=getDB();
+if(db.eventi.clienti.length===0)return alert('Nessun cliente in anagrafica!');
+showEventTab('preventivi');
 }
 
 function populateClientSelects(){
-    const db = getDB();
-    const selA = document.getElementById('prev-cliente-a');
-    const selB = document.getElementById('prev-cliente-b');
-    selA.innerHTML = '<option value="">-- Seleziona --</option>' + db.eventi.clienti.map((c,i) => `<option value="${i}">${c.cognome} ${c.nome}</option>`).join('');
-    selB.innerHTML = '<option value="">-- Nessun Cliente B --</option>' + db.eventi.clienti.map((c,i) => `<option value="${i}">${c.cognome} ${c.nome}</option>`).join('');
+const db=getDB();
+const selA=document.getElementById('prev-cliente-a');
+const selB=document.getElementById('prev-cliente-b');
+selA.innerHTML='<option value="">-- Seleziona --</option>'+db.eventi.clienti.map((c,i)=>`<option value="${i}">${c.cognome} ${c.nome}</option>`).join('');
+selB.innerHTML='<option value="">-- Nessun Cliente B --</option>'+db.eventi.clienti.map((c,i)=>`<option value="${i}">${c.cognome} ${c.nome}</option>`).join('');
+}
+
+let accontiList=[];
+function initAcconti(){
+accontiList=[];
+document.getElementById('acconti-container').innerHTML='';
+updateTotals();
+}
+
+function addAccontoRow(){
+const container=document.getElementById('acconti-container');
+const idx=accontiList.length;
+accontiList.push({tipo:'Caparra',data:'',importo:0,metodo:'Contanti'});
+const row=document.createElement('div');
+row.className='acconto-row';
+row.id='acconto-row-'+idx;
+row.innerHTML=`
+<select onchange="updateAcconto(${idx},'tipo',this.value)">
+<option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option>
+</select>
+<input type="date" onchange="updateAcconto(${idx},'data',this.value)">
+<input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)">
+<select onchange="updateAcconto(${idx},'metodo',this.value)">
+<option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option>
+</select>
+<button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">🗑️</button>
+`;
+container.appendChild(row);
+updateTotals();
+}
+
+function updateAcconto(idx,field,value){
+accontiList[idx][field]=value;
+updateTotals();
+}
+
+function removeAcconto(idx){
+accontiList.splice(idx,1);
+document.getElementById('acconto-row-'+idx).remove();
+updateTotals();
+}
+
+function updateTotals(){
+const importo=parseFloat(document.getElementById('prev-importo').value)||0;
+const totaleAcconti=accontiList.reduce((sum,a)=>sum+(parseFloat(a.importo)||0),0);
+const saldo=importo-totaleAcconti;
+document.getElementById('tot-servizio').textContent='€ '+importo.toFixed(2);
+document.getElementById('tot-acconti').textContent='€ '+totaleAcconti.toFixed(2);
+document.getElementById('tot-saldo').textContent='€ '+saldo.toFixed(2);
 }
 
 function saveQuote(){
-    const db = getDB();
-    const clienteIdx = document.getElementById('prev-cliente-a').value;
-    if(clienteIdx === '') return alert('Seleziona Cliente A');
-    const preventivo = {
-        id: Date.now(),
-        dataCreazione: new Date().toISOString(),
-        dataEvento: document.getElementById('prev-data').value,
-        clienteIdx: clienteIdx,
-        clienteBIdx: document.getElementById('prev-cliente-b').value,
-        tipo: document.getElementById('prev-tipo').value,
-        servizio: document.getElementById('prev-servizio').value,
-        misura: document.getElementById('prev-misura').value,
-        qta: document.getElementById('prev-qta').value,
-        orientamento: document.getElementById('prev-orientamento').value,
-        copertina: document.getElementById('prev-copertina').value,
-        effetti: document.getElementById('prev-effetti').value,
-        miniAlbum: document.getElementById('prev-mini').value,
-        ingrandimento: document.getElementById('prev-ingrandimento').value,
-        ingrandimentoQta: document.getElementById('prev-ingrandimento-qta').value,
-        tela: document.getElementById('prev-tela').value,
-        telaQta: document.getElementById('prev-tela-qta').value,
-        video: document.getElementById('prev-video').value,
-        proiezione: document.getElementById('prev-proiezione').value,
-        drone: document.getElementById('prev-drone').value,
-        pennino: document.getElementById('prev-pennino').value,
-        extra: document.getElementById('prev-extra').value,
-        consegna: document.getElementById('prev-consegna').value,
-        chiesa: document.getElementById('prev-chiesa').value,
-        location: document.getElementById('prev-location').value,
-        anteprima: document.getElementById('prev-anteprima').value,
-        postServizio: document.getElementById('prev-post').value,
-        pranzo: document.getElementById('prev-pranzo').value,
-        note: document.getElementById('prev-note').value,
-        importo: document.getElementById('prev-importo').value,
-        stato: 'Nuovo'
-    };
-    db.eventi.preventivi.push(preventivo);
-    saveDB(db);
-    alert('✅ Preventivo creato!');
-    renderQuotes();
+const db=getDB();
+const clienteIdx=document.getElementById('prev-cliente-a').value;
+if(clienteIdx==='')return alert('Seleziona Cliente A');
+const dataEvento=document.getElementById('prev-data').value;
+if(!dataEvento)return alert('Inserisci DATA EVENTO!');
+const preventivo={
+id:Date.now(),
+dataCreazione:new Date().toISOString(),
+dataEvento:dataEvento,
+clienteIdx:clienteIdx,
+clienteBIdx:document.getElementById('prev-cliente-b').value,
+tipo:document.getElementById('prev-tipo').value,
+servizio:document.getElementById('prev-servizio').value,
+misura:document.getElementById('prev-misura').value,
+interni:'Nessuno',
+orientamento:document.getElementById('prev-orientamento').value,
+qta:document.getElementById('prev-qta').value,
+copertina:document.getElementById('prev-copertina').value,
+effetti:document.getElementById('prev-effetti').value,
+miniAlbum:document.getElementById('prev-mini').value,
+ingrandimento:document.getElementById('prev-ingrandimento').value,
+ingrandimentoQta:document.getElementById('prev-ingrandimento-qta').value,
+tela:document.getElementById('prev-tela').value,
+telaQta:document.getElementById('prev-tela-qta').value,
+video:document.getElementById('prev-video').value,
+proiezione:document.getElementById('prev-proiezione').value,
+drone:document.getElementById('prev-drone').value,
+pennino:document.getElementById('prev-pennino').value,
+extra:document.getElementById('prev-extra').value,
+consegna:document.getElementById('prev-consegna').value,
+chiesa:document.getElementById('prev-chiesa').value,
+location:document.getElementById('prev-location').value,
+anteprima:document.getElementById('prev-anteprima').value,
+postServizio:document.getElementById('prev-post').value,
+pranzo:document.getElementById('prev-pranzo').value,
+note:document.getElementById('prev-note').value,
+importo:document.getElementById('prev-importo').value,
+proc_accettazione:document.getElementById('proc-accettazione').value,
+proc_prima_servizio:document.getElementById('proc-prima-servizio').value,
+proc_scelta_foto:document.getElementById('proc-scelta-foto').value,
+proc_saldo_stampa:document.getElementById('proc-saldo-stampa').value,
+acconti:[...accontiList],
+totaleAcconti:accontiList.reduce((sum,a)=>sum+(parseFloat(a.importo)||0),0),
+saldo:(parseFloat(document.getElementById('prev-importo').value)||0)-accontiList.reduce((sum,a)=>sum+(parseFloat(a.importo)||0),0),
+stato:'Nuovo'
+};
+db.eventi.preventivi.push(preventivo);
+saveDB(db);
+alert('✅ Preventivo creato!');
+generateQuotePDF(preventivo);
+renderQuotes();
+initAcconti();
 }
 
 function renderQuotes(){
-    const db = getDB();
-    const tbody = document.querySelector('#table-quotes tbody');
-    if(!tbody) return;
-    tbody.innerHTML = db.eventi.preventivi.map(q => {
-        const c = db.eventi.clienti[parseInt(q.clienteIdx)];
-        const nome = c ? c.cognome + ' ' + c.nome : 'N/A';
-        return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button></td></tr>`;
-    }).join('');
+const db=getDB();
+const tbody=document.querySelector('#table-quotes tbody');
+if(!tbody)return;
+tbody.innerHTML=db.eventi.preventivi.map(q=>{
+const c=db.eventi.clienti[parseInt(q.clienteIdx)];
+const nome=c?c.cognome+' '+c.nome:'N/A';
+return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewQuote(${q.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editQuote(${q.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateQuotePDFById(${q.id})">📄 PDF</button></td></tr>`;
+}).join('');
 }
 
-function deleteQuote(id){
-    if(!confirm('Eliminare questo preventivo?')) return;
-    const db = getDB();
-    db.eventi.preventivi = db.eventi.preventivi.filter(q => q.id !== id);
-    saveDB(db);
-    renderQuotes();
+function viewQuote(id){
+const db=getDB();
+const q=db.eventi.preventivi.find(x=>x.id===id);
+if(!q)return;
+const c=db.eventi.clienti[parseInt(q.clienteIdx)];
+const nome=c?c.cognome+' '+c.nome:'N/A';
+let html=`<h3>Dettaglio Preventivo #${q.id}</h3>`;
+html+=`<p><strong>Cliente:</strong> ${nome}</p>`;
+html+=`<p><strong>Data Evento:</strong> ${q.dataEvento||'-'}</p>`;
+html+=`<p><strong>Tipo:</strong> ${q.tipo}</p>`;
+html+=`<p><strong>Servizio:</strong> ${q.servizio}</p>`;
+html+=`<p><strong>Importo:</strong> € ${q.importo}</p>`;
+html+=`<p><strong>Stato:</strong> ${q.stato}</p>`;
+if(q.acconti&&q.acconti.length>0){
+html+=`<h4 style="margin-top:15px">Acconti:</h4><ul>`;
+q.acconti.forEach(a=>{html+=`<li>${a.tipo} - ${a.data} - € ${a.importo} (${a.metodo})</li>`;});
+html+=`</ul>`;
+}
+document.getElementById('editModalContent').innerHTML=html;
+document.getElementById('editModal').classList.add('active');
+}
+
+function editQuote(id){
+const db=getDB();
+const q=db.eventi.preventivi.find(x=>x.id===id);
+if(!q)return;
+document.getElementById('prev-cliente-a').value=q.clienteIdx;
+document.getElementById('prev-cliente-b').value=q.clienteBIdx||'';
+document.getElementById('prev-data').value=q.dataEvento||'';
+document.getElementById('prev-tipo').value=q.tipo;
+document.getElementById('prev-servizio').value=q.servizio;
+document.getElementById('prev-misura').value=q.misura||'Nessuno';
+document.getElementById('prev-orientamento').value=q.orientamento||'Nessuno';
+document.getElementById('prev-qta').value=q.qta||0;
+document.getElementById('prev-copertina').value=q.copertina||'Nessuno';
+document.getElementById('prev-effetti').value=q.effetti||'Nessuno';
+document.getElementById('prev-mini').value=q.miniAlbum||0;
+document.getElementById('prev-ingrandimento').value=q.ingrandimento||'Nessuno';
+document.getElementById('prev-ingrandimento-qta').value=q.ingrandimentoQta||0;
+document.getElementById('prev-tela').value=q.tela||'Nessuno';
+document.getElementById('prev-tela-qta').value=q.telaQta||0;
+document.getElementById('prev-video').value=q.video||'Nessuno';
+document.getElementById('prev-proiezione').value=q.proiezione||'Nessuna';
+document.getElementById('prev-drone').value=q.drone||'Nessuno';
+document.getElementById('prev-pennino').value=q.pennino||0;
+document.getElementById('prev-extra').value=q.extra||0;
+document.getElementById('prev-consegna').value=q.consegna||'Nessuno';
+document.getElementById('prev-chiesa').value=q.chiesa||'';
+document.getElementById('prev-location').value=q.location||'';
+document.getElementById('prev-anteprima').value=q.anteprima||'Nessuno';
+document.getElementById('prev-post').value=q.postServizio||'Nessuno';
+document.getElementById('prev-pranzo').value=q.pranzo||'Nessuno';
+document.getElementById('prev-note').value=q.note||'';
+document.getElementById('prev-importo').value=q.importo;
+document.getElementById('proc-accettazione').value=q.proc_accettazione||0;
+document.getElementById('proc-prima-servizio').value=q.proc_prima_servizio||0;
+document.getElementById('proc-scelta-foto').value=q.proc_scelta_foto||0;
+document.getElementById('proc-saldo-stampa').value=q.proc_saldo_stampa||0;
+accontiList=q.acconti?[...q.acconti]:[];
+document.getElementById('acconti-container').innerHTML='';
+accontiList.forEach((a,i)=>{
+const container=document.getElementById('acconti-container');
+const row=document.createElement('div');
+row.className='acconto-row';
+row.id='acconto-row-'+i;
+row.innerHTML=`
+<select onchange="updateAcconto(${i},'tipo',this.value)">
+<option ${a.tipo==='Caparra'?'selected':''}>Caparra</option>
+<option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option>
+<option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option>
+<option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option>
+<option ${a.tipo==='Altro'?'selected':''}>Altro</option>
+</select>
+<input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)">
+<input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)">
+<select onchange="updateAcconto(${i},'metodo',this.value)">
+<option ${a.metodo==='Contanti'?'selected':''}>Contanti</option>
+<option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option>
+<option ${a.metodo==='Carta'?'selected':''}>Carta</option>
+<option ${a.metodo==='Altro'?'selected':''}>Altro</option>
+</select>
+<button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">🗑️</button>
+`;
+container.appendChild(row);
+});
+updateTotals();
+deleteQuote(id,false);
+showEventTab('preventivi');
+}
+
+function deleteQuote(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questo preventivo?'))return;
+const db=getDB();
+db.eventi.preventivi=db.eventi.preventivi.filter(q=>q.id!==id);
+saveDB(db);
+renderQuotes();
+}
+
+function generateQuotePDFById(id){
+const db=getDB();
+const q=db.eventi.preventivi.find(x=>x.id===id);
+if(q)generateQuotePDF(q);
+}
+
+function generateQuotePDF(q){
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+const c=getDB().eventi.clienti[parseInt(q.clienteIdx)];
+const nome=c?c.cognome+' '+c.nome:'N/A';
+doc.setFontSize(18);
+doc.text('G&L Studio - Preventivo',20,20);
+doc.setFontSize(12);
+doc.text(`Cliente: ${nome}`,20,35);
+doc.text(`Data Evento: ${q.dataEvento||'-'}`,20,45);
+doc.text(`Tipo: ${q.tipo}`,20,55);
+doc.text(`Servizio: ${q.servizio}`,20,65);
+doc.text(`Importo: € ${q.importo}`,20,75);
+doc.text(`Stato: ${q.stato}`,20,85);
+if(q.acconti&&q.acconti.length>0){
+doc.text('Acconti:',20,100);
+let y=110;
+q.acconti.forEach(a=>{
+doc.text(`- ${a.tipo}: ${a.data} - € ${a.importo} (${a.metodo})`,25,y);
+y+=10;
+});
+}
+doc.save(`preventivo_${nome.replace(/\s/g,'_')}_${q.id}.pdf`);
+}
+
+function convertToContract(){
+const db=getDB();
+const clienteIdx=document.getElementById('prev-cliente-a').value;
+if(clienteIdx==='')return alert('Seleziona Cliente A');
+const preventivo=db.eventi.preventivi.find(q=>q.clienteIdx===clienteIdx&&q.stato==='Nuovo');
+if(!preventivo)return alert('Nessun preventivo nuovo trovato per questo cliente!');
+const contratto={...preventivo,id:Date.now(),stato:'In Lavorazione',dataConversione:new Date().toISOString(),dataConvertito:'',dataSelezioneFoto:'',dataGraficaPronta:'',dataInvioLaboratorio:'',dataRicevutoLaboratorio:'',dataConsegnatoVideo:'',dataConsegnatoAlbum:'',dataConsegnaFiles:'',dataCancellazione:''};
+db.eventi.contratti.push(contratto);
+saveDB(db);
+alert('✅ Preventivo convertito in Contratto!');
+renderContracts();
 }
 
 function renderContracts(){
-    const db = getDB();
-    const tbody = document.querySelector('#table-contracts tbody');
-    if(!tbody) return;
-    tbody.innerHTML = db.eventi.contratti.map(c => {
-        const cl = db.eventi.clienti[parseInt(c.clienteIdx)];
-        const nome = cl ? cl.cognome + ' ' + cl.nome : 'N/A';
-        return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button></td></tr>`;
-    }).join('');
+const db=getDB();
+const tbody=document.querySelector('#table-contracts tbody');
+if(!tbody)return;
+tbody.innerHTML=db.eventi.contratti.map(c=>{
+const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
+const nome=cl?cl.cognome+' '+cl.nome:'N/A';
+return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
+}).join('');
 }
 
-function deleteContract(id){
-    if(!confirm('Eliminare questo contratto?')) return;
-    const db = getDB();
-    db.eventi.contratti = db.eventi.contratti.filter(c => c.id !== id);
-    saveDB(db);
-    renderContracts();
+function viewContract(id){
+const db=getDB();
+const c=db.eventi.contratti.find(x=>x.id===id);
+if(!c)return;
+const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
+const nome=cl?cl.cognome+' '+cl.nome:'N/A';
+let html=`<h3>Dettaglio Contratto #${c.id}</h3>`;
+html+=`<p><strong>Cliente:</strong> ${nome}</p>`;
+html+=`<p><strong>Data Evento:</strong> ${c.dataEvento||'-'}</p>`;
+html+=`<p><strong>Tipo:</strong> ${c.tipo}</p>`;
+html+=`<p><strong>Importo:</strong> € ${c.importo}</p>`;
+html+=`<p><strong>Stato:</strong> ${c.stato}</p>`;
+html+=`<h4 style="margin-top:15px">Date Processo:</h4><ul>`;
+html+=`<li>Conversione: ${c.dataConversione||'-'}</li>`;
+html+=`<li>Convertito: ${c.dataConvertito||'-'}</li>`;
+html+=`<li>Selezione Foto: ${c.dataSelezioneFoto||'-'}</li>`;
+html+=`<li>Grafica Pronta: ${c.dataGraficaPronta||'-'}</li>`;
+html+=`<li>Invio Laboratorio: ${c.dataInvioLaboratorio||'-'}</li>`;
+html+=`<li>Ricevuto Laboratorio: ${c.dataRicevutoLaboratorio||'-'}</li>`;
+html+=`<li>Consegnato Video: ${c.dataConsegnatoVideo||'-'}</li>`;
+html+=`<li>Consegnato Album: ${c.dataConsegnatoAlbum||'-'}</li>`;
+html+=`<li>Consegna Files: ${c.dataConsegnaFiles||'-'}</li>`;
+html+=`</ul>`;
+document.getElementById('editModalContent').innerHTML=html;
+document.getElementById('editModal').classList.add('active');
+}
+
+function editContract(id){
+const db=getDB();
+const c=db.eventi.contratti.find(x=>x.id===id);
+if(!c)return;
+document.getElementById('prev-cliente-a').value=c.clienteIdx;
+document.getElementById('prev-cliente-b').value=c.clienteBIdx||'';
+document.getElementById('prev-data').value=c.dataEvento||'';
+document.getElementById('prev-tipo').value=c.tipo;
+document.getElementById('prev-servizio').value=c.servizio;
+document.getElementById('prev-importo').value=c.importo;
+accontiList=c.acconti?[...c.acconti]:[];
+document.getElementById('acconti-container').innerHTML='';
+accontiList.forEach((a,i)=>{
+const container=document.getElementById('acconti-container');
+const row=document.createElement('div');
+row.className='acconto-row';
+row.id='acconto-row-'+i;
+row.innerHTML=`
+<select onchange="updateAcconto(${i},'tipo',this.value)">
+<option ${a.tipo==='Caparra'?'selected':''}>Caparra</option>
+<option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option>
+<option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option>
+<option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option>
+<option ${a.tipo==='Altro'?'selected':''}>Altro</option>
+</select>
+<input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)">
+<input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)">
+<select onchange="updateAcconto(${i},'metodo',this.value)">
+<option ${a.metodo==='Contanti'?'selected':''}>Contanti</option>
+<option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option>
+<option ${a.metodo==='Carta'?'selected':''}>Carta</option>
+<option ${a.metodo==='Altro'?'selected':''}>Altro</option>
+</select>
+<button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">🗑️</button>
+`;
+container.appendChild(row);
+});
+updateTotals();
+deleteContract(id,false);
+showEventTab('preventivi');
+}
+
+function deleteContract(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questo contratto?'))return;
+const db=getDB();
+db.eventi.contratti=db.eventi.contratti.filter(c=>c.id!==id);
+saveDB(db);
+renderContracts();
+}
+
+function generateContractPDF(id){
+const db=getDB();
+const c=db.eventi.contratti.find(x=>x.id===id);
+if(!c)return;
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
+const nome=cl?cl.cognome+' '+cl.nome:'N/A';
+doc.setFontSize(18);
+doc.text('G&L Studio - Contratto',20,20);
+doc.setFontSize(12);
+doc.text(`Cliente: ${nome}`,20,35);
+doc.text(`Data Evento: ${c.dataEvento||'-'}`,20,45);
+doc.text(`Tipo: ${c.tipo}`,20,55);
+doc.text(`Importo: € ${c.importo}`,20,65);
+doc.text(`Stato: ${c.stato}`,20,75);
+doc.save(`contratto_${nome.replace(/\s/g,'_')}_${c.id}.pdf`);
 }
 
 function renderStatoLavori(){
-    const db = getDB();
-    const div = document.getElementById('stato-lavori-content');
-    if(!div) return;
-    if(db.eventi.contratti.length === 0){
-        div.innerHTML = '<p style="color:#666;text-align:center;padding:30px">Nessun contratto in lavorazione.</p>';
-        return;
-    }
-    div.innerHTML = db.eventi.contratti.map(c => {
-        const cl = db.eventi.clienti[parseInt(c.clienteIdx)];
-        const nome = cl ? cl.cognome + ' ' + cl.nome : 'N/A';
-        return `<div style="padding:15px;border-left:4px solid #27ae60;background:#fff;margin-bottom:10px;border-radius:8px"><div><strong>${nome}</strong><br><small>${c.tipo} - ${c.servizio} - € ${c.importo}</small><br><small>Stato: <strong>${c.stato}</strong></small></div><div style="margin-top:10px"><button class="btn btn-sm btn-primary" onclick="updateContractStatus(${c.id})">🔄 Aggiorna Stato</button></div></div>`;
-    }).join('');
+const db=getDB();
+const div=document.getElementById('stato-lavori-content');
+if(!div)return;
+if(db.eventi.contratti.length===0){
+div.innerHTML='<p style="color:#666;text-align:center;padding:30px">Nessun contratto in lavorazione.</p>';
+return;
+}
+let html='<div class="calendar-grid">';
+db.eventi.contratti.forEach(c=>{
+const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
+const nome=cl?cl.cognome+' '+cl.nome:'N/A';
+html+=`<div class="calendar-card">`;
+html+=`<h4>${nome} - ${c.tipo}</h4>`;
+html+=`<div class="date-row"><span>Data Evento</span><span>${c.dataEvento||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Stato</span><span>${c.stato}</span></div>`;
+html+=`<div class="date-row"><span>Convertito</span><span>${c.dataConvertito||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Selezione Foto</span><span>${c.dataSelezioneFoto||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Grafica Pronta</span><span>${c.dataGraficaPronta||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Invio Laboratorio</span><span>${c.dataInvioLaboratorio||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Ricevuto Laboratorio</span><span>${c.dataRicevutoLaboratorio||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Consegnato Video</span><span>${c.dataConsegnatoVideo||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Consegnato Album</span><span>${c.dataConsegnatoAlbum||'-'}</span></div>`;
+html+=`<div class="date-row"><span>Consegna Files</span><span>${c.dataConsegnaFiles||'-'}</span></div>`;
+html+=`<div style="margin-top:10px">`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')"> Selezione Foto</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')">📅 Ricevuto Lab.</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoVideo')"> Cons. Video</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoAlbum')">📅 Cons. Album</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnaFiles')">📅 Cons. Files</button>`;
+html+=`</div></div>`;
+});
+html+='</div>';
+div.innerHTML=html;
 }
 
-function updateContractStatus(id){
-    const db = getDB();
-    const c = db.eventi.contratti.find(x => x.id === id);
-    if(!c) return;
-    const stati = ['Nuovo','In Lavorazione','Completato','Consegnato'];
-    const idx = stati.indexOf(c.stato);
-    c.stato = stati[(idx+1) % stati.length];
-    saveDB(db);
-    renderStatoLavori();
+function updateContractDate(id,field){
+const db=getDB();
+const c=db.eventi.contratti.find(x=>x.id===id);
+if(!c)return;
+const today=new Date().toISOString().split('T')[0];
+c[field]=today;
+saveDB(db);
+renderStatoLavori();
 }
 
-function updateSaggiStats(){
-    document.getElementById('stat-students').textContent = getDB().saggi.length;
-}
+function updateSaggiStats(){document.getElementById('stat-students').textContent=getDB().saggi.length;}
 
 function showSaggiTab(tab){
-    document.querySelectorAll('#saggi .tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('#saggi .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('saggi-tab-'+tab).classList.add('active');
-    event.target.classList.add('active');
-    if(tab === 'archivio') renderStudents();
-    if(tab === 'contabilita') renderContabilita();
+document.querySelectorAll('#saggi .tab-content').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('#saggi .tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('saggi-tab-'+tab).classList.add('active');
+event.target.classList.add('active');
+if(tab==='archivio')renderStudents();
+if(tab==='contabilita')renderContabilita();
 }
 
 function saveStudent(){
-    const db = getDB();
-    const cognome = document.getElementById('sag-cognome').value.trim();
-    const nome = document.getElementById('sag-nome').value.trim();
-    const scuola = document.getElementById('sag-scuola').value;
-    if(!cognome || !nome || !scuola) return alert('Compila Scuola, Cognome e Nome');
-    db.saggi.push({
-        id: Date.now(),
-        scuola: scuola,
-        anno: document.getElementById('sag-anno').value,
-        cognome: cognome,
-        nome: nome,
-        telefono: document.getElementById('sag-tel').value,
-        tipoCliente: document.getElementById('sag-tipo').value,
-        servizio: document.getElementById('sag-servizio').value,
-        quantita: document.getElementById('sag-qta').value,
-        importo: document.getElementById('sag-importo').value,
-        dataCreazione: new Date().toLocaleString('it-IT')
-    });
-    saveDB(db);
-    renderStudents();
-    resetStudentForm();
-    alert('✅ Partecipante salvato!');
+const db=getDB();
+const cognome=document.getElementById('sag-cognome').value.trim();
+const nome=document.getElementById('sag-nome').value.trim();
+const scuola=document.getElementById('sag-scuola').value;
+if(!cognome||!nome||!scuola)return alert('Compila Scuola, Cognome e Nome');
+db.saggi.push({
+id:Date.now(),
+scuola:scuola,
+anno:document.getElementById('sag-anno').value,
+cognome:cognome,
+nome:nome,
+telefono:document.getElementById('sag-tel').value,
+tipoCliente:document.getElementById('sag-tipo').value,
+servizio:document.getElementById('sag-servizio').value,
+quantita:document.getElementById('sag-qta').value,
+importo:document.getElementById('sag-importo').value,
+dataCreazione:new Date().toLocaleString('it-IT')
+});
+saveDB(db);
+renderStudents();
+resetStudentForm();
+alert('✅ Partecipante salvato!');
+}
+
+function loadStudentForEdit(){
+const id=prompt('Inserisci ID del partecipante da modificare:');
+if(!id)return;
+const db=getDB();
+const s=db.saggi.find(x=>x.id===parseInt(id));
+if(!s)return alert('Partecipante non trovato!');
+document.getElementById('sag-scuola').value=s.scuola;
+document.getElementById('sag-anno').value=s.anno;
+document.getElementById('sag-cognome').value=s.cognome;
+document.getElementById('sag-nome').value=s.nome;
+document.getElementById('sag-tel').value=s.telefono||'';
+document.getElementById('sag-tipo').value=s.tipoCliente;
+document.getElementById('sag-servizio').value=s.servizio;
+document.getElementById('sag-qta').value=s.quantita;
+document.getElementById('sag-importo').value=s.importo;
+deleteStudent(s.id,false);
+alert('Partecipante caricato per modifica. Modifica e salva.');
 }
 
 function resetStudentForm(){
-    ['sag-cognome','sag-nome','sag-tel'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('sag-qta').value = '1';
-    document.getElementById('sag-importo').value = '15';
+['sag-cognome','sag-nome','sag-tel'].forEach(id=>document.getElementById(id).value='');
+document.getElementById('sag-qta').value='1';
+document.getElementById('sag-importo').value='15';
 }
 
 function renderStudents(){
-    const db = getDB();
-    const filterScuola = document.getElementById('filter-scuola')?.value || '';
-    const filterAnno = document.getElementById('filter-anno')?.value || '';
-    let filtered = db.saggi;
-    if(filterScuola) filtered = filtered.filter(s => s.scuola === filterScuola);
-    if(filterAnno) filtered = filtered.filter(s => s.anno === filterAnno);
-    const tbody = document.querySelector('#table-students tbody');
-    if(!tbody) return;
-    tbody.innerHTML = filtered.map(s => `<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button></td></tr>`).join('');
+const db=getDB();
+const filterScuola=document.getElementById('filter-scuola')?.value||'';
+const filterAnno=document.getElementById('filter-anno')?.value||'';
+let filtered=db.saggi;
+if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
+if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
+const tbody=document.querySelector('#table-students tbody');
+if(!tbody)return;
+tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
 }
 
-function deleteStudent(id){
-    if(!confirm('Eliminare questo partecipante?')) return;
-    const db = getDB();
-    db.saggi = db.saggi.filter(s => s.id !== id);
-    saveDB(db);
-    renderStudents();
-    updateSaggiStats();
+function viewStudent(id){
+const db=getDB();
+const s=db.saggi.find(x=>x.id===id);
+if(!s)return;
+let html=`<h3>Scheda Partecipante #${s.id}</h3>`;
+html+=`<p><strong>Scuola:</strong> ${s.scuola}</p>`;
+html+=`<p><strong>Anno:</strong> ${s.anno}</p>`;
+html+=`<p><strong>Nome:</strong> ${s.nome} ${s.cognome}</p>`;
+html+=`<p><strong>Telefono:</strong> ${s.telefono||'-'}</p>`;
+html+=`<p><strong>Tipo:</strong> ${s.tipoCliente}</p>`;
+html+=`<p><strong>Servizio:</strong> ${s.servizio}</p>`;
+html+=`<p><strong>Importo:</strong> € ${s.importo}</p>`;
+document.getElementById('editModalContent').innerHTML=html;
+document.getElementById('editModal').classList.add('active');
+}
+
+function editStudent(id){
+const db=getDB();
+const s=db.saggi.find(x=>x.id===id);
+if(!s)return;
+document.getElementById('sag-scuola').value=s.scuola;
+document.getElementById('sag-anno').value=s.anno;
+document.getElementById('sag-cognome').value=s.cognome;
+document.getElementById('sag-nome').value=s.nome;
+document.getElementById('sag-tel').value=s.telefono||'';
+document.getElementById('sag-tipo').value=s.tipoCliente;
+document.getElementById('sag-servizio').value=s.servizio;
+document.getElementById('sag-qta').value=s.quantita;
+document.getElementById('sag-importo').value=s.importo;
+deleteStudent(id,false);
+showSaggiTab('nuovo');
+}
+
+function deleteStudent(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questo partecipante?'))return;
+const db=getDB();
+db.saggi=db.saggi.filter(s=>s.id!==id);
+saveDB(db);
+renderStudents();
+updateSaggiStats();
+}
+
+function generateStudentPDFById(id){
+const db=getDB();
+const s=db.saggi.find(x=>x.id===id);
+if(s)generateStudentPDF(s);
+}
+
+function generateStudentPDF(s){
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+doc.setFontSize(18);
+doc.text('G&L Studio - Scheda Partecipante',20,20);
+doc.setFontSize(12);
+doc.text(`Scuola: ${s.scuola}`,20,35);
+doc.text(`Anno: ${s.anno}`,20,45);
+doc.text(`Nome: ${s.nome} ${s.cognome}`,20,55);
+doc.text(`Telefono: ${s.telefono||'-'}`,20,65);
+doc.text(`Tipo: ${s.tipoCliente}`,20,75);
+doc.text(`Servizio: ${s.servizio}`,20,85);
+doc.text(`Importo: € ${s.importo}`,20,95);
+doc.save(`scheda_${s.cognome}_${s.nome.replace(/\s/g,'_')}_${s.id}.pdf`);
+}
+
+function printStudentsList(){
+const db=getDB();
+const filterScuola=document.getElementById('filter-scuola')?.value||'';
+const filterAnno=document.getElementById('filter-anno')?.value||'';
+let filtered=db.saggi;
+if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
+if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
+let html='<h3>Elenco Partecipanti</h3><table border="1"><tr><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th></tr>';
+filtered.forEach(s=>{
+html+=`<tr><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td></tr>`;
+});
+html+='</table>';
+const w=window.open('','_blank');
+w.document.write(html);
+w.document.close();
+w.print();
+}
+
+function generateStudentsPDF(){
+const db=getDB();
+const filterScuola=document.getElementById('filter-scuola')?.value||'';
+const filterAnno=document.getElementById('filter-anno')?.value||'';
+let filtered=db.saggi;
+if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
+if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+doc.setFontSize(16);
+doc.text('G&L Studio - Elenco Partecipanti',20,20);
+doc.autoTable({
+startY:30,
+head:[['Scuola','Anno','Cognome','Nome','Tel','Tipo','Servizio','Qta','Importo']],
+body:filtered.map(s=>[s.scuola,s.anno,s.cognome,s.nome,s.telefono||'-',s.tipoCliente,s.servizio,s.quantita,'€ '+s.importo])
+});
+doc.save(`elenco_partecipanti_${new Date().toISOString().split('T')[0]}.pdf`);
 }
 
 function renderContabilita(){
-    const db = getDB();
-    const div = document.getElementById('contabilita-content');
-    if(!div) return;
-    const totale = db.saggi.reduce((sum, s) => sum + (parseFloat(s.importo)||0) * (parseInt(s.quantita)||1), 0);
-    div.innerHTML = `<div class="stats-box"><div class="stat-item"><strong>${db.saggi.length}</strong>Totale Iscritti</div><div class="stat-item"><strong>€ ${totale.toFixed(2)}</strong>Incasso Totale</div></div>`;
+const db=getDB();
+const div=document.getElementById('contabilita-content');
+if(!div)return;
+const filterScuola=document.getElementById('cont-scuola')?.value||'';
+const filterAnno=document.getElementById('cont-anno')?.value||'2026';
+let filtered=db.saggi;
+if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
+if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
+const totale=filtered.reduce((sum,s)=>sum+(parseFloat(s.importo)||0)*(parseInt(s.quantita)||1),0);
+div.innerHTML=`<div class="stats-box"><div class="stat-item"><strong>${filtered.length}</strong>Totale Iscritti</div><div class="stat-item"><strong>€ ${totale.toFixed(2)}</strong>Incasso Totale</div></div>`;
 }
 
-function updateGalleryStats(){
-    document.getElementById('stat-galleries').textContent = getDB().gallery.length;
+function generateContabilitaPDF(){
+const db=getDB();
+const filterScuola=document.getElementById('cont-scuola')?.value||'';
+const filterAnno=document.getElementById('cont-anno')?.value||'2026';
+let filtered=db.saggi;
+if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
+if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
+const totale=filtered.reduce((sum,s)=>sum+(parseFloat(s.importo)||0)*(parseInt(s.quantita)||1),0);
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+doc.setFontSize(16);
+doc.text('G&L Studio - Report Contabilità',20,20);
+doc.setFontSize(12);
+doc.text(`Scuola: ${filterScuola||'Tutte'}`,20,35);
+doc.text(`Anno: ${filterAnno}`,20,45);
+doc.text(`Totale Iscritti: ${filtered.length}`,20,55);
+doc.text(`Incasso Totale: € ${totale.toFixed(2)}`,20,65);
+doc.autoTable({
+startY:75,
+head:[['Cognome','Nome','Servizio','Qta','Importo','Totale']],
+body:filtered.map(s=>[s.cognome,s.nome,s.servizio,s.quantita,'€ '+s.importo,'€ '+((parseFloat(s.importo)||0)*(parseInt(s.quantita)||1)).toFixed(2)])
+});
+doc.save(`contabilita_${filterScuola||'tutte'}_${filterAnno}.pdf`);
 }
+
+function updateGalleryStats(){document.getElementById('stat-galleries').textContent=getDB().gallery.length;}
 
 function showGalleryTab(tab){
-    document.querySelectorAll('#gallery .tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('#gallery .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('gallery-tab-'+tab).classList.add('active');
-    event.target.classList.add('active');
-    if(tab === 'lista') renderGalleries();
+document.querySelectorAll('#gallery .tab-content').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('#gallery .tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('gallery-tab-'+tab).classList.add('active');
+event.target.classList.add('active');
+if(tab==='lista')renderGalleries();
 }
 
 function saveGallery(){
-    const db = getDB();
-    const name = document.getElementById('gal-name').value.trim();
-    if(!name) return alert('Inserisci Nome Cliente');
-    db.gallery.push({
-        id: 'client_' + Date.now() + '_' + Math.floor(Math.random()*900000+100000),
-        name: name,
-        username: document.getElementById('gal-user').value,
-        password: document.getElementById('gal-pass').value,
-        megaLink: document.getElementById('gal-link').value,
-        notes: document.getElementById('gal-notes').value,
-        createdAt: Date.now()
-    });
-    saveDB(db);
-    renderGalleries();
-    ['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id => document.getElementById(id).value = '');
-    alert('✅ Cliente Gallery aggiunto!');
+const db=getDB();
+const name=document.getElementById('gal-name').value.trim();
+if(!name)return alert('Inserisci Nome Cliente');
+db.gallery.push({
+id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000),
+name:name,
+username:document.getElementById('gal-user').value,
+password:document.getElementById('gal-pass').value,
+megaLink:document.getElementById('gal-link').value,
+notes:document.getElementById('gal-notes').value,
+createdAt:Date.now()
+});
+saveDB(db);
+renderGalleries();
+['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id=>document.getElementById(id).value='');
+alert('✅ Cliente Gallery aggiunto!');
 }
 
 function renderGalleries(){
-    const db = getDB();
-    const tbody = document.querySelector('#table-galleries tbody');
-    if(!tbody) return;
-    tbody.innerHTML = db.gallery.map(g => `<tr><td>${g.id}</td><td>${g.name}</td><td>${g.username||'-'}</td><td>${g.password||'-'}</td><td><a href="${g.megaLink}" target="_blank">Apri</a></td><td>${g.notes||'-'}</td><td><button class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">🗑️</button></td></tr>`).join('');
+const db=getDB();
+const tbody=document.querySelector('#table-galleries tbody');
+if(!tbody)return;
+tbody.innerHTML=db.gallery.map(g=>`<tr><td>${g.id}</td><td>${g.name}</td><td>${g.username||'-'}</td><td>${g.password||'-'}</td><td><a href="${g.megaLink}" target="_blank">Apri</a></td><td>${g.notes||'-'}</td><td><button class="btn btn-info btn-sm" onclick="viewGallery('${g.id}')">👁️</button> <button class="btn btn-warning btn-sm" onclick="editGallery('${g.id}')">️</button> <button class="btn btn-danger btn-sm" onclick="deleteGallery('${g.id}')">🗑️</button></td></tr>`).join('');
 }
 
-function deleteGallery(id){
-    if(!confirm('Eliminare questo cliente gallery?')) return;
-    const db = getDB();
-    db.gallery = db.gallery.filter(g => g.id !== id);
-    saveDB(db);
-    renderGalleries();
-    updateGalleryStats();
+function viewGallery(id){
+const db=getDB();
+const g=db.gallery.find(x=>x.id===id);
+if(!g)return;
+let html=`<h3>Dettagli Cliente Gallery</h3>`;
+html+=`<p><strong>Nome:</strong> ${g.name}</p>`;
+html+=`<p><strong>Username:</strong> ${g.username||'-'}</p>`;
+html+=`<p><strong>Password:</strong> ${g.password||'-'}</p>`;
+html+=`<p><strong>Link MEGA:</strong> <a href="${g.megaLink}" target="_blank">${g.megaLink}</a></p>`;
+html+=`<p><strong>Note:</strong> ${g.notes||'-'}</p>`;
+document.getElementById('editModalContent').innerHTML=html;
+document.getElementById('editModal').classList.add('active');
+}
+
+function editGallery(id){
+const db=getDB();
+const g=db.gallery.find(x=>x.id===id);
+if(!g)return;
+document.getElementById('gal-name').value=g.name;
+document.getElementById('gal-user').value=g.username||'';
+document.getElementById('gal-pass').value=g.password||'';
+document.getElementById('gal-link').value=g.megaLink||'';
+document.getElementById('gal-notes').value=g.notes||'';
+deleteGallery(id,false);
+showGalleryTab('nuovo');
+}
+
+function deleteGallery(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questo cliente gallery?'))return;
+const db=getDB();
+db.gallery=db.gallery.filter(g=>g.id!==id);
+saveDB(db);
+renderGalleries();
+updateGalleryStats();
 }
 
 function showRicevuteTab(tab){
-    document.querySelectorAll('#ricevute .tab-content').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('#ricevute .tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('ricevute-tab-'+tab).classList.add('active');
-    event.target.classList.add('active');
-    if(tab === 'archivio') renderReceipts();
+document.querySelectorAll('#ricevute .tab-content').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('#ricevute .tab-btn').forEach(b=>b.classList.remove('active'));
+document.getElementById('ricevute-tab-'+tab).classList.add('active');
+event.target.classList.add('active');
+if(tab==='archivio')renderReceipts();
 }
 
 function saveReceipt(){
-    const db = getDB();
-    const nome = document.getElementById('ric-nome').value.trim();
-    const tel = document.getElementById('ric-tel').value.trim();
-    const servizio = document.getElementById('ric-servizio').value;
-    const importo = document.getElementById('ric-importo').value;
-    if(!nome || !tel || !servizio || !importo) return alert('Compila tutti i campi obbligatori');
-    db.ricevute.push({
-        id: Date.now(),
-        data: document.getElementById('ric-data').value || new Date().toLocaleDateString('it-IT'),
-        nome: nome,
-        telefono: tel,
-        fb: document.getElementById('ric-fb').value,
-        servizio: servizio,
-        importo: importo,
-        note: document.getElementById('ric-note').value
-    });
-    saveDB(db);
-    renderReceipts();
-    ['ric-nome','ric-tel','ric-fb','ric-data','ric-importo','ric-note'].forEach(id => document.getElementById(id).value = '');
-    document.getElementById('ric-servizio').value = '';
-    alert('✅ Ricevuta salvata!');
+const db=getDB();
+const nome=document.getElementById('ric-nome').value.trim();
+const tel=document.getElementById('ric-tel').value.trim();
+const servizio=document.getElementById('ric-servizio').value;
+const importo=document.getElementById('ric-importo').value;
+if(!nome||!tel||!servizio||!importo)return alert('Compila tutti i campi obbligatori');
+db.ricevute.push({
+id:Date.now(),
+data:document.getElementById('ric-data').value||new Date().toLocaleDateString('it-IT'),
+nome:nome,
+telefono:tel,
+fb:document.getElementById('ric-fb').value,
+servizio:servizio,
+importo:importo,
+note:document.getElementById('ric-note').value
+});
+saveDB(db);
+renderReceipts();
+['ric-nome','ric-tel','ric-fb','ric-data','ric-importo','ric-note'].forEach(id=>document.getElementById(id).value='');
+document.getElementById('ric-servizio').value='';
+alert('✅ Ricevuta salvata!');
 }
 
 function renderReceipts(){
-    const db = getDB();
-    const tbody = document.querySelector('#table-receipts tbody');
-    if(!tbody) return;
-    tbody.innerHTML = db.ricevute.map(r => `<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">️</button></td></tr>`).join('');
+const db=getDB();
+const tbody=document.querySelector('#table-receipts tbody');
+if(!tbody)return;
+tbody.innerHTML=db.ricevute.map(r=>`<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewReceipt(${r.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editReceipt(${r.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateReceiptPDFById(${r.id})">📄 PDF</button></td></tr>`).join('');
 }
 
-function deleteReceipt(id){
-    if(!confirm('Eliminare questa ricevuta?')) return;
-    const db = getDB();
-    db.ricevute = db.ricevute.filter(r => r.id !== id);
-    saveDB(db);
-    renderReceipts();
+function viewReceipt(id){
+const db=getDB();
+const r=db.ricevute.find(x=>x.id===id);
+if(!r)return;
+let html=`<h3>Dettaglio Ricevuta #${r.id}</h3>`;
+html+=`<p><strong>Cliente:</strong> ${r.nome}</p>`;
+html+=`<p><strong>Telefono:</strong> ${r.telefono}</p>`;
+html+=`<p><strong>Servizio:</strong> ${r.servizio}</p>`;
+html+=`<p><strong>Data:</strong> ${r.data}</p>`;
+html+=`<p><strong>Importo:</strong> € ${r.importo}</p>`;
+html+=`<p><strong>Note:</strong> ${r.note||'-'}</p>`;
+document.getElementById('editModalContent').innerHTML=html;
+document.getElementById('editModal').classList.add('active');
 }
 
-// FUNZIONI MAPS E WHATSAPP
+function editReceipt(id){
+const db=getDB();
+const r=db.ricevute.find(x=>x.id===id);
+if(!r)return;
+document.getElementById('ric-nome').value=r.nome;
+document.getElementById('ric-tel').value=r.telefono;
+document.getElementById('ric-fb').value=r.fb||'';
+document.getElementById('ric-servizio').value=r.servizio;
+document.getElementById('ric-data').value=r.data;
+document.getElementById('ric-importo').value=r.importo;
+document.getElementById('ric-note').value=r.note||'';
+deleteReceipt(id,false);
+showRicevuteTab('nuova');
+}
+
+function deleteReceipt(id,confirmDelete=true){
+if(confirmDelete&&!confirm('Eliminare questa ricevuta?'))return;
+const db=getDB();
+db.ricevute=db.ricevute.filter(r=>r.id!==id);
+saveDB(db);
+renderReceipts();
+}
+
+function generateReceiptPDFById(id){
+const db=getDB();
+const r=db.ricevute.find(x=>x.id===id);
+if(r)generateReceiptPDF(r);
+}
+
+function generateReceiptPDF(r){
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+doc.setFontSize(18);
+doc.text('G&L Studio - Ricevuta Fotografica',20,20);
+doc.setFontSize(12);
+doc.text('Via Ciarrocco, 21 – Canicattì (AG)',20,30);
+doc.text('Tel: +39 366 9381103 | Email: weddinggel@aruba.it',20,40);
+doc.line(20,45,190,45);
+doc.text(`Cliente: ${r.nome}`,20,55);
+doc.text(`Telefono: ${r.telefono}`,20,65);
+doc.text(`Servizio: ${r.servizio}`,20,75);
+doc.text(`Data Evento: ${r.data}`,20,85);
+doc.text(`Importo: € ${r.importo}`,20,95);
+if(r.note)doc.text(`Note: ${r.note}`,20,105);
+doc.line(20,120,190,120);
+doc.text('Firma _________________________',20,135);
+doc.save(`ricevuta_${r.nome.replace(/\s/g,'_')}_${r.id}.pdf`);
+}
+
+function closeEditModal(){document.getElementById('editModal').classList.remove('active');}
+
+// MAPS E WHATSAPP
 function openMap(inputId){
-    const address = document.getElementById(inputId).value.trim();
-    if(address){
-        const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
-        window.open(url, '_blank');
-    } else {
-        alert('Inserisci prima l\'indirizzo!');
-        document.getElementById(inputId).focus();
-    }
+const address=document.getElementById(inputId).value.trim();
+if(address){
+const url=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+window.open(url,'_blank');
+}else{
+alert('Inserisci prima l\'indirizzo!');
+document.getElementById(inputId).focus();
+}
 }
 
 function openWhatsApp(inputId){
-    const phone = document.getElementById(inputId).value.trim();
-    if(phone){
-        const cleanPhone = phone.replace(/[^0-9]/g, '');
-        const url = `https://web.whatsapp.com/send?phone=${cleanPhone}`;
-        window.open(url, '_blank');
-    } else {
-        alert('Inserisci prima il numero di telefono!');
-        document.getElementById(inputId).focus();
-    }
+const phone=document.getElementById(inputId).value.trim();
+if(phone){
+const cleanPhone=phone.replace(/[^0-9]/g,'');
+const url=`https://web.whatsapp.com/send?phone=${cleanPhone}`;
+window.open(url,'_blank');
+}else{
+alert('Inserisci prima il numero di telefono!');
+document.getElementById(inputId).focus();
+}
 }
 
-document.addEventListener('DOMContentLoaded', updateAllCounts);
+// SELEZIONE ALBUM
+const ALBUM_PASS='12763Mlg';
+let selUploadedUrls=[],selUploadedNames=[],selWidget=null;
+
+function checkAlbumLoginState(){
+if(sessionStorage.getItem('albumLogged')==='true'){
+document.getElementById('albumLoginPanel').style.display='none';
+document.getElementById('albumDashboardPanel').style.display='block';
+renderAlbumList();
+}else{
+document.getElementById('albumLoginPanel').style.display='block';
+document.getElementById('albumDashboardPanel').style.display='none';
+}
+}
+
+function loginAlbumAdmin(){
+if(document.getElementById('albumPasswordInput').value===ALBUM_PASS){
+sessionStorage.setItem('albumLogged','true');
+document.getElementById('albumLoginError').textContent='';
+checkAlbumLoginState();
+}else{
+document.getElementById('albumLoginError').textContent='❌ Password errata';
+}
+}
+
+function openAlbumUploadWidget(){
+const cn=document.getElementById('albumCloudName').value.trim();
+if(!cn)return alert('Inserisci Cloud Name!');
+if(!selWidget){
+selWidget=cloudinary.createUploadWidget({
+cloudName:cn,
+uploadPreset:'unsigned',
+sources:['local'],
+multiple:true,
+folder:'gallerie_clienti'
+},(err,res)=>{
+if(!err&&res?.event==='success'){
+selUploadedUrls.push(res.info.secure_url);
+selUploadedNames.push(`${res.info.original_filename}.${res.info.format}`);
+document.getElementById('albumUploadStatus').style.display='block';
+document.getElementById('albumUploadedCount').textContent=selUploadedUrls.length;
+}
+});
+}
+selWidget.open();
+}
+
+function createAlbumGallery(){
+const name=document.getElementById('albumClientName').value.trim();
+if(!name||!selUploadedUrls.length)return alert('Compila nome e carica foto!');
+const db=getDB();
+if(!db.albums)db.albums=[];
+const gallery={
+id:'alb_'+Date.now(),
+client:name,
+photos:[...selUploadedUrls],
+fileNames:[...selUploadedNames],
+created:Date.now(),
+selection:null,
+selectedNames:null,
+downloaded:false
+};
+db.albums.push(gallery);
+saveDB(db);
+const link=`${location.origin}${location.pathname}?gallery=${gallery.id}`;
+document.getElementById('albumLinkOutput').value=link;
+document.getElementById('albumGeneratedLink').style.display='block';
+selUploadedUrls=[];
+selUploadedNames=[];
+document.getElementById('albumClientName').value='';
+document.getElementById('albumUploadStatus').style.display='none';
+updateAlbumDashboardCount();
+renderAlbumList();
+alert('✅ Galleria creata! Copia il link e invialo al cliente.');
+}
+
+function copyAlbumLink(){
+navigator.clipboard.writeText(document.getElementById('albumLinkOutput').value);
+alert('Link copiato!');
+}
+
+function updateAlbumDashboardCount(){
+const db=getDB();
+document.getElementById('count-albums').textContent=(db.albums||[]).filter(a=>a.selection).length;
+}
+
+function renderAlbumList(){
+const db=getDB();
+const albums=(db.albums||[]).filter(a=>a.selection);
+const div=document.getElementById('albumSelectionsList');
+if(albums.length===0){
+div.innerHTML='<p style="color:#888;text-align:center;padding:20px">Nessuna selezione ricevuta.</p>';
+return;
+}
+div.innerHTML=albums.map(g=>{
+const isDone=g.downloaded;
+return `<div class="album-row ${isDone?'downloaded':''}"><div><strong>${g.client}</strong><br><small>${new Date(g.selectionDate).toLocaleDateString('it-IT')} • ${g.selection.length} foto</small></div><div><button class="btn btn-secondary btn-sm" onclick="viewAlbumDetail('${g.id}')">Vedi</button><button class="btn btn-primary btn-sm" onclick="downloadAlbumTxt('${g.id}')">TXT</button><button class="btn ${isDone?'btn-success':'btn-warning'} btn-sm" onclick="toggleAlbumStatus('${g.id}')">${isDone?'✅ Fatto':'📥 Segna'}</button><button class="btn btn-danger btn-sm" onclick="deleteAlbum('${g.id}')">🗑️</button></div></div>`;
+}).join('');
+}
+
+function toggleAlbumStatus(id){
+const db=getDB();
+const g=db.albums.find(x=>x.id===id);
+if(g){
+g.downloaded=!g.downloaded;
+saveDB(db);
+renderAlbumList();
+}
+}
+
+function deleteAlbum(id){
+if(!confirm('Eliminare questa selezione?'))return;
+const db=getDB();
+db.albums=db.albums.filter(x=>x.id!==id);
+saveDB(db);
+renderAlbumList();
+updateAlbumDashboardCount();
+}
+
+function downloadAlbumTxt(id){
+const db=getDB();
+const g=db.albums.find(x=>x.id===id);
+if(!g||!g.selectedNames)return alert('Nessun nome file trovato.');
+const cleanNames=g.selectedNames.map(n=>n.trim()).filter(n=>n.length>0);
+const content=cleanNames.join('\n');
+const blob=new Blob([content],{type:'text/plain'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download=`selezione_${g.client.replace(/[^a-zA-Z0-9_]/g,'_')}.txt`;
+document.body.appendChild(a);
+a.click();
+setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url)},100);
+}
+
+function viewAlbumDetail(id){
+const db=getDB();
+const g=db.albums.find(x=>x.id===id);
+if(!g)return;
+const items=g.selection.map((url,i)=>`<li style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee"><img src="${url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"><div><strong>Foto ${i+1}</strong><br><small>${g.selectedNames?.[i]||''}</small></div></li>`).join('');
+document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%"> Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px">💡 Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;
+document.getElementById('albumSelectionModal').classList.add('active');
+}
+
+function closeAlbumModal(){document.getElementById('albumSelectionModal').classList.remove('active');}
+
+window.onclick=function(e){
+if(e.target.id==='albumSelectionModal')closeAlbumModal();
+if(e.target.id==='editModal')closeEditModal();
+};
+
+// VISTA CLIENTE PER SELEZIONE FOTO
+window.addEventListener('DOMContentLoaded',()=>{
+const params=new URLSearchParams(window.location.search);
+const galId=params.get('gallery');
+if(galId){
+const db=getDB();
+const g=(db.albums||[]).find(x=>x.id===galId);
+if(g&&!g.selection){
+document.getElementById('loginOverlay').style.display='none';
+document.getElementById('mainApp').style.display='none';
+document.body.innerHTML=`<div style="max-width:800px;margin:40px auto;padding:20px;font-family:sans-serif"><h1 style="text-align:center">📸 Scegli le tue foto</h1><p style="text-align:center;margin-bottom:30px;color:#666">Clicca sulle foto che vuoi nell'album</p><div id="clientGrid" class="album-grid"></div><div style="text-align:center"><button id="submitBtn" onclick="submitClientSelection()" class="btn btn-success" style="padding:15px 40px;font-size:18px">✅ Conferma (0)</button></div></div>`;
+let selected=new Set();
+g.photos.forEach((url,i)=>{
+const card=document.createElement('div');
+card.className='photo-card';
+card.innerHTML=`<img src="${url}">`;
+card.onclick=()=>{
+if(selected.has(i)){selected.delete(i);card.classList.remove('selected')}
+else{selected.add(i);card.classList.add('selected')}
+document.getElementById('submitBtn').textContent=`✅ Conferma (${selected.size})`;
+};
+document.getElementById('clientGrid').appendChild(card);
+});
+window.submitClientSelection=function(){
+if(!selected.size)return alert('Seleziona almeno una foto!');
+if(!confirm(`Confermi ${selected.size} foto?`))return;
+const idxs=Array.from(selected);
+g.selection=idxs.map(i=>g.photos[i]);
+g.selectedNames=idxs.map(i=>g.fileNames[i]);
+g.selectionDate=Date.now();
+saveDB(db);
+document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif"><h1 style="color:#27ae60">✅ Grazie!</h1><p>Hai inviato ${selected.size} foto.</p><p>Il fotografo elaborerà la tua selezione.</p></div>`;
+};
+}else if(g&&g.selection){
+document.getElementById('loginOverlay').style.display='none';
+document.getElementById('mainApp').style.display='none';
+document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif"><h1>✅ Selezione già inviata</h1><p>Grazie!</p></div>`;
+}else{
+document.getElementById('loginOverlay').style.display='none';
+document.getElementById('mainApp').style.display='none';
+document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif"><h1>❌ Galleria non trovata</h1></div>`;
+}
+}else{
+updateAllCounts();
+}
+});
 </script>
 </body>
 </html>
