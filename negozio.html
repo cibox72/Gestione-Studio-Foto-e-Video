@@ -11,26 +11,34 @@ body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea
 .container{max-width:1200px;margin:0 auto}
 header{background:#fff;border-radius:15px;padding:30px;text-align:center;margin-bottom:30px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
 header h1{color:#2c3e50;margin-bottom:10px}
+header p{color:#666}
 .auth-box{background:#fff;border-radius:15px;padding:40px;max-width:500px;margin:50px auto;box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center}
 .auth-box h2{color:#2c3e50;margin-bottom:20px}
 .form-group{margin-bottom:20px;text-align:left}
 .form-group label{display:block;margin-bottom:8px;color:#555;font-weight:600}
-.form-group input{width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;font-size:16px}
-.btn{padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:16px;margin:5px}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px;border:2px solid #ddd;border-radius:8px;font-size:16px;font-family:inherit}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#667eea}
+.btn{padding:12px 24px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:16px;margin:5px;transition:all .3s}
 .btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;width:100%}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)}
 .btn-success{background:#27ae60;color:#fff}
+.btn-success:hover{background:#219150}
 .btn-warning{background:#f39c12;color:#fff}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-secondary{background:#95a5a6;color:#fff}
 .tabs{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}
-.tab{flex:1;padding:15px;background:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:.3s}
+.tab{flex:1;padding:15px;background:#fff;border:none;border-radius:10px;cursor:pointer;font-weight:600;transition:.3s;min-width:150px}
 .tab.active{background:#667eea;color:#fff}
+.tab:hover:not(.active){background:#f0f0f0}
 .section{display:none;background:#fff;border-radius:15px;padding:30px;margin-bottom:30px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
 .section.active{display:block}
+.section h2{color:#2c3e50;margin-bottom:20px}
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
-.photo-card{border:3px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;transition:.3s;position:relative}
+.photo-card{border:3px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;transition:.3s;position:relative;background:#fff}
 .photo-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,.2)}
 .photo-card.selected{border-color:#27ae60}
-.photo-card img{width:100%;height:200px;object-fit:cover}
-.photo-card .check{position:absolute;top:10px;right:10px;background:#27ae60;color:#fff;width:30px;height:30px;border-radius:50%;display:none;align-items:center;justify-content:center}
+.photo-card img{width:100%;height:200px;object-fit:cover;display:block}
+.photo-card .check{position:absolute;top:10px;right:10px;background:#27ae60;color:#fff;width:30px;height:30px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:bold}
 .photo-card.selected .check{display:flex}
 .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
 .product-card{background:#f8f9fa;border-radius:10px;padding:20px;text-align:center;border:2px solid transparent;transition:.3s;cursor:pointer}
@@ -38,16 +46,30 @@ header h1{color:#2c3e50;margin-bottom:10px}
 .product-card.selected{border-color:#27ae60;background:#e8f5e9}
 .product-icon{font-size:50px;margin-bottom:10px}
 .product-name{font-weight:bold;margin-bottom:10px;color:#2c3e50}
-.product-price{color:#27ae60;font-size:20px;font-weight:bold}
-.cart{position:fixed;bottom:20px;right:20px;background:#fff;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.3);width:350px;max-height:400px;overflow-y:auto}
+.product-price{color:#27ae60;font-size:20px;font-weight:bold;margin-bottom:10px}
+.product-card select{width:100%;padding:8px;border-radius:5px;border:1px solid #ddd;margin-top:10px}
+.cart{position:fixed;bottom:20px;right:20px;background:#fff;padding:20px;border-radius:15px;box-shadow:0 5px 20px rgba(0,0,0,.3);width:350px;max-height:500px;overflow-y:auto;z-index:100}
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee}
 .cart-items{margin-bottom:15px}
-.cart-item{display:flex;justify-content:space-between;padding:10px;background:#f8f9fa;border-radius:8px;margin-bottom:8px}
-.cart-total{font-size:20px;font-weight:bold;text-align:right;color:#2c3e50;margin-bottom:15px}
-.upload-area{border:3px dashed #667eea;border-radius:10px;padding:40px;text-align:center;background:#f8f9fa;cursor:pointer}
-.upload-area:hover{background:#e8f4fd}
+.cart-item{display:flex;justify-content:space-between;padding:10px;background:#f8f9fa;border-radius:8px;margin-bottom:8px;align-items:center}
+.cart-item-info{flex:1}
+.cart-item-info strong{display:block}
+.cart-item-info small{color:#666}
+.cart-total{font-size:20px;font-weight:bold;text-align:right;color:#2c3e50;margin-bottom:15px;padding-top:10px;border-top:2px solid #eee}
+.upload-area{border:3px dashed #667eea;border-radius:10px;padding:40px;text-align:center;background:#f8f9fa;cursor:pointer;transition:.3s}
+.upload-area:hover{background:#e8f4fd;border-color:#764ba2}
 .info-box{background:#e8f4fd;padding:20px;border-radius:10px;margin-bottom:20px;border-left:4px solid #3498db}
+.info-box strong{color:#2980b9}
 .hidden{display:none}
+.email-link{background:#fff3cd;padding:15px;border-radius:8px;margin:15px 0;border-left:4px solid #f39c12}
+.email-link strong{color:#d68910}
+.back-link{display:inline-block;margin-top:20px;color:#667eea;text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+@media(max-width:768px){
+.cart{width:calc(100% - 40px);right:20px;left:20px;bottom:10px}
+.tabs{flex-direction:column}
+.tab{width:100%}
+}
 </style>
 </head>
 <body>
@@ -62,40 +84,46 @@ header h1{color:#2c3e50;margin-bottom:10px}
 <input type="text" id="customerCode" placeholder="Es: ABC123">
 </div>
 <button class="btn btn-primary" onclick="authenticate()">Accedi al Negozio</button>
-<div id="authError" style="color:#e74c3c;margin-top:15px"></div>
+<div id="authError" style="color:#e74c3c;margin-top:15px;min-height:20px"></div>
+<p style="margin-top:30px;color:#999;font-size:14px">
+Non hai un codice? <a href="mailto:weddinggel@aruba.it" style="color:#667eea">Contattaci</a>
+</p>
 </div>
 
 <!-- SHOP -->
 <div id="shopSection" class="hidden">
 <header>
-<h1>🛍️ Negozio Online G&L Studio</h1>
-<p>Benvenuto <span id="customerName"></span> - Scegli le tue foto e crea i tuoi prodotti!</p>
-</div>
+<h1>️ Negozio Online G&L Studio</h1>
+<p>Benvenuto <strong id="customerName"></strong> - Scegli le tue foto e crea i tuoi prodotti!</p>
+<a href="#" onclick="logout()" class="back-link">← Esci</a>
+</header>
 
 <div class="tabs">
-<button class="tab active" onclick="showTab('gallery')">📸 Le Mie Foto</button>
-<button class="tab" onclick="showTab('upload')">📤 Carica Tua Foto</button>
-<button class="tab" onclick="showTab('email')">📧 Ho Inviato Email</button>
-<button class="tab" onclick="showTab('products')">🎁 Prodotti</button>
+<button class="tab active" onclick="showTab('gallery',this)"> Le Mie Foto</button>
+<button class="tab" onclick="showTab('upload',this)"> Carica Tua Foto</button>
+<button class="tab" onclick="showTab('email',this)"> Ho Inviato Email</button>
+<button class="tab" onclick="showTab('products',this)">🛒 Prodotti</button>
 </div>
 
 <!-- GALLERIA FOTO -->
 <div id="tab-gallery" class="section active">
-<h2 style="margin-bottom:20px">Scegli dalle tue foto selezionate</h2>
+<h2>📸 Scegli dalle tue foto selezionate</h2>
 <div class="info-box">
-<strong>ℹ️ Info:</strong> Seleziona le foto che vuoi stampare o usare per i gadget. Puoi scegliere più foto.
+<strong>ℹ️ Info:</strong> Clicca sulle foto che vuoi stampare o usare per i gadget. Puoi scegliere più foto.
 </div>
-<div id="customerGallery" class="photo-grid"></div>
+<div id="customerGallery" class="photo-grid">
+<p style="color:#666;text-align:center;padding:40px">Nessuna foto disponibile. Contatta lo studio per caricare le tue foto.</p>
+</div>
 </div>
 
 <!-- UPLOAD FOTO -->
 <div id="tab-upload" class="section">
-<h2 style="margin-bottom:20px">Carica una tua foto</h2>
+<h2>📤 Carica una tua foto</h2>
 <div class="info-box">
-<strong>️ Info:</strong> Se hai una foto che vuoi stampare o usare per un gadget, caricala qui.
+<strong>📤 Info:</strong> Se hai una foto che vuoi stampare o usare per un gadget, caricala qui.
 </div>
 <div class="upload-area" onclick="openUploadWidget()">
-<div style="font-size:60px;margin-bottom:15px"></div>
+<div style="font-size:60px;margin-bottom:15px">📤</div>
 <h3>Clicca per caricare la tua foto</h3>
 <p style="color:#666;margin-top:10px">Trascina o seleziona dal tuo computer</p>
 </div>
@@ -104,9 +132,9 @@ header h1{color:#2c3e50;margin-bottom:10px}
 
 <!-- EMAIL -->
 <div id="tab-email" class="section">
-<h2 style="margin-bottom:20px">Hai inviato foto via email?</h2>
+<h2>📧 Hai inviato foto via email?</h2>
 <div class="info-box">
-<strong>📧 Email:</strong> mairaluigi@hotmail.it<br><br>
+<strong>📧 Email:</strong> weddinggel@aruba.it<br><br>
 <strong>Come funziona:</strong><br>
 1. Invia le tue foto a questa email<br>
 2. Torna qui e compila il form<br>
@@ -115,7 +143,7 @@ header h1{color:#2c3e50;margin-bottom:10px}
 </div>
 <div class="form-group">
 <label>Numero di foto inviate:</label>
-<input type="number" id="emailPhotoCount" placeholder="Es: 5">
+<input type="number" id="emailPhotoCount" placeholder="Es: 5" min="1">
 </div>
 <div class="form-group">
 <label>Note sull'ordine:</label>
@@ -126,11 +154,14 @@ header h1{color:#2c3e50;margin-bottom:10px}
 
 <!-- PRODOTTI -->
 <div id="tab-products" class="section">
-<h2 style="margin-bottom:20px">Scegli i Prodotti</h2>
+<h2>🛒 Scegli i Prodotti</h2>
 <div class="info-box">
-<strong>ℹ️ Info:</strong> Seleziona i prodotti che vuoi creare. Le foto selezionate verranno usate per la stampa.
+<strong>️ Info:</strong> Seleziona i prodotti che vuoi creare. Le foto selezionate verranno usate per la stampa.
 </div>
-<div class="products-grid" id="productsList"></div>
+<h3 style="margin:20px 0 15px;color:#667eea">🖼️ Stampe</h3>
+<div class="products-grid" id="productsStampe"></div>
+<h3 style="margin:30px 0 15px;color:#667eea">🎁 Gadget</h3>
+<div class="products-grid" id="productsGadget"></div>
 </div>
 </div>
 
@@ -138,21 +169,25 @@ header h1{color:#2c3e50;margin-bottom:10px}
 <div id="cart" class="cart hidden">
 <div class="cart-header">
 <h3>🛒 Carrello</h3>
-<span id="cartCount" style="background:#667eea;color:#fff;padding:5px 10px;border-radius:20px">0</span>
+<span id="cartCount" style="background:#667eea;color:#fff;padding:5px 10px;border-radius:20px;font-size:14px">0</span>
 </div>
-<div class="cart-items" id="cartItems"></div>
+<div class="cart-items" id="cartItems">
+<p style="color:#888;text-align:center;padding:20px">Carrello vuoto</p>
+</div>
 <div class="cart-total">Totale: € <span id="cartTotal">0.00</span></div>
 <button class="btn btn-success" onclick="checkoutPayPal()" style="width:100%">💳 Paga con PayPal</button>
+<button class="btn btn-danger" onclick="clearCart()" style="width:100%;margin-top:5px">🗑️ Svuota Carrello</button>
 </div>
 </div>
 
 <script>
 // CONFIG
 const CLOUD_NAME='g3439ih4';
-const PAYPAL_EMAIL='mairaluigi@hotmail.it';
+const SHOP_EMAIL='weddinggel@aruba.it';
 const CUSTOMER_DB={
+// Aggiungi i tuoi clienti qui
 'ABC123':{name:'Mario Rossi',gallery:['foto1.jpg','foto2.jpg','foto3.jpg']},
-// Aggiungi altri clienti qui
+'TEST01':{name:'Cliente Test',gallery:[]}
 };
 
 let cart=[];
@@ -162,7 +197,7 @@ let currentCustomer=null;
 
 // AUTH
 function authenticate(){
-const code=document.getElementById('customerCode').value.trim();
+const code=document.getElementById('customerCode').value.trim().toUpperCase();
 if(CUSTOMER_DB[code]){
 currentCustomer=CUSTOMER_DB[code];
 document.getElementById('customerName').textContent=currentCustomer.name;
@@ -172,15 +207,19 @@ document.getElementById('cart').classList.remove('hidden');
 loadGallery();
 loadProducts();
 }else{
-document.getElementById('authError').textContent=' Codice cliente non valido!';
+document.getElementById('authError').textContent='❌ Codice cliente non valido!';
 }
 }
 
+function logout(){
+location.reload();
+}
+
 // TABS
-function showTab(tabName){
+function showTab(tabName,btn){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-event.target.classList.add('active');
+btn.classList.add('active');
 document.getElementById('tab-'+tabName).classList.add('active');
 }
 
@@ -188,7 +227,7 @@ document.getElementById('tab-'+tabName).classList.add('active');
 function loadGallery(){
 const grid=document.getElementById('customerGallery');
 grid.innerHTML='';
-if(currentCustomer.gallery){
+if(currentCustomer.gallery&&currentCustomer.gallery.length>0){
 currentCustomer.gallery.forEach((photo,idx)=>{
 const card=document.createElement('div');
 card.className='photo-card';
@@ -199,6 +238,8 @@ card.innerHTML=`
 card.onclick=()=>togglePhotoSelection(photo,card);
 grid.appendChild(card);
 });
+}else{
+grid.innerHTML='<p style="color:#666;text-align:center;padding:40px;grid-column:1/-1">Nessuna foto disponibile. Contatta lo studio per caricare le tue foto.</p>';
 }
 }
 
@@ -226,13 +267,22 @@ document.getElementById('uploadedPhoto').innerHTML=`
 <div class="photo-card selected" style="max-width:300px;margin:0 auto">
 <img src="${uploadedPhotoUrl}" alt="Foto caricata">
 <div class="check">✓</div>
-<p style="padding:10px;background:#27ae60;color:#fff;margin-top:0">Foto caricata con successo!</p>
+<p style="padding:10px;background:#27ae60;color:#fff;margin:0">✅ Foto caricata con successo!</p>
 </div>
+<button class="btn btn-success" onclick="addToCartFromUpload()" style="margin-top:15px;width:100%">🛒 Aggiungi al Carrello</button>
 `;
 selectedPhotos.push(uploadedPhotoUrl);
 }
 });
 widget.open();
+}
+
+function addToCartFromUpload(){
+if(!uploadedPhotoUrl){
+alert('Carica prima una foto!');
+return;
+}
+alert('Foto aggiunta! Ora vai nella sezione "Prodotti" per scegliere cosa creare.');
 }
 
 // EMAIL ORDER
@@ -245,22 +295,35 @@ return;
 }
 const subject=`Nuovo Ordine Negozio - ${currentCustomer.name}`;
 const body=`Ciao G&L Studio,%0D%0A%0D%0AHo inviato ${count} foto via email e vorrei ordinare:%0D%0A%0D%0A${notes}%0D%0A%0D%0ANome: ${currentCustomer.name}%0D%0ACodice Cliente: ${document.getElementById('customerCode').value}%0D%0A%0D%0AGrazie!`;
-window.location.href=`mailto:${PAYPAL_EMAIL}?subject=${subject}&body=${body}`;
+window.location.href=`mailto:${SHOP_EMAIL}?subject=${subject}&body=${body}`;
+setTimeout(()=>{
 alert('Email pronta! Completala e inviala a G&L Studio.');
+},500);
 }
 
 // PRODUCTS
 function loadProducts(){
-const products=[
+const stampe=[
 {id:'stampa_10x15',name:'Stampa 10x15 cm',price:0.50,icon:'🖼️'},
-{id:'stampa_20x30',name:'Stampa 20x30 cm',price:5.00,icon:'️'},
+{id:'stampa_15x20',name:'Stampa 15x20 cm',price:2.00,icon:'🖼️'},
+{id:'stampa_20x30',name:'Stampa 20x30 cm',price:5.00,icon:'🖼️'},
 {id:'stampa_30x40',name:'Stampa 30x40 cm',price:10.00,icon:'🖼️'},
-{id:'cuscino_cuore',name:'Cuscino Cuore',price:25.00,icon:'❤️',colors:['Rosso','Rosa','Blu','Bianco']},
-{id:'tazza',name:'Tazza Personalizzata',price:12.00,icon:'☕'},
-{id:'tela_30x40',name:'Tela 30x40 cm',price:35.00,icon:''},
-{id:'tela_50x70',name:'Tela 50x70 cm',price:65.00,icon:'🎨'}
+{id:'stampa_50x70',name:'Stampa 50x70 cm',price:20.00,icon:'️'}
 ];
-const container=document.getElementById('productsList');
+const gadget=[
+{id:'cuscino_cuore',name:'Cuscino Cuore',price:25.00,icon:'❤️',colors:['Rosso','Rosa','Blu','Bianco','Nero']},
+{id:'tazza',name:'Tazza Personalizzata',price:12.00,icon:'',colors:['Bianca','Nera']},
+{id:'tela_30x40',name:'Tela 30x40 cm',price:35.00,icon:'🎨'},
+{id:'tela_50x70',name:'Tela 50x70 cm',price:65.00,icon:'🎨'},
+{id:'portachiavi',name:'Portachiavi Foto',price:8.00,icon:''},
+{id:'magnete',name:'Calamita Frigo',price:5.00,icon:'🧲'}
+];
+renderProducts('productsStampe',stampe);
+renderProducts('productsGadget',gadget);
+}
+
+function renderProducts(containerId,products){
+const container=document.getElementById(containerId);
 container.innerHTML='';
 products.forEach(p=>{
 const card=document.createElement('div');
@@ -271,26 +334,26 @@ let html=`
 <div class="product-price">€ ${p.price.toFixed(2)}</div>
 `;
 if(p.colors){
-html+=`<select id="color_${p.id}" style="margin-top:10px;padding:8px;border-radius:5px;border:1px solid #ddd">`;
+html+=`<select id="color_${p.id}" onclick="event.stopPropagation()">`;
 p.colors.forEach(c=>html+=`<option value="${c}">${c}</option>`);
 html+=`</select>`;
 }
+html+=`<button class="btn btn-success" style="margin-top:10px;width:100%" onclick="event.stopPropagation();addToCart('${p.id}','${p.name}',${p.price},'${p.colors?p.colors[0]:''}')">🛒 Aggiungi</button>`;
 card.innerHTML=html;
-card.onclick=()=>{
-document.querySelectorAll('.product-card').forEach(c=>c.classList.remove('selected'));
-card.classList.add('selected');
-addToCart(p);
-};
 container.appendChild(card);
 });
 }
 
 // CART
-function addToCart(product){
-const color=document.getElementById(`color_${product.id}`)?.value||null;
-const item={...product,selectedPhotos:[...selectedPhotos],color:color,qty:1};
+function addToCart(id,name,price,color){
+if(selectedPhotos.length===0&&!uploadedPhotoUrl){
+if(!confirm('Non hai selezionato foto. Vuoi comunque aggiungere il prodotto al carrello?'))return;
+}
+const photosToUse=uploadedPhotoUrl?[uploadedPhotoUrl]:[...selectedPhotos];
+const item={id,name,price,color,photos:[...photosToUse],qty:1};
 cart.push(item);
 updateCart();
+alert(`✅ ${name} aggiunto al carrello!`);
 }
 
 function updateCart(){
@@ -299,19 +362,26 @@ const total=document.getElementById('cartTotal');
 const count=document.getElementById('cartCount');
 items.innerHTML='';
 let totalAmount=0;
+if(cart.length===0){
+items.innerHTML='<p style="color:#888;text-align:center;padding:20px">Carrello vuoto</p>';
+}else{
 cart.forEach((item,idx)=>{
 const itemTotal=item.price*item.qty;
 totalAmount+=itemTotal;
 items.innerHTML+=`
 <div class="cart-item">
-<div>
-<strong>${item.name}</strong>${item.color?`<br>Colore: ${item.color}`:''}<br>
-<small>${item.selectedPhotos.length} foto</small>
+<div class="cart-item-info">
+<strong>${item.name}</strong>
+<small>${item.color?'Colore: '+item.color:''} • ${item.photos.length} foto</small>
 </div>
-<div>€ ${itemTotal.toFixed(2)} <span style="color:#e74c3c;cursor:pointer;margin-left:10px" onclick="removeFromCart(${idx})">✕</span></div>
+<div style="text-align:right">
+<div>€ ${itemTotal.toFixed(2)}</div>
+<span style="color:#e74c3c;cursor:pointer;font-size:18px" onclick="removeFromCart(${idx})">✕</span>
+</div>
 </div>
 `;
 });
+}
 total.textContent=totalAmount.toFixed(2);
 count.textContent=cart.length;
 }
@@ -321,18 +391,28 @@ cart.splice(idx,1);
 updateCart();
 }
 
+function clearCart(){
+if(cart.length===0)return;
+if(confirm('Vuoi svuotare il carrello?')){
+cart=[];
+updateCart();
+}
+}
+
 // CHECKOUT
 function checkoutPayPal(){
 if(cart.length===0){
 alert('Il carrello è vuoto!');
 return;
 }
-let itemsList=cart.map(i=>`- ${i.name} (${i.selectedPhotos.length} foto): € ${(i.price*i.qty).toFixed(2)}`).join('%0D%0A');
+let itemsList=cart.map(i=>`- ${i.name} ${i.color?'('+i.color+')':''} (${i.photos.length} foto): € ${(i.price*i.qty).toFixed(2)}`).join('%0D%0A');
 const total=document.getElementById('cartTotal').textContent;
 const subject=`Ordine Negozio Online - ${currentCustomer.name}`;
-const body=`Ciao G&L Studio,%0D%0A%0D%0AVorrei ordinare:%0D%0A%0D%0A${itemsList}%0D%0A%0D%0ATotale: € ${total}%0D%0A%0D%0ANome: ${currentCustomer.name}%0D%0AEmail: mairaluigi@hotmail.it%0D%0A%0D%0AAttendo istruzioni per il pagamento PayPal.%0D%0A%0D%0AGrazie!`;
-window.location.href=`mailto:${PAYPAL_EMAIL}?subject=${subject}&body=${body}`;
-alert('Email ordine pronta! Inviala a G&L Studio per ricevere il link PayPal.');
+const body=`Ciao G&L Studio,%0D%0A%0D%0AVorrei ordinare:%0D%0A%0D%0A${itemsList}%0D%0A%0D%0ATotale: € ${total}%0D%0A%0D%0ANome: ${currentCustomer.name}%0D%0AEmail: ${SHOP_EMAIL}%0D%0A%0D%0AAttendo istruzioni per il pagamento PayPal.%0D%0A%0D%0AGrazie!`;
+window.location.href=`mailto:${SHOP_EMAIL}?subject=${subject}&body=${body}`;
+setTimeout(()=>{
+alert(' Email ordine pronta! Inviala a G&L Studio per ricevere il link PayPal.');
+},500);
 }
 </script>
 
