@@ -122,7 +122,7 @@ header p{color:#666;margin-top:5px}
 <!-- LOGIN INIZIALE -->
 <div id="loginScreen" class="container">
 <div class="login-box">
-<h2>🛍️ G&L Studio - Negozio Cliente</h2>
+<h2>️ G&L Studio - Negozio Cliente</h2>
 <p style="color:#666;margin-bottom:25px">Accedi come Cliente o Admin</p>
 <div class="form-group">
 <label>Codice Cliente:</label>
@@ -153,7 +153,7 @@ header p{color:#666;margin-top:5px}
 <div id="adminDashboard" class="container hidden">
 <a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
 <header>
-<h1>⚙️ Dashboard Admin - Negozio Cliente</h1>
+<h1>️ Dashboard Admin - Negozio Cliente</h1>
 <p>G&L Studio - Gestione completa</p>
 </header>
 
@@ -176,7 +176,7 @@ header p{color:#666;margin-top:5px}
 <div class="card">
 <h2>➕ Crea Nuovo Negozio per Cliente</h2>
 <div class="info-box">
-<strong>ℹ️ Come funziona:</strong><br>
+<strong>️ Come funziona:</strong><br>
 Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codice Cliente univoco</strong> (es: GL-ABC123) per evitare omonimie.
 </div>
 <div class="form-row">
@@ -198,7 +198,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 </div>
 
 <div class="card">
-<h2>📸 Carica Foto per Cliente</h2>
+<h2> Carica Foto per Cliente</h2>
 <div class="form-group">
 <label>Seleziona Cliente:</label>
 <select id="photoClientSelect"></select>
@@ -208,7 +208,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <input type="text" id="cloudName" value="g3439ih4">
 </div>
 <div class="info-box">
-<strong>📤 Caricamento:</strong><br>
+<strong> Caricamento:</strong><br>
 1. Clicca "Apri Widget"<br>
 2. Trascina le foto (anteprime a bassa risoluzione)<br>
 3. Attendi il caricamento
@@ -231,7 +231,10 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <label>Categoria:</label>
 <select id="prodCategory">
 <option value="stampa">🖼️ Stampa</option>
-<option value="gadget"> Gadget</option>
+<option value="gadget">🎁 Gadget</option>
+<option value="tele">🖼️ Tela</option>
+<option value="forex">️ Forex</option>
+<option value="plex">🖼️ Plexiglass</option>
 </select>
 </div>
 </div>
@@ -272,7 +275,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 
 <div id="tab-ordini" class="tab-content">
 <div class="card">
-<h2>📋 Ordini Ricevuti</h2>
+<h2> Ordini Ricevuti</h2>
 <div id="ordersList"></div>
 </div>
 </div>
@@ -280,7 +283,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 
 <!-- CLIENT SHOP -->
 <div id="clientShop" class="container hidden">
-<a href="#" onclick="showInitialLogin()" class="admin-link"> Esci</a>
+<a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
 <header>
 <h1>🛍️ Benvenuto <span id="clientShopName"></span></h1>
 <p>Clicca su una foto per scegliere il prodotto da acquistare</p>
@@ -288,11 +291,11 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 
 <div class="shop-layout">
 <div class="card">
-<h2> Le Tue Foto - Clicca per Ordinare</h2>
+<h2>📸 Le Tue Foto - Clicca per Ordinare</h2>
 <div class="info-box">
-<strong>️ Come ordinare:</strong><br>
+<strong>ℹ️ Come ordinare:</strong><br>
 1. Clicca su una foto che ti piace<br>
-2. Scegli il prodotto (stampa, gadget, ecc.)<br>
+2. Scegli il prodotto (stampa, gadget, tela, forex, plex, ecc.)<br>
 3. Clicca "Aggiungi al carrello"<br>
 4. Ripeti per altre foto con prodotti diversi<br>
 5. Completa l'ordine dal carrello
@@ -315,7 +318,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 Il ritiro dei prodotti avviene presso il nostro Studio.<br>
 <strong>⚠️ Eventuali spedizioni sono a carico del cliente.</strong>
 <div class="studio-address">
-<strong>📌 G&L Studio</strong><br>
+<strong> G&L Studio</strong><br>
 Via Ciarrocco, 21 – Canicattì (AG)<br>
 Tel: 3206337370 - 3669381103<br>
 Email: weddinggel@aruba.it
@@ -347,7 +350,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 </div>
 
 <div class="paypal-section">
-<h3>💳 Paga ora con PayPal</h3>
+<h3> Paga ora con PayPal</h3>
 <p style="margin-bottom:15px">Clicca il pulsante per completare il pagamento:</p>
 <a id="paypalLink" href="#" target="_blank" class="paypal-btn">💳 Paga con PayPal</a>
 <p style="font-size:12px;color:#666;margin-top:10px">Verrai redirectato su PayPal per completare il pagamento in sicurezza.</p>
@@ -358,7 +361,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <p><strong>Il ritiro avviene presso il nostro Studio:</strong></p>
 <p>📌 Via Ciarrocco, 21 – Canicattì (AG)</p>
 <p>📞 Tel: 3206337370 - 3669381103</p>
-<p> Email: weddinggel@aruba.it</p>
+<p>📧 Email: weddinggel@aruba.it</p>
 <p style="margin-top:10px;color:#856404"><strong>️ Eventuali spedizioni sono a carico del cliente.</strong></p>
 </div>
 
@@ -397,8 +400,20 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <div id="modalStampe" class="product-grid"></div>
 </div>
 <div class="products-section">
-<h3>🎁 Gadget Disponibili</h3>
+<h3> Gadget Disponibili</h3>
 <div id="modalGadget" class="product-grid"></div>
+</div>
+<div class="products-section">
+<h3>🖼️ Tele Disponibili</h3>
+<div id="modalTele" class="product-grid"></div>
+</div>
+<div class="products-section">
+<h3>️ Forex Disponibili</h3>
+<div id="modalForex" class="product-grid"></div>
+</div>
+<div class="products-section">
+<h3>🖼️ Plexiglass Disponibili</h3>
+<div id="modalPlex" class="product-grid"></div>
 </div>
 </div>
 </div>
@@ -735,6 +750,17 @@ document.getElementById('prodImagePreview').innerHTML='';
 }
 
 // ============ LOAD ADMIN DATA ============
+function getCategoryLabel(cat){
+const labels={
+stampa:'️ Stampa',
+gadget:' Gadget',
+tele:'🖼️ Tela',
+forex:'🖼️ Forex',
+plex:'🖼️ Plexiglass'
+};
+return labels[cat]||cat;
+}
+
 function loadAdminData(){
 const db=getDB();
 const clientsList=document.getElementById('clientsList');
@@ -746,9 +772,9 @@ clientsList.innerHTML=db.clients.map(c=>`
 <h3>${c.name}</h3>
 <div class="code">${c.code}</div>
 <div style="font-size:13px;color:#666">
- ${c.email||'Nessuna email'}<br>
+📧 ${c.email||'Nessuna email'}<br>
 📸 ${c.photos?c.photos.length:0} foto<br>
- ${c.created}
+📅 ${c.created}
 </div>
 <button class="btn btn-sm btn-danger" onclick="deleteClient(${c.id})">🗑️ Elimina</button>
 </div>
@@ -764,7 +790,7 @@ productsList.innerHTML=db.products.map(p=>`
 <div class="product-card">
 ${p.image?'<img src="'+p.image+'" alt="'+p.name+'">':''}
 <div class="name">${p.name}</div>
-<div class="desc">${p.category==='stampa'?'🖼️ Stampa':'🎁 Gadget'}${p.size?' • '+p.size:''}</div>
+<div class="desc">${getCategoryLabel(p.category)}${p.size?' • '+p.size:''}</div>
 <div class="price">€ ${p.price.toFixed(2)}</div>
 ${p.colors&&p.colors.length?'<div style="font-size:11px;color:#666">Colori: '+p.colors.join(', ')+'</div>':''}
 <div style="margin-top:10px">
@@ -804,8 +830,15 @@ document.getElementById('modalPhotoName').textContent='Foto: '+selectedPhoto.nam
 const db=getDB();
 const stampe=db.products.filter(p=>p.category==='stampa');
 const gadget=db.products.filter(p=>p.category==='gadget');
+const tele=db.products.filter(p=>p.category==='tele');
+const forex=db.products.filter(p=>p.category==='forex');
+const plex=db.products.filter(p=>p.category==='plex');
+
 document.getElementById('modalStampe').innerHTML=stampe.length?stampe.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessuna stampa disponibile</p>';
 document.getElementById('modalGadget').innerHTML=gadget.length?gadget.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun gadget disponibile</p>';
+document.getElementById('modalTele').innerHTML=tele.length?tele.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessuna tela disponibile</p>';
+document.getElementById('modalForex').innerHTML=forex.length?forex.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun forex disponibile</p>';
+document.getElementById('modalPlex').innerHTML=plex.length?plex.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun plexiglass disponibile</p>';
 document.getElementById('productModal').classList.remove('hidden');
 }
 
@@ -839,6 +872,7 @@ cart.push({
 id:Date.now()+Math.random(),
 productId:product.id,
 productName:product.name,
+productCategory:product.category,
 price:product.price,
 size:product.size,
 color:color,
@@ -867,7 +901,7 @@ return `
 <img src="${getThumbnailUrl(item.photoUrl)}" class="cart-item-img">
 <div class="cart-item-info">
 <strong>${item.productName}</strong>
-<small>${item.size||''} ${item.color?'• '+item.color:''}</small>
+<small>${getCategoryLabel(item.productCategory)} ${item.size?'• '+item.size:''} ${item.color?'• '+item.color:''}</small>
 <small>Foto: ${item.photoName}</small>
 </div>
 <div class="cart-item-price">€${item.price.toFixed(2)}</div>
@@ -904,12 +938,10 @@ saveDB(db);
 generateOrderPDF(order);
 generateGruFile(order);
 
-// Configura link PayPal
 const paypalAmount=order.total.toFixed(2);
 const paypalUrl=`https://www.paypal.com/paypalme/mairaluigi/${paypalAmount}`;
 document.getElementById('paypalLink').href=paypalUrl;
 
-// Popola schermata successo
 document.getElementById('successOrderId').textContent=order.id;
 document.getElementById('successClientName').textContent=order.clientName;
 document.getElementById('successTotal').textContent=order.total.toFixed(2);
@@ -936,7 +968,7 @@ doc.text('Prodotti ordinati:',20,105);
 let y=115;
 doc.setFontSize(11);
 order.items.forEach((item,i)=>{
-doc.text((i+1)+'. '+item.productName,25,y);
+doc.text((i+1)+'. '+item.productName+' ['+getCategoryLabel(item.productCategory)+']',25,y);
 if(item.size)doc.text('   Misura: '+item.size,25,y+6);
 if(item.color)doc.text('   Colore: '+item.color,25,y+12);
 doc.text('   Foto: '+item.photoName,25,y+(item.color?18:12));
@@ -986,7 +1018,7 @@ container.innerHTML=db.orders.slice().reverse().map(order=>`
 <div>
 ${order.items.map(item=>`
 <div class="order-item-row">
-<span><strong>${item.productName}</strong>${item.size?' ('+item.size+')':''}${item.color?' - '+item.color:''}<br><small style="color:#666">Foto: ${item.photoName}</small></span>
+<span><strong>${item.productName}</strong> [${getCategoryLabel(item.productCategory)}]${item.size?' ('+item.size+')':''}${item.color?' - '+item.color:''}<br><small style="color:#666">Foto: ${item.photoName}</small></span>
 <span style="font-weight:bold;color:#e74c3c">€${item.price.toFixed(2)}</span>
 </div>
 `).join('')}
@@ -994,7 +1026,7 @@ ${order.items.map(item=>`
 <div class="order-total">Totale: €${order.total.toFixed(2)}</div>
 <div class="order-actions">
 <button class="btn btn-sm btn-primary" onclick="downloadOrderPDF('${order.id}')">📄 PDF Ordine</button>
-<button class="btn btn-sm btn-success" onclick="downloadOrderGru('${order.id}')"> File Gru</button>
+<button class="btn btn-sm btn-success" onclick="downloadOrderGru('${order.id}')">📝 File Gru</button>
 <button class="btn btn-sm btn-warning" onclick="markOrderDone('${order.id}')">✅ Completato</button>
 <button class="btn btn-sm btn-danger" onclick="deleteOrder('${order.id}')">🗑️ Elimina</button>
 </div>
