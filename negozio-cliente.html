@@ -44,10 +44,16 @@ header p{color:#666;margin-top:5px}
 .tab-content.active{display:block}
 .login-box{max-width:450px;margin:80px auto;background:#fff;padding:40px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center}
 .login-box h2{color:#2c3e50;margin-bottom:20px}
-.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px}
+.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:15px}
 .client-card{background:#f8f9fa;border-radius:10px;padding:20px;border-left:4px solid #667eea}
 .client-card h3{color:#2c3e50;margin-bottom:10px}
-.client-card .code{background:#667eea;color:#fff;padding:8px 15px;border-radius:20px;display:inline-block;font-weight:bold;margin:10px 0}
+.client-card .code{background:#667eea;color:#fff;padding:8px 15px;border-radius:20px;display:inline-flex;align-items:center;gap:8px;font-weight:bold;margin:10px 0}
+.client-card .code-btn{background:rgba(255,255,255,.3);border:none;color:#fff;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:12px}
+.client-card .code-btn:hover{background:rgba(255,255,255,.5)}
+.client-card .shop-link{background:#e8f4fd;padding:8px 12px;border-radius:8px;margin-top:10px;display:flex;align-items:center;gap:8px;font-size:12px}
+.client-card .shop-link input{flex:1;border:1px solid #ddd;padding:5px 8px;border-radius:5px;font-size:11px}
+.client-card .shop-link button{background:#667eea;color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-size:11px;white-space:nowrap}
+.client-card .shop-link button:hover{background:#764ba2}
 .product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
 .product-card{background:#f8f9fa;border-radius:10px;padding:15px;text-align:center;border:2px solid transparent;transition:.3s}
 .product-card:hover{border-color:#667eea;transform:translateY(-3px)}
@@ -114,6 +120,11 @@ header p{color:#666;margin-top:5px}
 .admin-link:hover{background:rgba(255,255,255,.3)}
 .backup-bar{background:#fff3cd;padding:15px;border-radius:10px;margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-left:4px solid #f39c12}
 .backup-bar strong{color:#d68910}
+.shop-link-bar{background:#e8f4fd;padding:15px;border-radius:10px;margin-bottom:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;border-left:4px solid #3498db}
+.shop-link-bar strong{color:#2980b9}
+.shop-link-bar input{flex:1;min-width:200px;padding:8px;border:1px solid #ddd;border-radius:5px;font-size:13px}
+.shop-link-bar button{background:#667eea;color:#fff;border:none;padding:8px 15px;border-radius:5px;cursor:pointer;font-weight:600;white-space:nowrap}
+.shop-link-bar button:hover{background:#764ba2}
 @media(max-width:968px){.shop-layout{grid-template-columns:1fr}.cart-panel{position:fixed;bottom:0;left:0;right:0;max-height:50vh;border-radius:15px 15px 0 0}.form-row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -122,13 +133,13 @@ header p{color:#666;margin-top:5px}
 <!-- LOGIN INIZIALE -->
 <div id="loginScreen" class="container">
 <div class="login-box">
-<h2>️ G&L Studio - Negozio Cliente</h2>
+<h2>🛍️ G&L Studio - Negozio Cliente</h2>
 <p style="color:#666;margin-bottom:25px">Accedi come Cliente o Admin</p>
 <div class="form-group">
 <label>Codice Cliente:</label>
 <input type="text" id="loginCode" placeholder="Es: GL-ABC123">
 </div>
-<button class="btn btn-primary btn-block" onclick="clientLogin()">🛒 Accedi come Cliente</button>
+<button class="btn btn-primary btn-block" onclick="clientLogin()"> Accedi come Cliente</button>
 <div style="margin:15px 0;color:#999">— oppure —</div>
 <button class="btn btn-secondary btn-block" onclick="showAdminLogin()">⚙️ Area Admin</button>
 <div id="loginError" style="color:#e74c3c;margin-top:15px;min-height:20px"></div>
@@ -153,21 +164,28 @@ header p{color:#666;margin-top:5px}
 <div id="adminDashboard" class="container hidden">
 <a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
 <header>
-<h1>️ Dashboard Admin - Negozio Cliente</h1>
+<h1>⚙️ Dashboard Admin - Negozio Cliente</h1>
 <p>G&L Studio - Gestione completa</p>
 </header>
 
 <div class="backup-bar">
 <strong>💾 Backup & Ripristino:</strong>
 <button class="btn btn-success btn-sm" onclick="backupData()">📥 Scarica Backup</button>
-<button class="btn btn-warning btn-sm" onclick="document.getElementById('restoreFile').click()"> Ripristina Backup</button>
+<button class="btn btn-warning btn-sm" onclick="document.getElementById('restoreFile').click()">🔄 Ripristina Backup</button>
 <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="restoreData(this)">
-<button class="btn btn-info btn-sm" onclick="exportOrdersPDF()">📄 Esporta Ordini PDF</button>
+<button class="btn btn-info btn-sm" onclick="exportOrdersPDF()"> Esporta Ordini PDF</button>
 <span style="margin-left:auto;font-size:13px;color:#666" id="lastBackup"></span>
 </div>
 
+<!-- LINK NEGOZIO -->
+<div class="shop-link-bar">
+<strong> Link Negozio (da inviare ai clienti):</strong>
+<input type="text" id="shopLinkInput" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/negozio-cliente.html" readonly>
+<button onclick="copyShopLink()"> Copia Link</button>
+</div>
+
 <div class="tabs">
-<button class="tab active" onclick="showAdminTab('clienti',this)">👥 Clienti</button>
+<button class="tab active" onclick="showAdminTab('clienti',this)"> Clienti</button>
 <button class="tab" onclick="showAdminTab('prodotti',this)">🛍️ Prodotti</button>
 <button class="tab" onclick="showAdminTab('ordini',this)">📋 Ordini</button>
 </div>
@@ -176,7 +194,7 @@ header p{color:#666;margin-top:5px}
 <div class="card">
 <h2>➕ Crea Nuovo Negozio per Cliente</h2>
 <div class="info-box">
-<strong>️ Come funziona:</strong><br>
+<strong>ℹ️ Come funziona:</strong><br>
 Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codice Cliente univoco</strong> (es: GL-ABC123) per evitare omonimie.
 </div>
 <div class="form-row">
@@ -198,7 +216,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 </div>
 
 <div class="card">
-<h2> Carica Foto per Cliente</h2>
+<h2>📸 Carica Foto per Cliente</h2>
 <div class="form-group">
 <label>Seleziona Cliente:</label>
 <select id="photoClientSelect"></select>
@@ -230,10 +248,10 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <div class="form-group">
 <label>Categoria:</label>
 <select id="prodCategory">
-<option value="stampa">🖼️ Stampa</option>
+<option value="stampa">🖼️ Stampe</option>
+<option value="tele">️ Tele</option>
+<option value="forex">🖼️ Forex</option>
 <option value="gadget">🎁 Gadget</option>
-<option value="tele">🖼️ Tela</option>
-<option value="forex">️ Forex</option>
 <option value="plex">🖼️ Plexiglass</option>
 </select>
 </div>
@@ -259,7 +277,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <div class="form-group">
 <label>Immagine Prodotto (URL Cloudinary):</label>
 <input type="text" id="prodImage" placeholder="https://res.cloudinary.com/...">
-<button class="btn btn-sm btn-secondary" onclick="uploadProductImage()" style="margin-top:5px">📤 Carica Immagine</button>
+<button class="btn btn-sm btn-secondary" onclick="uploadProductImage()" style="margin-top:5px"> Carica Immagine</button>
 </div>
 <div id="prodImagePreview" style="margin-top:10px"></div>
 <input type="hidden" id="editingProductId">
@@ -275,7 +293,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 
 <div id="tab-ordini" class="tab-content">
 <div class="card">
-<h2> Ordini Ricevuti</h2>
+<h2>📋 Ordini Ricevuti</h2>
 <div id="ordersList"></div>
 </div>
 </div>
@@ -295,7 +313,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <div class="info-box">
 <strong>ℹ️ Come ordinare:</strong><br>
 1. Clicca su una foto che ti piace<br>
-2. Scegli il prodotto (stampa, gadget, tela, forex, plex, ecc.)<br>
+2. Scegli il prodotto (stampa, tela, forex, gadget, plex, ecc.)<br>
 3. Clicca "Aggiungi al carrello"<br>
 4. Ripeti per altre foto con prodotti diversi<br>
 5. Completa l'ordine dal carrello
@@ -318,7 +336,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 Il ritiro dei prodotti avviene presso il nostro Studio.<br>
 <strong>⚠️ Eventuali spedizioni sono a carico del cliente.</strong>
 <div class="studio-address">
-<strong> G&L Studio</strong><br>
+<strong>📌 G&L Studio</strong><br>
 Via Ciarrocco, 21 – Canicattì (AG)<br>
 Tel: 3206337370 - 3669381103<br>
 Email: weddinggel@aruba.it
@@ -350,7 +368,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 </div>
 
 <div class="paypal-section">
-<h3> Paga ora con PayPal</h3>
+<h3>💳 Paga ora con PayPal</h3>
 <p style="margin-bottom:15px">Clicca il pulsante per completare il pagamento:</p>
 <a id="paypalLink" href="#" target="_blank" class="paypal-btn">💳 Paga con PayPal</a>
 <p style="font-size:12px;color:#666;margin-top:10px">Verrai redirectato su PayPal per completare il pagamento in sicurezza.</p>
@@ -362,7 +380,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <p>📌 Via Ciarrocco, 21 – Canicattì (AG)</p>
 <p>📞 Tel: 3206337370 - 3669381103</p>
 <p>📧 Email: weddinggel@aruba.it</p>
-<p style="margin-top:10px;color:#856404"><strong>️ Eventuali spedizioni sono a carico del cliente.</strong></p>
+<p style="margin-top:10px;color:#856404"><strong>⚠️ Eventuali spedizioni sono a carico del cliente.</strong></p>
 </div>
 
 <p style="color:#667eea;font-weight:600;margin:20px 0">G&L Studio ti contatterà presto per confermare la disponibilità dei prodotti e concordare il ritiro.</p>
@@ -400,16 +418,16 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <div id="modalStampe" class="product-grid"></div>
 </div>
 <div class="products-section">
-<h3> Gadget Disponibili</h3>
-<div id="modalGadget" class="product-grid"></div>
-</div>
-<div class="products-section">
 <h3>🖼️ Tele Disponibili</h3>
 <div id="modalTele" class="product-grid"></div>
 </div>
 <div class="products-section">
-<h3>️ Forex Disponibili</h3>
+<h3>🖼️ Forex Disponibili</h3>
 <div id="modalForex" class="product-grid"></div>
+</div>
+<div class="products-section">
+<h3>🎁 Gadget Disponibili</h3>
+<div id="modalGadget" class="product-grid"></div>
 </div>
 <div class="products-section">
 <h3>🖼️ Plexiglass Disponibili</h3>
@@ -425,6 +443,7 @@ const ADMIN_PASS='12763Mlg';
 const CLOUD_NAME='g3439ih4';
 const DB_KEY='gl_negozio_db';
 const PAYPAL_EMAIL='mairaluigi@hotmail.it';
+const SHOP_LINK='https://cibox72.github.io/Gestione-Studio-Foto-e-Video/negozio-cliente.html';
 
 // ============ DATABASE ============
 function getDB(){
@@ -445,6 +464,42 @@ function getThumbnailUrl(url) {
 function getGoodQualityUrl(url) {
     if (!url || !url.includes('cloudinary.com')) return url;
     return url.replace('/upload/', '/upload/w_1000,h_1000,c_fill,q_85/');
+}
+
+// ============ COPIA ============
+function copyToClipboard(text, btnElement) {
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = btnElement.textContent;
+        btnElement.textContent = '✅ Copiato!';
+        setTimeout(() => { btnElement.textContent = originalText; }, 2000);
+    }).catch(() => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        const originalText = btnElement.textContent;
+        btnElement.textContent = '✅ Copiato!';
+        setTimeout(() => { btnElement.textContent = originalText; }, 2000);
+    });
+}
+
+function copyShopLink() {
+    const btn = event.target;
+    copyToClipboard(SHOP_LINK, btn);
+}
+
+function copyClientCode(code, btnElement) {
+    const link = SHOP_LINK;
+    const message = `Ciao! Ecco il tuo codice per accedere al negozio G&L Studio:\n\nCodice: ${code}\n\nLink: ${link}\n\nInserisci il codice nella pagina per vedere le tue foto e ordinare i prodotti.`;
+    copyToClipboard(message, btnElement);
+}
+
+function copyShopLinkForClient(clientCode, btnElement) {
+    const message = `Ciao! Ecco il link per accedere al tuo negozio personale G&L Studio:\n\nLink: ${SHOP_LINK}\n\nIl tuo codice cliente è: ${clientCode}\n\nInserisci il codice nella pagina per vedere le tue foto e ordinare i prodotti.`;
+    copyToClipboard(message, btnElement);
 }
 
 // ============ BACKUP & RIPRISTINO ============
@@ -752,9 +807,9 @@ document.getElementById('prodImagePreview').innerHTML='';
 // ============ LOAD ADMIN DATA ============
 function getCategoryLabel(cat){
 const labels={
-stampa:'️ Stampa',
-gadget:' Gadget',
-tele:'🖼️ Tela',
+stampa:'🖼️ Stampa',
+gadget:'🎁 Gadget',
+tele:'️ Tela',
 forex:'🖼️ Forex',
 plex:'🖼️ Plexiglass'
 };
@@ -770,13 +825,22 @@ clientsList.innerHTML='<p style="color:#888;text-align:center;padding:20px;grid-
 clientsList.innerHTML=db.clients.map(c=>`
 <div class="client-card">
 <h3>${c.name}</h3>
-<div class="code">${c.code}</div>
+<div class="code">
+ ${c.code}
+<button class="code-btn" onclick="copyClientCode('${c.code}',this)">📋 Copia</button>
+</div>
 <div style="font-size:13px;color:#666">
 📧 ${c.email||'Nessuna email'}<br>
 📸 ${c.photos?c.photos.length:0} foto<br>
 📅 ${c.created}
 </div>
+<div class="shop-link">
+🔗 <input type="text" value="${SHOP_LINK}" readonly id="shopLink_${c.id}">
+<button onclick="copyShopLinkForClient('${c.code}',this)">📋 Copia per cliente</button>
+</div>
+<div style="margin-top:10px">
 <button class="btn btn-sm btn-danger" onclick="deleteClient(${c.id})">🗑️ Elimina</button>
+</div>
 </div>
 `).join('');
 }
@@ -829,15 +893,15 @@ document.getElementById('modalPhoto').src=getGoodQualityUrl(selectedPhoto.url);
 document.getElementById('modalPhotoName').textContent='Foto: '+selectedPhoto.name;
 const db=getDB();
 const stampe=db.products.filter(p=>p.category==='stampa');
-const gadget=db.products.filter(p=>p.category==='gadget');
 const tele=db.products.filter(p=>p.category==='tele');
 const forex=db.products.filter(p=>p.category==='forex');
+const gadget=db.products.filter(p=>p.category==='gadget');
 const plex=db.products.filter(p=>p.category==='plex');
 
 document.getElementById('modalStampe').innerHTML=stampe.length?stampe.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessuna stampa disponibile</p>';
-document.getElementById('modalGadget').innerHTML=gadget.length?gadget.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun gadget disponibile</p>';
 document.getElementById('modalTele').innerHTML=tele.length?tele.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessuna tela disponibile</p>';
 document.getElementById('modalForex').innerHTML=forex.length?forex.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun forex disponibile</p>';
+document.getElementById('modalGadget').innerHTML=gadget.length?gadget.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun gadget disponibile</p>';
 document.getElementById('modalPlex').innerHTML=plex.length?plex.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun plexiglass disponibile</p>';
 document.getElementById('productModal').classList.remove('hidden');
 }
