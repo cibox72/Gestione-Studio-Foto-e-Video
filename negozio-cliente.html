@@ -31,6 +31,8 @@ header p{color:#666;margin-top:5px}
 .btn-warning{background:#f39c12;color:#fff}
 .btn-secondary{background:#95a5a6;color:#fff}
 .btn-info{background:#17a2b8;color:#fff}
+.btn-paypal{background:#0070ba;color:#fff;font-weight:bold}
+.btn-paypal:hover{background:#005ea6}
 .btn-sm{padding:6px 12px;font-size:12px}
 .btn-block{width:100%;margin:5px 0}
 .hidden{display:none!important}
@@ -80,7 +82,7 @@ header p{color:#666;margin-top:5px}
 .modal-close{background:none;border:none;font-size:30px;cursor:pointer;color:#999}
 .modal-body{padding:20px}
 .photo-preview-large{text-align:center;margin-bottom:20px}
-.photo-preview-large img{max-width:100%;max-height:350px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
+.photo-preview-large img{max-width:100%;max-height:400px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
 .products-section{margin-bottom:25px}
 .products-section h3{color:#667eea;margin-bottom:15px}
 .order-card{background:#f8f9fa;border-radius:10px;padding:20px;margin-bottom:15px;border-left:4px solid #27ae60}
@@ -101,6 +103,10 @@ header p{color:#666;margin-top:5px}
 .success-screen .pickup-info{background:#fff3cd;padding:20px;border-radius:10px;margin:20px 0;text-align:left;border-left:4px solid #f39c12}
 .success-screen .pickup-info h3{color:#d68910;margin-bottom:10px}
 .success-screen .pickup-info p{margin:5px 0;font-size:14px}
+.success-screen .paypal-section{background:#f0f8ff;padding:25px;border-radius:10px;margin:20px 0;border:2px solid #0070ba}
+.success-screen .paypal-section h3{color:#0070ba;margin-bottom:15px}
+.success-screen .paypal-section .paypal-btn{display:inline-block;background:#0070ba;color:#fff;padding:15px 40px;border-radius:25px;text-decoration:none;font-weight:bold;font-size:18px;margin:10px;transition:all .3s}
+.success-screen .paypal-section .paypal-btn:hover{background:#005ea6;transform:translateY(-2px);box-shadow:0 5px 15px rgba(0,112,186,.4)}
 .success-screen .contact-info{margin-top:20px;padding:15px;background:#f8f9fa;border-radius:10px;font-size:14px;color:#555}
 .info-box{background:#e8f4fd;padding:15px;border-radius:10px;margin-bottom:20px;border-left:4px solid #3498db}
 .info-box strong{color:#2980b9}
@@ -151,7 +157,6 @@ header p{color:#666;margin-top:5px}
 <p>G&L Studio - Gestione completa</p>
 </header>
 
-<!-- BACKUP BAR -->
 <div class="backup-bar">
 <strong>💾 Backup & Ripristino:</strong>
 <button class="btn btn-success btn-sm" onclick="backupData()">📥 Scarica Backup</button>
@@ -163,11 +168,10 @@ header p{color:#666;margin-top:5px}
 
 <div class="tabs">
 <button class="tab active" onclick="showAdminTab('clienti',this)">👥 Clienti</button>
-<button class="tab" onclick="showAdminTab('prodotti',this)">️ Prodotti</button>
-<button class="tab" onclick="showAdminTab('ordini',this)"> Ordini</button>
+<button class="tab" onclick="showAdminTab('prodotti',this)">🛍️ Prodotti</button>
+<button class="tab" onclick="showAdminTab('ordini',this)">📋 Ordini</button>
 </div>
 
-<!-- TAB CLIENTI -->
 <div id="tab-clienti" class="tab-content active">
 <div class="card">
 <h2>➕ Crea Nuovo Negozio per Cliente</h2>
@@ -209,13 +213,12 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 2. Trascina le foto (anteprime a bassa risoluzione)<br>
 3. Attendi il caricamento
 </div>
-<button class="btn btn-primary" onclick="openUploadWidget()"> Apri Widget Upload</button>
+<button class="btn btn-primary" onclick="openUploadWidget()">📂 Apri Widget Upload</button>
 <div id="uploadStatus" style="margin-top:15px"></div>
 <button class="btn btn-success" id="savePhotosBtn" onclick="saveClientPhotos()" style="display:none">💾 Salva Foto per Cliente</button>
 </div>
 </div>
 
-<!-- TAB PRODOTTI -->
 <div id="tab-prodotti" class="tab-content">
 <div class="card">
 <h2>➕ Aggiungi/Modifica Prodotto</h2>
@@ -227,8 +230,8 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 <div class="form-group">
 <label>Categoria:</label>
 <select id="prodCategory">
-<option value="stampa">️ Stampa</option>
-<option value="gadget">🎁 Gadget</option>
+<option value="stampa">🖼️ Stampa</option>
+<option value="gadget"> Gadget</option>
 </select>
 </div>
 </div>
@@ -262,12 +265,11 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 </div>
 
 <div class="card">
-<h2>️ Prodotti Esistenti</h2>
+<h2>🛍️ Prodotti Esistenti</h2>
 <div id="productsList" class="product-grid"></div>
 </div>
 </div>
 
-<!-- TAB ORDINI -->
 <div id="tab-ordini" class="tab-content">
 <div class="card">
 <h2>📋 Ordini Ricevuti</h2>
@@ -278,7 +280,7 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 
 <!-- CLIENT SHOP -->
 <div id="clientShop" class="container hidden">
-<a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
+<a href="#" onclick="showInitialLogin()" class="admin-link"> Esci</a>
 <header>
 <h1>🛍️ Benvenuto <span id="clientShopName"></span></h1>
 <p>Clicca su una foto per scegliere il prodotto da acquistare</p>
@@ -308,11 +310,10 @@ Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codi
 </div>
 <div class="cart-total">Totale: € <span id="cartTotal">0.00</span></div>
 
-<!-- AVVISO RITIRO IN STUDIO -->
 <div class="cart-info-box">
 <strong>📍 Ritiro Prodotti:</strong><br>
 Il ritiro dei prodotti avviene presso il nostro Studio.<br>
-<strong>Eventuali spedizioni sono a carico del cliente.</strong>
+<strong>⚠️ Eventuali spedizioni sono a carico del cliente.</strong>
 <div class="studio-address">
 <strong>📌 G&L Studio</strong><br>
 Via Ciarrocco, 21 – Canicattì (AG)<br>
@@ -326,7 +327,7 @@ Email: weddinggel@aruba.it
 </div>
 </div>
 
-<!-- SUCCESS SCREEN CON RINGRAZIAMENTO -->
+<!-- SUCCESS SCREEN -->
 <div id="successScreen" class="container hidden">
 <div class="success-screen">
 <div class="success-icon">✅</div>
@@ -345,13 +346,20 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <p><strong>Data:</strong> <span id="successDate"></span></p>
 </div>
 
+<div class="paypal-section">
+<h3>💳 Paga ora con PayPal</h3>
+<p style="margin-bottom:15px">Clicca il pulsante per completare il pagamento:</p>
+<a id="paypalLink" href="#" target="_blank" class="paypal-btn">💳 Paga con PayPal</a>
+<p style="font-size:12px;color:#666;margin-top:10px">Verrai redirectato su PayPal per completare il pagamento in sicurezza.</p>
+</div>
+
 <div class="pickup-info">
 <h3>📍 Ritiro Prodotti</h3>
 <p><strong>Il ritiro avviene presso il nostro Studio:</strong></p>
 <p>📌 Via Ciarrocco, 21 – Canicattì (AG)</p>
 <p>📞 Tel: 3206337370 - 3669381103</p>
-<p>📧 Email: weddinggel@aruba.it</p>
-<p style="margin-top:10px;color:#856404"><strong>⚠️ Eventuali spedizioni sono a carico del cliente.</strong></p>
+<p> Email: weddinggel@aruba.it</p>
+<p style="margin-top:10px;color:#856404"><strong>️ Eventuali spedizioni sono a carico del cliente.</strong></p>
 </div>
 
 <p style="color:#667eea;font-weight:600;margin:20px 0">G&L Studio ti contatterà presto per confermare la disponibilità dei prodotti e concordare il ritiro.</p>
@@ -365,7 +373,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 <div class="contact-info">
 <p>Per qualsiasi domanda o informazione:</p>
 <p><strong>📧 weddinggel@aruba.it</strong></p>
-<p><strong> 3206337370 - 3669381103</strong></p>
+<p><strong>📞 3206337370 - 3669381103</strong></p>
 </div>
 
 <button class="btn btn-primary" onclick="location.reload()" style="margin-top:25px">🔄 Torna all'inizio</button>
@@ -401,6 +409,7 @@ Apprezziamo la tua fiducia e ci impegniamo a realizzare i tuoi prodotti con la m
 const ADMIN_PASS='12763Mlg';
 const CLOUD_NAME='g3439ih4';
 const DB_KEY='gl_negozio_db';
+const PAYPAL_EMAIL='mairaluigi@hotmail.it';
 
 // ============ DATABASE ============
 function getDB(){
@@ -411,6 +420,17 @@ if(d)return d;
 return{clients:[],products:[],orders:[]};
 }
 function saveDB(db){localStorage.setItem(DB_KEY,JSON.stringify(db));}
+
+// ============ OTTIMIZZAZIONE FOTO ============
+function getThumbnailUrl(url) {
+    if (!url || !url.includes('cloudinary.com')) return url;
+    return url.replace('/upload/', '/upload/w_400,h_400,c_fill,q_60/');
+}
+
+function getGoodQualityUrl(url) {
+    if (!url || !url.includes('cloudinary.com')) return url;
+    return url.replace('/upload/', '/upload/w_1000,h_1000,c_fill,q_85/');
+}
 
 // ============ BACKUP & RIPRISTINO ============
 function backupData(){
@@ -545,7 +565,7 @@ loadCart();
 function adminLogin(){
 const pass=document.getElementById('adminPass').value;
 if(pass!==ADMIN_PASS){
-document.getElementById('adminLoginError').textContent=' Password errata!';
+document.getElementById('adminLoginError').textContent='❌ Password errata!';
 return;
 }
 hideAll();
@@ -726,9 +746,9 @@ clientsList.innerHTML=db.clients.map(c=>`
 <h3>${c.name}</h3>
 <div class="code">${c.code}</div>
 <div style="font-size:13px;color:#666">
-📧 ${c.email||'Nessuna email'}<br>
+ ${c.email||'Nessuna email'}<br>
 📸 ${c.photos?c.photos.length:0} foto<br>
-📅 ${c.created}
+ ${c.created}
 </div>
 <button class="btn btn-sm btn-danger" onclick="deleteClient(${c.id})">🗑️ Elimina</button>
 </div>
@@ -770,7 +790,7 @@ return;
 }
 grid.innerHTML=currentClient.photos.map((photo,idx)=>`
 <div class="photo-card" onclick="openProductModal(${idx})">
-<img src="${photo.url}" alt="Foto ${idx+1}">
+<img src="${getThumbnailUrl(photo.url)}" alt="Foto ${idx+1}">
 <div class="add-icon">+</div>
 </div>
 `).join('');
@@ -779,7 +799,7 @@ grid.innerHTML=currentClient.photos.map((photo,idx)=>`
 // ============ PRODUCT MODAL ============
 function openProductModal(photoIdx){
 selectedPhoto=currentClient.photos[photoIdx];
-document.getElementById('modalPhoto').src=selectedPhoto.url;
+document.getElementById('modalPhoto').src=getGoodQualityUrl(selectedPhoto.url);
 document.getElementById('modalPhotoName').textContent='Foto: '+selectedPhoto.name;
 const db=getDB();
 const stampe=db.products.filter(p=>p.category==='stampa');
@@ -844,7 +864,7 @@ items.innerHTML=cart.map((item,idx)=>{
 totalAmount+=item.price;
 return `
 <div class="cart-item">
-<img src="${item.photoUrl}" class="cart-item-img">
+<img src="${getThumbnailUrl(item.photoUrl)}" class="cart-item-img">
 <div class="cart-item-info">
 <strong>${item.productName}</strong>
 <small>${item.size||''} ${item.color?'• '+item.color:''}</small>
@@ -883,6 +903,12 @@ db.orders.push(order);
 saveDB(db);
 generateOrderPDF(order);
 generateGruFile(order);
+
+// Configura link PayPal
+const paypalAmount=order.total.toFixed(2);
+const paypalUrl=`https://www.paypal.com/paypalme/mairaluigi/${paypalAmount}`;
+document.getElementById('paypalLink').href=paypalUrl;
+
 // Popola schermata successo
 document.getElementById('successOrderId').textContent=order.id;
 document.getElementById('successClientName').textContent=order.clientName;
@@ -968,7 +994,7 @@ ${order.items.map(item=>`
 <div class="order-total">Totale: €${order.total.toFixed(2)}</div>
 <div class="order-actions">
 <button class="btn btn-sm btn-primary" onclick="downloadOrderPDF('${order.id}')">📄 PDF Ordine</button>
-<button class="btn btn-sm btn-success" onclick="downloadOrderGru('${order.id}')">📝 File Gru</button>
+<button class="btn btn-sm btn-success" onclick="downloadOrderGru('${order.id}')"> File Gru</button>
 <button class="btn btn-sm btn-warning" onclick="markOrderDone('${order.id}')">✅ Completato</button>
 <button class="btn btn-sm btn-danger" onclick="deleteOrder('${order.id}')">🗑️ Elimina</button>
 </div>
