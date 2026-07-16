@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>G&L Studio - Negozio Cliente</title>
+<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);min-height:100vh}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+header{background:#fff;border-radius:15px;padding:25px;text-align:center;margin-bottom:25px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
+header h1{color:#2c3e50;font-size:28px}
+header p{color:#666;margin-top:5px}
+.card{background:#fff;border-radius:15px;padding:25px;margin-bottom:20px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.card h2{color:#2c3e50;margin-bottom:20px;border-bottom:2px solid #667eea;padding-bottom:10px}
+.form-group{margin-bottom:15px}
+.form-group label{display:block;margin-bottom:6px;color:#555;font-weight:600}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px;border:2px solid #ddd;border-radius:8px;font-size:14px;font-family:inherit}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:#667eea}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.btn{padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:14px;margin:3px;transition:all .3s}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(102,126,234,.4)}
+.btn-success{background:#27ae60;color:#fff}
+.btn-success:hover{background:#219150}
+.btn-danger{background:#e74c3c;color:#fff}
+.btn-danger:hover{background:#c0392b}
+.btn-warning{background:#f39c12;color:#fff}
+.btn-secondary{background:#95a5a6;color:#fff}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-block{width:100%;margin:5px 0}
+.hidden{display:none!important}
+.tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.tab{padding:12px 20px;background:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;transition:.3s}
+.tab.active{background:#667eea;color:#fff}
+.tab:hover:not(.active){background:#f0f0f0}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.login-box{max-width:450px;margin:80px auto;background:#fff;padding:40px;border-radius:15px;box-shadow:0 10px 30px rgba(0,0,0,.3);text-align:center}
+.login-box h2{color:#2c3e50;margin-bottom:20px}
+.client-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:15px}
+.client-card{background:#f8f9fa;border-radius:10px;padding:20px;border-left:4px solid #667eea}
+.client-card h3{color:#2c3e50;margin-bottom:10px}
+.client-card .code{background:#667eea;color:#fff;padding:8px 15px;border-radius:20px;display:inline-block;font-weight:bold;margin:10px 0}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px}
+.product-card{background:#f8f9fa;border-radius:10px;padding:15px;text-align:center;border:2px solid transparent;transition:.3s}
+.product-card:hover{border-color:#667eea;transform:translateY(-3px)}
+.product-card img{width:100%;height:120px;object-fit:cover;border-radius:8px;margin-bottom:10px}
+.product-card .price{font-size:22px;font-weight:bold;color:#e74c3c;margin:8px 0;background:#fff3cd;padding:5px;border-radius:5px}
+.product-card .name{font-weight:bold;color:#2c3e50;margin-bottom:5px}
+.product-card .desc{font-size:12px;color:#666;margin-bottom:10px}
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:15px}
+.photo-card{border:3px solid #ddd;border-radius:10px;overflow:hidden;cursor:pointer;transition:.3s;position:relative;background:#fff}
+.photo-card:hover{transform:translateY(-5px);box-shadow:0 5px 15px rgba(0,0,0,.2);border-color:#667eea}
+.photo-card img{width:100%;height:180px;object-fit:cover;display:block}
+.photo-card .add-icon{position:absolute;top:10px;right:10px;background:#667eea;color:#fff;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;opacity:0;transition:.3s}
+.photo-card:hover .add-icon{opacity:1}
+.shop-layout{display:grid;grid-template-columns:1fr 380px;gap:20px}
+.cart-panel{background:#fff;border-radius:15px;padding:20px;box-shadow:0 5px 15px rgba(0,0,0,.1);height:fit-content;position:sticky;top:20px;max-height:90vh;overflow-y:auto}
+.cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #eee}
+.cart-items{margin-bottom:15px;max-height:400px;overflow-y:auto}
+.cart-item{display:flex;gap:10px;padding:12px;background:#f8f9fa;border-radius:8px;margin-bottom:10px;align-items:center;position:relative;border-left:4px solid #667eea}
+.cart-item-img{width:60px;height:60px;object-fit:cover;border-radius:5px;flex-shrink:0}
+.cart-item-info{flex:1;min-width:0}
+.cart-item-info strong{display:block;font-size:14px;margin-bottom:3px}
+.cart-item-info small{color:#666;font-size:12px;display:block}
+.cart-item-price{font-weight:bold;color:#e74c3c;font-size:16px}
+.cart-item-remove{position:absolute;top:5px;right:5px;background:#e74c3c;color:#fff;border:none;width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:14px;line-height:1}
+.cart-total{font-size:22px;font-weight:bold;text-align:right;color:#2c3e50;margin-bottom:15px;padding-top:10px;border-top:2px solid #eee}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.8);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-content{background:#fff;border-radius:15px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto}
+.modal-header{padding:20px;border-bottom:2px solid #eee;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:10}
+.modal-close{background:none;border:none;font-size:30px;cursor:pointer;color:#999}
+.modal-body{padding:20px}
+.photo-preview-large{text-align:center;margin-bottom:20px}
+.photo-preview-large img{max-width:100%;max-height:350px;border-radius:10px;box-shadow:0 5px 15px rgba(0,0,0,.2)}
+.products-section{margin-bottom:25px}
+.products-section h3{color:#667eea;margin-bottom:15px}
+.order-card{background:#f8f9fa;border-radius:10px;padding:20px;margin-bottom:15px;border-left:4px solid #27ae60}
+.order-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #ddd;flex-wrap:wrap;gap:10px}
+.order-number{font-size:18px;font-weight:bold;color:#2c3e50}
+.order-item-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;gap:10px}
+.order-total{font-size:20px;font-weight:bold;text-align:right;color:#e74c3c;margin-top:10px}
+.order-actions{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}
+.success-screen{text-align:center;padding:60px 20px;background:#fff;border-radius:15px;box-shadow:0 5px 15px rgba(0,0,0,.1)}
+.success-icon{font-size:80px;color:#27ae60;margin-bottom:20px}
+.success-screen h2{color:#2c3e50;margin-bottom:15px}
+.info-box{background:#e8f4fd;padding:15px;border-radius:10px;margin-bottom:20px;border-left:4px solid #3498db}
+.info-box strong{color:#2980b9}
+.admin-link{position:fixed;top:20px;right:20px;background:rgba(255,255,255,.2);color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:600;z-index:100}
+.admin-link:hover{background:rgba(255,255,255,.3)}
+@media(max-width:968px){.shop-layout{grid-template-columns:1fr}.cart-panel{position:fixed;bottom:0;left:0;right:0;max-height:50vh;border-radius:15px 15px 0 0}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN INIZIALE -->
+<div id="loginScreen" class="container">
+<div class="login-box">
+<h2>🛍️ G&L Studio - Negozio Cliente</h2>
+<p style="color:#666;margin-bottom:25px">Accedi come Cliente o Admin</p>
+<div class="form-group">
+<label>Codice Cliente:</label>
+<input type="text" id="loginCode" placeholder="Es: GL-ABC123">
+</div>
+<button class="btn btn-primary btn-block" onclick="clientLogin()">🛒 Accedi come Cliente</button>
+<div style="margin:15px 0;color:#999">— oppure —</div>
+<button class="btn btn-secondary btn-block" onclick="showAdminLogin()">⚙️ Area Admin</button>
+<div id="loginError" style="color:#e74c3c;margin-top:15px;min-height:20px"></div>
+</div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLoginScreen" class="container hidden">
+<div class="login-box">
+<h2>⚙️ Area Admin</h2>
+<div class="form-group">
+<label>Password:</label>
+<input type="password" id="adminPass" placeholder="Password admin">
+</div>
+<button class="btn btn-primary btn-block" onclick="adminLogin()">Accedi</button>
+<button class="btn btn-secondary btn-block" onclick="showInitialLogin()">← Torna indietro</button>
+<div id="adminLoginError" style="color:#e74c3c;margin-top:15px"></div>
+</div>
+</div>
+
+<!-- ADMIN DASHBOARD -->
+<div id="adminDashboard" class="container hidden">
+<a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
+<header>
+<h1>⚙️ Dashboard Admin - Negozio Cliente</h1>
+<p>G&L Studio - Gestione completa</p>
+</header>
+
+<div class="tabs">
+<button class="tab active" onclick="showAdminTab('clienti',this)">👥 Clienti</button>
+<button class="tab" onclick="showAdminTab('prodotti',this)">🛍️ Prodotti</button>
+<button class="tab" onclick="showAdminTab('ordini',this)">📋 Ordini</button>
+</div>
+
+<!-- TAB CLIENTI -->
+<div id="tab-clienti" class="tab-content active">
+<div class="card">
+<h2>➕ Crea Nuovo Negozio per Cliente</h2>
+<div class="info-box">
+<strong>ℹ️ Come funziona:</strong><br>
+Inserisci il nome del cliente. Il sistema genera automaticamente un <strong>Codice Cliente univoco</strong> (es: GL-ABC123) per evitare omonimie.
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Nome Cliente:</label>
+<input type="text" id="newClientName" placeholder="Es. Mario Rossi">
+</div>
+<div class="form-group">
+<label>Email (opzionale):</label>
+<input type="email" id="newClientEmail" placeholder="email@esempio.it">
+</div>
+</div>
+<button class="btn btn-success" onclick="createClient()">✅ Crea Negozio e Genera Codice</button>
+</div>
+
+<div class="card">
+<h2>👥 Clienti Registrati</h2>
+<div id="clientsList" class="client-grid"></div>
+</div>
+
+<div class="card">
+<h2>📸 Carica Foto per Cliente</h2>
+<div class="form-group">
+<label>Seleziona Cliente:</label>
+<select id="photoClientSelect"></select>
+</div>
+<div class="form-group">
+<label>Cloud Name Cloudinary:</label>
+<input type="text" id="cloudName" value="g3439ih4">
+</div>
+<div class="info-box">
+<strong>📤 Caricamento:</strong><br>
+1. Clicca "Apri Widget"<br>
+2. Trascina le foto (anteprime a bassa risoluzione)<br>
+3. Attendi il caricamento
+</div>
+<button class="btn btn-primary" onclick="openUploadWidget()">📂 Apri Widget Upload</button>
+<div id="uploadStatus" style="margin-top:15px"></div>
+<button class="btn btn-success" id="savePhotosBtn" onclick="saveClientPhotos()" style="display:none"> Salva Foto per Cliente</button>
+</div>
+</div>
+
+<!-- TAB PRODOTTI -->
+<div id="tab-prodotti" class="tab-content">
+<div class="card">
+<h2>➕ Aggiungi/Modifica Prodotto</h2>
+<div class="form-row">
+<div class="form-group">
+<label>Nome Prodotto:</label>
+<input type="text" id="prodName" placeholder="Es. Stampa 20x30">
+</div>
+<div class="form-group">
+<label>Categoria:</label>
+<select id="prodCategory">
+<option value="stampa">🖼️ Stampa</option>
+<option value="gadget"> Gadget</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Prezzo (€) *</label>
+<input type="number" id="prodPrice" step="0.01" placeholder="0.00" style="font-size:18px;font-weight:bold;color:#e74c3c">
+</div>
+<div class="form-group">
+<label>Misura/Formato:</label>
+<input type="text" id="prodSize" placeholder="Es. 20x30 cm">
+</div>
+</div>
+<div class="form-group">
+<label>Descrizione:</label>
+<textarea id="prodDesc" rows="2" placeholder="Descrizione del prodotto..."></textarea>
+</div>
+<div class="form-group">
+<label>Colori disponibili (separati da virgola):</label>
+<input type="text" id="prodColors" placeholder="Es. Rosso, Blu, Bianco, Nero">
+</div>
+<div class="form-group">
+<label>Immagine Prodotto (URL Cloudinary):</label>
+<input type="text" id="prodImage" placeholder="https://res.cloudinary.com/...">
+<button class="btn btn-sm btn-secondary" onclick="uploadProductImage()" style="margin-top:5px">📤 Carica Immagine</button>
+</div>
+<div id="prodImagePreview" style="margin-top:10px"></div>
+<input type="hidden" id="editingProductId">
+<button class="btn btn-success" onclick="saveProduct()">💾 Salva Prodotto</button>
+<button class="btn btn-secondary" onclick="clearProductForm()">🔄 Nuovo Prodotto</button>
+</div>
+
+<div class="card">
+<h2>🛍️ Prodotti Esistenti</h2>
+<div id="productsList" class="product-grid"></div>
+</div>
+</div>
+
+<!-- TAB ORDINI -->
+<div id="tab-ordini" class="tab-content">
+<div class="card">
+<h2>📋 Ordini Ricevuti</h2>
+<div id="ordersList"></div>
+</div>
+</div>
+</div>
+
+<!-- CLIENT SHOP -->
+<div id="clientShop" class="container hidden">
+<a href="#" onclick="showInitialLogin()" class="admin-link">🚪 Esci</a>
+<header>
+<h1>🛍️ Benvenuto <span id="clientShopName"></span></h1>
+<p>Clicca su una foto per scegliere il prodotto da acquistare</p>
+</header>
+
+<div class="shop-layout">
+<div class="card">
+<h2>📸 Le Tue Foto - Clicca per Ordinare</h2>
+<div class="info-box">
+<strong>ℹ️ Come ordinare:</strong><br>
+1. Clicca su una foto che ti piace<br>
+2. Scegli il prodotto (stampa, gadget, ecc.)<br>
+3. Clicca "Aggiungi al carrello"<br>
+4. Ripeti per altre foto con prodotti diversi<br>
+5. Completa l'ordine dal carrello
+</div>
+<div id="clientPhotoGrid" class="photo-grid"></div>
+</div>
+
+<div class="cart-panel">
+<div class="cart-header">
+<h3> Carrello (<span id="cartCount">0</span>)</h3>
+<button class="btn btn-sm btn-danger" onclick="clearCart()">Svuota</button>
+</div>
+<div class="cart-items" id="cartItems">
+<p style="color:#888;text-align:center;padding:20px">Carrello vuoto</p>
+</div>
+<div class="cart-total">Totale: € <span id="cartTotal">0.00</span></div>
+<button class="btn btn-success btn-block" onclick="checkout()">✅ Completa Ordine</button>
+</div>
+</div>
+</div>
+
+<!-- SUCCESS SCREEN -->
+<div id="successScreen" class="container hidden">
+<div class="success-screen">
+<div class="success-icon">✅</div>
+<h2>Ordine Completato!</h2>
+<p style="font-size:18px"><strong>Grazie per il tuo acquisto!</strong></p>
+<p>Il tuo ordine è stato registrato correttamente.</p>
+<p style="margin-top:20px;color:#667eea;font-weight:600">G&L Studio ti contatterà presto per la conferma.</p>
+<div style="margin-top:30px;padding:20px;background:#e8f4fd;border-radius:10px">
+<p><strong>📄 I file del tuo ordine sono stati scaricati:</strong></p>
+<p>• PDF con il riepilogo</p>
+<p>• File per la lavorazione</p>
+</div>
+<button class="btn btn-primary" onclick="location.reload()" style="margin-top:20px"> Torna all'inizio</button>
+</div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div id="productModal" class="modal-overlay hidden">
+<div class="modal-content">
+<div class="modal-header">
+<h2>🛒 Scegli il Prodotto per questa Foto</h2>
+<button class="modal-close" onclick="closeModal()">&times;</button>
+</div>
+<div class="modal-body">
+<div class="photo-preview-large">
+<img id="modalPhoto" src="" alt="Foto">
+<p style="margin-top:10px;color:#666" id="modalPhotoName"></p>
+</div>
+<div class="products-section">
+<h3>🖼️ Stampe Disponibili</h3>
+<div id="modalStampe" class="product-grid"></div>
+</div>
+<div class="products-section">
+<h3> Gadget Disponibili</h3>
+<div id="modalGadget" class="product-grid"></div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// ============ CONFIG ============
+const ADMIN_PASS='12763Mlg';
+const CLOUD_NAME='g3439ih4';
+const DB_KEY='gl_negozio_db';
+
+// ============ DATABASE ============
+function getDB(){
+try{
+const d=JSON.parse(localStorage.getItem(DB_KEY));
+if(d)return d;
+}catch(e){}
+return{clients:[],products:[],orders:[]};
+}
+function saveDB(db){localStorage.setItem(DB_KEY,JSON.stringify(db));}
+
+// ============ NAVIGATION ============
+function hideAll(){
+['loginScreen','adminLoginScreen','adminDashboard','clientShop','successScreen'].forEach(id=>{
+document.getElementById(id).classList.add('hidden');
+});
+}
+function showInitialLogin(){hideAll();document.getElementById('loginScreen').classList.remove('hidden');}
+function showAdminLogin(){hideAll();document.getElementById('adminLoginScreen').classList.remove('hidden');}
+
+// ============ AUTH ============
+function clientLogin(){
+const code=document.getElementById('loginCode').value.trim().toUpperCase();
+const db=getDB();
+const client=db.clients.find(c=>c.code===code);
+if(!client){
+document.getElementById('loginError').textContent=' Codice cliente non valido!';
+return;
+}
+if(!client.photos||client.photos.length===0){
+document.getElementById('loginError').textContent='❌ Nessuna foto disponibile. Contatta lo studio.';
+return;
+}
+currentClient=client;
+hideAll();
+document.getElementById('clientShopName').textContent=client.name;
+document.getElementById('clientShop').classList.remove('hidden');
+loadClientGallery();
+loadCart();
+}
+
+function adminLogin(){
+const pass=document.getElementById('adminPass').value;
+if(pass!==ADMIN_PASS){
+document.getElementById('adminLoginError').textContent='❌ Password errata!';
+return;
+}
+hideAll();
+document.getElementById('adminDashboard').classList.remove('hidden');
+loadAdminData();
+}
+
+// ============ ADMIN TABS ============
+function showAdminTab(tab,btn){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('tab-'+tab).classList.add('active');
+}
+
+// ============ CLIENT MANAGEMENT ============
+function generateClientCode(){
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+let code='GL-';
+for(let i=0;i<6;i++)code+=chars.charAt(Math.floor(Math.random()*chars.length));
+return code;
+}
+
+function createClient(){
+const name=document.getElementById('newClientName').value.trim();
+const email=document.getElementById('newClientEmail').value.trim();
+if(!name){alert('Inserisci il nome del cliente!');return;}
+const db=getDB();
+const code=generateClientCode();
+db.clients.push({
+id:Date.now(),
+code:code,
+name:name,
+email:email,
+photos:[],
+created:new Date().toLocaleString('it-IT')
+});
+saveDB(db);
+alert('✅ Negozio creato!\n\nCodice Cliente: '+code+'\n\nComunica questo codice al cliente.');
+document.getElementById('newClientName').value='';
+document.getElementById('newClientEmail').value='';
+loadAdminData();
+}
+
+function deleteClient(id){
+if(!confirm('Eliminare questo cliente e il suo negozio?'))return;
+const db=getDB();
+db.clients=db.clients.filter(c=>c.id!==id);
+saveDB(db);
+loadAdminData();
+}
+
+// ============ PHOTO UPLOAD ============
+let tempUploadedPhotos=[];
+function openUploadWidget(){
+const clientSelect=document.getElementById('photoClientSelect');
+if(!clientSelect.value){alert('Seleziona prima un cliente!');return;}
+const cn=document.getElementById('cloudName').value||CLOUD_NAME;
+const widget=cloudinary.createUploadWidget({
+cloudName:cn,
+uploadPreset:'unsigned',
+sources:['local'],
+multiple:true
+},(error,result)=>{
+if(!error&&result.event==='success'){
+tempUploadedPhotos.push({
+url:result.info.secure_url,
+publicId:result.info.public_id,
+name:result.info.original_filename+'.'+result.info.format
+});
+document.getElementById('uploadStatus').innerHTML='<div style="background:#e8f5e9;padding:15px;border-radius:8px;color:#27ae60;font-weight:bold">✅ '+tempUploadedPhotos.length+' foto caricate!</div>';
+document.getElementById('savePhotosBtn').style.display='block';
+}
+});
+widget.open();
+}
+
+function saveClientPhotos(){
+const clientId=parseInt(document.getElementById('photoClientSelect').value);
+if(!clientId||tempUploadedPhotos.length===0)return;
+const db=getDB();
+const client=db.clients.find(c=>c.id===clientId);
+if(client){
+client.photos=[...client.photos,...tempUploadedPhotos];
+saveDB(db);
+alert('✅ '+tempUploadedPhotos.length+' foto aggiunte al cliente '+client.name+'!');
+tempUploadedPhotos=[];
+document.getElementById('uploadStatus').innerHTML='';
+document.getElementById('savePhotosBtn').style.display='none';
+loadAdminData();
+}
+}
+
+// ============ PRODUCT MANAGEMENT ============
+function uploadProductImage(){
+const cn=document.getElementById('cloudName').value||CLOUD_NAME;
+const widget=cloudinary.createUploadWidget({
+cloudName:cn,
+uploadPreset:'unsigned',
+sources:['local'],
+maxFiles:1
+},(error,result)=>{
+if(!error&&result.event==='success'){
+document.getElementById('prodImage').value=result.info.secure_url;
+document.getElementById('prodImagePreview').innerHTML='<img src="'+result.info.secure_url+'" style="max-width:200px;border-radius:8px">';
+}
+});
+widget.open();
+}
+
+function saveProduct(){
+const id=document.getElementById('editingProductId').value;
+const name=document.getElementById('prodName').value.trim();
+const category=document.getElementById('prodCategory').value;
+const price=parseFloat(document.getElementById('prodPrice').value);
+const size=document.getElementById('prodSize').value.trim();
+const desc=document.getElementById('prodDesc').value.trim();
+const colors=document.getElementById('prodColors').value.split(',').map(c=>c.trim()).filter(c=>c);
+const image=document.getElementById('prodImage').value.trim();
+if(!name||!price){alert('Nome e Prezzo sono obbligatori!');return;}
+const db=getDB();
+const product={
+id:id?parseInt(id):Date.now(),
+name,category,price,size,desc,colors,image
+};
+if(id){
+const idx=db.products.findIndex(p=>p.id===parseInt(id));
+if(idx>=0)db.products[idx]=product;
+}else{
+db.products.push(product);
+}
+saveDB(db);
+alert('✅ Prodotto salvato!');
+clearProductForm();
+loadAdminData();
+}
+
+function editProduct(id){
+const db=getDB();
+const p=db.products.find(x=>x.id===id);
+if(!p)return;
+document.getElementById('editingProductId').value=p.id;
+document.getElementById('prodName').value=p.name;
+document.getElementById('prodCategory').value=p.category;
+document.getElementById('prodPrice').value=p.price;
+document.getElementById('prodSize').value=p.size||'';
+document.getElementById('prodDesc').value=p.desc||'';
+document.getElementById('prodColors').value=(p.colors||[]).join(', ');
+document.getElementById('prodImage').value=p.image||'';
+document.getElementById('prodImagePreview').innerHTML=p.image?'<img src="'+p.image+'" style="max-width:200px;border-radius:8px">':'';
+window.scrollTo(0,0);
+}
+
+function deleteProduct(id){
+if(!confirm('Eliminare questo prodotto?'))return;
+const db=getDB();
+db.products=db.products.filter(p=>p.id!==id);
+saveDB(db);
+loadAdminData();
+}
+
+function clearProductForm(){
+['editingProductId','prodName','prodPrice','prodSize','prodDesc','prodColors','prodImage'].forEach(id=>document.getElementById(id).value='');
+document.getElementById('prodCategory').value='stampa';
+document.getElementById('prodImagePreview').innerHTML='';
+}
+
+// ============ LOAD ADMIN DATA ============
+function loadAdminData(){
+const db=getDB();
+// Clients
+const clientsList=document.getElementById('clientsList');
+if(db.clients.length===0){
+clientsList.innerHTML='<p style="color:#888;text-align:center;padding:20px;grid-column:1/-1">Nessun cliente registrato</p>';
+}else{
+clientsList.innerHTML=db.clients.map(c=>`
+<div class="client-card">
+<h3>${c.name}</h3>
+<div class="code">${c.code}</div>
+<div style="font-size:13px;color:#666">
+📧 ${c.email||'Nessuna email'}<br>
+📸 ${c.photos?c.photos.length:0} foto<br>
+📅 ${c.created}
+</div>
+<button class="btn btn-sm btn-danger" onclick="deleteClient(${c.id})">🗑️ Elimina</button>
+</div>
+`).join('');
+}
+// Photo client select
+const photoSelect=document.getElementById('photoClientSelect');
+photoSelect.innerHTML='<option value="">-- Seleziona Cliente --</option>'+db.clients.map(c=>`<option value="${c.id}">${c.name} (${c.code})</option>`).join('');
+// Products
+const productsList=document.getElementById('productsList');
+if(db.products.length===0){
+productsList.innerHTML='<p style="color:#888;text-align:center;padding:20px;grid-column:1/-1">Nessun prodotto</p>';
+}else{
+productsList.innerHTML=db.products.map(p=>`
+<div class="product-card">
+${p.image?'<img src="'+p.image+'" alt="'+p.name+'">':''}
+<div class="name">${p.name}</div>
+<div class="desc">${p.category==='stampa'?'🖼️ Stampa':'🎁 Gadget'}${p.size?' • '+p.size:''}</div>
+<div class="price">€ ${p.price.toFixed(2)}</div>
+${p.colors&&p.colors.length?'<div style="font-size:11px;color:#666">Colori: '+p.colors.join(', ')+'</div>':''}
+<div style="margin-top:10px">
+<button class="btn btn-sm btn-warning" onclick="editProduct(${p.id})">✏️</button>
+<button class="btn btn-sm btn-danger" onclick="deleteProduct(${p.id})">🗑️</button>
+</div>
+</div>
+`).join('');
+}
+// Orders
+loadOrders();
+}
+
+// ============ CLIENT GALLERY ============
+let currentClient=null;
+let cart=[];
+let selectedPhoto=null;
+
+function loadClientGallery(){
+const grid=document.getElementById('clientPhotoGrid');
+if(!currentClient.photos||currentClient.photos.length===0){
+grid.innerHTML='<p style="color:#888;text-align:center;padding:40px;grid-column:1/-1">Nessuna foto disponibile</p>';
+return;
+}
+grid.innerHTML=currentClient.photos.map((photo,idx)=>`
+<div class="photo-card" onclick="openProductModal(${idx})">
+<img src="${photo.url}" alt="Foto ${idx+1}">
+<div class="add-icon">+</div>
+</div>
+`).join('');
+}
+
+// ============ PRODUCT MODAL ============
+function openProductModal(photoIdx){
+selectedPhoto=currentClient.photos[photoIdx];
+document.getElementById('modalPhoto').src=selectedPhoto.url;
+document.getElementById('modalPhotoName').textContent='Foto: '+selectedPhoto.name;
+const db=getDB();
+const stampe=db.products.filter(p=>p.category==='stampa');
+const gadget=db.products.filter(p=>p.category==='gadget');
+document.getElementById('modalStampe').innerHTML=stampe.length?stampe.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessuna stampa disponibile</p>';
+document.getElementById('modalGadget').innerHTML=gadget.length?gadget.map(p=>renderProductCard(p)).join(''):'<p style="color:#888;grid-column:1/-1">Nessun gadget disponibile</p>';
+document.getElementById('productModal').classList.remove('hidden');
+}
+
+function renderProductCard(p){
+let html=`<div class="product-card">`;
+if(p.image)html+=`<img src="${p.image}" alt="${p.name}">`;
+html+=`<div class="name">${p.name}</div>`;
+if(p.size)html+=`<div class="desc">${p.size}</div>`;
+if(p.desc)html+=`<div class="desc">${p.desc}</div>`;
+html+=`<div class="price">€ ${p.price.toFixed(2)}</div>`;
+if(p.colors&&p.colors.length){
+html+=`<select id="color_${p.id}" onclick="event.stopPropagation()">`;
+p.colors.forEach(c=>html+=`<option value="${c}">${c}</option>`);
+html+=`</select>`;
+}
+html+=`<button class="btn btn-sm btn-success" style="margin-top:10px;width:100%" onclick="event.stopPropagation();addToCart(${p.id})">🛒 Aggiungi</button>`;
+html+=`</div>`;
+return html;
+}
+
+function closeModal(){document.getElementById('productModal').classList.add('hidden');}
+
+// ============ CART ============
+function addToCart(productId){
+const db=getDB();
+const product=db.products.find(p=>p.id===productId);
+if(!product||!selectedPhoto)return;
+const colorEl=document.getElementById('color_'+productId);
+const color=colorEl?colorEl.value:null;
+cart.push({
+id:Date.now()+Math.random(),
+productId:product.id,
+productName:product.name,
+price:product.price,
+size:product.size,
+color:color,
+photoUrl:selectedPhoto.url,
+photoName:selectedPhoto.name
+});
+updateCart();
+closeModal();
+}
+
+function updateCart(){
+const items=document.getElementById('cartItems');
+const total=document.getElementById('cartTotal');
+const count=document.getElementById('cartCount');
+if(cart.length===0){
+items.innerHTML='<p style="color:#888;text-align:center;padding:20px">Carrello vuoto</p>';
+total.textContent='0.00';
+count.textContent='0';
+return;
+}
+let totalAmount=0;
+items.innerHTML=cart.map((item,idx)=>{
+totalAmount+=item.price;
+return `
+<div class="cart-item">
+<img src="${item.photoUrl}" class="cart-item-img">
+<div class="cart-item-info">
+<strong>${item.productName}</strong>
+<small>${item.size||''} ${item.color?'• '+item.color:''}</small>
+<small>Foto: ${item.photoName}</small>
+</div>
+<div class="cart-item-price">€${item.price.toFixed(2)}</div>
+<button class="cart-item-remove" onclick="removeFromCart(${idx})">×</button>
+</div>
+`;
+}).join('');
+total.textContent=totalAmount.toFixed(2);
+count.textContent=cart.length;
+}
+
+function removeFromCart(idx){cart.splice(idx,1);updateCart();}
+function clearCart(){if(cart.length===0)return;if(confirm('Svuotare il carrello?')){cart=[];updateCart();}}
+function loadCart(){updateCart();}
+
+// ============ CHECKOUT ============
+function checkout(){
+if(cart.length===0){alert('Il carrello è vuoto!');return;}
+if(!confirm('Confermi l\'ordine di €'+document.getElementById('cartTotal').textContent+'?'))return;
+const order={
+id:'ORD'+Date.now(),
+clientId:currentClient.id,
+clientCode:currentClient.code,
+clientName:currentClient.name,
+clientEmail:currentClient.email,
+date:new Date().toLocaleString('it-IT'),
+items:[...cart],
+total:parseFloat(document.getElementById('cartTotal').textContent),
+status:'pending'
+};
+const db=getDB();
+db.orders.push(order);
+saveDB(db);
+generateOrderPDF(order);
+generateGruFile(order);
+cart=[];
+hideAll();
+document.getElementById('successScreen').classList.remove('hidden');
+}
+
+function generateOrderPDF(order){
+const{jsPDF}=window.jspdf;
+const doc=new jsPDF();
+doc.setFontSize(22);
+doc.text('G&L Studio - Ordine Negozio',20,25);
+doc.setFontSize(12);
+doc.text('Ordine N.: '+order.id,20,40);
+doc.text('Cliente: '+order.clientName,20,50);
+doc.text('Codice: '+order.clientCode,20,60);
+if(order.clientEmail)doc.text('Email: '+order.clientEmail,20,70);
+doc.text('Data: '+order.date,20,order.clientEmail?80:70);
+doc.line(20,90,190,90);
+doc.setFontSize(14);
+doc.text('Prodotti ordinati:',20,105);
+let y=115;
+doc.setFontSize(11);
+order.items.forEach((item,i)=>{
+doc.text((i+1)+'. '+item.productName,25,y);
+if(item.size)doc.text('   Misura: '+item.size,25,y+6);
+if(item.color)doc.text('   Colore: '+item.color,25,y+12);
+doc.text('   Foto: '+item.photoName,25,y+(item.color?18:12));
+doc.text('   Prezzo: € '+item.price.toFixed(2),25,y+(item.color?24:18));
+y+=35;
+if(y>270){doc.addPage();y=20;}
+});
+doc.line(20,y,190,y);
+doc.setFontSize(18);
+doc.setTextColor(231,76,60);
+doc.text('TOTALE: € '+order.total.toFixed(2),20,y+15);
+doc.save('ORDINE_'+order.id+'.pdf');
+}
+
+function generateGruFile(order){
+const content=order.items.map(item=>item.photoName).join('\n');
+const blob=new Blob([content],{type:'text/plain'});
+const url=URL.createObjectURL(blob);
+const a=document.createElement('a');
+a.href=url;
+a.download='GRU_'+order.id+'.txt';
+a.click();
+URL.revokeObjectURL(url);
+}
+
+// ============ ORDERS ADMIN ============
+function loadOrders(){
+const db=getDB();
+const container=document.getElementById('ordersList');
+if(!db.orders||db.orders.length===0){
+container.innerHTML='<p style="color:#888;text-align:center;padding:40px">Nessun ordine ricevuto</p>';
+return;
+}
+container.innerHTML=db.orders.slice().reverse().map(order=>`
+<div class="order-card">
+<div class="order-header">
+<div>
+<div class="order-number">${order.id}</div>
+<div style="color:#666;font-size:13px">${order.date}</div>
+</div>
+<div style="text-align:right">
+<div style="font-weight:bold">${order.clientName}</div>
+<div style="color:#666;font-size:13px">${order.clientCode}</div>
+<div style="color:#667eea;font-size:13px">${order.items.length} prodotti</div>
+</div>
+</div>
+<div>
+${order.items.map(item=>`
+<div class="order-item-row">
+<span><strong>${item.productName}</strong>${item.size?' ('+item.size+')':''}${item.color?' - '+item.color:''}<br><small style="color:#666">Foto: ${item.photoName}</small></span>
+<span style="font-weight:bold;color:#e74c3c">€${item.price.toFixed(2)}</span>
+</div>
+`).join('')}
+</div>
+<div class="order-total">Totale: €${order.total.toFixed(2)}</div>
+<div class="order-actions">
+<button class="btn btn-sm btn-primary" onclick="downloadOrderPDF('${order.id}')">📄 PDF Ordine</button>
+<button class="btn btn-sm btn-success" onclick="downloadOrderGru('${order.id}')">📝 File Gru</button>
+<button class="btn btn-sm btn-warning" onclick="markOrderDone('${order.id}')">✅ Completato</button>
+<button class="btn btn-sm btn-danger" onclick="deleteOrder('${order.id}')">🗑️ Elimina</button>
+</div>
+</div>
+`).join('');
+}
+
+function downloadOrderPDF(orderId){
+const db=getDB();
+const order=db.orders.find(o=>o.id===orderId);
+if(!order)return;
+generateOrderPDF(order);
+}
+
+function downloadOrderGru(orderId){
+const db=getDB();
+const order=db.orders.find(o=>o.id===orderId);
+if(!order)return;
+generateGruFile(order);
+}
+
+function markOrderDone(orderId){
+const db=getDB();
+const order=db.orders.find(o=>o.id===orderId);
+if(order){
+order.status='completed';
+saveDB(db);
+loadOrders();
+alert('✅ Ordine marcato come completato!');
+}
+}
+
+function deleteOrder(orderId){
+if(!confirm('Eliminare questo ordine?'))return;
+const db=getDB();
+db.orders=db.orders.filter(o=>o.id!==orderId);
+saveDB(db);
+loadOrders();
+}
+
+// ============ INIT ============
+showInitialLogin();
+</script>
+
+</body>
+</html>
