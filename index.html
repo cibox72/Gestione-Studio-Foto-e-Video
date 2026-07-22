@@ -80,7 +80,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#667eea}
 
 <div id="loginOverlay" class="login-overlay">
 <div class="login-box">
-<h2> G&L Studio</h2>
+<h2>📸 G&L Studio</h2>
 <p style="color:#666;margin-bottom:25px">Gestionale Unificato</p>
 <div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Inserisci username"></div>
 <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Inserisci password"></div>
@@ -92,16 +92,16 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#667eea}
 
 <div id="mainApp" style="display:none">
 <header class="main-header">
-<h1>📸 G&L Studio</h1>
+<h1> G&L Studio</h1>
 <p>Via Ciarrocco 21, Canicattì (AG) | Tel: 3206337370 - 3669381103 | Email: weddinggel@aruba.it</p>
 </header>
 
 <nav class="main-nav">
-<button class="nav-btn active" onclick="showSection('dashboard',this)">🏠 Dashboard</button>
-<button class="nav-btn" onclick="showSection('eventi',this)">📷 Gestione Eventi</button>
+<button class="nav-btn active" onclick="showSection('dashboard',this)"> Dashboard</button>
+<button class="nav-btn" onclick="showSection('eventi',this)"> Gestione Eventi</button>
 <button class="nav-btn" onclick="showSection('saggi',this)">💃 Gestione Saggi</button>
 <button class="nav-btn" onclick="showSection('gallery',this)">🔐 Gallery Manager</button>
-<button class="nav-btn" onclick="showSection('ricevute',this)"> Ricevute</button>
+<button class="nav-btn" onclick="showSection('ricevute',this)">🧾 Ricevute</button>
 <button class="nav-btn" onclick="showSection('album-selection',this)">📤 INVIO SELEZIONE CLIENTE</button>
 <button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
 </nav>
@@ -114,7 +114,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:#667eea}
 <div class="dash-card" onclick="document.querySelectorAll('.nav-btn')[2].click()"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="document.querySelectorAll('.nav-btn')[3].click()"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="document.querySelectorAll('.nav-btn')[4].click()"><h3>🧾 Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
-<div class="dash-card" onclick="document.querySelectorAll('.nav-btn')[5].click()" style="border-top-color:#8e44ad"><h3> INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
+<div class="dash-card" onclick="document.querySelectorAll('.nav-btn')[5].click()" style="border-top-color:#8e44ad"><h3>📤 INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
 </div>
 <div style="text-align:center;margin-top:30px">
 <button class="btn btn-success" onclick="globalBackup()">💾 Backup Globale</button>
@@ -243,7 +243,7 @@ function globalBackup() {
 function globalRestore(input) {
     const file = input.files[0];
     if (!file) return;
-    if (!confirm('⚠️ Il ripristino SOSTITUIRÀ tutti i dati. Sei sicuro?')) { input.value = ''; return; }
+    if (!confirm('️ Il ripristino SOSTITUIRÀ tutti i dati. Sei sicuro?')) { input.value = ''; return; }
     const reader = new FileReader();
     reader.onload = function(e) {
         try {
@@ -258,7 +258,7 @@ function globalRestore(input) {
 }
 
 // ============================================
-// ALBUM SELECTION - MODIFICATO
+// ALBUM SELECTION - CON MODIFICHE RICHIESTE
 // ============================================
 function renderAlbumSelection() {
     const db = getDB();
@@ -266,7 +266,7 @@ function renderAlbumSelection() {
     if (!container) return;
     
     if (!db.albums || db.albums.length === 0) {
-        container.innerHTML = '<div class="panel"><h2>📤 Invio Selezione Cliente</h2><p style="color:#888;text-align:center;padding:40px">Nessuna galleria creata</p></div>';
+        container.innerHTML = '<div class="panel"><h2> Invio Selezione Cliente</h2><p style="color:#888;text-align:center;padding:40px">Nessuna galleria creata</p></div>';
         return;
     }
     
@@ -304,7 +304,7 @@ function renderAlbumSelection() {
         if (hasSel) {
             html += '<button class="btn btn-success btn-sm" onclick="downloadSelectionTXT(\'' + album.id + '\')">📥 Scarica TXT</button>';
             // ✅ MODIFICA RICHIESTA: "Vedi" → " Scarica Nuovamente"
-            html += '<button class="btn btn-info btn-sm" onclick="showAlbumDetails(\'' + album.id + '\')"> Scarica Nuovamente</button>';
+            html += '<button class="btn btn-info btn-sm" onclick="showAlbumDetails(\'' + album.id + '\')">🔄 Scarica Nuovamente</button>';
         }
         html += '<button class="btn btn-danger btn-sm" onclick="deleteAlbum(\'' + album.id + '\')">🗑️ Elimina</button>';
         html += '</div></div>';
@@ -321,7 +321,7 @@ function toggleDownloadStatus(albumId) {
         album.downloaded = !album.downloaded;
         saveDB(db);
         renderAlbumSelection();
-        alert('Stato aggiornato: ' + (album.downloaded ? '✅ Scaricato' : ' In attesa'));
+        alert('Stato aggiornato: ' + (album.downloaded ? '✅ Scaricato' : '⏳ In attesa'));
     }
 }
 
@@ -389,7 +389,7 @@ function showAlbumDetails(albumId) {
     
     details += '</div>';
     details += '<div style="margin-top:20px;text-align:center">';
-    details += '<button class="btn btn-success" onclick="downloadSelectionTXT(\'' + albumId + '\')" style="padding:12px 30px;font-size:16px">📥 Scarica Lista Nomi (.txt)</button>';
+    details += '<button class="btn btn-success" onclick="downloadSelectionTXT(\'' + albumId + '\')" style="padding:12px 30px;font-size:16px"> Scarica Lista Nomi (.txt)</button>';
     details += '<p style="margin-top:10px;font-size:13px;color:#666">Usa questo file .txt nell\'app Automator "Gru G&L Studio"</p>';
     details += '</div></div>';
     
