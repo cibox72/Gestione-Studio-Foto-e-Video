@@ -81,10 +81,6 @@ th{background:#f8f9fa;font-weight:600}
 .modal-close{position:absolute;top:15px;right:20px;font-size:24px;cursor:pointer;color:#666}
 .album-row{display:flex;justify-content:space-between;align-items:center;padding:15px;border-left:4px solid #27ae60;background:#fff;margin-bottom:10px;border-radius:8px;flex-wrap:wrap;gap:10px}
 .album-row.downloaded{opacity:.7;border-left-color:#95a5a6}
-.album-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:15px;margin:20px 0}
-.album-grid .photo-card{border:3px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer}
-.album-grid .photo-card.selected{border-color:#27ae60}
-.album-grid .photo-card img{width:100%;height:120px;object-fit:cover;display:block}
 .client-viewer{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:3000;display:flex;flex-direction:column}
 .client-header{background:rgba(0,0,0,.9);color:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:10}
 .client-header h2{font-size:18px;margin:0}
@@ -113,9 +109,6 @@ th{background:#f8f9fa;font-weight:600}
 .thumbnail:hover{opacity:.8}
 .thumbnail.active{opacity:1;border-color:#667eea}
 .thumbnail.selected{border-color:#e74c3c;opacity:1}
-.confirmation-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);z-index:4000;display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fff;text-align:center;padding:20px}
-.confirmation-screen h1{font-size:48px;margin-bottom:20px}
-.confirmation-screen p{font-size:20px;margin-bottom:10px}
 .status-badge{padding:8px 16px;border-radius:6px;font-size:14px;font-weight:bold;cursor:pointer;transition:all .3s;border:none}
 .status-badge.pending{background:linear-gradient(135deg,#27ae60,#2ecc71);color:#fff;animation:pulse 2s infinite;box-shadow:0 4px 15px rgba(39,174,96,.4)}
 .status-badge.downloaded{background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;box-shadow:0 4px 15px rgba(231,76,60,.4)}
@@ -152,8 +145,8 @@ th{background:#f8f9fa;font-weight:600}
 </header>
 
 <nav class="main-nav">
-<button class="nav-btn active" onclick="showSection('dashboard')"> Dashboard</button>
-<button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
+<button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
+<button class="nav-btn" onclick="showSection('eventi')"> Gestione Eventi</button>
 <button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
 <button class="nav-btn" onclick="showSection('gallery')">🔐 Gallery Manager</button>
 <button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
@@ -161,28 +154,26 @@ th{background:#f8f9fa;font-weight:600}
 <button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
 </nav>
 
-<!-- DASHBOARD -->
 <div id="dashboard" class="section-content active">
 <h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
 <p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
 <div class="dashboard-grid">
-<div class="dash-card" onclick="showSection('eventi')"><h3> Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
+<div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
 <div class="dash-card" onclick="showSection('album-selection')" style="border-top-color:#8e44ad"><h3>📤 INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
 </div>
 <div style="text-align:center;margin-top:30px">
-<button class="btn btn-success" onclick="globalBackup()">💾 Backup Globale</button>
+<button class="btn btn-success" onclick="globalBackup()"> Backup Globale</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreFile').click()">🔄 Ripristina Globale</button>
 <input type="file" id="restoreFile" accept=".json" style="display:none" onchange="globalRestore(this)">
 </div>
 </div>
 
-<!-- GESTIONE EVENTI -->
 <div id="eventi" class="section-content">
 <div class="panel">
-<h2>📷 Gestione Eventi</h2>
+<h2> Gestione Eventi</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupEventi()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreEventi').click()">🔄 Ripristina</button>
@@ -197,9 +188,9 @@ th{background:#f8f9fa;font-weight:600}
 <button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
 <button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
 <button class="tab-btn" onclick="showEventTab('stato')">📊 Stato Lavori</button>
-<button class="tab-btn" onclick="showEventTab('archivio-prev')"> Archivio Prev.</button>
+<button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
 <button class="tab-btn" onclick="showEventTab('archivio-contr')">📑 Archivio Contr.</button>
-<button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
+<button class="tab-btn" onclick="showEventTab('archivio-clienti')"> Archivio Clienti</button>
 </div>
 
 <div id="tab-anagrafica" class="tab-content active">
@@ -207,15 +198,15 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Cliente A (Principale) - Cognome *</label><input type="text" id="ev-cognome-a"></div>
 <div class="form-group"><label>Nome *</label><input type="text" id="ev-nome-a"></div>
-<div class="form-group"><label>Indirizzo ️</label><div class="input-group"><input type="text" id="ev-indirizzo-a"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-a')">️ Maps</button></div></div>
-<div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-a"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')">💬 WhatsApp</button></div></div>
+<div class="form-group"><label>Indirizzo</label><div class="input-group"><input type="text" id="ev-indirizzo-a"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-a')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Cellulare</label><div class="input-group"><input type="tel" id="ev-cell-a"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-a')">💬 WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-a"></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Cliente B (Facoltativo) - Cognome</label><input type="text" id="ev-cognome-b"></div>
 <div class="form-group"><label>Nome</label><input type="text" id="ev-nome-b"></div>
-<div class="form-group"><label>Indirizzo 🗺️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button></div></div>
+<div class="form-group"><label>Indirizzo</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Cellulare</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')"> WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-b"></div>
 </div>
 <button class="btn btn-success" onclick="saveCouple()">💾 Salva Coppia</button>
@@ -229,7 +220,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Seleziona Cliente B (opzionale)</label><select id="prev-cliente-b"><option value="">-- Nessun Cliente B --</option></select></div>
 </div>
 <div class="highlight-box">
-<label>📅 DATA EVENTO *</label>
+<label> DATA EVENTO *</label>
 <input type="date" id="prev-data" required>
 </div>
 <div class="form-row">
@@ -261,8 +252,8 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Foto EXTRA</label><input type="number" id="prev-extra" value="0"></div>
 <div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
-<div class="form-group"><label>Chiesa / Luogo Cerimonia ️</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">️ Maps</button></div></div>
-<div class="form-group"><label>Location Ricevimento 🗺️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">️ Maps</button></div></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
@@ -275,7 +266,7 @@ th{background:#f8f9fa;font-weight:600}
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
-<h3 style="margin-top:20px">💰 Acconti Versati</h3>
+<h3 style="margin-top:20px"> Acconti Versati</h3>
 <div id="acconti-container"></div>
 <button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
 
@@ -292,11 +283,11 @@ th{background:#f8f9fa;font-weight:600}
 <div class="proc-row"><label>Saldo alla Stampa (€)</label><input type="number" id="proc-saldo-stampa" value="0"></div>
 
 <button class="btn btn-success" onclick="saveQuote()" style="margin-top:15px">✅ Crea Preventivo & PDF</button>
-<button class="btn btn-warning" onclick="convertToContract()"> Converti in Contratto</button>
+<button class="btn btn-warning" onclick="convertToContract()">📑 Converti in Contratto</button>
 </div>
 
 <div id="tab-stato" class="tab-content">
-<h3>📋 STATO LAVORI - Flusso Contratti</h3>
+<h3> STATO LAVORI - Flusso Contratti</h3>
 <div style="margin-bottom:15px">
 <button class="btn btn-primary" onclick="renderStatoLavori()">🔄 Aggiorna</button>
 </div>
@@ -314,13 +305,12 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-archivio-clienti" class="tab-content">
-<h3>👥 Archivio Clienti</h3>
+<h3> Archivio Clienti</h3>
 <table id="table-couples"><thead><tr><th>ID</th><th>Cliente A</th><th>Cliente B</th><th>Telefono</th><th>Email</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 </div>
 </div>
 
-<!-- GESTIONE SAGGI -->
 <div id="saggi" class="section-content">
 <div class="panel">
 <h2>💃 Gestione Saggi Danza</h2>
@@ -331,7 +321,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
-<button class="tab-btn" onclick="showSaggiTab('archivio')">📁 Archivio</button>
+<button class="tab-btn" onclick="showSaggiTab('archivio')"> Archivio</button>
 <button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
 </div>
 
@@ -351,7 +341,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Importo (€)</label><input type="number" id="sag-importo" value="15"></div>
 </div>
 <button class="btn btn-success" onclick="saveStudent()">💾 Salva</button>
-<button class="btn btn-warning" onclick="loadStudentForEdit()">✏️ Carica per Modifica</button>
+<button class="btn btn-warning" onclick="loadStudentForEdit()">️ Carica per Modifica</button>
 <button class="btn btn-info" onclick="generateStudentPDF()">📄 PDF Scheda</button>
 <button class="btn btn-secondary" onclick="resetStudentForm()">🔄 Reset</button>
 </div>
@@ -362,7 +352,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
 </div>
-<button class="btn btn-success" onclick="printStudentsList()">🖨️ Stampa Elenco Partecipanti</button>
+<button class="btn btn-success" onclick="printStudentsList()">️ Stampa Elenco Partecipanti</button>
 <button class="btn btn-info" onclick="generateStudentsPDF()">📄 Lista partecipanti PDF</button>
 <table id="table-students"><thead><tr><th>ID</th><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
@@ -380,7 +370,6 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 </div>
 
-<!-- GALLERY MANAGER -->
 <div id="gallery" class="section-content">
 <div class="panel">
 <h2>🔐 Gallery Manager</h2>
@@ -414,10 +403,9 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 </div>
 
-<!-- RICEVUTE -->
 <div id="ricevute" class="section-content">
 <div class="panel">
-<h2>🧾 Gestione Ricevute</h2>
+<h2> Gestione Ricevute</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupRicevute()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreRicevute').click()">🔄 Ripristina</button>
@@ -425,10 +413,10 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showRicevuteTab('nuova')">➕ Nuova Ricevuta</button>
-<button class="tab-btn" onclick="showRicevuteTab('archivio')"> Archivio Ricevute</button>
+<button class="tab-btn" onclick="showRicevuteTab('archivio')">📁 Archivio Ricevute</button>
 </div>
 <div id="ricevute-tab-nuova" class="tab-content active">
-<h3> Nuova Ricevuta Fotografica</h3>
+<h3>📄 Nuova Ricevuta Fotografica</h3>
 <p style="margin-bottom:15px;color:#666"><strong>Studio Fotografico G&L</strong> • Via Ciarrocco, 21 – Canicattì (AG) | Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
 <div class="form-row">
 <div class="form-group"><label>Nome Cliente *</label><input type="text" id="ric-nome"></div>
@@ -443,7 +431,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
 <button class="btn btn-secondary" onclick="showRicevuteTab('archivio')"> Torna alla Lista</button>
 <button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
-<button class="btn btn-info" onclick="generateReceiptPDF()">️ PDF Doppia Copia</button>
+<button class="btn btn-info" onclick="generateReceiptPDF()">🖨️ PDF Doppia Copia</button>
 </div>
 <div id="ricevute-tab-archivio" class="tab-content">
 <h3> Archivio Ricevute</h3>
@@ -452,7 +440,6 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 </div>
 
-<!-- INVIO SELEZIONE CLIENTE -->
 <div id="album-selection" class="section-content">
 <div class="panel">
 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
@@ -479,7 +466,6 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 </div>
 
-<!-- MODALE DETTAGLIO SELEZIONE -->
 <div id="albumSelectionModal" class="modal-overlay">
 <div class="modal-content">
 <span class="modal-close" onclick="closeAlbumModal()">&times;</span>
@@ -488,7 +474,6 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 </div>
 
-<!-- MODALE EDIT -->
 <div id="editModal" class="modal-overlay">
 <div class="modal-content">
 <span class="modal-close" onclick="closeEditModal()">&times;</span>
@@ -764,7 +749,7 @@ accontiList.push({tipo:'Caparra',data:'',importo:0,metodo:'Contanti'});
 const row=document.createElement('div');
 row.className='acconto-row';
 row.id='acconto-row-'+idx;
-row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">️</button>`;
+row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">🗑️</button>`;
 container.appendChild(row);
 updateTotals();
 }
@@ -843,7 +828,7 @@ if(!tbody)return;
 tbody.innerHTML=db.eventi.preventivi.map(q=>{
 const c=db.eventi.clienti[parseInt(q.clienteIdx)];
 const nome=c?c.cognome+' '+c.nome:'N/A';
-return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewQuote(${q.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editQuote(${q.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateQuotePDFById(${q.id})">📄 PDF</button></td></tr>`;
+return `<tr><td>${q.id}</td><td>${q.dataEvento||'-'}</td><td>${nome}</td><td>${q.tipo}</td><td>${q.servizio}</td><td>€ ${q.importo}</td><td>${q.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewQuote(${q.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editQuote(${q.id})">️</button> <button class="btn btn-danger btn-sm" onclick="deleteQuote(${q.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateQuotePDFById(${q.id})">📄 PDF</button></td></tr>`;
 }).join('');
 }
 
@@ -912,7 +897,7 @@ const container=document.getElementById('acconti-container');
 const row=document.createElement('div');
 row.className='acconto-row';
 row.id='acconto-row-'+i;
-row.innerHTML=`<select onchange="updateAcconto(${i},'tipo',this.value)"><option ${a.tipo==='Caparra'?'selected':''}>Caparra</option><option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option><option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option><option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option><option ${a.tipo==='Altro'?'selected':''}>Altro</option></select><input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)"><input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${i},'metodo',this.value)"><option ${a.metodo==='Contanti'?'selected':''}>Contanti</option><option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option><option ${a.metodo==='Carta'?'selected':''}>Carta</option><option ${a.metodo==='Altro'?'selected':''}>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">🗑️</button>`;
+row.innerHTML=`<select onchange="updateAcconto(${i},'tipo',this.value)"><option ${a.tipo==='Caparra'?'selected':''}>Caparra</option><option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option><option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option><option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option><option ${a.tipo==='Altro'?'selected':''}>Altro</option></select><input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)"><input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${i},'metodo',this.value)"><option ${a.metodo==='Contanti'?'selected':''}>Contanti</option><option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option><option ${a.metodo==='Carta'?'selected':''}>Carta</option><option ${a.metodo==='Altro'?'selected':''}>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">️</button>`;
 container.appendChild(row);
 });
 updateTotals();
@@ -926,23 +911,219 @@ function generateQuotePDFById(id){const db=getDB();const q=db.eventi.preventivi.
 function generateQuotePDF(q){
 const{jsPDF}=window.jspdf;
 const doc=new jsPDF();
-const c=getDB().eventi.clienti[parseInt(q.clienteIdx)];
-const nome=c?c.cognome+' '+c.nome:'N/A';
-doc.setFontSize(18);
-doc.text('G&L Studio - Preventivo',20,20);
-doc.setFontSize(12);
-doc.text(`Cliente: ${nome}`,20,35);
-doc.text(`Data Evento: ${q.dataEvento||'-'}`,20,45);
-doc.text(`Tipo: ${q.tipo}`,20,55);
-doc.text(`Servizio: ${q.servizio}`,20,65);
-doc.text(`Importo: € ${q.importo}`,20,75);
-doc.text(`Stato: ${q.stato}`,20,85);
-if(q.acconti&&q.acconti.length>0){
-doc.text('Acconti:',20,100);
-let y=110;
-q.acconti.forEach(a=>{doc.text(`- ${a.tipo}: ${a.data} - € ${a.importo} (${a.metodo})`,25,y);y+=10;});
+const db=getDB();
+const cA=db.eventi.clienti[parseInt(q.clienteIdx)];
+const cB=q.clienteBIdx?db.eventi.clienti[parseInt(q.clienteBIdx)]:null;
+const nomeA=cA?cA.cognome+' '+cA.nome:'N/A';
+const nomeB=cB?cB.cognome+' '+cB.nome:'';
+const dataContratto=new Date().toLocaleDateString('it-IT');
+const dataEvento=q.dataEvento?new Date(q.dataEvento).toLocaleDateString('it-IT'):'-';
+
+doc.setFillColor(44,62,80);
+doc.rect(0,0,210,25,'F');
+doc.setTextColor(255,255,255);
+doc.setFontSize(20);
+doc.setFont(undefined,'bold');
+doc.text('G&L Studio',105,12,{align:'center'});
+doc.setFontSize(9);
+doc.setFont(undefined,'normal');
+doc.text('Via Ciarrocco n.21, Canicattì (AG)  Tel: +39 366 9381103 / 320 6337370',105,19,{align:'center'});
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(16);
+doc.setFont(undefined,'bold');
+doc.text('PREVENTIVO DI SERVIZIO',105,38,{align:'center'});
+doc.setFontSize(10);
+doc.setFont(undefined,'normal');
+doc.text('Preventivo del: '+dataContratto,105,44,{align:'center'});
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('COMMITTENTI',14,55);
+
+const committentiData=[
+['COMMITTENTE 1','COMMITTENTE 2'],
+['Cognome: '+(cA?cA.cognome:''),'Cognome: '+(cB?cB.cognome:'-')],
+['Nome: '+(cA?cA.nome:''),'Nome: '+(cB?cB.nome:'-')],
+['Indirizzo: '+(cA?cA.indirizzo||'-':'-'),'Indirizzo: '+(cB?cB.indirizzo||'-':'-')],
+['Tel: '+(cA?cA.cellulare||'-':'-'),'Tel: '+(cB?cB.cellulare||'-':'-')],
+['Email: '+(cA?cA.email||'-':'-'),'Email: '+(cB?cB.email||'-':'-')]
+];
+doc.autoTable({
+startY:58,
+head:[committentiData[0]],
+body:committentiData.slice(1),
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold',halign:'center'},
+styles:{fontSize:9,cellPadding:3},
+columnStyles:{0:{cellWidth:95},1:{cellWidth:95}}
+});
+
+let y=doc.lastAutoTable.finalY+8;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('LAVORO COMMISSIONATO',14,y);
+y+=3;
+doc.autoTable({
+startY:y,
+head:[['Tipo','Data']],
+body:[[q.tipo||'-',dataEvento]],
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold'},
+styles:{fontSize:9,cellPadding:3}
+});
+y=doc.lastAutoTable.finalY+8;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('SERVIZI INCLUSI',14,y);
+y+=3;
+
+let albumDesc='';
+if(q.servizio&&q.servizio!=='Nessuno'){
+albumDesc=q.servizio;
+if(q.misura&&q.misura!=='Nessuno')albumDesc+=' '+q.misura;
+if(q.orientamento&&q.orientamento!=='Nessuno')albumDesc+=' '+q.orientamento.replace('Album ','');
 }
-doc.save(`preventivo_${nome.replace(/\s/g,'_')}_${q.id}.pdf`);
+
+let videoDesc='';
+if(q.video&&q.video!=='Nessuno'){
+videoDesc=q.video;
+if(q.drone&&q.drone!=='Nessuno')videoDesc+=' + Drone';
+if(q.proiezione&&q.proiezione!=='Nessuna')videoDesc+=' + '+q.proiezione;
+}
+
+let telaDesc='';
+if(q.tela&&q.tela!=='Nessuno'&&q.telaQta&&q.telaQta!=='0'){
+telaDesc=q.tela+' (Q.tà '+q.telaQta+')';
+}
+
+let stampeDesc='';
+if(q.ingrandimento&&q.ingrandimento!=='Nessuno'&&q.ingrandimentoQta&&q.ingrandimentoQta!=='0'){
+stampeDesc=q.ingrandimento+' (Q.tà '+q.ingrandimentoQta+')';
+}
+
+const serviziData=[
+['Chiesa:',q.chiesa||'-'],
+['Location:',q.location||'-'],
+['Album:',albumDesc||'-'],
+['Copertina:',q.copertina&&q.copertina!=='Nessuno'?q.copertina:'-'],
+['Mini album:',q.miniAlbum&&q.miniAlbum!=='0'?q.miniAlbum:'-'],
+['Effetti:',q.effetti&&q.effetti!=='Nessuno'?q.effetti:'-'],
+['Foto nel book:',q.qta&&q.qta!=='0'?q.qta:'-'],
+['Anteprima:',q.anteprima&&q.anteprima!=='Nessuno'?q.anteprima:'-'],
+['Post Servizio:',q.postServizio&&q.postServizio!=='Nessuno'?q.postServizio:'-'],
+['Video:',videoDesc||'-'],
+['TELA:',telaDesc||'-'],
+['Stampe carta:',stampeDesc||'-'],
+['Pennette USB:',q.pennino&&q.pennino!=='0'?q.pennino:'-']
+];
+
+doc.autoTable({
+startY:y,
+body:serviziData,
+theme:'grid',
+styles:{fontSize:9,cellPadding:3},
+columnStyles:{0:{cellWidth:50,fontStyle:'bold',fillColor:[240,240,240]},1:{cellWidth:140}}
+});
+y=doc.lastAutoTable.finalY+8;
+
+doc.setFillColor(255,243,205);
+doc.rect(14,y-5,182,12,'F');
+doc.setFontSize(12);
+doc.setFont(undefined,'bold');
+doc.setTextColor(214,137,16);
+doc.text('IMPORTO TOTALE IVA ESCLUSA',20,y+3);
+doc.text('€ '+parseFloat(q.importo||0).toFixed(2)+',00',190,y+3,{align:'right'});
+y+=15;
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(11);
+doc.text('PAGAMENTI (ACCONTI E CAPARRA)',14,y);
+y+=3;
+
+let pagamentiBody=[];
+let totaleVersato=0;
+if(q.acconti&&q.acconti.length>0){
+q.acconti.forEach(a=>{
+const imp=parseFloat(a.importo)||0;
+totaleVersato+=imp;
+pagamentiBody.push([a.data||'-','€ '+imp.toFixed(2),a.tipo||'-']);
+});
+}
+if(pagamentiBody.length===0)pagamentiBody=[['-','-','-']];
+
+doc.autoTable({
+startY:y,
+head:[['Data','Importo','Descrizione']],
+body:pagamentiBody,
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold'},
+styles:{fontSize:9,cellPadding:3}
+});
+y=doc.lastAutoTable.finalY+5;
+
+const saldo=parseFloat(q.importo||0)-totaleVersato;
+doc.autoTable({
+startY:y,
+body:[
+['Totale versato:','€ '+totaleVersato.toFixed(2)],
+['Saldo:','€ '+saldo.toFixed(2)]
+],
+theme:'grid',
+styles:{fontSize:10,cellPadding:3,fontStyle:'bold'},
+columnStyles:{0:{cellWidth:100,fillColor:[232,244,253]},1:{cellWidth:90,fillColor:[232,244,253],halign:'right'}}
+});
+y=doc.lastAutoTable.finalY+10;
+
+doc.setFillColor(255,248,220);
+doc.rect(14,y-3,182,20,'F');
+doc.setFontSize(9);
+doc.setFont(undefined,'normal');
+doc.text('TERMINI: Il preventivo è valido 30 giorni dalla data di emissione.',20,y+3);
+doc.text('In caso di cancellazione, l\'acconto non sarà rimborsato.',20,y+8);
+doc.text('Saldo entro data evento.',20,y+13);
+y+=25;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('FIRME PER ACCETTAZIONE',14,y);
+y+=8;
+
+const colW=60;
+const col1=14,col2=75,col3=136;
+const signY=y+25;
+
+doc.setFontSize(9);
+doc.setFont(undefined,'bold');
+doc.text('Committente 1',col1+colW/2,y+3,{align:'center'});
+doc.text('Committente 2',col2+colW/2,y+3,{align:'center'});
+doc.text('Per G&L STUDIO',col3+colW/2,y+3,{align:'center'});
+
+doc.setFont(undefined,'normal');
+doc.text(nomeA,col1+colW/2,y+8,{align:'center'});
+if(nomeB)doc.text(nomeB,col2+colW/2,y+8,{align:'center'});
+
+doc.setDrawColor(0,0,0);
+doc.line(col1,signY,col1+colW,signY);
+doc.line(col2,signY,col2+colW,signY);
+doc.line(col3,signY,col3+colW,signY);
+
+doc.setFontSize(8);
+doc.text('Firma _______________',col1+colW/2,signY+5,{align:'center'});
+doc.text('Firma _______________',col2+colW/2,signY+5,{align:'center'});
+doc.text('Firma e timbro _________',col3+colW/2,signY+5,{align:'center'});
+
+doc.text('Data __/__/____',col1+colW/2,signY+12,{align:'center'});
+doc.text('Data __/__/____',col2+colW/2,signY+12,{align:'center'});
+doc.text('Data __/__/____',col3+colW/2,signY+12,{align:'center'});
+
+doc.setFontSize(8);
+doc.setTextColor(128,128,128);
+doc.text('G&L Studio - Via Ciarrocco n.21, Canicattì (AG)',105,285,{align:'center'});
+
+doc.save(`preventivo_${nomeA.replace(/\s/g,'_')}_${q.id}.pdf`);
 }
 
 function convertToContract(){
@@ -1029,17 +1210,217 @@ const c=db.eventi.contratti.find(x=>x.id===id);
 if(!c)return;
 const{jsPDF}=window.jspdf;
 const doc=new jsPDF();
-const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
-const nome=cl?cl.cognome+' '+cl.nome:'N/A';
-doc.setFontSize(18);
-doc.text('G&L Studio - Contratto',20,20);
+const cA=db.eventi.clienti[parseInt(c.clienteIdx)];
+const cB=c.clienteBIdx?db.eventi.clienti[parseInt(c.clienteBIdx)]:null;
+const nomeA=cA?cA.cognome+' '+cA.nome:'N/A';
+const nomeB=cB?cB.cognome+' '+cB.nome:'';
+const dataContratto=c.dataAccettazione||new Date().toLocaleDateString('it-IT');
+const dataEvento=c.dataEvento?new Date(c.dataEvento).toLocaleDateString('it-IT'):'-';
+
+doc.setFillColor(44,62,80);
+doc.rect(0,0,210,25,'F');
+doc.setTextColor(255,255,255);
+doc.setFontSize(20);
+doc.setFont(undefined,'bold');
+doc.text('G&L Studio',105,12,{align:'center'});
+doc.setFontSize(9);
+doc.setFont(undefined,'normal');
+doc.text('Via Ciarrocco n.21, Canicattì (AG)  Tel: +39 366 9381103 / 320 6337370',105,19,{align:'center'});
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(16);
+doc.setFont(undefined,'bold');
+doc.text('CONTRATTO DI SERVIZIO',105,38,{align:'center'});
+doc.setFontSize(10);
+doc.setFont(undefined,'normal');
+doc.text('Contratto del: '+dataContratto,105,44,{align:'center'});
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('COMMITTENTI',14,55);
+
+const committentiData=[
+['COMMITTENTE 1','COMMITTENTE 2'],
+['Cognome: '+(cA?cA.cognome:''),'Cognome: '+(cB?cB.cognome:'-')],
+['Nome: '+(cA?cA.nome:''),'Nome: '+(cB?cB.nome:'-')],
+['Indirizzo: '+(cA?cA.indirizzo||'-':'-'),'Indirizzo: '+(cB?cB.indirizzo||'-':'-')],
+['Tel: '+(cA?cA.cellulare||'-':'-'),'Tel: '+(cB?cB.cellulare||'-':'-')],
+['Email: '+(cA?cA.email||'-':'-'),'Email: '+(cB?cB.email||'-':'-')]
+];
+doc.autoTable({
+startY:58,
+head:[committentiData[0]],
+body:committentiData.slice(1),
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold',halign:'center'},
+styles:{fontSize:9,cellPadding:3},
+columnStyles:{0:{cellWidth:95},1:{cellWidth:95}}
+});
+
+let y=doc.lastAutoTable.finalY+8;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('LAVORO COMMISSIONATO',14,y);
+y+=3;
+doc.autoTable({
+startY:y,
+head:[['Tipo','Data']],
+body:[[c.tipo||'-',dataEvento]],
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold'},
+styles:{fontSize:9,cellPadding:3}
+});
+y=doc.lastAutoTable.finalY+8;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('SERVIZI INCLUSI',14,y);
+y+=3;
+
+let albumDesc='';
+if(c.servizio&&c.servizio!=='Nessuno'){
+albumDesc=c.servizio;
+if(c.misura&&c.misura!=='Nessuno')albumDesc+=' '+c.misura;
+if(c.orientamento&&c.orientamento!=='Nessuno')albumDesc+=' '+c.orientamento.replace('Album ','');
+}
+
+let videoDesc='';
+if(c.video&&c.video!=='Nessuno'){
+videoDesc=c.video;
+if(c.drone&&c.drone!=='Nessuno')videoDesc+=' + Drone';
+if(c.proiezione&&c.proiezione!=='Nessuna')videoDesc+=' + '+c.proiezione;
+}
+
+let telaDesc='';
+if(c.tela&&c.tela!=='Nessuno'&&c.telaQta&&c.telaQta!=='0'){
+telaDesc=c.tela+' (Q.tà '+c.telaQta+')';
+}
+
+let stampeDesc='';
+if(c.ingrandimento&&c.ingrandimento!=='Nessuno'&&c.ingrandimentoQta&&c.ingrandimentoQta!=='0'){
+stampeDesc=c.ingrandimento+' (Q.tà '+c.ingrandimentoQta+')';
+}
+
+const serviziData=[
+['Chiesa:',c.chiesa||'-'],
+['Location:',c.location||'-'],
+['Album:',albumDesc||'-'],
+['Copertina:',c.copertina&&c.copertina!=='Nessuno'?c.copertina:'-'],
+['Mini album:',c.miniAlbum&&c.miniAlbum!=='0'?c.miniAlbum:'-'],
+['Effetti:',c.effetti&&c.effetti!=='Nessuno'?c.effetti:'-'],
+['Foto nel book:',c.qta&&c.qta!=='0'?c.qta:'-'],
+['Anteprima:',c.anteprima&&c.anteprima!=='Nessuno'?c.anteprima:'-'],
+['Post Servizio:',c.postServizio&&c.postServizio!=='Nessuno'?c.postServizio:'-'],
+['Video:',videoDesc||'-'],
+['TELA:',telaDesc||'-'],
+['Stampe carta:',stampeDesc||'-'],
+['Pennette USB:',c.pennino&&c.pennino!=='0'?c.pennino:'-']
+];
+
+doc.autoTable({
+startY:y,
+body:serviziData,
+theme:'grid',
+styles:{fontSize:9,cellPadding:3},
+columnStyles:{0:{cellWidth:50,fontStyle:'bold',fillColor:[240,240,240]},1:{cellWidth:140}}
+});
+y=doc.lastAutoTable.finalY+8;
+
+doc.setFillColor(255,243,205);
+doc.rect(14,y-5,182,12,'F');
 doc.setFontSize(12);
-doc.text(`Cliente: ${nome}`,20,35);
-doc.text(`Data Evento: ${c.dataEvento||'-'}`,20,45);
-doc.text(`Tipo: ${c.tipo}`,20,55);
-doc.text(`Importo: € ${c.importo}`,20,65);
-doc.text(`Stato: ${c.stato}`,20,75);
-doc.save(`contratto_${nome.replace(/\s/g,'_')}_${c.id}.pdf`);
+doc.setFont(undefined,'bold');
+doc.setTextColor(214,137,16);
+doc.text('IMPORTO TOTALE IVA ESCLUSA',20,y+3);
+doc.text('€ '+parseFloat(c.importo||0).toFixed(2)+',00',190,y+3,{align:'right'});
+y+=15;
+
+doc.setTextColor(0,0,0);
+doc.setFontSize(11);
+doc.text('PAGAMENTI (ACCONTI E CAPARRA)',14,y);
+y+=3;
+
+let pagamentiBody=[];
+let totaleVersato=0;
+if(c.acconti&&c.acconti.length>0){
+c.acconti.forEach(a=>{
+const imp=parseFloat(a.importo)||0;
+totaleVersato+=imp;
+pagamentiBody.push([a.data||'-','€ '+imp.toFixed(2),a.tipo||'-']);
+});
+}
+if(pagamentiBody.length===0)pagamentiBody=[['-','-','-']];
+
+doc.autoTable({
+startY:y,
+head:[['Data','Importo','Descrizione']],
+body:pagamentiBody,
+theme:'grid',
+headStyles:{fillColor:[102,126,234],textColor:255,fontStyle:'bold'},
+styles:{fontSize:9,cellPadding:3}
+});
+y=doc.lastAutoTable.finalY+5;
+
+const saldo=parseFloat(c.importo||0)-totaleVersato;
+doc.autoTable({
+startY:y,
+body:[
+['Totale versato:','€ '+totaleVersato.toFixed(2)],
+['Saldo:','€ '+saldo.toFixed(2)]
+],
+theme:'grid',
+styles:{fontSize:10,cellPadding:3,fontStyle:'bold'},
+columnStyles:{0:{cellWidth:100,fillColor:[232,244,253]},1:{cellWidth:90,fillColor:[232,244,253],halign:'right'}}
+});
+y=doc.lastAutoTable.finalY+10;
+
+doc.setFillColor(255,248,220);
+doc.rect(14,y-3,182,20,'F');
+doc.setFontSize(9);
+doc.setFont(undefined,'normal');
+doc.text('TERMINI: Il contratto vincola entrambe le parti. Saldo entro data evento.',20,y+3);
+doc.text('In caso di cancellazione, l\'acconto non sarà rimborsato.',20,y+8);
+y+=25;
+
+doc.setFontSize(11);
+doc.setFont(undefined,'bold');
+doc.text('FIRME CONTRATTO',14,y);
+y+=8;
+
+const colW=60;
+const col1=14,col2=75,col3=136;
+const signY=y+25;
+
+doc.setFontSize(9);
+doc.setFont(undefined,'bold');
+doc.text('Committente 1',col1+colW/2,y+3,{align:'center'});
+doc.text('Committente 2',col2+colW/2,y+3,{align:'center'});
+doc.text('Per G&L STUDIO',col3+colW/2,y+3,{align:'center'});
+
+doc.setFont(undefined,'normal');
+doc.text(nomeA,col1+colW/2,y+8,{align:'center'});
+if(nomeB)doc.text(nomeB,col2+colW/2,y+8,{align:'center'});
+
+doc.setDrawColor(0,0,0);
+doc.line(col1,signY,col1+colW,signY);
+doc.line(col2,signY,col2+colW,signY);
+doc.line(col3,signY,col3+colW,signY);
+
+doc.setFontSize(8);
+doc.text('Firma _______________',col1+colW/2,signY+5,{align:'center'});
+doc.text('Firma _______________',col2+colW/2,signY+5,{align:'center'});
+doc.text('Firma e timbro _________',col3+colW/2,signY+5,{align:'center'});
+
+doc.text('Data __/__/____',col1+colW/2,signY+12,{align:'center'});
+doc.text('Data __/__/____',col2+colW/2,signY+12,{align:'center'});
+doc.text('Data __/__/____',col3+colW/2,signY+12,{align:'center'});
+
+doc.setFontSize(8);
+doc.setTextColor(128,128,128);
+doc.text('G&L Studio - Via Ciarrocco n.21, Canicattì (AG)',105,285,{align:'center'});
+
+doc.save(`contratto_${nomeA.replace(/\s/g,'_')}_${c.id}.pdf`);
 }
 
 function renderStatoLavori(){
@@ -1065,9 +1446,9 @@ html+=`<div class="date-row"><span>Consegna Files</span><span>${c.dataConsegnaFi
 html+=`<div style="margin-top:10px">`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')">📅 Selezione Foto</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')"> Grafica Pronta</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')">📅 Ricevuto Lab.</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')"> Ricevuto Lab.</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoVideo')">📅 Cons. Video</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoAlbum')">📅 Cons. Album</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnaFiles')">📅 Cons. Files</button>`;
@@ -1160,7 +1541,7 @@ function showGalleryTab(tab){document.querySelectorAll('#gallery .tab-content').
 
 function saveGallery(){const db=getDB();const name=document.getElementById('gal-name').value.trim();if(!name)return alert('Inserisci Nome Cliente');db.gallery.push({id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000),name:name,username:document.getElementById('gal-user').value,password:document.getElementById('gal-pass').value,megaLink:document.getElementById('gal-link').value,notes:document.getElementById('gal-notes').value,createdAt:Date.now()});saveDB(db);renderGalleries();['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id=>document.getElementById(id).value='');alert('✅ Cliente Gallery aggiunto!');}
 
-function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px">📎 Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top">📋</button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')">🔗 Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
+function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px"> Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top">📋</button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910"> Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')"> Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
 
 function copyGalleryLink(btn){const input=btn.previousElementSibling;input.select();document.execCommand('copy');alert('Link copiato!');}
 function openMegaLink(url){if(url)window.open(url,'_blank');else alert('Nessun link MEGA disponibile');}
@@ -1175,7 +1556,7 @@ function showRicevuteTab(tab){document.querySelectorAll('#ricevute .tab-content'
 
 function saveReceipt(){const db=getDB();const nome=document.getElementById('ric-nome').value.trim();const tel=document.getElementById('ric-tel').value.trim();const servizio=document.getElementById('ric-servizio').value;const importo=document.getElementById('ric-importo').value;if(!nome||!tel||!servizio||!importo)return alert('Compila tutti i campi obbligatori');db.ricevute.push({id:Date.now(),data:document.getElementById('ric-data').value||new Date().toLocaleDateString('it-IT'),nome:nome,telefono:tel,fb:document.getElementById('ric-fb').value,servizio:servizio,importo:importo,note:document.getElementById('ric-note').value});saveDB(db);renderReceipts();['ric-nome','ric-tel','ric-fb','ric-data','ric-importo','ric-note'].forEach(id=>document.getElementById(id).value='');document.getElementById('ric-servizio').value='';alert('✅ Ricevuta salvata!');}
 
-function renderReceipts(){const db=getDB();const tbody=document.querySelector('#table-receipts tbody');if(!tbody)return;tbody.innerHTML=db.ricevute.map(r=>`<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewReceipt(${r.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editReceipt(${r.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">️</button> <button class="btn btn-primary btn-sm" onclick="generateReceiptPDFById(${r.id})">📄 PDF</button></td></tr>`).join('');}
+function renderReceipts(){const db=getDB();const tbody=document.querySelector('#table-receipts tbody');if(!tbody)return;tbody.innerHTML=db.ricevute.map(r=>`<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewReceipt(${r.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editReceipt(${r.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateReceiptPDFById(${r.id})">📄 PDF</button></td></tr>`).join('');}
 
 function viewReceipt(id){const db=getDB();const r=db.ricevute.find(x=>x.id===id);if(!r)return;let html=`<h3>Dettaglio Ricevuta #${r.id}</h3>`;html+=`<p><strong>Cliente:</strong> ${r.nome}</p>`;html+=`<p><strong>Telefono:</strong> ${r.telefono}</p>`;html+=`<p><strong>Servizio:</strong> ${r.servizio}</p>`;html+=`<p><strong>Data:</strong> ${r.data}</p>`;html+=`<p><strong>Importo:</strong> € ${r.importo}</p>`;html+=`<p><strong>Note:</strong> ${r.note||'-'}</p>`;document.getElementById('editModalContent').innerHTML=html;document.getElementById('editModal').classList.add('active');}
 
@@ -1257,6 +1638,8 @@ updateAlbumDashboardCount();
 function viewAlbumDetail(id){const db=getDB();const g=db.albums.find(x=>x.id===id);if(!g)return;const items=g.selection.map((url,i)=>`<li style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee"><img src="${url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"><div><strong>Foto ${i+1}</strong><br><small>${g.selectedNames?.[i]||''}</small></div></li>`).join('');document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%">📥 Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px">ℹ️ Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;document.getElementById('albumSelectionModal').classList.add('active');}
 
 function closeAlbumModal(){document.getElementById('albumSelectionModal').classList.remove('active');}
+
+function deleteAlbum(id){if(!confirm('Eliminare questa selezione?'))return;const db=getDB();db.albums=db.albums.filter(a=>a.id!==id);saveDB(db);renderAlbumList();updateAlbumDashboardCount();}
 
 window.onclick=function(e){if(e.target.id==='albumSelectionModal')closeAlbumModal();if(e.target.id==='editModal')closeEditModal();};
 
@@ -1357,37 +1740,36 @@ g.selectionDate=Date.now();
 g.downloaded=false;
 saveDB(db);
 
-// ✅ FIX: Reset completo degli stili del body prima di mostrare il messaggio
-document.body.style.cssText='';
+// ✅ RESET COMPLETO DEL BODY
 document.documentElement.style.cssText='';
+document.body.style.cssText='margin:0;padding:0;overflow:hidden;background:#fff;';
 document.body.className='';
-document.body.removeAttribute('style');
-
-// Rimuovi tutti gli elementi esistenti
 document.body.innerHTML='';
 
-// Crea il contenitore di conferma
+// Crea overlay verde
 const overlay=document.createElement('div');
 overlay.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);display:flex;align-items:center;justify-content:center;z-index:99999;margin:0;padding:0;';
 
 const card=document.createElement('div');
-card.style.cssText='background:white;padding:50px 40px;border-radius:20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);max-width:500px;width:90%;';
+card.style.cssText='background:white;padding:60px 50px;border-radius:20px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.3);max-width:550px;width:90%;animation:slideIn 0.5s ease-out;';
 
 const icon=document.createElement('div');
-icon.style.cssText='font-size:80px;margin-bottom:20px;animation:bounceIn 0.6s;';
 icon.textContent='✅';
+icon.style.cssText='font-size:100px;margin-bottom:30px;animation:bounceIn 0.6s;';
 
 const title=document.createElement('h1');
-title.style.cssText='color:#2c3e50;margin-bottom:20px;font-size:32px;font-family:sans-serif;';
 title.textContent='Selezione inviata allo studio';
+title.style.cssText='color:#2c3e50;margin-bottom:25px;font-size:36px;font-family:sans-serif;font-weight:bold;';
 
 const subtitle=document.createElement('p');
-subtitle.style.cssText='font-size:20px;margin-bottom:30px;color:#555;font-family:sans-serif;';
 subtitle.textContent='Contatta per info';
+subtitle.style.cssText='font-size:22px;margin-bottom:40px;color:#555;font-family:sans-serif;';
 
 const btn=document.createElement('button');
-btn.style.cssText='padding:15px 40px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;font-family:sans-serif;';
 btn.textContent='Chiudi pagina';
+btn.style.cssText='padding:18px 50px;background:#27ae60;color:white;border:none;border-radius:12px;font-size:20px;font-weight:bold;cursor:pointer;font-family:sans-serif;transition:all 0.3s;';
+btn.onmouseover=function(){this.style.background='#2ecc71';this.style.transform='scale(1.05)';};
+btn.onmouseout=function(){this.style.background='#27ae60';this.style.transform='scale(1)';};
 btn.onclick=function(){window.close();};
 
 card.appendChild(icon);
@@ -1397,9 +1779,11 @@ card.appendChild(btn);
 overlay.appendChild(card);
 document.body.appendChild(overlay);
 
-// Aggiungi animazione
 const style=document.createElement('style');
-style.textContent='@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}';
+style.textContent=`
+@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+@keyframes slideIn{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
+`;
 document.head.appendChild(style);
 };
 
