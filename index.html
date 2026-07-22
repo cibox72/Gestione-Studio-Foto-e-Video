@@ -13,7 +13,7 @@
 
 <div id="loginOverlay" class="login-overlay">
 <div class="login-box">
-<h2>📸 G&L Studio</h2>
+<h2> G&L Studio</h2>
 <p style="color:#666;margin-bottom:25px">Gestionale Unificato</p>
 <div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Inserisci username"></div>
 <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Inserisci password"></div>
@@ -46,7 +46,7 @@
 <div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
-<div class="dash-card" onclick="showSection('ricevute')"><h3>🧾 Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
+<div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
 <div class="dash-card" onclick="showSection('album-selection')" style="border-top-color:#8e44ad"><h3> INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
 </div>
 <div style="text-align:center;margin-top:30px">
@@ -81,8 +81,8 @@
 <script src="app.js"></script>
 <script>
 // ============================================
-// SOVRASCRITTURA FUNZIONI ALBUM SELECTION
-// Queste funzioni sovrascrivono quelle in app.js
+// FUNZIONI CORRETTE PER ALBUM SELECTION
+// (SOVRASCRIVONO QUELLE IN app.js)
 // ============================================
 
 function toggleDownloadStatus(albumId) {
@@ -202,7 +202,7 @@ function renderAlbumSelection() {
         if (hasSelection) {
             html += '<button class="btn btn-success btn-sm" onclick="downloadSelectionTXT(\'' + album.id + '\')">📥 Scarica TXT</button>';
         }
-        html += '<button class="btn btn-danger btn-sm" onclick="deleteAlbum(\'' + album.id + '\')">️ Elimina</button>';
+        html += '<button class="btn btn-danger btn-sm" onclick="deleteAlbum(\'' + album.id + '\')">🗑️ Elimina</button>';
         html += '</div>';
         html += '</div>';
     });
