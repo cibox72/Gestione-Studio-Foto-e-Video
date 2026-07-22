@@ -1214,7 +1214,7 @@ return `<div class="album-row ${isDone?'downloaded':''}">
 <button class="status-badge ${isDone?'downloaded':'pending'}" onclick="${isDone?'':'confirmDownload(\''+g.id+'\')'}">
 ${isDone?'✅ Scaricato':'📥 Scarica selezione'}
 </button>
-<button class="btn btn-secondary btn-sm" onclick="viewAlbumDetail('${g.id}')">Vedi</button>
+<button class="btn btn-info btn-sm" onclick="viewAlbumDetail('${g.id}')">🔄 Scarica Nuovamente</button>
 <button class="btn btn-danger btn-sm" onclick="deleteAlbum('${g.id}')">🗑️</button>
 </div>
 </div>`;
