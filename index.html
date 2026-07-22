@@ -153,11 +153,11 @@ th{background:#f8f9fa;font-weight:600}
 
 <nav class="main-nav">
 <button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
-<button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
+<button class="nav-btn" onclick="showSection('eventi')"> Gestione Eventi</button>
 <button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
-<button class="nav-btn" onclick="showSection('gallery')">🔐 Gallery Manager</button>
-<button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
-<button class="nav-btn" onclick="showSection('album-selection')">📤 INVIO SELEZIONE CLIENTE</button>
+<button class="nav-btn" onclick="showSection('gallery')"> Gallery Manager</button>
+<button class="nav-btn" onclick="showSection('ricevute')"> Ricevute</button>
+<button class="nav-btn" onclick="showSection('album-selection')"> INVIO SELEZIONE CLIENTE</button>
 <button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
 </nav>
 
@@ -166,7 +166,7 @@ th{background:#f8f9fa;font-weight:600}
 <h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
 <p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
 <div class="dashboard-grid">
-<div class="dash-card" onclick="showSection('eventi')"><h3> Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
+<div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="showSection('ricevute')"><h3>🧾 Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
@@ -195,8 +195,8 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
-<button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
-<button class="tab-btn" onclick="showEventTab('stato')">📊 Stato Lavori</button>
+<button class="tab-btn" onclick="showEventTab('preventivi')"> Nuovo Preventivo</button>
+<button class="tab-btn" onclick="showEventTab('stato')"> Stato Lavori</button>
 <button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
 <button class="tab-btn" onclick="showEventTab('archivio-contr')">📑 Archivio Contr.</button>
 <button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
@@ -214,7 +214,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Cliente B (Facoltativo) - Cognome</label><input type="text" id="ev-cognome-b"></div>
 <div class="form-group"><label>Nome</label><input type="text" id="ev-nome-b"></div>
-<div class="form-group"><label>Indirizzo 🗺️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Indirizzo ️</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
 <div class="form-group"><label>Cellulare 💬</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-b"></div>
 </div>
@@ -271,7 +271,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="form-group"><label>Note</label><textarea id="prev-note" rows="3"></textarea></div>
 <div class="highlight-box">
-<label>💰 IMPORTO TOTALE SERVIZIO (€)</label>
+<label> IMPORTO TOTALE SERVIZIO (€)</label>
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
@@ -296,7 +296,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-stato" class="tab-content">
-<h3>📋 STATO LAVORI - Flusso Contratti</h3>
+<h3> STATO LAVORI - Flusso Contratti</h3>
 <div style="margin-bottom:15px">
 <button class="btn btn-primary" onclick="renderStatoLavori()">🔄 Aggiorna</button>
 </div>
@@ -314,7 +314,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-archivio-clienti" class="tab-content">
-<h3> Archivio Clienti</h3>
+<h3>👥 Archivio Clienti</h3>
 <table id="table-couples"><thead><tr><th>ID</th><th>Cliente A</th><th>Cliente B</th><th>Telefono</th><th>Email</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 </div>
@@ -332,7 +332,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="tabs">
 <button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
 <button class="tab-btn" onclick="showSaggiTab('archivio')">📁 Archivio</button>
-<button class="tab-btn" onclick="showSaggiTab('contabilita')"> Contabilità</button>
+<button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
 </div>
 
 <div id="saggi-tab-nuovo" class="tab-content active">
@@ -357,12 +357,12 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="saggi-tab-archivio" class="tab-content">
-<h3> Archivio Partecipanti</h3>
+<h3>📁 Archivio Partecipanti</h3>
 <div class="form-row">
 <div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
 </div>
-<button class="btn btn-success" onclick="printStudentsList()">🖨️ Stampa Elenco Partecipanti</button>
+<button class="btn btn-success" onclick="printStudentsList()">️ Stampa Elenco Partecipanti</button>
 <button class="btn btn-info" onclick="generateStudentsPDF()">📄 Lista partecipanti PDF</button>
 <table id="table-students"><thead><tr><th>ID</th><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
@@ -374,7 +374,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Anno</label><input type="number" id="cont-anno" value="2026"></div>
 </div>
 <button class="btn btn-primary" onclick="renderContabilita()">👁️ Visualizza</button>
-<button class="btn btn-info" onclick="generateContabilitaPDF()">️ PDF Contabilità</button>
+<button class="btn btn-info" onclick="generateContabilitaPDF()">📄 PDF Contabilità</button>
 <div id="contabilita-content"></div>
 </div>
 </div>
@@ -417,7 +417,7 @@ th{background:#f8f9fa;font-weight:600}
 <!-- RICEVUTE -->
 <div id="ricevute" class="section-content">
 <div class="panel">
-<h2> Gestione Ricevute</h2>
+<h2>🧾 Gestione Ricevute</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupRicevute()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreRicevute').click()">🔄 Ripristina</button>
@@ -443,7 +443,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
 <button class="btn btn-secondary" onclick="showRicevuteTab('archivio')"> Torna alla Lista</button>
 <button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
-<button class="btn btn-info" onclick="generateReceiptPDF()">🖨️ PDF Doppia Copia</button>
+<button class="btn btn-info" onclick="generateReceiptPDF()">️ PDF Doppia Copia</button>
 </div>
 <div id="ricevute-tab-archivio" class="tab-content">
 <h3>📁 Archivio Ricevute</h3>
@@ -463,13 +463,13 @@ th{background:#f8f9fa;font-weight:600}
 <h3>➕ Crea Nuova Selezione</h3>
 <div class="form-group"><label>Nome Cliente:</label><input type="text" id="albumClientName" placeholder="Es. Mario e Lucia"></div>
 <div class="form-group"><label>Cloud Name Cloudinary:</label><input type="text" id="albumCloudName" value="g3439ih4"></div>
-<div style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px">⚠️ Clicca "Apri Widget", trascina le foto e attendi il caricamento.</div>
+<div style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px">️ Clicca "Apri Widget", trascina le foto e attendi il caricamento.</div>
 <button class="btn btn-primary" style="width:100%;margin:10px 0" onclick="openAlbumUploadWidget()">📂 Apri Widget Upload Cloudinary</button>
 <div id="albumUploadStatus" style="display:none;color:#27ae60;font-weight:bold;margin:10px 0">✅ <span id="albumUploadedCount">0</span> foto caricate!</div>
 <button class="btn btn-success" onclick="createAlbumGallery()" style="width:100%;margin-top:15px">🔗 Crea Galleria e Link</button>
 <div id="albumGeneratedLink" style="display:none;margin-top:15px;padding:15px;background:#e8f4fd;border-radius:8px">
 <strong>Link da inviare:</strong><input type="text" id="albumLinkOutput" readonly style="margin-top:5px">
-<button class="btn btn-secondary" onclick="copyAlbumLink()">📋 Copia</button>
+<button class="btn btn-secondary" onclick="copyAlbumLink()"> Copia</button>
 </div>
 </div>
 <div class="panel">
@@ -709,7 +709,7 @@ if(tbody){
 tbody.innerHTML=db.eventi.clienti.map(c=>{
 const nomeA=c.cognome+' '+c.nome;
 const nomeB=(c.cognomeB||'')+' '+(c.nomeB||'');
-return `<tr><td>${c.id}</td><td>${nomeA}</td><td>${nomeB.trim()||'-'}</td><td>${c.cellulare||'-'}</td><td>${c.email||'-'}</td><td><button class="btn btn-info btn-sm" onclick="editCouple(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteCouple(${c.id})">🗑️</button></td></tr>`;
+return `<tr><td>${c.id}</td><td>${nomeA}</td><td>${nomeB.trim()||'-'}</td><td>${c.cellulare||'-'}</td><td>${c.email||'-'}</td><td><button class="btn btn-info btn-sm" onclick="editCouple(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteCouple(${c.id})">️</button></td></tr>`;
 }).join('');
 }
 }
@@ -965,7 +965,7 @@ if(!tbody)return;
 tbody.innerHTML=db.eventi.contratti.map(c=>{
 const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
 const nome=cl?cl.cognome+' '+cl.nome:'N/A';
-return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
+return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
 }).join('');
 }
 
@@ -1063,7 +1063,7 @@ html+=`<div class="date-row"><span>Consegnato Video</span><span>${c.dataConsegna
 html+=`<div class="date-row"><span>Consegnato Album</span><span>${c.dataConsegnatoAlbum||'-'}</span></div>`;
 html+=`<div class="date-row"><span>Consegna Files</span><span>${c.dataConsegnaFiles||'-'}</span></div>`;
 html+=`<div style="margin-top:10px">`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')"> Convertito</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')">📅 Selezione Foto</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
@@ -1133,7 +1133,7 @@ if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
 if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
 const tbody=document.querySelector('#table-students tbody');
 if(!tbody)return;
-tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
+tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
 }
 
 function viewStudent(id){const db=getDB();const s=db.saggi.find(x=>x.id===id);if(!s)return;let html=`<h3>Scheda Partecipante #${s.id}</h3>`;html+=`<p><strong>Scuola:</strong> ${s.scuola}</p>`;html+=`<p><strong>Anno:</strong> ${s.anno}</p>`;html+=`<p><strong>Nome:</strong> ${s.nome} ${s.cognome}</p>`;html+=`<p><strong>Telefono:</strong> ${s.telefono||'-'}</p>`;html+=`<p><strong>Tipo:</strong> ${s.tipoCliente}</p>`;html+=`<p><strong>Servizio:</strong> ${s.servizio}</p>`;html+=`<p><strong>Importo:</strong> € ${s.importo}</p>`;document.getElementById('editModalContent').innerHTML=html;document.getElementById('editModal').classList.add('active');}
@@ -1160,7 +1160,7 @@ function showGalleryTab(tab){document.querySelectorAll('#gallery .tab-content').
 
 function saveGallery(){const db=getDB();const name=document.getElementById('gal-name').value.trim();if(!name)return alert('Inserisci Nome Cliente');db.gallery.push({id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000),name:name,username:document.getElementById('gal-user').value,password:document.getElementById('gal-pass').value,megaLink:document.getElementById('gal-link').value,notes:document.getElementById('gal-notes').value,createdAt:Date.now()});saveDB(db);renderGalleries();['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id=>document.getElementById(id).value='');alert('✅ Cliente Gallery aggiunto!');}
 
-function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px">📎 Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top">📋</button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')"> Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
+function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px">📎 Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top"></button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')"> Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">️ Elimina</button></div></div>`).join('');}
 
 function copyGalleryLink(btn){const input=btn.previousElementSibling;input.select();document.execCommand('copy');alert('Link copiato!');}
 function openMegaLink(url){if(url)window.open(url,'_blank');else alert('Nessun link MEGA disponibile');}
@@ -1204,6 +1204,7 @@ const div=document.getElementById('albumSelectionsList');
 if(albums.length===0){div.innerHTML='<p style="color:#888;text-align:center;padding:20px">Nessuna selezione ricevuta.</p>';return;}
 div.innerHTML=albums.map(g=>{
 const isDone=g.downloaded;
+const link=`${location.origin}${location.pathname}?gallery=${g.id}`;
 return `<div class="album-row ${isDone?'downloaded':''}">
 <div style="flex:1">
 <strong>${g.client}</strong>
@@ -1215,10 +1216,17 @@ return `<div class="album-row ${isDone?'downloaded':''}">
 ${isDone?'✅ Scaricato':'📥 Scarica selezione'}
 </button>
 <button class="btn btn-info btn-sm" onclick="viewAlbumDetail('${g.id}')">🔄 Scarica Nuovamente</button>
+<button class="btn btn-warning btn-sm" onclick="copyAlbumLinkForEdit('${g.id}')">📋 Link per Modifica</button>
 <button class="btn btn-danger btn-sm" onclick="deleteAlbum('${g.id}')">🗑️</button>
 </div>
 </div>`;
 }).join('');
+}
+
+function copyAlbumLinkForEdit(albumId){
+const link=`${location.origin}${location.pathname}?gallery=${albumId}`;
+navigator.clipboard.writeText(link);
+alert('Link copiato! Invia questo link al cliente per permettergli di modificare la selezione.');
 }
 
 function confirmDownload(id){
@@ -1247,7 +1255,7 @@ renderAlbumList();
 updateAlbumDashboardCount();
 }
 
-function viewAlbumDetail(id){const db=getDB();const g=db.albums.find(x=>x.id===id);if(!g)return;const items=g.selection.map((url,i)=>`<li style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee"><img src="${url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"><div><strong>Foto ${i+1}</strong><br><small>${g.selectedNames?.[i]||''}</small></div></li>`).join('');document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%">📥 Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px"> Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;document.getElementById('albumSelectionModal').classList.add('active');}
+function viewAlbumDetail(id){const db=getDB();const g=db.albums.find(x=>x.id===id);if(!g)return;const items=g.selection.map((url,i)=>`<li style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #eee"><img src="${url}" style="width:50px;height:50px;object-fit:cover;border-radius:4px"><div><strong>Foto ${i+1}</strong><br><small>${g.selectedNames?.[i]||''}</small></div></li>`).join('');document.getElementById('albumSelectionDetails').innerHTML=`<p><strong>Cliente:</strong> ${g.client}</p><p><strong>Totale:</strong> ${g.selection.length} foto</p><ul style="list-style:none;margin-top:15px">${items}</ul><button class="btn btn-primary" onclick="downloadAlbumTxt('${g.id}');closeAlbumModal()" style="margin-top:20px;width:100%">📥 Scarica Lista Nomi (.txt)</button><div style="margin-top:15px;padding:10px;background:#f3e8ff;border-radius:6px;font-size:13px">ℹ️ Usa questo file .txt nell'app Automator "Gru G&L Studio"</div>`;document.getElementById('albumSelectionModal').classList.add('active');}
 
 function closeAlbumModal(){document.getElementById('albumSelectionModal').classList.remove('active');}
 
@@ -1266,16 +1274,27 @@ const galId=params.get('gallery');
 if(galId){
 const db=getDB();
 const g=(db.albums||[]).find(x=>x.id===galId);
-if(g&&!g.selection){
+if(g){
 document.getElementById('loginOverlay').style.display='none';
 document.getElementById('mainApp').style.display='none';
+
+// Se esiste già una selezione, la carichiamo per permettere la modifica
+let currentIndex=0;
+let selected=new Set();
+if(g.selection&&g.selection.length>0){
+// Carichiamo le selezioni già fatte
+g.selection.forEach((url,idx)=>{
+const photoIndex=g.photos.indexOf(url);
+if(photoIndex!==-1)selected.add(photoIndex);
+});
+}
 
 document.body.innerHTML=`
 <div class="client-viewer">
 <div class="client-header">
 <h2>📸 G&L Studio - Selezione Album</h2>
 <div class="client-counter" id="photoCounter">1 / ${g.photos.length}</div>
-<button class="btn-send-selection" id="btnSend" onclick="submitClientSelection()" disabled>📤 Invia Selezione (0)</button>
+<button class="btn-send-selection" id="btnSend" onclick="submitClientSelection()" ${selected.size===0?'disabled':''}> ${g.selection&&g.selection.length>0?'Modifica Selezione':'Invia Selezione'} (${selected.size})</button>
 </div>
 <div class="client-main">
 <button class="nav-arrow left" id="btnPrev" onclick="navigatePhoto(-1)">‹</button>
@@ -1288,18 +1307,15 @@ document.body.innerHTML=`
 </div>
 <div class="client-footer">
 <button class="heart-btn" id="heartBtn" onclick="toggleHeart()">🤍</button>
-<div class="selection-counter">Selezionate: <span id="selectedCount">0</span> foto</div>
+<div class="selection-counter">Selezionate: <span id="selectedCount">${selected.size}</span> foto</div>
 </div>
 </div>
 `;
 
-let currentIndex=0;
-let selected=new Set();
-
 const strip=document.getElementById('thumbnailsStrip');
 g.photos.forEach((url,i)=>{
 const thumb=document.createElement('img');
-thumb.className='thumbnail'+(i===0?' active':'');
+thumb.className='thumbnail'+(i===0?' active':'')+(selected.has(i)?' selected':'');
 thumb.src=url;
 thumb.onclick=()=>goToPhoto(i);
 strip.appendChild(thumb);
@@ -1324,7 +1340,8 @@ window.toggleHeart=function(){
 if(selected.has(currentIndex)){selected.delete(currentIndex);}else{selected.add(currentIndex);}
 updateHeart();
 document.getElementById('selectedCount').textContent=selected.size;
-document.getElementById('btnSend').textContent='📤 Invia Selezione ('+selected.size+')';
+const btnText=g.selection&&g.selection.length>0?'Modifica Selezione':'Invia Selezione';
+document.getElementById('btnSend').textContent=`📤 ${btnText} (${selected.size})`;
 document.getElementById('btnSend').disabled=(selected.size===0);
 const thumbs=document.querySelectorAll('.thumbnail');
 if(selected.has(currentIndex))thumbs[currentIndex].classList.add('selected');
@@ -1340,16 +1357,22 @@ const idxs=Array.from(selected);
 g.selection=idxs.map(i=>g.photos[i]);
 g.selectedNames=idxs.map(i=>g.fileNames[i]);
 g.selectionDate=Date.now();
+g.downloaded=false; // Reset dello stato per permettere nuovi download
 saveDB(db);
 
+// Mostra schermata di conferma CENTRALE
 document.body.innerHTML=`
-<div class="confirmation-screen">
-<div style="font-size:80px;margin-bottom:20px">✅</div>
-<h1>Selezione inviata al fotografo</h1>
-<p style="font-size:20px;margin-bottom:20px"><strong>Contatta per info</strong></p>
-<p style="font-size:16px;margin-top:30px;opacity:0.9">✅ Puoi chiudere la pagina</p>
-<button onclick="window.close()" style="margin-top:20px;padding:15px 40px;background:#fff;color:#27ae60;border:none;border-radius:10px;font-size:16px;font-weight:bold;cursor:pointer">Chiudi Pagina</button>
+<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);display:flex;align-items:center;justify-content:center;z-index:4000;">
+<div style="background:white;padding:50px 40px;border-radius:20px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,0.3);max-width:500px;">
+<div style="font-size:80px;margin-bottom:20px;animation:bounceIn 0.6s;">✅</div>
+<h1 style="color:#2c3e50;margin-bottom:20px;font-size:32px;">Selezione inviata allo studio</h1>
+<p style="font-size:20px;margin-bottom:30px;color:#555;">Contatta per info</p>
+<button onclick="window.close()" style="padding:15px 40px;background:#27ae60;color:white;border:none;border-radius:10px;font-size:18px;font-weight:bold;cursor:pointer;">Chiudi pagina</button>
 </div>
+</div>
+<style>
+@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+</style>
 `;
 };
 
@@ -1362,10 +1385,6 @@ const mainPhoto=document.getElementById('mainPhoto');
 mainPhoto.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
 mainPhoto.addEventListener('touchend',e=>{const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50){if(diff>0)navigatePhoto(1);else navigatePhoto(-1);}},{passive:true});
 
-}else if(g&&g.selection){
-document.getElementById('loginOverlay').style.display='none';
-document.getElementById('mainApp').style.display='none';
-document.body.innerHTML=`<div style="text-align:center;padding:100px;font-family:sans-serif;background:linear-gradient(135deg,#27ae60,#2ecc71);min-height:100vh;color:#fff"><h1>✅ Selezione già inviata</h1><p style="font-size:20px;margin-top:20px">Grazie! Hai scelto ${g.selection.length} foto.</p><p>Il fotografo G&L Studio sta elaborando il tuo album.</p></div>`;
 }else{
 document.getElementById('loginOverlay').style.display='none';
 document.getElementById('mainApp').style.display='none';
