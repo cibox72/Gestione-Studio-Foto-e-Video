@@ -129,7 +129,7 @@ th{background:#f8f9fa;font-weight:600}
 
 <div id="loginOverlay" class="login-overlay">
 <div class="login-box">
-<h2>📸 G&L Studio</h2>
+<h2> G&L Studio</h2>
 <p style="color:#666;margin-bottom:25px">Gestionale Unificato</p>
 <div class="form-group"><label>Username</label><input type="text" id="loginUser" placeholder="Inserisci username"></div>
 <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="Inserisci password"></div>
@@ -146,19 +146,19 @@ th{background:#f8f9fa;font-weight:600}
 
 <nav class="main-nav">
 <button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
-<button class="nav-btn" onclick="showSection('eventi')"> Gestione Eventi</button>
+<button class="nav-btn" onclick="showSection('eventi')">📷 Gestione Eventi</button>
 <button class="nav-btn" onclick="showSection('saggi')">💃 Gestione Saggi</button>
-<button class="nav-btn" onclick="showSection('gallery')">🔐 Gallery Manager</button>
-<button class="nav-btn" onclick="showSection('ricevute')">🧾 Ricevute</button>
-<button class="nav-btn" onclick="showSection('album-selection')">📤 INVIO SELEZIONE CLIENTE</button>
-<button class="logout-btn" onclick="doLogout()">🚪 Esci</button>
+<button class="nav-btn" onclick="showSection('gallery')"> Gallery Manager</button>
+<button class="nav-btn" onclick="showSection('ricevute')"> Ricevute</button>
+<button class="nav-btn" onclick="showSection('album-selection')"> INVIO SELEZIONE CLIENTE</button>
+<button class="logout-btn" onclick="doLogout()"> Esci</button>
 </nav>
 
 <div id="dashboard" class="section-content active">
 <h2 style="text-align:center;margin-bottom:10px">Dashboard Principale</h2>
 <p style="text-align:center;color:#777">Seleziona un modulo per iniziare</p>
 <div class="dashboard-grid">
-<div class="dash-card" onclick="showSection('eventi')"><h3>📷 Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
+<div class="dash-card" onclick="showSection('eventi')"><h3> Gestione Eventi</h3><div class="dash-number" id="count-clienti">0</div><p>Clienti Foto & Preventivi</p></div>
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
@@ -173,7 +173,7 @@ th{background:#f8f9fa;font-weight:600}
 
 <div id="eventi" class="section-content">
 <div class="panel">
-<h2> Gestione Eventi</h2>
+<h2>📷 Gestione Eventi</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupEventi()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreEventi').click()">🔄 Ripristina</button>
@@ -186,11 +186,11 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showEventTab('anagrafica')">👥 Anagrafica</button>
-<button class="tab-btn" onclick="showEventTab('preventivi')">📄 Nuovo Preventivo</button>
-<button class="tab-btn" onclick="showEventTab('stato')">📊 Stato Lavori</button>
+<button class="tab-btn" onclick="showEventTab('preventivi')"> Nuovo Preventivo</button>
+<button class="tab-btn" onclick="showEventTab('stato')"> Stato Lavori</button>
 <button class="tab-btn" onclick="showEventTab('archivio-prev')">📁 Archivio Prev.</button>
 <button class="tab-btn" onclick="showEventTab('archivio-contr')">📑 Archivio Contr.</button>
-<button class="tab-btn" onclick="showEventTab('archivio-clienti')"> Archivio Clienti</button>
+<button class="tab-btn" onclick="showEventTab('archivio-clienti')">👥 Archivio Clienti</button>
 </div>
 
 <div id="tab-anagrafica" class="tab-content active">
@@ -205,12 +205,12 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Cliente B (Facoltativo) - Cognome</label><input type="text" id="ev-cognome-b"></div>
 <div class="form-group"><label>Nome</label><input type="text" id="ev-nome-b"></div>
-<div class="form-group"><label>Indirizzo</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Cellulare</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')"> WhatsApp</button></div></div>
+<div class="form-group"><label>Indirizzo</label><div class="input-group"><input type="text" id="ev-indirizzo-b"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('ev-indirizzo-b')">️ Maps</button></div></div>
+<div class="form-group"><label>Cellulare</label><div class="input-group"><input type="tel" id="ev-cell-b"><button type="button" class="btn btn-sm btn-success" onclick="openWhatsApp('ev-cell-b')">💬 WhatsApp</button></div></div>
 <div class="form-group"><label>Email</label><input type="email" id="ev-email-b"></div>
 </div>
 <button class="btn btn-success" onclick="saveCouple()">💾 Salva Coppia</button>
-<button class="btn btn-primary" onclick="createQuoteFromCouple()">📄 Crea Preventivo per questa Coppia</button>
+<button class="btn btn-primary" onclick="createQuoteFromCouple()"> Crea Preventivo per questa Coppia</button>
 </div>
 
 <div id="tab-preventivi" class="tab-content">
@@ -220,7 +220,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Seleziona Cliente B (opzionale)</label><select id="prev-cliente-b"><option value="">-- Nessun Cliente B --</option></select></div>
 </div>
 <div class="highlight-box">
-<label> DATA EVENTO *</label>
+<label>📅 DATA EVENTO *</label>
 <input type="date" id="prev-data" required>
 </div>
 <div class="form-row">
@@ -252,8 +252,8 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-row">
 <div class="form-group"><label>Foto EXTRA</label><input type="number" id="prev-extra" value="0"></div>
 <div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
-<div class="form-group"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">️ Maps</button></div></div>
+<div class="form-group"><label>Chiesa / Luogo Cerimonia</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">️ Maps</button></div></div>
+<div class="form-group"><label>Location Ricevimento</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button></div></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
@@ -266,7 +266,7 @@ th{background:#f8f9fa;font-weight:600}
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
-<h3 style="margin-top:20px"> Acconti Versati</h3>
+<h3 style="margin-top:20px">💰 Acconti Versati</h3>
 <div id="acconti-container"></div>
 <button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
 
@@ -287,7 +287,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-stato" class="tab-content">
-<h3> STATO LAVORI - Flusso Contratti</h3>
+<h3>📋 STATO LAVORI - Flusso Contratti</h3>
 <div style="margin-bottom:15px">
 <button class="btn btn-primary" onclick="renderStatoLavori()">🔄 Aggiorna</button>
 </div>
@@ -295,17 +295,17 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-archivio-prev" class="tab-content">
-<h3>📁 Archivio Preventivi</h3>
+<h3> Archivio Preventivi</h3>
 <table id="table-quotes"><thead><tr><th>ID</th><th>Data Evento</th><th>Cliente</th><th>Tipo</th><th>Servizio</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 
 <div id="tab-archivio-contr" class="tab-content">
-<h3>📑 Archivio Contratti</h3>
+<h3> Archivio Contratti</h3>
 <table id="table-contracts"><thead><tr><th>ID</th><th>Data Evento</th><th>Cliente</th><th>Tipo</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 
 <div id="tab-archivio-clienti" class="tab-content">
-<h3> Archivio Clienti</h3>
+<h3>👥 Archivio Clienti</h3>
 <table id="table-couples"><thead><tr><th>ID</th><th>Cliente A</th><th>Cliente B</th><th>Telefono</th><th>Email</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 </div>
@@ -321,7 +321,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 <div class="tabs">
 <button class="tab-btn active" onclick="showSaggiTab('nuovo')">➕ Nuovo Cliente</button>
-<button class="tab-btn" onclick="showSaggiTab('archivio')"> Archivio</button>
+<button class="tab-btn" onclick="showSaggiTab('archivio')">📁 Archivio</button>
 <button class="tab-btn" onclick="showSaggiTab('contabilita')">💰 Contabilità</button>
 </div>
 
@@ -341,7 +341,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Importo (€)</label><input type="number" id="sag-importo" value="15"></div>
 </div>
 <button class="btn btn-success" onclick="saveStudent()">💾 Salva</button>
-<button class="btn btn-warning" onclick="loadStudentForEdit()">️ Carica per Modifica</button>
+<button class="btn btn-warning" onclick="loadStudentForEdit()">✏️ Carica per Modifica</button>
 <button class="btn btn-info" onclick="generateStudentPDF()">📄 PDF Scheda</button>
 <button class="btn btn-secondary" onclick="resetStudentForm()">🔄 Reset</button>
 </div>
@@ -352,7 +352,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Scuola</label><select id="filter-scuola" onchange="renderStudents()"><option value="">Tutte</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="filter-anno" value="2026" onchange="renderStudents()"></div>
 </div>
-<button class="btn btn-success" onclick="printStudentsList()">️ Stampa Elenco Partecipanti</button>
+<button class="btn btn-success" onclick="printStudentsList()">🖨️ Stampa Elenco Partecipanti</button>
 <button class="btn btn-info" onclick="generateStudentsPDF()">📄 Lista partecipanti PDF</button>
 <table id="table-students"><thead><tr><th>ID</th><th>Scuola</th><th>Anno</th><th>Cognome</th><th>Nome</th><th>Tel</th><th>Tipo</th><th>Servizio</th><th>Qta</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
@@ -363,7 +363,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Scuola</label><select id="cont-scuola"><option value="">-- Seleziona --</option><option>Scuola Enza Clementi</option><option>Giada Dance</option></select></div>
 <div class="form-group"><label>Anno</label><input type="number" id="cont-anno" value="2026"></div>
 </div>
-<button class="btn btn-primary" onclick="renderContabilita()">👁️ Visualizza</button>
+<button class="btn btn-primary" onclick="renderContabilita()">️ Visualizza</button>
 <button class="btn btn-info" onclick="generateContabilitaPDF()">📄 PDF Contabilità</button>
 <div id="contabilita-content"></div>
 </div>
@@ -393,7 +393,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Link MEGA:</label><input type="text" id="gal-link"></div>
 </div>
 <div class="form-group"><label>Note (opzionale):</label><textarea id="gal-notes" rows="3"></textarea></div>
-<button class="btn btn-success" onclick="saveGallery()">➕ Aggiungi Cliente</button>
+<button class="btn btn-success" onclick="saveGallery()"> Aggiungi Cliente</button>
 </div>
 <div id="gallery-tab-lista" class="tab-content">
 <h3>Lista Clienti <span id="gallery-count">0</span></h3>
@@ -405,7 +405,7 @@ th{background:#f8f9fa;font-weight:600}
 
 <div id="ricevute" class="section-content">
 <div class="panel">
-<h2> Gestione Ricevute</h2>
+<h2>🧾 Gestione Ricevute</h2>
 <div style="margin-bottom:15px">
 <button class="btn btn-success" onclick="backupRicevute()">💾 Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreRicevute').click()">🔄 Ripristina</button>
@@ -429,12 +429,12 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Importo Ricevuto (€) *</label><input type="number" id="ric-importo"></div>
 </div>
 <div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
-<button class="btn btn-secondary" onclick="showRicevuteTab('archivio')"> Torna alla Lista</button>
+<button class="btn btn-secondary" onclick="showRicevuteTab('archivio')">🔙 Torna alla Lista</button>
 <button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
 <button class="btn btn-info" onclick="generateReceiptPDF()">🖨️ PDF Doppia Copia</button>
 </div>
 <div id="ricevute-tab-archivio" class="tab-content">
-<h3> Archivio Ricevute</h3>
+<h3>📁 Archivio Ricevute</h3>
 <table id="table-receipts"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Servizio</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 </div>
@@ -450,10 +450,10 @@ th{background:#f8f9fa;font-weight:600}
 <h3>➕ Crea Nuova Selezione</h3>
 <div class="form-group"><label>Nome Cliente:</label><input type="text" id="albumClientName" placeholder="Es. Mario e Lucia"></div>
 <div class="form-group"><label>Cloud Name Cloudinary:</label><input type="text" id="albumCloudName" value="g3439ih4"></div>
-<div style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px">⚠️ Clicca "Apri Widget", trascina le foto e attendi il caricamento.</div>
+<div style="background:#fff3cd;padding:10px;border-radius:6px;margin-bottom:15px;font-size:14px">️ Clicca "Apri Widget", trascina le foto e attendi il caricamento.</div>
 <button class="btn btn-primary" style="width:100%;margin:10px 0" onclick="openAlbumUploadWidget()">📂 Apri Widget Upload Cloudinary</button>
 <div id="albumUploadStatus" style="display:none;color:#27ae60;font-weight:bold;margin:10px 0">✅ <span id="albumUploadedCount">0</span> foto caricate!</div>
-<button class="btn btn-success" onclick="createAlbumGallery()" style="width:100%;margin-top:15px">🔗 Crea Galleria e Link</button>
+<button class="btn btn-success" onclick="createAlbumGallery()" style="width:100%;margin-top:15px"> Crea Galleria e Link</button>
 <div id="albumGeneratedLink" style="display:none;margin-top:15px;padding:15px;background:#e8f4fd;border-radius:8px">
 <strong>Link da inviare:</strong><input type="text" id="albumLinkOutput" readonly style="margin-top:5px">
 <button class="btn btn-secondary" onclick="copyAlbumLink()">📋 Copia</button>
@@ -749,7 +749,7 @@ accontiList.push({tipo:'Caparra',data:'',importo:0,metodo:'Contanti'});
 const row=document.createElement('div');
 row.className='acconto-row';
 row.id='acconto-row-'+idx;
-row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">🗑️</button>`;
+row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">️</button>`;
 container.appendChild(row);
 updateTotals();
 }
@@ -897,7 +897,7 @@ const container=document.getElementById('acconti-container');
 const row=document.createElement('div');
 row.className='acconto-row';
 row.id='acconto-row-'+i;
-row.innerHTML=`<select onchange="updateAcconto(${i},'tipo',this.value)"><option ${a.tipo==='Caparra'?'selected':''}>Caparra</option><option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option><option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option><option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option><option ${a.tipo==='Altro'?'selected':''}>Altro</option></select><input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)"><input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${i},'metodo',this.value)"><option ${a.metodo==='Contanti'?'selected':''}>Contanti</option><option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option><option ${a.metodo==='Carta'?'selected':''}>Carta</option><option ${a.metodo==='Altro'?'selected':''}>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">️</button>`;
+row.innerHTML=`<select onchange="updateAcconto(${i},'tipo',this.value)"><option ${a.tipo==='Caparra'?'selected':''}>Caparra</option><option ${a.tipo==='Prima Anteprima'?'selected':''}>Prima Anteprima</option><option ${a.tipo==='Prima Evento'?'selected':''}>Prima Evento</option><option ${a.tipo==='Saldo Laboratorio'?'selected':''}>Saldo Laboratorio</option><option ${a.tipo==='Altro'?'selected':''}>Altro</option></select><input type="date" value="${a.data||''}" onchange="updateAcconto(${i},'data',this.value)"><input type="number" value="${a.importo||0}" onchange="updateAcconto(${i},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${i},'metodo',this.value)"><option ${a.metodo==='Contanti'?'selected':''}>Contanti</option><option ${a.metodo==='Bonifico'?'selected':''}>Bonifico</option><option ${a.metodo==='Carta'?'selected':''}>Carta</option><option ${a.metodo==='Altro'?'selected':''}>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${i})">🗑️</button>`;
 container.appendChild(row);
 });
 updateTotals();
@@ -1146,7 +1146,7 @@ if(!tbody)return;
 tbody.innerHTML=db.eventi.contratti.map(c=>{
 const cl=db.eventi.clienti[parseInt(c.clienteIdx)];
 const nome=cl?cl.cognome+' '+cl.nome:'N/A';
-return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})">📄 PDF</button></td></tr>`;
+return `<tr><td>${c.id}</td><td>${c.dataEvento||'-'}</td><td>${nome}</td><td>${c.tipo}</td><td>€ ${c.importo}</td><td>${c.stato}</td><td><button class="btn btn-info btn-sm" onclick="viewContract(${c.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editContract(${c.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteContract(${c.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateContractPDF(${c.id})"> PDF</button></td></tr>`;
 }).join('');
 }
 
@@ -1447,8 +1447,8 @@ html+=`<div style="margin-top:10px">`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')">📅 Selezione Foto</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')"> Ricevuto Lab.</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')"> Invio Lab.</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataRicevutoLaboratorio')">📅 Ricevuto Lab.</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoVideo')">📅 Cons. Video</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnatoAlbum')">📅 Cons. Album</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConsegnaFiles')">📅 Cons. Files</button>`;
@@ -1514,7 +1514,7 @@ if(filterScuola)filtered=filtered.filter(s=>s.scuola===filterScuola);
 if(filterAnno)filtered=filtered.filter(s=>s.anno===filterAnno);
 const tbody=document.querySelector('#table-students tbody');
 if(!tbody)return;
-tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
+tbody.innerHTML=filtered.map(s=>`<tr><td>${s.id}</td><td>${s.scuola}</td><td>${s.anno}</td><td>${s.cognome}</td><td>${s.nome}</td><td>${s.telefono||'-'}</td><td>${s.tipoCliente}</td><td>${s.servizio}</td><td>${s.quantita}</td><td>€ ${s.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewStudent(${s.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editStudent(${s.id})">️</button> <button class="btn btn-danger btn-sm" onclick="deleteStudent(${s.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateStudentPDFById(${s.id})">📄 PDF</button></td></tr>`).join('');
 }
 
 function viewStudent(id){const db=getDB();const s=db.saggi.find(x=>x.id===id);if(!s)return;let html=`<h3>Scheda Partecipante #${s.id}</h3>`;html+=`<p><strong>Scuola:</strong> ${s.scuola}</p>`;html+=`<p><strong>Anno:</strong> ${s.anno}</p>`;html+=`<p><strong>Nome:</strong> ${s.nome} ${s.cognome}</p>`;html+=`<p><strong>Telefono:</strong> ${s.telefono||'-'}</p>`;html+=`<p><strong>Tipo:</strong> ${s.tipoCliente}</p>`;html+=`<p><strong>Servizio:</strong> ${s.servizio}</p>`;html+=`<p><strong>Importo:</strong> € ${s.importo}</p>`;document.getElementById('editModalContent').innerHTML=html;document.getElementById('editModal').classList.add('active');}
@@ -1541,7 +1541,7 @@ function showGalleryTab(tab){document.querySelectorAll('#gallery .tab-content').
 
 function saveGallery(){const db=getDB();const name=document.getElementById('gal-name').value.trim();if(!name)return alert('Inserisci Nome Cliente');db.gallery.push({id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000),name:name,username:document.getElementById('gal-user').value,password:document.getElementById('gal-pass').value,megaLink:document.getElementById('gal-link').value,notes:document.getElementById('gal-notes').value,createdAt:Date.now()});saveDB(db);renderGalleries();['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id=>document.getElementById(id).value='');alert('✅ Cliente Gallery aggiunto!');}
 
-function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px"> Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top">📋</button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910"> Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')"> Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
+function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea"> Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px">📎 Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top">📋</button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')">🔗 Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
 
 function copyGalleryLink(btn){const input=btn.previousElementSibling;input.select();document.execCommand('copy');alert('Link copiato!');}
 function openMegaLink(url){if(url)window.open(url,'_blank');else alert('Nessun link MEGA disponibile');}
@@ -1556,7 +1556,7 @@ function showRicevuteTab(tab){document.querySelectorAll('#ricevute .tab-content'
 
 function saveReceipt(){const db=getDB();const nome=document.getElementById('ric-nome').value.trim();const tel=document.getElementById('ric-tel').value.trim();const servizio=document.getElementById('ric-servizio').value;const importo=document.getElementById('ric-importo').value;if(!nome||!tel||!servizio||!importo)return alert('Compila tutti i campi obbligatori');db.ricevute.push({id:Date.now(),data:document.getElementById('ric-data').value||new Date().toLocaleDateString('it-IT'),nome:nome,telefono:tel,fb:document.getElementById('ric-fb').value,servizio:servizio,importo:importo,note:document.getElementById('ric-note').value});saveDB(db);renderReceipts();['ric-nome','ric-tel','ric-fb','ric-data','ric-importo','ric-note'].forEach(id=>document.getElementById(id).value='');document.getElementById('ric-servizio').value='';alert('✅ Ricevuta salvata!');}
 
-function renderReceipts(){const db=getDB();const tbody=document.querySelector('#table-receipts tbody');if(!tbody)return;tbody.innerHTML=db.ricevute.map(r=>`<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewReceipt(${r.id})">👁️</button> <button class="btn btn-warning btn-sm" onclick="editReceipt(${r.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateReceiptPDFById(${r.id})">📄 PDF</button></td></tr>`).join('');}
+function renderReceipts(){const db=getDB();const tbody=document.querySelector('#table-receipts tbody');if(!tbody)return;tbody.innerHTML=db.ricevute.map(r=>`<tr><td>${r.id}</td><td>${r.data}</td><td>${r.nome}</td><td>${r.servizio}</td><td>€ ${r.importo}</td><td><button class="btn btn-info btn-sm" onclick="viewReceipt(${r.id})">️</button> <button class="btn btn-warning btn-sm" onclick="editReceipt(${r.id})">✏️</button> <button class="btn btn-danger btn-sm" onclick="deleteReceipt(${r.id})">🗑️</button> <button class="btn btn-primary btn-sm" onclick="generateReceiptPDFById(${r.id})">📄 PDF</button></td></tr>`).join('');}
 
 function viewReceipt(id){const db=getDB();const r=db.ricevute.find(x=>x.id===id);if(!r)return;let html=`<h3>Dettaglio Ricevuta #${r.id}</h3>`;html+=`<p><strong>Cliente:</strong> ${r.nome}</p>`;html+=`<p><strong>Telefono:</strong> ${r.telefono}</p>`;html+=`<p><strong>Servizio:</strong> ${r.servizio}</p>`;html+=`<p><strong>Data:</strong> ${r.data}</p>`;html+=`<p><strong>Importo:</strong> € ${r.importo}</p>`;html+=`<p><strong>Note:</strong> ${r.note||'-'}</p>`;document.getElementById('editModalContent').innerHTML=html;document.getElementById('editModal').classList.add('active');}
 
@@ -1740,51 +1740,89 @@ g.selectionDate=Date.now();
 g.downloaded=false;
 saveDB(db);
 
-// ✅ RESET COMPLETO DEL BODY
-document.documentElement.style.cssText='';
-document.body.style.cssText='margin:0;padding:0;overflow:hidden;background:#fff;';
-document.body.className='';
-document.body.innerHTML='';
-
-// Crea overlay verde
-const overlay=document.createElement('div');
-overlay.style.cssText='position:fixed;top:0;left:0;width:100vw;height:100vh;background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);display:flex;align-items:center;justify-content:center;z-index:99999;margin:0;padding:0;';
-
-const card=document.createElement('div');
-card.style.cssText='background:white;padding:60px 50px;border-radius:20px;text-align:center;box-shadow:0 15px 40px rgba(0,0,0,0.3);max-width:550px;width:90%;animation:slideIn 0.5s ease-out;';
-
-const icon=document.createElement('div');
-icon.textContent='✅';
-icon.style.cssText='font-size:100px;margin-bottom:30px;animation:bounceIn 0.6s;';
-
-const title=document.createElement('h1');
-title.textContent='Selezione inviata allo studio';
-title.style.cssText='color:#2c3e50;margin-bottom:25px;font-size:36px;font-family:sans-serif;font-weight:bold;';
-
-const subtitle=document.createElement('p');
-subtitle.textContent='Contatta per info';
-subtitle.style.cssText='font-size:22px;margin-bottom:40px;color:#555;font-family:sans-serif;';
-
-const btn=document.createElement('button');
-btn.textContent='Chiudi pagina';
-btn.style.cssText='padding:18px 50px;background:#27ae60;color:white;border:none;border-radius:12px;font-size:20px;font-weight:bold;cursor:pointer;font-family:sans-serif;transition:all 0.3s;';
-btn.onmouseover=function(){this.style.background='#2ecc71';this.style.transform='scale(1.05)';};
-btn.onmouseout=function(){this.style.background='#27ae60';this.style.transform='scale(1)';};
-btn.onclick=function(){window.close();};
-
-card.appendChild(icon);
-card.appendChild(title);
-card.appendChild(subtitle);
-card.appendChild(btn);
-overlay.appendChild(card);
-document.body.appendChild(overlay);
-
-const style=document.createElement('style');
-style.textContent=`
-@keyframes bounceIn{0%{transform:scale(0)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
-@keyframes slideIn{from{opacity:0;transform:translateY(50px)}to{opacity:1;transform:translateY(0)}}
-`;
-document.head.appendChild(style);
+// ✅ METODO INFALLIBILE - document.write
+document.open();
+document.write(`
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selezione Inviata - G&L Studio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Segoe UI',Tahoma,sans-serif;
+background:linear-gradient(135deg,#27ae60 0%,#2ecc71 100%);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+.container{
+background:white;
+padding:60px 50px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 20px 60px rgba(0,0,0,0.3);
+max-width:600px;
+width:90%;
+animation:slideIn 0.5s ease-out;
+}
+.icon{
+font-size:120px;
+margin-bottom:30px;
+animation:bounceIn 0.6s;
+}
+h1{
+color:#2c3e50;
+font-size:36px;
+margin-bottom:25px;
+font-weight:bold;
+}
+p{
+font-size:22px;
+color:#555;
+margin-bottom:40px;
+}
+button{
+padding:18px 50px;
+background:#27ae60;
+color:white;
+border:none;
+border-radius:12px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+transition:all 0.3s;
+}
+button:hover{
+background:#2ecc71;
+transform:scale(1.05);
+}
+@keyframes bounceIn{
+0%{transform:scale(0)}
+50%{transform:scale(1.2)}
+100%{transform:scale(1)}
+}
+@keyframes slideIn{
+from{opacity:0;transform:translateY(50px)}
+to{opacity:1;transform:translateY(0)}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="icon">✅</div>
+<h1>Selezione inviata allo studio</h1>
+<p>Contatta per info</p>
+<button onclick="window.close()">Chiudi pagina</button>
+</div>
+</body>
+</html>
+`);
+document.close();
 };
 
 goToPhoto(0);
