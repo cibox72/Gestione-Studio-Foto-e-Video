@@ -271,7 +271,7 @@ th{background:#f8f9fa;font-weight:600}
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
-<h3 style="margin-top:20px">💰 Acconti Versati</h3>
+<h3 style="margin-top:20px"> Acconti Versati</h3>
 <div id="acconti-container"></div>
 <button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
 
@@ -292,7 +292,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-stato" class="tab-content">
-<h3>📋 STATO LAVORI - Flusso Contratti</h3>
+<h3> STATO LAVORI - Flusso Contratti</h3>
 <div style="margin-bottom:15px">
 <button class="btn btn-primary" onclick="renderStatoLavori()">🔄 Aggiorna</button>
 </div>
@@ -421,7 +421,7 @@ th{background:#f8f9fa;font-weight:600}
 <button class="tab-btn" onclick="showRicevuteTab('archivio')">📁 Archivio Ricevute</button>
 </div>
 <div id="ricevute-tab-nuova" class="tab-content active">
-<h3>📄 Nuova Ricevuta Fotografica</h3>
+<h3> Nuova Ricevuta Fotografica</h3>
 <p style="margin-bottom:15px;color:#666"><strong>Studio Fotografico G&L</strong> • Via Ciarrocco, 21 – Canicattì (AG) | Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
 <div class="form-row">
 <div class="form-group"><label>Nome Cliente *</label><input type="text" id="ric-nome"></div>
@@ -1609,7 +1609,7 @@ function showGalleryTab(tab){document.querySelectorAll('#gallery .tab-content').
 
 function saveGallery(){const db=getDB();const name=document.getElementById('gal-name').value.trim();if(!name)return alert('Inserisci Nome Cliente');db.gallery.push({id:'client_'+Date.now()+'_'+Math.floor(Math.random()*900000+100000),name:name,username:document.getElementById('gal-user').value,password:document.getElementById('gal-pass').value,megaLink:document.getElementById('gal-link').value,notes:document.getElementById('gal-notes').value,createdAt:Date.now()});saveDB(db);renderGalleries();['gal-name','gal-user','gal-pass','gal-link','gal-notes'].forEach(id=>document.getElementById(id).value='');alert('✅ Cliente Gallery aggiunto!');}
 
-function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px"> Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top"></button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')">🔗 Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
+function renderGalleries(){const db=getDB();const container=document.getElementById('gallery-cards-container');if(!container)return;document.getElementById('gallery-count').textContent=db.gallery.length;container.innerHTML=db.gallery.map(g=>`<div class="gallery-card" style="background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.1);border-left:4px solid #667eea"><h4 style="margin-bottom:15px;color:#2c3e50;font-size:18px">${g.name}</h4><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">👤 Username:</strong> ${g.username||'-'}</div><div style="margin-bottom:10px;font-size:14px"><strong style="color:#667eea">🔐 Password:</strong> ${g.password||'-'}</div><div style="background:#e8f4fd;padding:10px;border-radius:6px;margin:10px 0"><label style="display:block;font-weight:600;color:#2980b9;margin-bottom:5px;font-size:13px"> Link da inviare al cliente:</label><input type="text" value="https://cibox72.github.io/Gestione-Studio-Foto-e-Video/client.html?token=${btoa(JSON.stringify({u:g.username,p:g.password,m:g.megaLink,t:Date.now()})).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')}" readonly style="width:calc(100% - 45px);padding:8px;border:1px solid #ddd;border-radius:4px;font-size:13px"><button class="btn btn-sm btn-success" onclick="copyGalleryLink(this)" style="vertical-align:top"></button></div><div style="background:#fff3cd;padding:10px;border-radius:6px;margin:10px 0;font-size:13px"><strong style="color:#d68910">📝 Note:</strong><br>${g.notes||'-'}</div><div style="display:flex;gap:5px;margin-top:15px;flex-wrap:wrap"><button class="btn btn-sm btn-info" onclick="openMegaLink('${g.megaLink}')"> Apri</button><button class="btn btn-sm btn-warning" onclick="editGallery('${g.id}')">✏️ Modifica</button><button class="btn btn-sm btn-danger" onclick="deleteGallery('${g.id}')">🗑️ Elimina</button></div></div>`).join('');}
 
 function copyGalleryLink(btn){const input=btn.previousElementSibling;input.select();document.execCommand('copy');alert('Link copiato!');}
 function openMegaLink(url){if(url)window.open(url,'_blank');else alert('Nessun link MEGA disponibile');}
@@ -1742,7 +1742,7 @@ document.body.innerHTML=`
 <div class="client-header">
 <h2>📸 G&L Studio - Selezione Album</h2>
 <div class="client-counter" id="photoCounter">1 / ${g.photos.length}</div>
-<button class="btn-send-selection" id="btnSend" onclick="submitClientSelection()" ${selected.size===0?'disabled':''}>${g.selection&&g.selection.length>0?'✏️ Modifica Selezione':'📤 Invia Selezione'} (${selected.size})</button>
+<button class="btn-send-selection" id="btnSend" onclick="submitClientSelection()" ${selected.size===0?'disabled':''}>${g.selection&&g.selection.length>0?'️ Modifica Selezione':' Invia Selezione'} (${selected.size})</button>
 </div>
 <div class="client-main">
 <button class="nav-arrow left" id="btnPrev" onclick="navigatePhoto(-1)">‹</button>
@@ -1754,7 +1754,7 @@ document.body.innerHTML=`
 <div class="thumbnails-strip" id="thumbnailsStrip"></div>
 </div>
 <div class="client-footer">
-<button class="heart-btn" id="heartBtn" onclick="toggleHeart()">🤍</button>
+<button class="heart-btn" id="heartBtn" onclick="toggleHeart()"></button>
 <div class="selection-counter">Selezionate: <span id="selectedCount">${selected.size}</span> foto</div>
 </div>
 </div>
@@ -1810,8 +1810,8 @@ heart.classList.remove('active');
 window.submitClientSelection=function(){
 if(!selected.size)return alert('Seleziona almeno una foto con il cuore ❤️ prima di inviare!');
 
-// ✅ Primo alert con messaggio completo
-if(!confirm(' CONFERMA INVIO SELEZIONE\n\nStai per inviare '+selected.size+' foto a G&L Studio.\n\nClicca OK per confermare.'))return;
+// ✅ Primo alert con messaggio modificato
+if(!confirm(' CONFERMA INVIO SELEZIONE\n\nStai per inviare '+selected.size+' foto a G&L Studio.\n\nClicca OK per confermare, Chiudi e Contatta Lo studio.GRAZIE'))return;
 
 const idxs=Array.from(selected);
 g.selection=idxs.map(i=>g.photos[i]);
@@ -1820,7 +1820,7 @@ g.selectionDate=Date.now();
 g.downloaded=false;
 saveDB(db);
 
-// ✅ Secondo alert con istruzioni chiusura
+// ✅ Secondo alert che ora dovrebbe comparire
 alert('✅ SELEZIONE INVIATA!\n\nGrazie per la scelta.\n\nContatta Lo Studio per info.\n\nPuoi chiudere questa pagina.');
 
 // ✅ Prova a chiudere la finestra
