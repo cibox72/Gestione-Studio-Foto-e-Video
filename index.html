@@ -162,7 +162,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="dash-card" onclick="showSection('saggi')"><h3>💃 Gestione Saggi</h3><div class="dash-number" id="count-saggi">0</div><p>Partecipanti Danza</p></div>
 <div class="dash-card" onclick="showSection('gallery')"><h3>🔐 Gallery Manager</h3><div class="dash-number" id="count-gallery">0</div><p>Accessi Clienti Gallery</p></div>
 <div class="dash-card" onclick="showSection('ricevute')"><h3> Ricevute</h3><div class="dash-number" id="count-ricevute">0</div><p>Ricevute Emesse</p></div>
-<div class="dash-card" onclick="showSection('album-selection')" style="border-top-color:#8e44ad"><h3>📤 INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
+<div class="dash-card" onclick="showSection('album-selection')" style="border-top-color:#8e44ad"><h3> INVIO SELEZIONE CLIENTE</h3><div class="dash-number" id="count-albums">0</div><p>Selezioni Ricevute</p></div>
 </div>
 <div style="text-align:center;margin-top:30px">
 <button class="btn btn-success" onclick="globalBackup()">💾 Backup Globale</button>
@@ -173,9 +173,9 @@ th{background:#f8f9fa;font-weight:600}
 
 <div id="eventi" class="section-content">
 <div class="panel">
-<h2>📷 Gestione Eventi</h2>
+<h2> Gestione Eventi</h2>
 <div style="margin-bottom:15px">
-<button class="btn btn-success" onclick="backupEventi()">💾 Backup</button>
+<button class="btn btn-success" onclick="backupEventi()"> Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreEventi').click()">🔄 Ripristina</button>
 <input type="file" id="restoreEventi" accept=".json" style="display:none" onchange="restoreEventi(this)">
 </div>
@@ -253,7 +253,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Foto EXTRA a Euro</label><input type="number" id="prev-extra" value="0"></div>
 <div class="form-group"><label>Consegna Files</label><select id="prev-consegna"><option>Nessuno</option><option>NO</option><option>Solo acquistati</option><option>Tutti (non ritoccate)</option></select></div>
 <div class="form-group"><label>Chiesa / Luogo Cerimonia ️</label><div class="input-group"><input type="text" id="prev-chiesa"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-chiesa')">🗺️ Maps</button></div></div>
-<div class="form-group"><label>Location Ricevimento ️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">🗺️ Maps</button></div></div>
+<div class="form-group"><label>Location Ricevimento ️</label><div class="input-group"><input type="text" id="prev-location"><button type="button" class="btn btn-sm btn-secondary" onclick="openMap('prev-location')">️ Maps</button></div></div>
 </div>
 <div class="form-row">
 <div class="form-group"><label>Anteprima</label><select id="prev-anteprima"><option>Nessuno</option><option>Nessuna</option><option>Solo foto sala posa</option><option>Solo foto in esterno</option><option>Solo Video in esterno</option><option>Solo Video in esterno con drone</option><option>Solo Foto+Video in sala posa</option><option>Foto+Video in esterno</option><option>Foto+Video in esterno con drone</option></select></div>
@@ -271,7 +271,7 @@ th{background:#f8f9fa;font-weight:600}
 <input type="number" id="prev-importo" value="0" oninput="updateTotals()">
 </div>
 
-<h3 style="margin-top:20px">💰 Acconti Versati</h3>
+<h3 style="margin-top:20px"> Acconti Versati</h3>
 <div id="acconti-container"></div>
 <button class="btn btn-info" onclick="addAccontoRow()">➕ Aggiungi Acconto</button>
 
@@ -305,7 +305,7 @@ th{background:#f8f9fa;font-weight:600}
 </div>
 
 <div id="tab-archivio-contr" class="tab-content">
-<h3>📑 Archivio Contratti</h3>
+<h3> Archivio Contratti</h3>
 <table id="table-contracts"><thead><tr><th>ID</th><th>Data Evento</th><th>Cliente</th><th>Tipo</th><th>Importo</th><th>Stato</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 
@@ -379,13 +379,13 @@ th{background:#f8f9fa;font-weight:600}
 <div class="panel">
 <h2> Gallery Manager</h2>
 <div style="margin-bottom:15px">
-<button class="btn btn-success" onclick="backupGallery()">💾 Backup</button>
+<button class="btn btn-success" onclick="backupGallery()"> Backup</button>
 <button class="btn btn-primary" onclick="document.getElementById('restoreGallery').click()"> Ripristina</button>
 <input type="file" id="restoreGallery" accept=".json" style="display:none" onchange="restoreGallery(this)">
 </div>
 <div class="tabs">
-<button class="tab-btn active" onclick="showGalleryTab('nuovo')">➕ Nuovo Cliente</button>
-<button class="tab-btn" onclick="showGalleryTab('lista')">📋 Lista Clienti</button>
+<button class="tab-btn active" onclick="showGalleryTab('nuovo')"> Nuovo Cliente</button>
+<button class="tab-btn" onclick="showGalleryTab('lista')"> Lista Clienti</button>
 </div>
 <div id="gallery-tab-nuovo" class="tab-content active">
 <h3>Aggiungi Nuovo Cliente Gallery</h3>
@@ -398,7 +398,7 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Link MEGA:</label><input type="text" id="gal-link"></div>
 </div>
 <div class="form-group"><label>Note (opzionale):</label><textarea id="gal-notes" rows="3"></textarea></div>
-<button class="btn btn-success" onclick="saveGallery()">➕ Aggiungi Cliente</button>
+<button class="btn btn-success" onclick="saveGallery()"> Aggiungi Cliente</button>
 </div>
 <div id="gallery-tab-lista" class="tab-content">
 <h3>Lista Clienti <span id="gallery-count">0</span></h3>
@@ -421,7 +421,7 @@ th{background:#f8f9fa;font-weight:600}
 <button class="tab-btn" onclick="showRicevuteTab('archivio')"> Archivio Ricevute</button>
 </div>
 <div id="ricevute-tab-nuova" class="tab-content active">
-<h3>📄 Nuova Ricevuta Fotografica</h3>
+<h3> Nuova Ricevuta Fotografica</h3>
 <p style="margin-bottom:15px;color:#666"><strong>Studio Fotografico G&L</strong> • Via Ciarrocco, 21 – Canicattì (AG) | Tel: +39 366 9381103 | Email: weddinggel@aruba.it</p>
 <div class="form-row">
 <div class="form-group"><label>Nome Cliente *</label><input type="text" id="ric-nome"></div>
@@ -434,12 +434,12 @@ th{background:#f8f9fa;font-weight:600}
 <div class="form-group"><label>Importo Ricevuto (€) *</label><input type="number" id="ric-importo"></div>
 </div>
 <div class="form-group"><label>Note</label><textarea id="ric-note" rows="3"></textarea></div>
-<button class="btn btn-secondary" onclick="showRicevuteTab('archivio')">🔙 Torna alla Lista</button>
+<button class="btn btn-secondary" onclick="showRicevuteTab('archivio')"> Torna alla Lista</button>
 <button class="btn btn-success" onclick="saveReceipt()">✅ Salva Ricevuta</button>
 <button class="btn btn-info" onclick="generateReceiptPDF()">🖨️ PDF Doppia Copia</button>
 </div>
 <div id="ricevute-tab-archivio" class="tab-content">
-<h3>📁 Archivio Ricevute</h3>
+<h3> Archivio Ricevute</h3>
 <table id="table-receipts"><thead><tr><th>ID</th><th>Data</th><th>Cliente</th><th>Servizio</th><th>Importo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
 </div>
 </div>
@@ -754,7 +754,7 @@ accontiList.push({tipo:'Caparra',data:'',importo:0,metodo:'Contanti'});
 const row=document.createElement('div');
 row.className='acconto-row';
 row.id='acconto-row-'+idx;
-row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">🗑️</button>`;
+row.innerHTML=`<select onchange="updateAcconto(${idx},'tipo',this.value)"><option>Caparra</option><option>Prima Anteprima</option><option>Prima Evento</option><option>Saldo Laboratorio</option><option>Altro</option></select><input type="date" onchange="updateAcconto(${idx},'data',this.value)"><input type="number" placeholder="Importo" value="0" onchange="updateAcconto(${idx},'importo',parseFloat(this.value)||0)"><select onchange="updateAcconto(${idx},'metodo',this.value)"><option>Contanti</option><option>Bonifico</option><option>Carta</option><option>Altro</option></select><button class="btn btn-danger btn-sm" onclick="removeAcconto(${idx})">️</button>`;
 container.appendChild(row);
 updateTotals();
 }
@@ -1512,7 +1512,7 @@ html+=`<div class="date-row"><span>Consegnato Video</span><span>${c.dataConsegna
 html+=`<div class="date-row"><span>Consegnato Album</span><span>${c.dataConsegnatoAlbum||'-'}</span></div>`;
 html+=`<div class="date-row"><span>Consegna Files</span><span>${c.dataConsegnaFiles||'-'}</span></div>`;
 html+=`<div style="margin-top:10px">`;
-html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')">📅 Convertito</button>`;
+html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataConvertito')"> Convertito</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataSelezioneFoto')">📅 Selezione Foto</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataGraficaPronta')">📅 Grafica Pronta</button>`;
 html+=`<button class="btn btn-sm btn-primary" onclick="updateContractDate(${c.id},'dataInvioLaboratorio')">📅 Invio Lab.</button>`;
@@ -1788,7 +1788,7 @@ window.toggleHeart=function(){
 if(selected.has(currentIndex)){selected.delete(currentIndex);}else{selected.add(currentIndex);}
 updateHeart();
 document.getElementById('selectedCount').textContent=selected.size;
-const btnText=g.selection&&g.selection.length>0?'✏️ Modifica Selezione':'📤 Invia Selezione';
+const btnText=g.selection&&g.selection.length>0?'️ Modifica Selezione':'📤 Invia Selezione';
 document.getElementById('btnSend').textContent=`${btnText} (${selected.size})`;
 document.getElementById('btnSend').disabled=(selected.size===0);
 const thumbs=document.querySelectorAll('.thumbnail');
@@ -1810,7 +1810,7 @@ heart.classList.remove('active');
 window.submitClientSelection=function(){
 if(!selected.size)return alert('Seleziona almeno una foto con il cuore ❤️ prima di inviare!');
 
-if(!confirm(' CONFERMA INVIO SELEZIONE\n\nStai per inviare '+selected.size+' foto a G&L Studio.\n\nClicca OK per confermare, Chiudi e Contatta Lo studio.GRAZIE'))return;
+if(!confirm(' CONFERMA INVIO SELEZIONE\n\nStai per inviare '+selected.size+' foto a G&L Studio.\n\nCHIUDI e CONTATTA G&LStudio. Grazie.'))return;
 
 const idxs=Array.from(selected);
 g.selection=idxs.map(i=>g.photos[i]);
@@ -1819,22 +1819,8 @@ g.selectionDate=Date.now();
 g.downloaded=false;
 saveDB(db);
 
-// ✅ Mostra SOLO la spunta verde al centro
-document.body.innerHTML=`
-<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;">
-<div style="font-size:150px;animation:checkmark 0.5s ease-in;">✅</div>
-</div>
-<style>
-@keyframes checkmark{
-0%{transform:scale(0);}
-50%{transform:scale(1.2);}
-100%{transform:scale(1);}
-}
-</style>
-`;
-
-// Chiude dopo 2 secondi
-setTimeout(()=>{window.close();},2000);
+// Chiude direttamente la finestra senza secondo alert
+window.close();
 };
 
 goToPhoto(0);
